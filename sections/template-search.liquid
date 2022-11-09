@@ -1,0 +1,154 @@
+{%- liquid 
+  assign items_per_page = section.settings.items_per_page
+  assign emptySearch = false
+  if search.results_count <= 0 or search.filter.active_values <= 0
+    assign emptySearch = true
+  endif
+-%}
+
+<section class="section-content">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+
+        <div class="row pb-lg-12 pb-md-10 pb-9 align-items-stretch justify-content-around">
+            <div class="col-lg-5 ml-auto mr-auto text-center">
+                <form action="/search" method="get" role="search">
+                {%- capture searchType -%}{%- if settings.enable_search_product -%}product,{%- endif -%}{%- if settings.enable_search_article -%}article,{%- endif -%}{%- if settings.enable_search_page -%}page{%- endif -%}{%- endcapture -%}
+                <div class="input-group">
+                    <input type="hidden" name="type" value="{{ searchType }}">
+                    <input type="search" name="q" id="Search" aria-label="search" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="form-control">
+                    <button type="submit" class="btn btn-primary">{{ 'general.search.submit' | t }}</button>
+                </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+              <div class="row mb-4 align-items-start">
+                  {%- if section.settings.enable_sorting and emptySearch == false -%}
+                     {%- render 'template-search-sorting' -%}
+                  {%- endif -%}
+
+                  {% if emptySearch == false and section.settings.enable_filtering or section.settings.enable_sorting %}
+                    <div class="col-12 d-lg-none mt-3">
+                        <div class="d-flex justify-content-between">
+                            {% if section.settings.enable_filtering %}
+                            <a href="#" class="btn btn-primary btn-sm" id="filter-drawer" data-for="filter" title="{{ 'templates.collection.filter_lable' | t }}" rel="nofollow" aria-label="{{ 'templates.collection.filter_lable' | t }}" role="button" aria-expanded="false" aria-controls="filtersCollapse">
+                                {{ 'templates.collection.filter_lable' | t }}
+                            </a>
+                            {% endif %}
+                            {% if section.settings.enable_filtering and section.settings.enable_sorting %}
+                            <a href="#" class="btn btn-primary btn-sm" id="sortby-drawer" data-for="sort_by" title="{{ 'templates.collection.sortby_lable' | t }}" rel="nofollow" aria-label="{{ 'templates.collection.sortby_lable' | t }}" role="button" aria-expanded="false" aria-controls="filtersCollapse">
+                                {{ 'templates.collection.sortby_lable' | t }}
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                  {% endif %}
+
+                  {% if emptySearch == false %}
+                    <div class="col-lg-3 order-lg-1">
+                      <div class="py-lg-2 pt-3 total-products" data-totalProducts>
+                        <p class="m-0">{{ search.results_count }} {{ 'templates.collection.results_found' | t }}</p>
+                      </div>
+                    </div>
+                  {% endif %}
+              </div>
+          </div>
+          
+          <div class="col">
+              <div id="search-product-grid">
+                  {%- paginate search.results by items_per_page -%}
+                      {%- if search.results_count == 0 -%}
+                          <div class="row mt-5" id="template-search" data-id="{{ section.id }}">
+                              <div class="col-12 text-center mt-5">
+                                {% if search.terms.size > 0 %}
+                                  <h5> {{ 'templates.search.no_results' | t: terms: search.terms }}</h5>
+                                {% else %}
+                                  <h5> {{ 'templates.search.no_search_term' | t }}</h5>
+                                {% endif %}
+                              </div>
+                          </div>
+                      {%- else -%}
+                          <div class="row justify-content-center" id="template-search" data-id="{{ section.id }}">
+                              {% assign productExcludeTag = settings.product_exclude_tag_text %}
+                              {% for item in search.results %}
+                                  {% unless item.tags contains productExcludeTag %}
+                                  <div class="col-12 col-lg-{{ section.settings.product_per_row }} col-md-4 col-sm-6 mb-5 d-flex align-items-stretch justify-content-around">
+                                      {% render 'card-search-item', item: item %}
+                                  </div>
+                                  {% endunless %}
+                              {% endfor %}
+                          </div>
+                          {% if paginate.pages > 1 %}
+                              <div class="row" data-pagination data-type="numbers">
+                                  <div class="col-12 text-center mt-5">
+                                      {% render 'pagination', paginate: paginate %}
+                                  </div>
+                              </div>
+                          {% endif %}
+                      {%- endif -%}
+                  {%- endpaginate -%}
+              </div>
+          </div>
+
+        </div>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Search Template",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "checkbox",
+        "id": "fluid_layout",
+        "label": "Full Width Layout?",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "items_per_page",
+        "label": "Products Per Page",
+        "min": 1,
+        "max": 50,
+        "step":1,
+        "default": 12
+      },
+      {
+        "type": "select",
+        "id": "product_per_row",
+        "label": "Products per row",
+        "options": [
+          {
+            "value": "6",
+            "label": "2"
+          },
+          {
+            "value": "4",
+            "label": "3"
+          },
+          {
+            "value": "3",
+            "label": "4"
+          }
+        ],
+        "default": "4"
+      },
+      {
+        "type": "header",
+        "content": "Sorting"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_sorting",
+        "default": true,
+        "label": "t:sections.template-collection.settings.enable_sorting.label"
+      }
+    ]
+  }
+{% endschema %}

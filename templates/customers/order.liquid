@@ -1,0 +1,183 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<div class="pt-7 pt-lg-10 pb-7 pb-lg-9" style="background-color: #F3F7F9;">
+  <div class="container">
+      <div class="row">
+          <div class="col-sm-8 col-12 mx-auto text-center">
+              <h6 class="m-0">{{ settings.welcome_text }}</h6>
+              <h1 class="mb-5">{{ 'customer.account.first_name_pretext' | t }}, {{ customer.first_name }}</h1>
+              <ul class="d-flex justify-content-center list-unstyled m-0 account_nav">
+                <li class="px-3 lh-1 border-end border-gray-500">
+                    <a class="font-size-md text-capitalize fw-bold active" href="/account" title="{{ 'customer.orders.title' | t }}" rel="nofollow" aria-label="{{ 'customer.orders.title' | t }}">
+                       {{ 'customer.orders.title' | t }}
+                    </a>
+                </li>
+                <li class="px-3 lh-1 border-end border-gray-500">
+                    <a class="font-size-md text-capitalize" href="{{ routes.account_addresses_url }}">
+                        {{ 'customer.account.view_addresses' | t }}
+                    </a>
+                </li>
+                <li class="px-3 lh-1">
+                    <a class="font-size-md text-capitalize" href="{{ routes.account_logout_url }}">
+                        {{ 'customer.log_out' | t }} 
+                    </a>
+                </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<div data-template="account" class="pt-5 pt-lg-12 pb-12 pb-lg-13 mb-2">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-lg-3 d-flex align-items-end"></div>
+      <div class="col-lg-9 text-center">
+          <h3>{{ 'customer.order.title' | t: name: order.name }}</h3>
+          <p>{{ 'customer.order.date_html' | t: date: order.created_at | date: "%B %d, %Y %I:%M%p" }}</p>
+      </div>
+    </div>
+    
+    <div class="row">
+
+      <div class="col-lg-3 mb-md-0 mb-6 border-end border-secondary">
+        <div class="d-flex align-items-center mb-4">
+          <div class="profile position-relative me-3">
+              <p class="m-0 font-family-heading text-uppercase text-white position-absolute fw-bold">{{ customer.first_name | slice: 0 }}{{ customer.last_name | slice: 0 }}</p>
+          </div>
+          <h5 class="text-uppercase profile-text font-family-heading m-0">{{ customer.name }}</h5>
+        </div>
+        <div>
+          <p class="mb-2">{{ customer.email }}</p>
+          <p class="mb-2">{{ 'customer.account.password_label' | t }}: **********  (<a href="/account/login#recover" class="text-primary">{{ 'customer.account.reset_label' | t }}</a>)</p>
+          <p class="mb-2">{{ 'customer.account.total_orders' | t }}: {{ customer.orders.size }}</p>
+        </div>
+      </div>
+
+      <div class="col-lg-9 ps-lg-6">
+          <div class="row">
+              <div class="col text-center">
+                  {% if order.cancelled %}
+                  <div class="alert alert-warning">
+                      {% assign cancelled_at = order.cancelled_at | date: "%B %d, %Y %I:%M%p" %}
+                      <h5>{{ 'customer.order.cancelled_html' | t: date: cancelled_at }}</h5>
+                      <p class="my-0">{{ 'customer.order.cancelled_reason' | t: reason: order.cancel_reason }}</p>
+                  </div>
+                  {% endif %}
+              </div>
+          </div>
+
+          <div class="table-responsive">
+              <table class="table">
+                  <caption class="d-none">{{ 'customer.order.order_addresses' | t }}</caption>
+                  <thead class="group-name">
+                      <tr>
+                          <th class="h6 font-family-josefin">{{ 'customer.order.billing_address' | t }}</th>
+                          <th class="h6 font-family-josefin">{{ 'customer.order.shipping_address' | t }}</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td>
+                              <h5>{{ order.billing_address.name }}</h5>
+                              <p>
+                                  {% if order.billing_address.company != '' %} {{ order.billing_address.company }}
+                                  <br> {% endif %} {{ order.billing_address.street }}
+                                  <br> {{ order.billing_address.city }}
+                                  <br> {% if order.billing_address.province != '' %} {{ order.billing_address.province }}
+                                  <br> {% endif %} {{ order.billing_address.zip | upcase }}
+                                  <br> {{ order.billing_address.country }}
+                                  <br> {{ order.billing_address.phone }}
+                              </p>
+                          </td>
+                          <td>
+                              <h5>{{ order.shipping_address.name }}</h5>
+                              <p>
+                                  {% if order.shipping_address.company != '' %} {{ order.shipping_address.company }}
+                                  <br> {% endif %} {{ order.shipping_address.street }}
+                                  <br> {{ order.shipping_address.city }}
+                                  <br> {% if order.shipping_address.province != '' %} {{ order.shipping_address.province }}
+                                  <br> {% endif %} {{ order.shipping_address.zip | upcase }}
+                                  <br> {{ order.shipping_address.country }}
+                                  <br> {{ order.shipping_address.phone }}
+                              </p>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+
+          <div class="table-responsive">
+              <table class="table">
+                  <caption class="d-none">{{ 'customer.order.shipping_address' | t }}</caption>
+                  <thead class="group-name">
+                      <tr>
+                          <th class="h6 font-family-josefin">{{ 'customer.order.product' | t }}</th>
+                          <th class="h6 font-family-josefin">{{ 'customer.order.price' | t }}</th>
+                          <th class="h6 font-family-josefin text-center">{{ 'customer.order.quantity' | t }}</th>
+                          <th class="h6 font-family-josefin text-end">{{ 'customer.order.total' | t }}</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for line_item in order.line_items %}
+                      <tr id="{{ line_item.id }}">
+                          <td>
+                            <div class="d-flex" style="min-width: 270px">
+                              <div class="pe-3">
+                                <img src="{{ line_item.image | image_url: width: 75 }}" alt="{{ line_item.title | escape }}" loading="lazy" class="mr-3" width="150" height="150">
+                              </div>
+                              <div>
+                                {{ line_item.title | link_to: line_item.product.url }}
+                                {% if line_item.sku != '' %}<p class="small">{{ 'customer.order.sku' | t }}: {{ line_item.sku }}</p>{% endif %}
+                              </div>
+                            </div>
+                          </td>
+                          <td>{{ line_item.price | money }}</td>
+                          <td class="text-center">{{ line_item.quantity }}</td>
+                          <td class="text-end">{{ line_item.quantity | times: line_item.price | money }}</td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+
+                  <tfoot class="bg-white">
+                      <tr>
+                        <td colspan="3" class="text-uppercase small">{{ 'customer.order.subtotal' | t }}</td>
+                        <td class="text-end">{{ order.subtotal_price | money }}</td>
+                      </tr>
+
+                      {% for discount in order.discounts %}
+                      <tr class="order_summary discount">
+                        <td colspan="3" class="text-uppercase small">{{ discount.code }} {{ 'customer.order.discount' | t }}</td>
+                        <td class="text-end">{{ discount.savings | money }}</td>
+                      </tr>
+                      {% endfor %}
+
+                      {% for shipping_method in order.shipping_methods %}
+                      <tr>
+                        <td colspan="3" class="text-uppercase small">{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})</td>
+                        <td class="text-end">{{ shipping_method.price | money }}</td>
+                      </tr>
+                      {% endfor %}
+
+                      {% for tax_line in order.tax_lines %}
+                      <tr>
+                        <td colspan="3" class="text-uppercase small">{{ 'customer.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</td>
+                        <td class="text-end">{{ tax_line.price | money }}</td>
+                      </tr>
+                      {% endfor %}
+
+                      <tr>
+                        <td colspan="3" class="text-uppercase small"><h6>{{ 'customer.order.total' | t }}</h6></td>
+                        <td class="text-end"><h6>{{ order.total_price | money }} {{ order.currency }}</h6></td>
+                      </tr>
+                  </tfoot>
+              </table>
+          </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+

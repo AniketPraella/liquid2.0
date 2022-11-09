@@ -1,0 +1,120 @@
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icon-fluid' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-menu:before {
+  content: "\e901";
+}
+.icon-previous:before {
+  content: "\e902";
+}
+.icon-next:before {
+  content: "\e903";
+}
+.icon-bag:before {
+  content: "\e904";
+}
+.icon-close:before {
+  content: "\e905";
+}
+.icon-facebook:before {
+  content: "\e906";
+}
+.icon-instagram:before {
+  content: "\e907";
+}
+.icon-pinterest:before {
+  content: "\e908";
+}
+.icon-search:before {
+  content: "\e909";
+}
+.icon-twitter:before {
+  content: "\e90a";
+}
+.icon-youtube:before {
+  content: "\e90b";
+}
+.icon-user:before {
+  content: "\e90c";
+}
+.icon-plus:before {
+  content: "\e90d";
+}
+.icon-check:before {
+  content: "\e90e";
+}
+.icon-youtube-new:before {
+  content: "\e910";
+}
+.icon-free-shipping:before {
+  content: "\e911";
+}
+.icon-minus:before {
+  content: "\e912";
+}
+.icon-google-plus:before {
+  content: "\e913";
+}
+.icon-arrow-up:before {
+  content: "\e914";
+}
+.icon-arrow-down:before {
+  content: "\e915";
+}
+.icon-arrow-right:before {
+  content: "\e916";
+}
+.icon-arrow-left:before {
+  content: "\e917";
+}
+.icon-play:before {
+  content: "\e918";
+}
+.icon-pause:before {
+  content: "\e90f";
+}
+.icon-zoom:before {
+  content: "\e900";
+}
+.icon-filters:before {
+  content: "\e919";
+}
+.icon-quickview:before {
+  content: "\e91a";
+}
+
+.icon-email:before {
+  content: "\e91b";
+}
+.icon-location:before {
+  content: "\e91c";
+}
+.icon-phone:before {
+  content: "\e91d";
+}
+.icon-time:before {
+  content: "\e91e";
+}
+
+.icon-size-12{ font-size: 12px; }
+.icon-size-14{ font-size: 14px; }
+.icon-size-16{ font-size: 16px; }
+.icon-size-18{ font-size: 18px; }
+.icon-size-20{ font-size: 20px; }
+.icon-size-22{ font-size: 22px; }
+.icon-size-24{ font-size: 24px; }
+.icon-size-26{ font-size: 26px; }
+.icon-size-28{ font-size: 28px; }
+.icon-size-30{ font-size: 30px; }

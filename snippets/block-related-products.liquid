@@ -1,0 +1,102 @@
+{%- liquid 
+    assign total_items = block.settings.related_products_view | plus: 1
+    assign productExcludeTag = settings.product_exclude_tag_text
+    assign productType = block.settings.product_type
+    assign showProducts = true
+
+    if collection == null or collection.handle == 'frontpage' or collection.handle == 'all'
+        assign found_a_collection = false
+        for c in product.collections
+            if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1
+                assign found_a_collection = true
+                assign collection = c
+            endif
+        endfor
+    endif
+
+    if productType == 'product-recommendations' and recommendations.products_count <= 0
+        assign showProducts = false
+    elsif collection.products_count <= 0
+        assign showProducts = false
+    endif
+-%}
+
+{%- if showProducts -%}
+    {%- liquid 
+        assign productsArray =  collection.products
+        if productType == 'product-recommendations'
+            assign productsArray =  recommendations.products
+        endif
+    -%}
+    <section class="section-related-products section-content" style="background-color: {{ block.settings.related_products_section_bg_color }}; color: {{ block.settings.related_products_section_txt_color }}" {{ block.shopify_attributes }} >
+        <div class="{% if block.settings.related_products_fluid_layout %}container-fluid{%else%}container{% endif %}">
+            <div class="row">
+                <div class="col text-center" data-type="slider">
+
+                    {% if block.settings.related_products_heading_txt != blank %}
+                    <h2 class="section-title mb-4">{{ block.settings.related_products_heading_txt }}</h2>
+                    {% endif %}
+
+                    <slider-element class="swiper-container carousel">
+                        <div class="swiper swiper-slider featured-collection-slider card-carousel" data-slider='{
+                                "loop": false,
+                                "shortSwipes": false,
+                                "slidesPerView": "1",
+                                "spaceBetween": 15,
+                                "grabCursor": true,
+                                {%- if block.settings.related_products_auto_play > 0 -%}
+                                "autoplay": {
+                                    "delay": {{- block.settings.related_products_auto_play -}}000,
+                                    "disableOnInteraction": false
+                                },
+                                {%- endif -%}
+                                "navigation": {
+                                    "nextEl": ".swiper-button-next",
+                                    "prevEl": ".swiper-button-prev"
+                                },
+                                "breakpoints": {
+                                "560": {
+                                    "slidesPerView": 2,
+                                    "spaceBetween": 20
+                                },
+                                "768": {
+                                    "slidesPerView": 3,
+                                    "spaceBetween": 30
+                                },
+                                "992": {
+                                    "slidesPerView": 4,
+                                    "spaceBetween": 30
+                                }
+                            }
+                        }'>
+                            <div class="swiper-wrapper">
+                                {%- liquid 
+                                    assign current_product = product
+                                    assign current_product_found = false
+                                -%}
+
+                                {% comment %}theme-check-disable LiquidTag{% endcomment %}
+                                {% for subProduct in productsArray limit: total_items %}
+                                    {% if subProduct.handle == current_product.handle %}
+                                        {% assign current_product_found = true %}
+                                    {% else %}
+                                        {% unless current_product_found == false and forloop.last and subProduct.tags %}
+                                            {% unless subProduct.tags contains productExcludeTag %}
+                                                <div class="swiper-slide">
+                                                    {% render 'card-product-style-generic', product: subProduct %}
+                                                </div>
+                                            {% endunless %}
+                                        {% endunless %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% comment %}theme-check-enable LiquidTag{% endcomment %}
+                            </div>
+                            <div class="swiper-button-next icon-next"></div>
+                            <div class="swiper-button-prev icon-previous"></div>
+                        </div>
+                    </slider-element>
+                </div>
+            </div>
+        </div>
+    </section>
+{%- endif -%}

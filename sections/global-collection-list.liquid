@@ -1,0 +1,206 @@
+{{ 'global-collection-list.css' | asset_url | stylesheet_tag }}
+
+<section class="section-content" data-section-id="{{ section.id }}" style="background:{{ section.settings.section_bg_color }}; color:{{ section.settings.section_txt_color }}">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 text-center mb-md-5 mx-auto">
+                {% if section.settings.title != blank %}
+                    <h3 class="section-title mb-3">{{ section.settings.title }}</h3>
+                {% endif %}
+                {% if block.settings.txt != blank %}
+                    <p>{{ section.settings.txt }}</p>
+                {% endif %}
+            </div>
+        </div>  
+        <div class="row">
+            {%- for block in section.blocks -%}
+                <div class="col-lg-{{ section.settings.grid_size }} col-md-4 col-sm-6 my-3 my-md-0" {{ block.shopify_attributes }} data-block-id="{{ block.id }}">
+                    <a class="card-collection position-relative d-block {{ section.settings.image_ratio }}" {% if block.settings.collection != blank and block.settings.collection.all_products_count > 0 %} href="{{ block.settings.collection.url }}"{% endif %}>
+                        {% if section.settings.enable_overlay %}<div class="overlay" style="background: {{ section.settings.overlay_bg_color }}; opacity: {{ section.settings.overlay_opacity }};"></div>{% endif %}
+                        {%- if block.settings.collection.image != blank -%}
+                            <img 
+                            srcset="
+                            {%- if block.settings.collection.image.width >= 360 -%}{{ block.settings.collection.image | image_url: width: 360 }} 360w,{%- endif -%}
+                            {%- if block.settings.collection.image.width >= 535 -%}{{ block.settings.collection.image | image_url: width: 535 }} 535w,{%- endif -%}
+                            {%- if block.settings.collection.image.width >= 750 -%}{{ block.settings.collection.image | image_url: width: 750 }} 750w,{%- endif -%}
+                            {{ block.settings.collection.image | image_url }} {{ block.settings.collection.image.width }}w"
+                            src="{{ block.settings.collection.image | image_url: 'pico' }}"
+                            sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 100 | divided_by: 3 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"
+                            
+                            alt="{{ block.settings.collection.image.alt | default: block.settings.collection.title | escape }}"
+                            height="{{ block.settings.collection.image.height }}"
+                            width="{{ block.settings.collection.image.width }}"
+                            loading="lazy" >
+                        {%- else -%} 
+                        {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}   
+                        {%- endif -%}
+                        <div class="card-collection-caption px-4 text-left w-100" style="color:{{ block.settings.section_txt_color }}">
+                            <h4 class="fw-medium text-uppercase">
+                                {%- if block.settings.collection.title != blank -%}
+                                    {{- block.settings.collection.title | escape -}}
+                                {%- else -%}
+                                    {{ 'onboarding.collection_title' | t }}
+                                {%- endif -%}
+                            </h4>
+                            {%- if block.settings.show_view_all != blank -%}
+                                <p class="font-size-md mb-0 text-uppercase border-link">
+                                    {{ block.settings.show_view_all }}
+                                </p>
+                            {%- endif -%}
+                        </div>
+                    </a>
+                </div>
+            {%- endfor -%}
+        </div>
+    </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "t:sections.collection-list.name",
+  "tag": "section",
+  "class": "collection-list-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Collections",
+      "label": "t:sections.collection-list.settings.title.label"
+    },
+    {
+        "type": "textarea",
+        "id": "txt",
+        "label": "Text",
+        "default": "Awesome Heading"
+    },
+    {
+        "type": "header",
+        "content": "Style"
+    },
+    {
+        "type": "color",
+        "id": "section_bg_color",
+        "label": "Background Color",
+        "default": "#FAFAF7"
+    },
+    {
+        "type": "color",
+        "id": "section_txt_color",
+        "label": "Text Color",
+        "default": "#343a40"
+    },
+    {
+      "type": "select",
+      "id": "grid_size",
+      "label": "Grid Size",
+      "options": [{
+          "value": "12",
+          "label": "1 Column"
+        },
+        {
+          "value": "6",
+          "label": "2 Columns"
+        },
+        {
+          "value": "4",
+          "label": "3 Columns"
+        },
+        {
+          "value": "3",
+          "label": "4 Columns"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.collection-list.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.collection-list.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.collection-list.settings.image_ratio.options__3.label"
+        },
+        {
+          "value": "landscape",
+          "label": "t:sections.collection-list.settings.image_ratio.options__4.label"
+        }
+      ],
+      "default": "square",
+      "label": "t:sections.collection-list.settings.image_ratio.label",
+      "info": "t:sections.collection-list.settings.image_ratio.info"
+    },
+    {
+        "type": "checkbox",
+        "id": "enable_overlay",
+        "label": "Enabled?",
+        "default": true
+    },
+    {
+        "type": "color",
+        "id": "overlay_bg_color",
+        "label": "Overlay Background Color",
+        "default": "#000000"
+    },
+    {
+        "type": "range",
+        "id": "overlay_opacity",
+        "label": "Overlay Opacity",
+        "min": 0.1,
+        "max": 1,
+        "step": 0.1,
+        "default": 0.5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "featured_collection",
+      "name": "t:sections.collection-list.blocks.featured_collection.name",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "t:sections.collection-list.blocks.featured_collection.settings.collection.label"
+        },
+        {
+          "type": "text",
+          "id": "show_view_all",
+          "default": "Shop Now",
+          "label": "t:sections.collection-list.settings.show_view_all.label"
+        },
+        {
+            "type": "color",
+            "id": "section_txt_color",
+            "label": "Text Color",
+            "default": "#FFFFFF"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.collection-list.presets.name",
+      "blocks": [
+        {
+          "type": "featured_collection"
+        },
+        {
+          "type": "featured_collection"
+        },
+        {
+          "type": "featured_collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,34 @@
+{
+  "sections": {
+    "main": {
+      "type": "template-blog",
+      "blocks": {
+        "social_sharing": {
+          "type": "socials",
+          "settings": {
+          }
+        },
+        "recent-articles": {
+          "type": "recent-articles",
+          "settings": {
+          }
+        },
+        "tags": {
+          "type": "tags",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "social_sharing",
+        "recent-articles",
+        "tags"
+      ],
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

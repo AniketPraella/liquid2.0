@@ -1,0 +1,37 @@
+{%- comment -%}Desktop Search Modal{%- endcomment -%}
+<search-modal class="header__search" style="display: none;">
+  <div class="searchform">
+    <div class="search-modal modal__content bg-white py-5" role="dialog" aria-modal="true" aria-label="{{ 'general.search.placeholder' | t }}">
+      <div class="container">
+        <div class="search-modal__content" tabindex="-1">
+          <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form">
+            {%- capture searchType -%}{%- if settings.enable_search_product -%}product,{%- endif -%}{%- if settings.enable_search_article -%}article,{%- endif -%}{%- if settings.enable_search_page -%}page{%- endif -%}{%- endcapture -%}
+            <div class="field">
+              <input class="search__input form-control border-bottom border-0 border-gray-800 rounded-0" id="Search-In-Modal" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}">
+              <input type="hidden" name="type" value="{{ searchType }}">
+              <button class="search__button field__button focus-inset" aria-label="{{ 'general.search.placeholder' | t }}">
+                <span class="icon-search"></span>
+              </button>
+            </div>
+          </form>
+          <button type="button" class="search-modal__close-button modal__close-button focus-inset" aria-label="{{ 'accessibility.close' | t }}">
+            <span class="icon-close"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="predictive-search" style="display: none;">
+      <div class="container">
+        <div class="predictive-search-header mb-4">
+          <h4>Products</h4>
+        </div>
+        <div class="predictive-search-body">
+          <div class="predictive-search-product-list row mx-n2"></div>
+        </div>
+        <div class="predictive-search-footer">
+          <a href="">View all</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</search-modal>

@@ -1,0 +1,333 @@
+{% style %}
+    @font-face {
+    font-family: 'Futura';
+    src: url('{{ "Futura-Book.woff2" | asset_url }}') format('woff2'),
+        url('{{ "Futura-Book.woff" | asset_url }}') format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+    font-family: 'Futura';
+    src: url('{{ "FuturaBT-Medium.woff2" | asset_url }}') format('woff2'),
+        url('{{ "FuturaBT-Medium.woff" | asset_url }}') format('woff');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+    font-family: 'Futura';
+    src: url('{{ "FuturaBT-MediumItalic.woff2" | asset_url }}') format('woff2'),
+        url('{{ "FuturaBT-MediumItalic.woff" | asset_url }}') format('woff');
+        font-weight: 500;
+        font-style: italic;
+        font-display: swap;
+    }
+
+
+    @font-face {
+    font-family: 'Futura';
+    src: url('{{ "Futura-Bold.woff2" | asset_url }}') format('woff2'),
+        url('{{ "Futura-Bold.woff" | asset_url }}') format('woff');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+    font-family: 'Futura';
+    src: url('{{ "FuturaBT-BoldItalic.woff2" | asset_url }}') format('woff2'),
+        url('{{ "FuturaBT-BoldItalic.woff" | asset_url }}') format('woff');
+        font-weight: bold;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+    font-family: 'Futura';
+    src: url('{{ "FuturaBT-Light.woff2" | asset_url }}') format('woff2'),
+        url('{{ "FuturaBT-Light.woff" | asset_url }}') format('woff');
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+    font-family: 'Futura';
+    src: url('{{ "FuturaBT-LightItalic.woff2" | asset_url }}') format('woff2'),
+        url('{{ "FuturaBT-LightItalic.woff" | asset_url }}') format('woff');
+        font-weight: 300;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Karla';
+        src: url('{{ "Karla-Bold.woff2" | asset_url }}') format('woff2'),
+            url('{{ "Karla-Bold.woff" | asset_url }}') format('woff');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+    }
+    
+    @font-face {
+        font-family: 'Karla';
+        src: url('{{ "Karla-Italic.woff2" | asset_url }}') format('woff2'),
+            url('{{ "Karla-Italic.woff" | asset_url }}') format('woff');
+        font-weight: 400;
+        font-style: italic;
+        font-display: swap;
+    }
+    
+    @font-face {
+        font-family: 'Karla';
+        src: url('{{ "Karla-BoldItalic.woff2" | asset_url }}') format('woff2'),
+            url('{{ "Karla-BoldItalic.woff" | asset_url }}') format('woff');
+        font-weight: 700;
+        font-style: italic;
+        font-display: swap;
+    }
+    
+    @font-face {
+        font-family: 'Karla';
+        src: url('{{ "Karla-LightItalic.woff2" | asset_url }}') format('woff2'),
+            url('{{ "Karla-LightItalic.woff" | asset_url }}') format('woff');
+        font-weight: 300;
+        font-style: italic;
+        font-display: swap;
+    }
+    
+    @font-face {
+        font-family: 'Karla';
+        src: url('{{ "Karla-Light.woff2" | asset_url }}') format('woff2'),
+            url('{{ "Karla-Light.woff" | asset_url }}') format('woff');
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+    }
+    
+    @font-face {
+        font-family: 'Karla';
+        src: url('{{ "Karla-Regular.woff2" | asset_url }}') format('woff2'),
+            url('{{ "Karla-Regular.woff" | asset_url }}') format('woff');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+    
+    @font-face {
+        font-family: 'Karla';
+        src: url('{{ "Karla-MediumItalic.woff2" | asset_url }}') format('woff2'),
+            url('{{ "Karla-MediumItalic.woff" | asset_url }}') format('woff');
+        font-weight: 500;
+        font-style: italic;
+        font-display: swap;
+    }
+    
+    @font-face {
+        font-family: 'Karla';
+        src: url('{{ "Karla-Medium.woff2" | asset_url }}') format('woff2'),
+            url('{{ "Karla-Medium.woff" | asset_url }}') format('woff');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+    }
+
+
+    @font-face {
+    font-family: 'icon-fluid';
+    src: url('{{ "icon-fluid.eot" | asset_url }}?rivzg6');
+    src: url('{{ "icon-fluid.eot" | asset_url }}?rivzg6#iefix') format('embedded-opentype'),
+        url('{{ "icon-fluid.ttf" | asset_url }}?rivzg6') format('truetype'),
+        url('{{ "icon-fluid.woff" | asset_url }}?rivzg6') format('woff'),
+        url('{{ "icon-fluid.svg" | asset_url }}?rivzg6#icon-fluid') format('svg');
+        font-weight: normal;
+        font-style: normal;
+        font-display: block;
+    }
+
+
+    :root {
+
+        --bs-font-family-base: {{ settings.type_body_font }};
+        --bs-base-font-style: {{ settings.style_body_font }};
+        --bs-font-weight-base: {{ settings.type_body_font_weight }};
+        --bs-font-size-base: {{ settings.type_body_font_size }};
+        --bs-line-height-base: {{ settings.type_body_line_height }};
+        --bs-letter-spacing-base: {{ settings.type_body_letter_spacing }};
+
+        --bs-font-family-secondary: {{ settings.type_secondary_font }};
+
+        --bs-font-family-heading: {{ settings.type_header_font }};
+        --bs-heading-style: {{ settings.style_header_font }};
+        --bs-headings-font-weight: {{ settings.type_header_font_weight }};
+        --bs-line-height-heading: {{ settings.type_heading_line_height }};
+
+
+        --bs-font-size-xs:{{ settings.xs_font_size }};
+        --bs-font-size-sm:{{ settings.sm_font_size }};
+        --bs-font-size-md:{{ settings.md_font_size }};
+        --bs-font-size-lg:{{ settings.lg_font_size }};
+        --bs-font-size-xl:{{ settings.xl_font_size }};
+
+        --bs-h1-font-size:{{ settings.h1_font_size }};
+        --bs-h2-font-size:{{ settings.h2_font_size }};
+        --bs-h3-font-size:{{ settings.h3_font_size }};
+        --bs-h4-font-size:{{ settings.h4_font_size }};
+        --bs-h5-font-size:{{ settings.h5_font_size }};
+        --bs-h6-font-size:{{ settings.h6_font_size }};
+
+        --bs-h1-font-size-md:{{ settings.h1_font_size_md }};
+        --bs-h2-font-size-md:{{ settings.h2_font_size_md }};
+        --bs-h3-font-size-md:{{ settings.h3_font_size_md }};
+        --bs-h4-font-size-md:{{ settings.h4_font_size_md }};
+        --bs-h5-font-size-md:{{ settings.h5_font_size_md }};
+        --bs-h6-font-size-md:{{ settings.h6_font_size_md }};
+
+        --bs-h1-font-size-sm:{{ settings.h1_font_size_sm }};
+        --bs-h2-font-size-sm:{{ settings.h2_font_size_sm }};
+        --bs-h3-font-size-sm:{{ settings.h3_font_size_sm }};
+        --bs-h4-font-size-sm:{{ settings.h4_font_size_sm }};
+        --bs-h5-font-size-sm:{{ settings.h5_font_size_sm }};
+        --bs-h6-font-size-sm:{{ settings.h6_font_size_sm }};
+
+        --bs-font-family-button: {{ settings.type_button_font }};
+        --bs-font-weight-button: {{ settings.type_button_font_weight }};
+        --bs-font-size-button: {{ settings.button_font_size }};
+        --bs-line-height-button: {{ settings.button_line-height }};
+        --bs-letter-spacing: {{ settings.button_letter_spacing }};
+        --bs-border-width-button: {{ settings.button_border-width }};
+        --bs-border-radius-button: {{ settings.button_border-radius }};
+        --bs-x-padding-button: {{ settings.button_x_padding }};
+        --bs-y-padding-button: {{ settings.button_y_padding }};
+
+        --bs-x-padding-button-sm: {{ settings.button_x_padding_sm }};
+        --bs-y-padding-button-sm: {{ settings.button_y_padding_sm }};
+        --bs-font-size-button-sm: {{ settings.button_font_size_sm }};
+
+        --bs-x-padding-button-lg: {{ settings.button_x_padding_lg }};
+        --bs-y-padding-button-lg: {{ settings.button_y_padding_lg }};
+        --bs-font-size-button-lg: {{ settings.button_font_size_lg }};
+
+
+        --bs-font-family-input: {{ settings.type_input_font }};
+        --bs-font-weight-input: {{ settings.type_input_font_weight }};
+        --bs-font-size-input: {{ settings.input_font_size }};
+        --bs-line-height-input: {{ settings.input_line-height }};
+        --bs-border-width-input: {{ settings.input_border-width }};
+        --bs-border-radius-input: {{ settings.input_border-radius }};
+        --bs-x-padding-input: {{ settings.input_x_padding }};
+        --bs-y-padding-input: {{ settings.input_y_padding }};
+        --bs-input-text-color: {{ settings.input_text_color }};
+        --bs-input-ph-text-color: {{ settings.input_ph_text_color }};
+        --bs-input-border-color: {{ settings.input_border_color }};
+        --bs-input-bg-color: {{ settings.input_bg_color }}; 
+        --bs-input-focus-border-color: {{ settings.input_focus_border_color }};
+        --bs-input-floating-label-size:{{ settings.floating_label_size }};
+
+        --bs-font-size-input-sm: {{ settings.input_font_size_sm }};
+        --bs-x-padding-input-sm: {{ settings.input_x_padding_sm }};
+        --bs-y-padding-input-sm: {{ settings.input_y_padding_sm }};
+
+        --bs-font-size-input-lg: {{ settings.input_font_size_lg }};
+        --bs-x-padding-input-lg: {{ settings.input_x_padding_lg }};
+        --bs-y-padding-input-lg: {{ settings.input_y_padding_lg }};
+
+
+        --bs-txt-color-btn-primary: {{ settings.txt_color_btn_primary }};
+        --bs-bg-color-btn-primary: {{ settings.bg_color_btn_primary }};
+        --bs-bg-hover-color-btn-primary: {{ settings.bg_hover_color_btn_primary }};
+
+        --bs-txt-color-btn-secondary: {{ settings.txt_color_btn_secondary }};
+        --bs-bg-color-btn-secondary: {{ settings.bg_color_btn_secondary }};
+        --bs-bg-hover-color-btn-secondary: {{ settings.bg_hover_color_btn_secondary }};
+
+        --bs-txt-color-btn-white: {{ settings.txt_color_btn_white }};
+        --bs-bg-color-btn-white: {{ settings.bg_color_btn_white }};
+        --bs-bg-hover-color-btn-white: {{ settings.bg_hover_color_btn_white }};
+
+        --bs-txt-color-btn-dark: {{ settings.txt_color_btn_dark }};
+        --bs-bg-color-btn-dark: {{ settings.bg_color_btn_dark }};
+        --bs-bg-hover-color-btn-dark: {{ settings.bg_hover_color_btn_dark }};
+
+        --bs-shadow: {{ settings.shadow }};
+        --bs-shadow-sm: {{ settings.shadow-sm }};
+        --bs-shadow-lg: {{ settings.shadow-lg }};
+
+
+        --bs-container-width: {{ settings.container_width }};
+        --bs-container-padding: {{ settings.container_padding }};
+
+
+        --bs-body-bg: {{ settings.body_bg_color }};
+        --bs-body-color: {{ settings.body_color }};
+        --bs-heading-color: {{ settings.heading_color }};
+        --bs-link-color: {{ settings.link_color }};
+        --bs-link-hover-color: {{ settings.link_hover_color }};
+        --bs-color-border: {{ settings.color_border }};
+
+        --bs-color-primary: {{ settings.color_primary }};
+        --bs-color-secondary: {{ settings.color_secondary }};
+        --bs-color-dark: {{ settings.color_dark }};
+        --bs-color-alabaster: {{ settings.color_alabaster }};
+        --bs-color-almond: {{ settings.color_almond }};
+        
+
+        --bs-color-primary-100: {{ settings.color_primary_100 }};
+        --bs-color-primary-200: {{ settings.color_primary_200 }};
+        --bs-color-primary-300: {{ settings.color_primary_300 }};
+        --bs-color-primary-400: {{ settings.color_primary_400 }};
+        --bs-color-primary-500: {{ settings.color_primary_500 }};
+
+        --bs-color-secondary-100: {{ settings.color_secondary_100 }};
+        --bs-color-secondary-200: {{ settings.color_secondary_200 }};
+        --bs-color-secondary-300: {{ settings.color_secondary_300 }};
+        --bs-color-secondary-400: {{ settings.color_secondary_400 }};
+        --bs-color-secondary-500: {{ settings.color_secondary_500 }};
+
+        --bs-color-white: {{ settings.color_white }};
+        --bs-color-gray-100: {{ settings.color_gray_100 }};
+        --bs-color-gray-200: {{ settings.color_gray_200 }};
+        --bs-color-gray-300: {{ settings.color_gray_300 }};
+        --bs-color-gray-400: {{ settings.color_gray_400 }};
+        --bs-color-gray-500: {{ settings.color_gray_500 }};
+        --bs-color-gray-600: {{ settings.color_gray_600 }};
+        --bs-color-gray-700: {{ settings.color_gray_700 }};
+        --bs-color-gray-800: {{ settings.color_gray_800 }};
+        --bs-color-gray-900: {{ settings.color_gray_900 }};
+        --bs-color-black: {{ settings.color_black }};
+
+
+        --bs-color-success: {{ settings.color_success }};
+        --bs-color-warning: {{ settings.color_warning }};
+        --bs-color-danger: {{ settings.color_danger }};
+        --bs-color-info: {{ settings.color_info }};
+
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: inherit;
+    }
+
+    html {
+        box-sizing: border-box;
+        font-size: 62.5%;
+        height: 100%;
+    }
+
+    body {
+        margin: 0;
+        font-family: var(--bs-font-family-base);
+        font-size: var(--bs-font-size-base);
+        font-weight: var(--bs-font-weight-base);
+        line-height: var(--bs-line-height-base);
+        font-style: var(--bs-base-font-style);
+        color: var(--bs-body-color);
+        background-color: var(--bs-body-bg);
+        letter-spacing:var(--bs-letter-spacing-base);
+    }
+{% endstyle %}

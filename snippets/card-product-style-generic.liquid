@@ -1,0 +1,179 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<div class="card card-product card-product-style-1 text-start rounded-0 border-0" data-product-grid>
+  <span class="badges">
+    {%- liquid
+      assign onSale = false
+      assign soldOut = false
+
+      if current_variant and current_variant.compare_at_price > current_variant.price or product.compare_at_price > product.price
+        assign onSale = true
+      endif 
+      if current_variant and current_variant.available == false or product.available == false
+        assign soldOut = true
+      endif 
+
+      assign productBadges = settings.custom_badges | newline_to_br | split: '<br />'
+    -%}
+  
+    {%- for badge in productBadges -%}
+      {%- assign badgeData = badge | strip | split: ':' -%}
+      {%- assign badgeLabel = badgeData[1] | strip -%}
+      {%- if product.tags contains badgeData[0] -%}
+        <span class="badge badge-right badge-warning" >
+          {{ badgeLabel }}
+        </span>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {% if onSale %}
+      <span class="badge badge-right badge-danger" >
+        {{ 'products.product.on_sale' | t | escape }}
+      </span>
+    {% endif %}
+
+    {% if soldOut %}
+      <span class="badge badge-right badge-warning">
+        {{ 'products.product.sold_out' | t | escape }}
+      </span>
+    {% endif %}
+  </span>
+
+  <div class="card-img text-center {% if product.featured_image.size == 0 %}bg-gray-300{% endif %}" >
+    {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+
+    {% if current_variant and current_variant.image %}
+      {% assign secondaryImage = product.featured_image %}
+      <a href="{{ product.url | within: collection }}" class="d-block product-link" >
+            <img
+            srcset="
+              {%- if current_variant.image.width >= 360 -%}{{ current_variant.image | image_url: width: 360 }} 360w,{%- endif -%}
+              {%- if current_variant.image.width >= 533 -%}{{ current_variant.image | image_url: width: 533 }} 533w,{%- endif -%}
+              {%- if current_variant.image.width >= 720 -%}{{ current_variant.image | image_url: width: 720 }} 720w,{%- endif -%}
+              {{ current_variant.image | image_url }} {{ current_variant.image.width }}w"
+            src="{{ current_variant.image | image_url: width: 533 }}"
+
+            sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 150 | divided_by: 4 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"                
+            loading="lazy"
+            data-feauredImage
+            alt="{{ current_variant.image.alt | default: current_variant.title | escape }}"
+            width="{{ current_variant.image.width }}"
+            height="{{ current_variant.image.width | divided_by: current_variant.image.aspect_ratio }}"
+          > 
+        {%- if settings.show_secondary_image and secondaryImage -%}
+        <img 
+            srcset="
+              {%- if secondaryImage.width >= 360 -%}{{ secondaryImage | image_url: width: 360 }} 360w,{%- endif -%}
+              {%- if secondaryImage.width >= 533 -%}{{ secondaryImage | image_url: width: 533 }} 533w,{%- endif -%}
+              {%- if secondaryImage.width >= 720 -%}{{ secondaryImage | image_url: width: 720 }} 720w,{%- endif -%}
+              {{ secondaryImage | image_url }} {{ secondaryImage.width }}w"
+            src="{{ secondaryImage | image_url: width: 533 }}"
+
+            sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 150 | divided_by: 4 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"                
+
+            loading="lazy"
+            class="w-100"
+            data-hoverImage
+            alt="{{ secondaryImage.alt | default: current_variant.title | escape }}"
+            width="{{ secondaryImage.width }}"
+            height="{{ secondaryImage.width | divided_by: secondaryImage.aspect_ratio }}" >
+        {%- endif -%}
+      </a>
+    {% elsif product.featured_image.size > 0 %}
+        <a href="{{ product.url | within: collection }}" class="d-block product-link" >
+                <img
+                srcset="
+                  {%- if product.featured_image.width >= 360 -%}{{ product.featured_image | image_url: width: 360 }} 360w,{%- endif -%}
+                  {%- if product.featured_image.width >= 533 -%}{{ product.featured_image | image_url: width: 533 }} 533w,{%- endif -%}
+                  {%- if product.featured_image.width >= 720 -%}{{ product.featured_image | image_url: width: 720 }} 720w,{%- endif -%}
+                  {{ product.featured_image | image_url }} {{ product.featured_image.width }}w"
+                src="{{ product.featured_image | image_url: width: 533 }}"
+
+                sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 150 | divided_by: 4 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"                
+                loading="lazy"
+                data-feauredImage
+                alt="{{ product.featured_image.alt | default: current_variant.title | escape }}"
+                width="{{ product.featured_image.width }}"
+                height="{{ product.featured_image.width | divided_by: product.featured_image.aspect_ratio }}"
+              > 
+
+
+            {%- if settings.show_secondary_image and product.images[1] -%}
+            <img srcset="
+                  {%- if product.images[1].width >= 360 -%}{{ product.images[1] | image_url: width: 360 }} 360w,{%- endif -%}
+                  {%- if product.images[1].width >= 533 -%}{{ product.images[1] | image_url: width: 533 }} 533w,{%- endif -%}
+                  {%- if product.images[1].width >= 720 -%}{{ product.images[1] | image_url: width: 720 }} 720w,{%- endif -%}
+                  {{ product.images[1] | image_url }} {{ product.images[1].width }}w"
+                src="{{ product.images[1] | image_url: width: 533 }}"
+                sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 150 | divided_by: 4 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"
+                loading="lazy"
+                class="w-100"
+                data-hoverImage
+                alt="{{ product.images[1].alt | default: current_variant.title | escape }}"
+                width="{{ product.images[1].width }}"
+                height="{{ product.images[1].width | divided_by: product.images[1].aspect_ratio }}" >
+            {%- endif -%}
+        </a>
+    {% elsif settings.no_image_replacement != blank %}
+      <a href="{{ product.url | within: collection }}" class="d-block product-link" >
+        <img src="{{ settings.no_image_replacement | image_url }}"
+            srcset="
+                  {%- if settings.no_image_replacement.width >= 360 -%}{{ settings.no_image_replacement | image_url: width: 360 }} 360w,{%- endif -%}
+                  {%- if settings.no_image_replacement.width >= 533 -%}{{ settings.no_image_replacement | image_url: width: 533 }} 533w,{%- endif -%}
+                  {%- if settings.no_image_replacement.width >= 720 -%}{{ settings.no_image_replacement | image_url: width: 720 }} 720w,{%- endif -%}
+                  {{ settings.no_image_replacement | image_url }} {{ settings.no_image_replacement.width }}w"
+            sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 150 | divided_by: 4 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"
+            loading="lazy"
+            class="w-100"
+            data-feauredImage
+            alt="{{ settings.no_image_replacement.alt | default: current_variant.title | escape }}"
+            width="{{ settings.no_image_replacement.width }}"
+            height="{{ settings.no_image_replacement.width | divided_by: settings.no_image_replacement.aspect_ratio }}" >
+      </a>
+    {% else %}
+        {{ 'product-' | append: current | placeholder_svg_tag: 'img-fluid' }}
+    {% endif %}
+  </div>
+  <div class="card-body px-0">
+    <div class="row no-gutter">
+        <div class="col-8">
+            <h6 class="card-title m-0 font-family-base">
+                <a class="product-link lh-base" href="{{ product.url | within: collection }}">{{ product.title }}</a>
+            </h6>
+        </div>
+        <div class="col-4 text-end">
+          {% if current_variant and current_variant.compare_at_price > current_variant.price %}
+            <s class="price small m-0 p-0 text-gray-600 me-1 money" data-comparePrice>{{ current_variant.compare_at_price | money }}</s>
+          {% elsif product.compare_at_price > product.price %}
+            <s class="price small m-0 p-0 text-gray-600 me-1 money" data-comparePrice>{{ product.compare_at_price | money }}</s>
+          {% endif %}
+          <span class="price m-0 p-0 money" data-currentPrice>
+            {% if current_variant %}
+              {{ current_variant.price | money }}
+            {% elsif product.price_varies %}
+              {% assign minPrice = product.price_min | money %}
+              {% assign maxPrice = product.price_max | money %}
+              {{ 'products.product.price_range' | t: min: minPrice, max: maxPrice | escape }}
+            {% else %}
+              {{ product.price | money }}
+            {% endif %}
+          </span>
+        </div>
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+          {%- when '@app' -%}
+              {% render block %}
+          {%- endcase -%}
+        {%- endfor -%}
+    </div>
+    
+    {%- if settings.show_vendor -%}
+        <p>{{ product.vendor }}</p>
+    {%- endif -%}
+  </div>
+  {%- if settings.enable_product_card_swatches -%}
+    <div class="card-footer bg-transparent border-0 p-0">
+      {%- render 'form-product-grid', product: product, current_variant: current_variant -%}
+    </div>
+  {%- endif -%}
+</div>

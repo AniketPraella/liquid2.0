@@ -1,0 +1,26 @@
+<div class="col-xl-3 col-3 ms-auto d-block order-lg-3">
+    {%- liquid
+        assign sort_by = search.sort_by | default: search.default_sort_by
+        assign sortByArray = search.sort_options
+        assign sortBylable = sortByArray[0].name
+        for option in sortByArray
+            if option.value == sort_by
+                assign sortBylable = option.name 
+                break 
+            endif
+        endfor
+    -%}
+    <custom-select class="sortby-dropdown">
+      <div class="d-flex default justify-content-between border py-2 px-3 align-items-center bg-white position-relative"><span class="option_txt">{{ sortBylable }}</span><span class="icon-arrow-down ms-auto font-size-lg lh-1"></span></div>
+      <div class="custom--select">
+          <ul class="list-unstyled m-0 toggle-content" data-sortBy data-type="content">
+              {%- for option in search.sort_options -%}
+              <li data-value="{{ option.value | escape }}" class="form-check py-1">
+                  <input type="radio" value="{{ option.value | escape }}" class="sortby_options form-check-input" name="sort_by" id="custom_sort_by-{{ forloop.index }}" {% if sort_by == blank and forloop.first %}checked{% else %}{% if option.value == sort_by %} checked{% endif %}{% endif %}/>
+                  <label for="custom_sort_by-{{ forloop.index }}" class="option_txt form-check-label" title="{{ option.name | escape }}">{{ option.name | escape }}</label>
+              </li>
+              {%- endfor -%}
+          </ul>
+      </div>
+    </custom-select>
+  </div>

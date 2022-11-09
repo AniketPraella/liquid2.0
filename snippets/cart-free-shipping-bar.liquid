@@ -1,0 +1,29 @@
+{%- liquid 
+    assign cartSubTotal = cart.total_price
+    assign eligibleBar = 0
+    assign leftAmount = 0
+    assign freeShippingBar = 100
+
+    if settings.free_shipping_value
+        assign eligibleBar = settings.free_shipping_value | times: 100
+    endif
+-%}
+
+{% if eligibleBar > 0 %}
+    {% assign freeShippingBar = cartSubTotal | divided_by: settings.free_shipping_value | round: 5 %}
+    <div class="delivery-shipping d-flex mb-3">
+        <a href="#" class="me-2 lh-1">
+            <span class="icon-free-shipping" style="font-size: 22px;">
+        </a>
+        {%- if cartSubTotal > eligibleBar -%}
+            <p class="mb-0">{{ settings.free_shipping_txt }}</p>
+        {%- else -%}
+            {%- assign leftAmount = eligibleBar | minus: cartSubTotal | money -%}
+            {%- assign leftAmountMsg = settings.free_shipping_left | replace: '${addMoreForFreeShip}', leftAmount -%}
+            <p class="mb-0">{{ leftAmountMsg }}</p>
+        {%- endif -%}
+    </div>
+    <div class="progress m-3">
+        <div class="progress-bar d-block" style="width:{{ freeShippingBar }}%;" role="progressbar"></div>
+    </div>
+{% endif %}

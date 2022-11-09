@@ -1,0 +1,173 @@
+{
+  "current": {
+    "button_border-width": "1px",
+    "type_input_font_weight": "300",
+    "favicon": "shopify:\/\/shop_images\/logo-fluid_63914a68-c1ae-461f-98f2-f4a84060ac5f.png",
+    "main_logo_socials": "shopify:\/\/shop_images\/wp3850825-4k-pc-wallpapers.jpg",
+    "enable_cart_drawer": true,
+    "enable_search": true,
+    "enable_swatches": true,
+    "enable_quickshop": true,
+    "enable_search_article": false,
+    "no_image_replacement": "shopify:\/\/shop_images\/mlouye-brick-macaron-s1.jpg",
+    "product_exclude_tag_text": "hidden",
+    "enable_custom_video": true,
+    "enable_custom_accrodion": true,
+    "enable_custom_tabify": true,
+    "enable_custom_select": true,
+    "enable_custom_notification": true,
+    "enable_custom_countdown": true,
+    "enable_newletter": false,
+    "enable_custom_klaviyo": false,
+    "enable_cart_notes": true,
+    "enable_shipping_bar": true,
+    "free_shipping_txt": "Congratulations! You get free shipping.",
+    "free_shipping_left": "You are ${addMoreForFreeShip} away from free shipping!",
+    "enable_login_helper": false,
+    "account_not_found": "Account not found.",
+    "account_enable": "Account enabled.",
+    "account_disable": "Account disabled.",
+    "account_invited": "Account Invited.",
+    "account_declined": "Account declined.",
+    "checkout_logo_image": "shopify:\/\/shop_images\/logo-fluid.png",
+    "checkout_accent_color": "#000000",
+    "checkout_button_color": "#000000",
+    "enable_login": true,
+    "sections": {
+      "header": {
+        "type": "header",
+        "blocks": {
+          "121df697-f913-49f3-b503-4268235000d0": {
+            "type": "megamenu",
+            "settings": {
+              "title": "Men",
+              "image": "shopify:\/\/shop_images\/1_0ae182fa-8c71-468e-850b-23fc81cb3bf4.jpg",
+              "link_text": "Shop Now",
+              "link_url": "shopify:\/\/collections\/men"
+            }
+          },
+          "791f0d9a-5f5f-4938-af7d-0811b105b3ff": {
+            "type": "megamenu",
+            "settings": {
+              "title": "Women",
+              "image": "shopify:\/\/shop_images\/1_d8a840f3-d40e-4d28-8191-715f1a7874e4.jpg",
+              "link_text": "Shop Now",
+              "link_url": "shopify:\/\/collections\/women"
+            }
+          }
+        },
+        "block_order": [
+          "121df697-f913-49f3-b503-4268235000d0",
+          "791f0d9a-5f5f-4938-af7d-0811b105b3ff"
+        ],
+        "settings": {
+          "topbar_enabled": true,
+          "topbar_text": "SAME DAY SHIPPING! ORDER BY 2PM (EASTERN TIME)",
+          "topbar_bg_color": "#d29c7d",
+          "topbar_text_color": "#ffffff",
+          "topbar_height": 40,
+          "topbar_font_size": "1",
+          "fluid_header": false,
+          "enable_sticky_header": true,
+          "header_bg_color": "#ffffff",
+          "show_line_separator": false,
+          "logo_svg": "https:\/\/cdn.shopify.com\/s\/files\/1\/0581\/7663\/5061\/files\/logo-fluid.svg?v=1631096036",
+          "logo_width": 130,
+          "menu": "footer"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "fluid_footer": false,
+          "footer_top_bg_color": "#faf4f0",
+          "footer_top_txt_color": "#000000",
+          "footer_top_link_color": "#000000",
+          "footer_bottom_bg_color": "#faf4f0",
+          "footer_bottom_txt_color": "#000000",
+          "footer_logo_svg": "https:\/\/cdn.shopify.com\/s\/files\/1\/0581\/7663\/5061\/files\/logo-fluid.svg?v=1631096036",
+          "logo_max_width": 180,
+          "col_1_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pulvinar ac tortor imperdiet commodo.<\/p>",
+          "col_2_heading": "Customer Care",
+          "footer_linklist_col_2": "main-menu",
+          "col_3_heading": "Info",
+          "footer_linklist_col_3": "learn",
+          "col_4_heading": "Footer menu",
+          "footer_linklist_col_4": "footer",
+          "col_5_heading": "STAY IN TOUCH",
+          "col_5_txt": "Get monthly updates and free resources.",
+          "show_newsletter": true,
+          "show_social_links": true,
+          "col_5_social_heading": "Connect with Us",
+          "social_icon_facebook": true,
+          "social_icon_twitter": true,
+          "social_icon_instagram": true,
+          "social_icon_youtube": true,
+          "show_payment_icons": true,
+          "payment_icon_visa": true,
+          "payment_icon_mastercard": true,
+          "payment_icon_ae": true,
+          "payment_icon_diners": true,
+          "payment_icon_paypal": true,
+          "payment_icon_applepay": true,
+          "payment_icon_amazonpay": true
+        }
+      },
+      "newsletter": {
+        "type": "newsletter",
+        "settings": {
+          "enabled": false,
+          "is_hidden_on_mobile": false,
+          "popup_delay": 1,
+          "popup_period_until": 7,
+          "heading": "Subscribe to Newsletter",
+          "text": "<p>Subscribe and get exclusive offers!<\/p>",
+          "footer_notes": "<p>No SPAM! We not share your email to any 3rd part companies!<\/p>",
+          "btn_txt": "Subscribe",
+          "template_type": "image_bg",
+          "bg_color_outer": "#ffffff",
+          "bg_color_inner": "#ffffff",
+          "txt_color": "#222222"
+        }
+      },
+      "app-optimization": {
+        "type": "app-optimization",
+        "settings": {
+          "enable": true,
+          "debug_enable": false
+        }
+      },
+      "mobile-nav-drawer": {
+        "type": "mobile-nav-drawer",
+        "settings": {
+          "logo_svg": "",
+          "logo": "shopify:\/\/shop_images\/logo-fluid_ac600564-01a4-4f9a-8f2a-47a0f47ff075.png",
+          "logo_width": 100,
+          "main_menu_linklist": "footer",
+          "secondary_menu_linklist": "main-menu",
+          "mobilemenu_style": "slide-submenu",
+          "mobile_nav_show_social_links": true,
+          "social_icon_facebook": true,
+          "social_icon_twitter": true,
+          "social_icon_instagram": true
+        }
+      },
+      "search-layer": {
+        "type": "search-layer",
+        "settings": {
+        }
+      }
+    },
+    "content_for_index": [
+
+    ],
+    "blocks": {
+      "18218067344242134805": {
+        "type": "shopify:\/\/apps\/product-reviews-ugc-with-q-a\/blocks\/app\/34006358-52bd-4ec7-8c78-200fe58b77ba",
+        "disabled": true,
+        "settings": {
+        }
+      }
+    }
+  }
+}

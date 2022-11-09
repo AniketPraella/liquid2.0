@@ -1,0 +1,54 @@
+{% comment %}theme-check-disable LiquidTag{% endcomment %}
+{%- capture promoBlock -%}{%- endcapture -%}
+{%- for block in section.blocks -%}
+    {%- if block.type == 'promo-blocks' -%}
+        {% if block.settings.enable == true %}
+            {% assign currentIndex = block.settings.block_index | strip | plus: 0 %}
+            {% if currentIndex > totalProducts or currentIndex == loopIndex %}
+                {%- capture promoBlock -%}
+                    <div class="col-lg-{{ section.settings.product_per_row }} col-sm-6 mb-5 d-flex align-items-stretch justify-content-around">
+                        <div class="card card-product card-product-promo border-0">
+                            <div class="card-img">
+                                <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} class="d-block">
+                                    <img src="{{ block.settings.image | image_url }}"
+                                        srcset="
+                                        {%- if block.settings.image.width >= 360 -%}{{ block.settings.image | image_url: width: 360 }} 360w,{%- endif -%}
+                                        {%- if block.settings.image.width >= 533 -%}{{ block.settings.image | image_url: width: 533 }} 533w,{%- endif -%}
+                                        {%- if block.settings.image.width >= 720 -%}{{ block.settings.image | image_url: width: 720 }} 720w,{%- endif -%}
+                                        {{ block.settings.image | image_url }} {{ block.settings.image.width }}w"
+                                        sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 100 | divided_by: 3 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"
+                                        loading="lazy"
+                                        class="w-100"
+                                        alt="{{ block.settings.image.alt | default: collection.title | escape }}"
+                                        width="{{ block.settings.image.width }}"
+                                        height="{{ block.settings.image.width | divided_by: block.settings.image.aspect_ratio }}" >
+                                </a>
+                            </div>
+                            <div class="card-body px-0">
+                                <div class="row no-gutter">
+                                    <div class="col-12">
+                                        {% if block.settings.heading != blank %}<h6 class="card-title mb-2 font-family-base">{{ block.settings.heading }}</h6>{% endif %}
+                                        {% if block.settings.subheading != blank %}<div class="cm-0 font-family-base">{{ block.settings.subheading }}</div>{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% if block.settings.btn_text != blank %}
+                            <div class="card-footer bg-transparent border-0 p-0">
+                                <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} class="btn btn-outline-dark btn-sm flex-grow-1">{{ block.settings.btn_text }}</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {%- endcapture -%}
+            {% endif %}
+            {%- if promoBlock != '' -%}
+                {%- if loopIndex == totalProducts and currentIndex > totalProducts -%}
+                    {{- promoBlock -}}
+                {%- elsif currentIndex == loopIndex -%}
+                    {{- promoBlock -}}
+                {%- endif -%}
+            {%- endif -%}
+        {% endif %}
+    {%- endif -%}
+{%- endfor -%}
+{% comment %}theme-check-enable LiquidTag{% endcomment %}

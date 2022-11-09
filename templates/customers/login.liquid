@@ -1,0 +1,51 @@
+<section data-account-pages class="section-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-md-6 col-lg-5 mx-auto">
+  
+          <custom-tabs class="section-content bg-white">
+            <ul class="d-flex account-tabs list-unstyled justify-content-center" role="tablist">
+                <li class="nav-item tablink open">
+                <a class="nav-link" role="tab" data-toggle="tab" href="#login" data-tabcontent="#login" aria-expanded="false">{{ 'customer.login_page.title' | t }}</a>
+                </li>
+                <li class="nav-item tablink">
+                    <a class="nav-link" data-toggle="tab" role="tab" href="#register" data-tabcontent="#register" aria-expanded="true">{{ 'customer.register.title' | t }}</a>
+                </li>
+            </ul>
+            <div id="accountTabs" >
+              <div class="tab-content text-left" id="accountTabsContent">
+                <div class="tab-pane tabcontent open" id="login" role="tabpanel">
+                  <div class="pt-5">
+                    {% if settings.enable_login_helper %}
+                      {% render 'form-account-login-helper' %}
+                    {% else %}
+                      {% render 'form-account-login' %}
+                    {% endif %}
+
+                    {%- if shop.checkout.guest_login -%}
+                      <div>
+                          <hr>
+                          <h2>{{ 'customer.login_page.guest_title' | t }}</h2>
+
+                          {%- form 'guest_login' -%}
+                          <button class="btn btn-primary">
+                              {{ 'customer.login_page.guest_continue' | t }}
+                          </button>
+                          {%- endform -%}
+                      </div>
+                    {%- endif -%}
+
+                    {% render 'form-account-recover' %}
+                  </div>
+                </div>
+                <div class="tab-pane tabcontent" id="register" role="tabpanel">
+                  <div class="pt-5">{% render 'form-account-register' %}</div>
+                </div>
+              </div>
+            </div>
+          </custom-tabs>
+        </div>
+      </div>
+    </div>
+  </section>
+  

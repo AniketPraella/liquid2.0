@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "template-search",
+      "settings": {
+        "fluid_layout": false,
+        "items_per_page": 12,
+        "enable_sorting": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

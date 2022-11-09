@@ -1,0 +1,17 @@
+<script type="text/javascript">
+  if(typeof window.hulkappsReviews === 'undefined') {
+    window.hulkappsProductReview = {};
+  }
+  window.hulkappsProductReview.baseURL = 'https://reviews.hulkapps.com/api/shop/v2';
+  window.hulkappsProductReview.customerID = {{ customer.id | json }};
+  window.hulkappsProductReview.domain = {{ shop.permanent_domain | json }};
+  window.hulkappsProductReview.product = {{ product | json }};
+  window.hulkappsProductReview.templateType = '{{ request.page_type | handle }}';
+</script>
+
+
+
+
+
+<div data-hulkapps-reviews-wrapper style='display:none' data-time='2022-11-06'></div>
+<script defer type='text/javascript' src='https://product-reviews-by-hulkapps.s3.us-east-2.amazonaws.com/assets/js/hulkapps-reviews.js'></script>

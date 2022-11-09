@@ -1,0 +1,13 @@
+{
+  "wrapper": "div#guidelines-page",
+  "sections": {
+    "main": {
+      "type": "template-guidelines",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

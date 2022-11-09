@@ -1,0 +1,371 @@
+<link rel="stylesheet" href="{{ 'global-video-with-text.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'global-video-with-text.css' | asset_url | stylesheet_tag }}</noscript>
+
+<section class="{% unless section.settings.fluid_layout %}section-content{% endunless %} video-with-text" data-section-id="{{ section.id }}" style="background:{{ section.settings.section_bg_color }}; color:{{ section.settings.section_txt_color }}">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+        <div class="custom-video-container {% if section.settings.fluid_video_layout %} full-video-layout position-relative{% else %}row align-items-center{% endif %}">
+            <div class="{% if section.settings.fluid_video_layout %}px-0{%else%}col-12 col-md-6 col-lg-7 {% endif %}">
+                <custom-video class="video-with--text position-relative d-block placement--{{ section.settings.placement }}" 
+                    data-loop="{{ section.settings.loop }}" data-autoplay="true" data-controls="{{ section.settings.controls }}" data-muted="{{ section.settings.muted }}"
+                    data-video-type="{{ section.settings.video_type }}"  data-placement="{{ section.settings.placement }}"
+                    {% if section.settings.mobile_video_id != blank %}data-mobileVideo="{{ section.settings.mobile_video_id }}"{% endif %} data-video-id="{{ section.settings.video_id }}">
+                    <div class="cta-btn">
+                        <button class="play__button btn btn-primary" data-trigger-video aria-label="{{ 'sections.video-with-text.play_video' | t }}">
+                            <span class="icon-play"></span>
+                        </button>
+                        <button class="pause__button btn btn-primary" data-pause-video aria-label="{{ 'sections.video-with-text.paused_video' | t }}">
+                            <span class="icon-pause"></span>
+                        </button>
+                    </div>
+                    <div class="content-section">
+                        <div class="poster-image {{ section.settings.height }}">
+                            {%- if section.settings.poster_type == 'video' and section.settings.bg_video != blank -%}
+                                <video data-posterVideo preload="yes" playsinline muted loop data-mobileSrc="{{ section.settings.mobile_bg_video }}">
+                                    <source src="{{ section.settings.bg_video }}" type="video/mp4">
+                                </video>
+                            {%- elsif section.settings.poster_image != blank -%}
+                                <img srcset="
+                                    {%- if section.settings.poster_image.width >= 350 -%}{{ section.settings.poster_image | image_url: width: 350 }} 350w,{%- endif -%}
+                                    {%- if section.settings.poster_image.width >= 550 -%}{{ section.settings.poster_image | image_url: width: 550 }} 550w,{%- endif -%}
+                                    {%- if section.settings.poster_image.width >= 750 -%}{{ section.settings.poster_image | image_url: width: 750 }} 750w,{%- endif -%}
+                                    {%- if section.settings.poster_image.width >= 991 -%}{{ section.settings.poster_image | image_url: width: 991 }} 991w,{%- endif -%}
+                                    {%- if section.settings.poster_image.width >= 1200 -%}{{ section.settings.poster_image | image_url: width: 1200 }} 1200w,{%- endif -%}
+                                    {%- if section.settings.poster_image.width >= 1500 -%}{{ section.settings.poster_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                    {{ section.settings.poster_image | image_url }} {{ section.settings.poster_image.width }}w"
+                                    src="{{ section.settings.poster_image | image_url: width: 1500 }}" loading="lazy"
+                                    sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width }}, 100vw"
+                                    alt="{{ section.settings.poster_image.alt | default: section.settings.title | escape }}"
+                                    width="{{ section.settings.poster_image.width }}"
+                                    height="{{ section.settings.poster_image.width | divided_by: section.settings.poster_image.aspect_ratio | round }}"
+                                >
+                            {%- else -%}
+                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                            {%- endif -%}
+                        </div>
+                    </div>
+                    {%- if section.settings.placement == 'grid' -%}
+                        <div class="video-section {{ section.settings.height }}" tabindex="0"></div>
+                    {%- endif -%}
+                </custom-video>
+            </div>
+            <div class="{% if section.settings.fluid_video_layout %}position-absolute full-video-caption text-center{% else %}col-12 col-md-6 col-lg-5 mt-4 mt-md-0{% endif %}">
+                <div class="inside-block {{ section.settings.alignment }} {% if section.settings.fluid_video_layout %}d-flex {{ section.settings.video_alignment }}{% endif %}" style="color:{{ section.settings.section_text_color }}">
+                    {% if section.settings.fluid_video_layout %}
+                        <div class="col-xl-6 col-lg-7 col-md-8 px-md-0">
+                    {% endif %}
+                    {% if section.settings.title != blank %}
+                        <h2 class="mb-2">{{ section.settings.title }}</h2>
+                    {% endif %}
+                    {% if section.settings.subtitle != blank %}
+                        <div class="mb-3 mb-lg-5">{{ section.settings.subtitle }}</div>
+                    {% endif %}
+                    <div>
+                        {% if section.settings.fluid_video_layout %}
+                            <a data-trigger-videobtn href="#" class="btn btn{% if section.settings.btn_type == 'outline' %}-{% endif %}{{ section.settings.btn_type }}-{{ section.settings.btn_variant }} {{ section.settings.btn_size }}" title="{{ 'sections.video-with-text.play_video' | t }}">{{ 'sections.video-with-text.play_video' | t }}</a>
+                        {% endif %}
+                        {% if section.settings.btn_txt != blank %}
+                            <a {% if section.settings.btn_link %} href="{{ section.settings.btn_link_second }}" {% endif %}class="btn btn{% if section.settings.btn_type == 'outline' %}-{% endif %}{{ section.settings.btn_type }}-{{ section.settings.btn_variant }} {{ section.settings.btn_size }}" title="{{ section.settings.btn_txt }}">{{ section.settings.btn_txt }}</a>
+                        {% endif %}
+                    </div>
+                    {% if section.settings.fluid_video_layout %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+    {
+        "name": "Video With Text",
+        "class": "image-video-style",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Layout"
+            },
+            {
+                "type": "checkbox",
+                "id": "fluid_layout",
+                "label": "Full Width Layout?",
+                "default": false
+            },
+            {
+                "type": "checkbox",
+                "id": "muted",
+                "label": "Video Muted",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "controls",
+                "label": "Video Controls",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "loop",
+                "label": "Loop Video",
+                "default": true
+            },
+            {
+                "type": "header",
+                "content": "Content"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Heading",
+                "default": "Awesome Heading"
+            },
+            {
+                "type": "richtext",
+                "id": "subtitle",
+                "label": "Subheading",
+                "default": "<p>Lipsum dolor sit amet, consectetur adipiscing elit. Aliquam pulvinar ac tortor imperdiet commodo.</p>"
+            },
+            {
+                "type": "header",
+                "content": "Button"
+            },
+            {
+                "type": "text",
+                "id": "btn_txt",
+                "label": "Button Text"
+            },
+            {
+                "type": "url",
+                "id": "btn_link",
+                "label": "Button Link"
+            },
+            {
+                "type": "select",
+                "id": "btn_type",
+                "label": "Button Type",
+                "options": [
+                    {
+                        "value": "outline",
+                        "label": "Outline"
+                    },
+                    {
+                        "value": "",
+                        "label": "Solid"
+                    }
+                ],
+                "default": ""
+            },
+            {
+                "type": "select",
+                "id": "btn_variant",
+                "label": "Button Variant",
+                "options": [
+                    {
+                        "value": "primary",
+                        "label": "Primary"
+                    },
+                    {
+                        "value": "secondary",
+                        "label": "Secondary"
+                    },
+                    {
+                        "value": "white",
+                        "label": "White"
+                    },
+                    {
+                        "value": "dark",
+                        "label": "Dark"
+                    }
+                ],
+                "default": "primary"
+            },
+            {
+                "type": "select",
+                "id": "btn_size",
+                "label": "Button Size",
+                "options": [
+                    {
+                        "value": "",
+                        "label": "Default"
+                    },
+                    {
+                        "value": "btn-sm",
+                        "label": "Small"
+                    },
+                    {
+                        "value": "btn-lg",
+                        "label": "Large"
+                    }
+                ],
+                "default": ""
+            },
+            {
+                "type": "header",
+                "content": "Poster"
+            },
+            {
+                "type": "select",
+                "id": "poster_type",
+                "label": "Poster Type",
+                "options": [
+                    {
+                        "value": "",
+                        "label": "Image"
+                    },
+                    {
+                        "value": "video",
+                        "label": "Video"
+                    }
+                ],
+                "default": ""
+            },
+            {
+                "type": "paragraph",
+                "content": "Video"
+            },
+            {
+                "type": "textarea",
+                "id": "bg_video",
+                "label": "Poster Video URL",
+                "info": "Only Mute video can autoplay. Use local video URL."
+            },
+            {
+                "type": "textarea",
+                "id": "mobile_bg_video",
+                "label": "Mobile Poster Video URL",
+                "info": "Only Mute video can autoplay. Use local video URL."
+            },
+            {
+                "type": "paragraph",
+                "content": "Image"
+            },
+            {
+                "type": "image_picker",
+                "id": "poster_image",
+                "label": "Select Image",
+                "info": "For Better Viewing Use Example dimentions: 1350*765 ( Aspect Ratio: 1.76 )"
+            },
+            {
+                "type": "header",
+                "content": "Video"
+            },
+            {
+                "type": "checkbox",
+                "id": "fluid_video_layout",
+                "label": "Full Width video?",
+                "default": true,
+                "info": "If checked only video with full width will be visible"
+            },
+            {
+                "type": "select",
+                "id": "video_type",
+                "label": "Video Type",
+                "options": [
+                    {
+                        "value": "youtube",
+                        "label": "Youtube"
+                    },
+                    {
+                        "value": "vimeo",
+                        "label": "Vimeo"
+                    },
+                    {
+                        "value": "local",
+                        "label": "Local Video"
+                    }
+                ],
+                "default": "local"
+            },
+            {
+                "type": "select",
+                "id": "placement",
+                "label": "Placement",
+                "options": [
+                    {
+                        "value": "grid",
+                        "label": "Grid"
+                    },
+                    {
+                        "value": "popup",
+                        "label": "Modal"
+                    }
+                ],
+                "default": "grid"
+            },
+            {
+                "type": "textarea",
+                "id": "video_id",
+                "label": "Video Id",
+                "info": "For Local video use file link. For Youtube and Vimeo use video ID"
+            },
+            {
+                "type": "textarea",
+                "id": "mobile_video_id",
+                "label": "Mobile Video Id",
+                "info": "Same as above. Only add details if need to show diff video in mobile device."
+            },
+            {
+                "type":"header",
+                "content":"styling"
+            },
+            {
+                "type": "color",
+                "id": "section_bg_color",
+                "label": "Background Color",
+                "default": "#FAFAF7"
+            },
+            {
+                "type": "color",
+                "id": "section_text_color",
+                "label": "Text Color",
+                "default": "#000000"
+            },
+            {
+                "type": "select",
+                "id": "alignment",
+                "label": "Text Alignment",
+                "options": [
+                    {
+                        "value": "text-center",
+                        "label": "Center"
+                    },
+                    {
+                        "value": "text-start",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "text-end",
+                        "label": "Right"
+                    }
+                ],
+                "default": "text-center"
+            },
+            {
+                "type": "select",
+                "id": "video_alignment",
+                "label": "Caption Alignment",
+                "options": [
+                    {
+                        "value": "justify-content-start",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "justify-content-center",
+                        "label": "Center"
+                    },
+                    {
+                        "value": "justify-content-end",
+                        "label": "Right"
+                    }
+                ],
+                "default": "justify-content-center"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Video With Text",
+                "category": "Content"
+            }
+        ]
+    }
+{% endschema %}

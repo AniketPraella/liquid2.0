@@ -1,0 +1,140 @@
+<section data-collectionBanner class="section-content collection-hero__banner position-relative d-flex align-items-center" style="background: {{ section.settings.section_bg_color }}">
+
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %} banner-breadcrumbs">
+        {% render 'breadcrumbs' %}
+    </div>
+
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %} collection-banner__caption">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4 {{ section.settings.alignment }} {{ section.settings.caption_alignment }}" style="color: {{ section.settings.txt_color }};">
+                <div class="fancy-heading">
+                    <h1 class="page-title mb-2"> 
+                        {{- collection.title | escape -}}
+                    </h1>
+                    {%- if section.settings.show_collection_description -%}
+                        <p class="mb-0">{{ collection.description }}</p>
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {%- if section.settings.show_collection_image and collection.image -%}
+        <div class="collection-hero__image-container">
+            <img srcset="
+                {%- if collection.image.width >= 360 -%}{{ collection.image | image_url: width: 360, crop: 'center', format: 'pjpg' }} 360w,{%- endif -%}
+                {%- if collection.image.width >= 535 -%}{{ collection.image | image_url: width: 535, crop: 'center', format: 'pjpg' }} 535w,{%- endif -%}
+                {%- if collection.image.width >= 720 -%}{{ collection.image | image_url: width: 720, crop: 'center', format: 'pjpg' }} 720w,{%- endif -%}
+                {%- if collection.image.width >= 940 -%}{{ collection.image | image_url: width: 940, crop: 'center', format: 'pjpg' }} 940w,{%- endif -%}
+                {%- if collection.image.width >= 1200 -%}{{ collection.image | image_url: width: 1200, crop: 'center', format: 'pjpg' }} 1200w,{%- endif -%}
+                {%- if collection.image.width >= 1500 -%}{{ collection.image | image_url: width: 1500, crop: 'center', format: 'pjpg' }} 1500w,{%- endif -%}
+                {%- if collection.image.width >= 1780 -%}{{ collection.image | image_url: width: 1780, crop: 'center', format: 'pjpg' }} 1780w,{%- endif -%}
+                {%- if collection.image.width >= 1920 -%}{{ collection.image | image_url: width: 1920, crop: 'center', format: 'pjpg' }} 1920w,{%- endif -%}
+                {%- if collection.image.width >= 2560 -%}{{ collection.image | image_url: width: 2560, crop: 'center', format: 'pjpg' }} 2560w{%- endif -%}
+                {%- if collection.image.width >= 3800 -%}{{ collection.image | image_url: width: 3800, crop: 'center', format: 'pjpg' }} 3800w{%- endif -%}
+                {{ collection.image | image_url }} {{ collection.image.width }}w"
+                    src="{{ collection.image | image_url: width: 1500 }}" loading="lazy"
+                    sizes="(max-width: 375px) 375px, (max-width: 550px) 550px, (max-width: 750px) 750px,
+                           (max-width: 991px) 991px, (max-width: 1200px) 1200px, (max-width: 1500px) 1500px, (max-width: 1780px) 1780px, (max-width: 1920px) 1920px,
+                           (max-width: 2560px) 2560px, (max-width: 3800px) 3800px, {{ collection.image.width }}px"
+                alt="{{ collection.title | escape }}"
+                loading="lazy"
+                width="{{ collection.image.width }}"
+                height="{{ collection.image.height }}"
+            >
+        </div>
+    {%- endif -%}
+</section>
+
+
+{% schema %}
+{
+    "name": "t:sections.template-collection-banner.name",
+    "class": "spaced-section spaced-section--full-width",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Layout"
+        },
+        {
+            "type": "checkbox",
+            "id": "fluid_layout",
+            "label": "Full Width Layout?",
+            "default": false
+        },
+        {
+            "type": "paragraph",
+            "content": "t:sections.template-collection-banner.settings.paragraph.content"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_collection_description",
+            "default": true,
+            "label": "t:sections.template-collection-banner.settings.show_collection_description.label"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_collection_image",
+            "default": false,
+            "label": "t:sections.template-collection-banner.settings.show_collection_image.label",
+            "info": "t:sections.template-collection-banner.settings.show_collection_image.info"
+        },
+        {
+            "type": "header",
+            "content": "Style"
+        },
+        {
+            "type":"color",
+            "id":"section_bg_color",
+            "label":"t:sections.template-collection-banner.settings.collection_banner_bg.label",
+            "default":"#FAFAF7"
+        },
+        {
+            "type":"color",
+            "id":"txt_color",
+            "label":"t:sections.template-collection-banner.settings.collection_banner_bg.label",
+            "default":"#212529"
+        },
+        {
+            "type": "select",
+            "id": "alignment",
+            "label": "Alignment",
+            "options": [
+                {
+                    "value": "text-center",
+                    "label": "Center"
+                },
+                {
+                    "value": "text-start",
+                    "label": "Left"
+                },
+                {
+                    "value": "text-end",
+                    "label": "Right"
+                }
+            ],
+            "default": "text-start"
+        },
+        {
+            "type": "select",
+            "id": "caption_alignment",
+            "label": "Caption Alignment",
+            "options": [
+                {
+                    "value": "mx-auto",
+                    "label": "Center"
+                },
+                {
+                    "value": "me-auto",
+                    "label": "Left"
+                },
+                {
+                    "value": "ms-auto",
+                    "label": "Right"
+                }
+            ],
+            "default": "mx-auto"
+        }
+    ]
+}
+{% endschema %}

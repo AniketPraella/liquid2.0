@@ -1,0 +1,30 @@
+<section data-template="account" class="section-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 col-md-6 col-lg-5 ml-auto mr-auto">
+
+        <div id="customerLoginForm">
+          {% form 'activate_customer_password' %}
+
+            <h3 class="mb-3">{{ 'customer.activate_account.title' | t }}</h3>
+
+            {% if form.errors %}
+            <div class="alert alert-warning">
+              {{ form.errors | default_errors }}
+            </div>
+            {% endif %}
+
+            <div class="form-group input-group">
+              <input type="password" value="" name="customer[password]" aria-label="password" id="CustomerPassword" class="form-control" placeholder="{{ 'customer.activate_account.password' | t }}">
+              <input type="password" value="" name="customer[password_confirmation]" aria-label="password confirmation" id="CustomerPasswordConfirmation" class="form-control" placeholder="{{ 'customer.activate_account.password_confirm' | t }}">
+            </div>
+
+            <input type="submit" class="btn btn-primary btn-block text-uppercase" value="{{ 'customer.activate_account.submit' | t }}">
+
+          {% endform %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

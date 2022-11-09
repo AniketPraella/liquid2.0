@@ -1,0 +1,372 @@
+{
+  "wrapper": "div#faq-page",
+  "sections": {
+    "main": {
+      "type": "template-common-faq",
+      "settings": {
+        "section_bg_color": "#fcf5f1",
+        "section_txt_color": "#000000",
+        "fluid_layout": false,
+        "txt": "You can find quick answers to our FAQs below or contact us through our contact us page or email <span class=\"fw-medium\">info@test.com<\/span> or call us at 111.111.111.111",
+        "title": "Product Information",
+        "bg_color": "#fafaf7",
+        "faq_blocks": "Product information\nOrders\nPricing & Billing\nReturns\nShipping\ninternational Shipping\nMy Account\nAdditional Support"
+      }
+    },
+    "1635764886f4f3b0a4": {
+      "type": "template-faq-block",
+      "blocks": {
+        "42540db3-1e7f-4156-8a5f-bc52d8349a4f": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Are all products made with organic ingredients?<\/p>",
+            "answer": "<p>We use organic ingredients wherever possible and also have organic products in our line but not all of our products are 100% organic. We feel it is very important for us and all brands to let customers know exactly which products and ingredients are 100% organic or not. By being transparent and forthcoming on our website, our labels and in conversations with you and our retail partners, we hope that we can become your trust worthy and consistently reliable go-to brand for beautiful skin. Please see the INGREDIENTS tab under each product page to see details on our ingredients as well as learn about what ingredients we deem potentially harmful.<\/p>"
+          }
+        },
+        "3fc6e8db-a16b-4067-aa59-f5097c94b501": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Are all products vegan?<\/p>",
+            "answer": "<p>All of our products are Vegan except for our Nocturne mascara which contains beeswax and shellac. The most desired effects of the perfect mascara, such as increasing the appearance of thickness, curl, and length are difficult to achieve without these types of ingredients. We have eliminated the use of other often relied upon ingredients that do not align with our company mission wherever we were able to find a viable alternative without compromising on the resulting look and efficacy.<\/p><p>However, please note that because we are cruelty-free and environmentally responsible, we ensure that the beeswax we employ is the excess byproduct of the bees and do not compromise the bee colony. If we could speak bee, we would love to ask them for their permission each time! Shellac originates from a resin found on trees in the forests of India and Thailand.<\/p>"
+          }
+        },
+        "ba847704-e8dd-45e8-b96f-17adf235bed8": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Are there any ingredients that are potentially carcinogenic?<\/p>",
+            "answer": "<p>We do not use any ingredients that are known to be potentially carcinogenic. We are devoted to creating formulations that make you and your skin look and feel your healthiest. Our founder Meryl was driven to develop a line that offers skincare formulations using the highest quality and purest ingredients she can find, free from carcinogenic impurities. Our ingredients are hand selected for our formulations, rather than included for practical purposes.<\/p>"
+          }
+        },
+        "e23e18a5-5355-4941-a85e-65ca13b53944": {
+          "type": "question",
+          "settings": {
+            "title": "<p>How does Hynt Beauty differ from mineral makeup?<\/p>",
+            "answer": "<p>Our goal is to provide the most effective products that deliver a gentle, nourishing, and protective feel to your skin, without compromising on the luxurious textures, elegant finish, and aesthetic of our collection. What is truly unique is how our powder-based products feel when applied and throughout the day. We use a special ultra-fine milling technology so that the powders have a much finer texture and feel smooth to the touch. We also include beneficial botanical extracts and oils to keep skin feeling moisturized and oil balanced throughout the day, so that our powders feel as fresh as when applied earlier in the day.<\/p><p>Also, unlike many Mineral Makeup lines, our products do not include Bismuth Oxychloride, which is an inexpensive filler ingredient that is commonly used in the industry that can cause feelings of itching and irritation. Many of our complexion products are also free of Titanium Dioxide, which tends to create a mask-like look and feel. Instead of using these potentially troublesome ingredients, we have opted to use a blend of pure ingredients that leave skin feeling soothed, moisturized, and protected.<\/p><p>Because our line is mostly free of animal ingredients, we also do not use the popular colorant Carmine that is created from powdered scale insect bodies. Please see our Vegan question below for more details.<\/p>"
+          }
+        },
+        "7b144ee2-4fb5-4843-b12f-8546f7281a3c": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Is Hynt Beauty cruelty-free?<\/p>",
+            "answer": "<p>Yes, we are proud to be cruelty-free. We do not believe in animal testing (except on ourselves!), so our formulations do not include ingredients that have been tested on animals.<\/p>"
+          }
+        },
+        "f3e6a973-1575-433d-b061-1826680e9fa2": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Where are the products made?<\/p>",
+            "answer": "<p>Our products are Made in the USA except for our eyeliner pencil that is made in Italy and our Flat Top Brush which is assembled in China. This is because no cosmetic pencils are made in the USA unless they are hand-poured, a method that produces pencils that we did not feel are best for our brand; and we found that the quality of this specific brush surpassed all other options. We do not sacrifice the quality of our products just to be able to say “All made in the U.S.A.” for marketing purposes.<\/p><p>An additional note: Our cosmetics are made in small batches by hand, to align with our dedication to freshness, high quality, and high performance.<\/p>"
+          }
+        },
+        "ece3e9cf-ac49-46b9-bd0f-035eccbd9d88": {
+          "type": "question",
+          "settings": {
+            "title": "<p>How do Hynt products benefit my skin?<\/p>",
+            "answer": "<p>Our products are handcrafted and made in small batches to deliver on freshness and the high quality that you expect from our brand. Many of our key products are exclusively blended with potent natural antioxidants, plant extracts, naturally occurring vitamins, and phytonutrients to moisturize, and make skin feel protected and rejuvenated. Natural and organic ingredients, gluten-free, primarily vegan, and with no usage of nano-particles, Hynt is a collection that you can use with confidence. Our products multi-task to beautify your skin, while enhancing your natural beauty. The way nature intended.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "42540db3-1e7f-4156-8a5f-bc52d8349a4f",
+        "3fc6e8db-a16b-4067-aa59-f5097c94b501",
+        "ba847704-e8dd-45e8-b96f-17adf235bed8",
+        "e23e18a5-5355-4941-a85e-65ca13b53944",
+        "7b144ee2-4fb5-4843-b12f-8546f7281a3c",
+        "f3e6a973-1575-433d-b061-1826680e9fa2",
+        "ece3e9cf-ac49-46b9-bd0f-035eccbd9d88"
+      ],
+      "settings": {
+        "enable": true,
+        "heading": "Product Information"
+      }
+    },
+    "1635765092fa436323": {
+      "type": "template-faq-block",
+      "blocks": {
+        "daf8bd53-b15c-43de-a341-158cd74951ca": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Check Out Difficulties<\/p>",
+            "answer": "<p>Please contact us via our contact us page, email address or phone number listed above if you are having any trouble while shopping on our site or during check out.<\/p>"
+          }
+        },
+        "22dcfcd2-071b-4898-9443-8de0a06f7df5": {
+          "type": "question",
+          "settings": {
+            "title": "<p>How do I change quantities or cancel an item in my order?<\/p>",
+            "answer": "<p>Click the <a href=\"\/account\/login\" title=\"\/account\/login\"><strong>“My Account \/ Order Status”<\/strong><\/a> link at the top right hand side of our site to view orders you have placed. Then click the <a href=\"\/account\/login\" title=\"\/account\/login\"><strong>“Change quantities \/ cancel orders”<\/strong><\/a> link to find and edit your order. Please note that once an order has begun processing or has shipped, the order is no longer editable<\/p>"
+          }
+        },
+        "7b80e97b-aa92-4d52-8790-586c13bd15b2": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Has my order shipped?<\/p>",
+            "answer": "<p>Click the<strong> <\/strong><a href=\"\/account\/login\" title=\"\/account\/login\"><strong>“My Account \/ Order Status”<\/strong><\/a> link at the top right hand side of our site to check your orders status.<\/p>"
+          }
+        },
+        "1796c912-4547-47bb-8266-4b88e6a13cd2": {
+          "type": "question",
+          "settings": {
+            "title": "<p>How do I track my order?<\/p>",
+            "answer": "<p>Click the <a href=\"\/account\/login\" title=\"\/account\/login\"><strong>“My Account \/ Order Status”<\/strong><\/a> link at the top right hand side of our site to track your order.<\/p>"
+          }
+        },
+        "578f6d4b-38e3-4623-8597-3b913545c596": {
+          "type": "question",
+          "settings": {
+            "title": "<p>My order never arrived.<\/p>",
+            "answer": "<p>Click the <a href=\"\/account\/login\" title=\"\/account\/login\"><strong>“My Account \/ Order Status”<\/strong><\/a> link at the top right hand side of our site to track your order status. Be sure that all of the items in your order have shipped already. If you order displays your Package Tracking Numbers, check with the shipper to confirm that your packages were delivered. If your packages each show a status of “delivered”, please contact customer service for assistance.<\/p>"
+          }
+        },
+        "caad67a9-3c33-408b-aa9a-30454cdaa852": {
+          "type": "question",
+          "settings": {
+            "title": "<p>An item is missing from my shipment.<\/p>",
+            "answer": "<p>Click the <a href=\"\/account\/login\" title=\"\/account\/login\"><strong>“My Account \/ Order Status”<\/strong><\/a> link at the top right hand side of our site to track your order status. Be sure that all of the items in your order have shipped already. If you order displays your Package Tracking Numbers, check with the shipper to confirm that your packages were delivered. If your packages each show a status of “delivered”, please contact customer service for assistance.<\/p>"
+          }
+        },
+        "ac811a4f-67c5-48f9-8b78-19510d4604c2": {
+          "type": "question",
+          "settings": {
+            "title": "<p>I received the wrong product.<\/p>",
+            "answer": "<p>If you feel that you have received the wrong product, please contact customer service within 72 hours of receiving the product.<\/p>"
+          }
+        },
+        "f4702188-cb65-4c0d-bc2b-edc34d2c26b7": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Out of stock items.<\/p>",
+            "answer": "<p>If some of the items in your order are temporarily out of stock, we will ship the available items only and will notify you of any products that cannot be fulfilled. We also offer “back orders” and “preorders” for products that are not available at the time of purchase.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "daf8bd53-b15c-43de-a341-158cd74951ca",
+        "22dcfcd2-071b-4898-9443-8de0a06f7df5",
+        "7b80e97b-aa92-4d52-8790-586c13bd15b2",
+        "1796c912-4547-47bb-8266-4b88e6a13cd2",
+        "578f6d4b-38e3-4623-8597-3b913545c596",
+        "caad67a9-3c33-408b-aa9a-30454cdaa852",
+        "ac811a4f-67c5-48f9-8b78-19510d4604c2",
+        "f4702188-cb65-4c0d-bc2b-edc34d2c26b7"
+      ],
+      "settings": {
+        "enable": true,
+        "heading": "Orders"
+      }
+    },
+    "1636713568a7c45dc0": {
+      "type": "template-faq-block",
+      "blocks": {
+        "95bcad74-2fc3-4ced-9bda-0436e769ae2a": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Accepted Payment Methods<\/p>",
+            "answer": "<p>We accept American Express, Visa, MasterCard, Discover and PayPal. We do not accept checks or money orders.<\/p>"
+          }
+        },
+        "3962ab78-c0bd-4668-b39f-9f21c9f51c79": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Phone Orders<\/p>",
+            "answer": "<p>Phone orders are gladly welcome. Please feel free to contact us Monday through Friday between the hours of 10:00am and 5:00pm Eastern Time at 866-221-0375 and one of our customer service representatives will gladly assist you.<\/p>"
+          }
+        },
+        "9394fd0f-656a-4084-83bf-dc18da237959": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Sales Tax<\/p>",
+            "answer": "<p>Hynt Beauty will abide by all laws pertaining to the collection of sales tax. Currently, we arerequired by law to collect sales tax on orders being shipped to NJ which will be calculated during the checkout process.<\/p>"
+          }
+        },
+        "9d1aba59-4364-4ddb-b6a3-eb3213fa751f": {
+          "type": "question",
+          "settings": {
+            "title": "<p>I have a question on my charges.<\/p>",
+            "answer": "<p>Click the <a href=\"\/account\/login\" title=\"\/account\/login\"><strong>“My Account \/ Order Status”<\/strong><\/a> link at the top right hand side of our site to review your orders. You may compare your order history on our website, with your financial records. If you have further questions or concerns, please contact customer service for further assistance.<\/p>"
+          }
+        },
+        "483030bd-ff2e-4698-b1f7-66f787d2ad21": {
+          "type": "question",
+          "settings": {
+            "title": "<p>I need a copy of my receipt\/invoice..<\/p>",
+            "answer": "<p>Click the <a href=\"\/account\/login\" title=\"\/account\/login\"><strong>“My Account \/ Order Status”<\/strong><\/a> link at the top right hand side of our site to print invoices.<\/p>"
+          }
+        },
+        "6b76da82-3f08-4636-85d5-04cf2eb4c20b": {
+          "type": "question",
+          "settings": {
+            "title": "<p>When will my credit appear on my account?<\/p>",
+            "answer": "<p>Credits usually take 7-10 business days from the time we receive your item(s).<\/p>"
+          }
+        },
+        "bfc83061-b1b3-40b4-b637-5a62c09d4114": {
+          "type": "question",
+          "settings": {
+            "title": "<p>When will my credit card be charged?<\/p>",
+            "answer": "<p>Your credit card will be charged within 24 hours prior to shipment of your item(s).<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "95bcad74-2fc3-4ced-9bda-0436e769ae2a",
+        "3962ab78-c0bd-4668-b39f-9f21c9f51c79",
+        "9394fd0f-656a-4084-83bf-dc18da237959",
+        "9d1aba59-4364-4ddb-b6a3-eb3213fa751f",
+        "483030bd-ff2e-4698-b1f7-66f787d2ad21",
+        "6b76da82-3f08-4636-85d5-04cf2eb4c20b",
+        "bfc83061-b1b3-40b4-b637-5a62c09d4114"
+      ],
+      "settings": {
+        "enable": true,
+        "heading": "Pricing & Billing"
+      }
+    },
+    "16367137373e54da8c": {
+      "type": "template-faq-block",
+      "blocks": {
+        "a537a0eb-4e14-4867-9d31-f200e6f92184": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Returns & Exchanges<\/p>",
+            "answer": "<p>Hynt Beauty offers attentive customer service, personalized product guidance and guarantees small batch freshness and quality in every product we ship. We encourage you to contact us if you have any questions or concerns prior to purchase so that we can provide you with personalized recommendations and answers that will help you make the right choices with confidence. In the event that the product is damaged in transit to your address, we will work with you to arrange for replacement products. Please contact us before you return any item. For restrictions and guidelines on exchanges and returns, please refer to details on our Returns & Exchanges page.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "a537a0eb-4e14-4867-9d31-f200e6f92184"
+      ],
+      "settings": {
+        "enable": true,
+        "heading": "Returns"
+      }
+    },
+    "1636713976bb5cbfa7": {
+      "type": "template-faq-block",
+      "blocks": {
+        "5b42950e-dffb-4b73-8fbb-13f3def44c27": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Delivery Timeline<\/p>",
+            "answer": "<p>Depending on your location, your order should typically arrive in 2-6 business days from the time that we process your order using Ground shipping. The cut-off time for picking and shipping orders is 11am PST, Monday – Friday (excluding holidays), so please choose the appropriate shipping method in order to receive your order timely.<\/p>"
+          }
+        },
+        "661d6cb1-94eb-43ee-a67a-b9fd0c3a8a9a": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Shipping Cost<\/p>",
+            "answer": "<p>Domestic Orders (USA)Free Standard USPS Ground Shipping on all orders.Expedited shipping options are also available for an additional fee. These options are listed at check out.International OrdersFree Standard International shipping on orders $99USD or more Orders less than $99USD are subject to the standard shipping rates which will vary by country and total weight.Expedited shipping options are also available for an additional fee. These options are listed at check out. Please note that International orders may be subject to additional fees for duties and customs upon receipt. These fees are the responsibility of the recipient and are determined by the destination country.Your order will typically arrive approximately 7-10 business days from date of purchase, however, there are times when customs or other unforeseen circumstances will arise that are beyond our control. You may pay extra for expedited shipping.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "5b42950e-dffb-4b73-8fbb-13f3def44c27",
+        "661d6cb1-94eb-43ee-a67a-b9fd0c3a8a9a"
+      ],
+      "settings": {
+        "enable": true,
+        "heading": "Shipping"
+      }
+    },
+    "1636714005fb24b7b9": {
+      "type": "template-faq-block",
+      "blocks": {
+        "94a9d86b-6b72-4988-9875-6995de4948b6": {
+          "type": "question",
+          "settings": {
+            "title": "<p>What is the return policy?<\/p>",
+            "answer": "<p>Please see our <a href=\"\/pages\/terms-conditions\" title=\"Terms & Conditions\"><strong>Terms & Conditions<\/strong><\/a> for complete details regarding our return policy.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "94a9d86b-6b72-4988-9875-6995de4948b6"
+      ],
+      "settings": {
+        "enable": true,
+        "heading": "International Shipping"
+      }
+    },
+    "163671403809944534": {
+      "type": "template-faq-block",
+      "blocks": {
+        "8c9c9235-e906-498b-a779-70453df5b610": {
+          "type": "question",
+          "settings": {
+            "title": "<p>How do I create an account?<\/p>",
+            "answer": "<p><strong>1) <\/strong>Click the <a href=\"\/account\/login\" title=\"\/account\/login\"><strong>“My Account \/ Order Status”<\/strong><\/a> link at the top right side of our site.<\/p><p><strong>2) <\/strong>Enter your email address.<\/p><p><strong>3) <\/strong>Select “I am a new customer”.<\/p><p>Then simply follow the prompts to complete setting up your account. Your information is NEVER sold to any other company and is kept completely private. Please view our <a href=\"\/pages\/privacy-policy\" title=\"Privacy Policy\"><strong>Privacy Policy <\/strong><\/a>for more information.How do I edit my account information? Click the <a href=\"\/account\/login\" title=\"\/account\/login\"><strong>“My Account \/ Order Status”<\/strong><\/a> link at the top right hand side of our site to edit your account information.I forgot my password. Click the<strong> <\/strong><a href=\"\/account\/login\" title=\"\/account\/login\"><strong>“My Account \/ Order Status”<\/strong><\/a> link at the top right hand side of our site. Under the login box you’ll see a link that says “Forgot your password? Click here”. That link will send an email to you with your password.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "8c9c9235-e906-498b-a779-70453df5b610"
+      ],
+      "settings": {
+        "enable": true,
+        "heading": "My Account"
+      }
+    },
+    "1636714062af13200c": {
+      "type": "template-faq-block",
+      "blocks": {
+        "cdae1b6b-a9fe-49ee-9aaa-390bf86071ad": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Hynt Pro-Artistry Program<\/p>",
+            "answer": "<p>We offer pre-approved makeup artists access to our collection at a special discounted rate. Toapply for the program, please submit your resume or credentials for consideration to <strong>info@hyntbeauty.com.<\/strong> If approved, we will notify you within 2 weeks with a promo code that can be applied to your purchases on our website.<\/p>"
+          }
+        },
+        "6604c391-7df6-4d83-9f79-2abf394d2515": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Retail and Distribution Interest<\/p>",
+            "answer": "<p>We are always open to forging new partnerships and expanding our domestic and global businesses. If you are a retailer or distributor, please<strong> email: info@hyntbeauty.com<\/strong> with your interest and company information. We look forward to hearing from you.<\/p>"
+          }
+        },
+        "3ccf516c-70b4-4196-ba13-998d89737cef": {
+          "type": "question",
+          "settings": {
+            "title": "<p>How do I contact you?<\/p>",
+            "answer": "<p>If you have customer service questions or want additional information on our line, please contact us through our contact us page or email <a href=\"mailto:info@hyntbeauty.com\" title=\"mailto:info@hyntbeauty.com\"><strong>info@hyntbeauty.com<\/strong><\/a> or call <a href=\"tel:866-221-0375.\" title=\"tel:866-221-0375.\"><strong>866-221-0375<\/strong>.<\/a> Customer service is available from Monday – Friday, 10AM to 5PM Eastern Time excluding Holidays but we always do our best to get back to you within 24 hours.<\/p>"
+          }
+        },
+        "d3c46778-2973-4272-819c-7a003207f98a": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Privacy Policy<\/p>",
+            "answer": "<p>We value your privacy. Please view our <a href=\"\/pages\/privacy-policy\" title=\"Privacy Policy\"><strong>Privacy Policy<\/strong><\/a> for complete details on how we use the information we collect.<\/p>"
+          }
+        },
+        "f0bd853d-fa0b-49cb-9170-484a577e155e": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Security<\/p>",
+            "answer": "<p>This website is protected with SSL (secure socket layer) encryption, the highest standard in Internet security.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "cdae1b6b-a9fe-49ee-9aaa-390bf86071ad",
+        "6604c391-7df6-4d83-9f79-2abf394d2515",
+        "3ccf516c-70b4-4196-ba13-998d89737cef",
+        "d3c46778-2973-4272-819c-7a003207f98a",
+        "f0bd853d-fa0b-49cb-9170-484a577e155e"
+      ],
+      "settings": {
+        "enable": true,
+        "heading": "Additional Support"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1635764886f4f3b0a4",
+    "1635765092fa436323",
+    "1636713568a7c45dc0",
+    "16367137373e54da8c",
+    "1636713976bb5cbfa7",
+    "1636714005fb24b7b9",
+    "163671403809944534",
+    "1636714062af13200c"
+  ]
+}

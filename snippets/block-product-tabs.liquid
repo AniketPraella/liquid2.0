@@ -1,0 +1,84 @@
+{% if block.settings.product_tabs_layout == 'tabify' %}
+<custom-tabs class="bg-white d-block" {{ block.shopify_attributes }}>
+  <div class="{% if block.settings.product_tabs_fluid_layout %}container-fluid{% else %}container{% endif %}">
+    <div id="productTabs" data-product-tabs>
+      <ul class="tabs d-flex list-unstyled text-uppercase fw-medium" role="tablist">
+        {% if block.settings.enable_descripion_tab and product.description != blank %}
+        <li class="tablink open" role="tab">
+          <a class="nav-link" data-toggle="tab" href="#description" data-tabcontent="#description" aria-expanded="true">{{ 'products.product.description' | t }}</a>
+        </li>
+        {% endif %}
+        {% if block.settings.enable_custom_tab_1 %}
+        <li class="tablink {% unless block.settings.enable_descripion_tab %}open{% endunless %}" role="tab">
+          <a class="nav-link" data-toggle="tab" href="#custom-tab-1" data-tabcontent="#custom-tab-1" aria-expanded="false">{{ block.settings.tab_1_title }}</a>
+        </li>
+        {% endif %}
+        {% if block.settings.enable_custom_tab_2 %}
+        <li class="tablink" role="tab">
+          <a class="nav-link" data-toggle="tab" href="#custom-tab-2" data-tabcontent="#custom-tab-2" aria-expanded="false">{{ block.settings.tab_2_title }}</a>
+        </li>
+        {% endif %}
+      </ul>
+
+      <div class="tab-content text-left" id="productTabsContent">
+        {% if block.settings.enable_descripion_tab and product.description %}
+        <div class="tab-pane tabcontent open" id="description" role="tabpanel">
+          <div class="rte pt-5 px-lg-6">{{ product.description }}</div>
+        </div>
+        {% endif %}
+        {% if block.settings.enable_custom_tab_1 %}
+        <div class="tab-pane tabcontent" id="custom-tab-1" role="tabpanel">
+          <div class="rte pt-5">{{ pages[block.settings.tab_1_content].content }}</div>
+        </div>
+        {% endif %}
+        {% if block.settings.enable_custom_tab_2 %}
+        <div class="tab-pane tabcontent" id="custom-tab-2" role="tabpanel">
+          <div class="rpt-5">{{ block.settings.tab_2_content }}</div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+</custom-tabs>
+{% else %}
+<custom-accordion class="bg-white d-block pb-10" {{ block.shopify_attributes }} data-accordionType="multiple">
+  <div class="{% if block.settings.product_tabs_fluid_layout %}container-fluid{% else %}container{% endif %}">
+    <div id="productAccordion" data-product-accordion>
+      {% if block.settings.enable_descripion_tab and product.description != blank %}
+        <div class="accordion__container py-3 border-bottom">
+          <a class="accordion__toggle d-flex h6 text-uppercase mb-0" href="#" title="Open {{ 'products.product.description' | t }}" rel="nofollow" aria-label="Open {{ 'products.product.description' | t }}" role="button" aria-expanded="false" aria-controls="accordion_description">
+            <span>{{ 'products.product.description' | t }}</span>
+            <span class="icon-arrow-down ms-auto font-size-lg lh-1"></span>
+          </a>
+          <div class="accordion__block toggle-content" id="accordion_description" data-type="content">
+            {{ product.description }}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.enable_custom_tab_1 %}
+        <div class="accordion__container py-3 border-bottom">
+          <a class="accordion__toggle d-flex h6 text-uppercase mb-0" href="#" title="Open {{ block.settings.tab_1_title }}" rel="nofollow" aria-label="Open {{ block.settings.tab_1_title }}" role="button" aria-expanded="false" aria-controls="accordion_customTab1">
+            <span>{{ block.settings.tab_1_title }}</span>
+            <span class="icon-arrow-down ms-auto font-size-lg lh-1"></span>
+          </a>
+          <div class="accordion__block toggle-content" id="accordion_customTab1" data-type="content">
+            <div class="rte pt-5">{{ pages[block.settings.tab_1_content].content }}</div>
+          </div>
+        </div>
+      {% endif %}
+      
+      {% if block.settings.enable_custom_tab_2 %}
+        <div class="accordion__container py-3 border-bottom">
+          <a class="accordion__toggle d-flex h6 text-uppercase mb-0" href="#" title="Open {{ block.settings.tab_2_title }}" rel="nofollow" aria-label="Open {{ block.settings.tab_2_title }}" role="button" aria-expanded="false" aria-controls="accordion_customTab2">
+            <span>{{ block.settings.tab_2_title }}</span>
+            <span class="icon-arrow-down ms-auto font-size-lg lh-1"></span>
+          </a>
+          <div class="accordion__block toggle-content" id="accordion_customTab2" data-type="content">
+            <div class="rpt-5">{{ block.settings.tab_2_content }}</div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</custom-accordion>
+{% endif %}

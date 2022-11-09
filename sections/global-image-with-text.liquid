@@ -1,0 +1,261 @@
+<section class="section-content image-with-text"  data-section-id="{{ section.id }}" style="background:{{ section.settings.section_bg_color }}; color:{{ section.settings.section_txt_color }}">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 col-lg-7 {% if section.settings.image_alignment == 'left' %}order-md-1{% else %}order-md-2{% endif %}">
+                <div class="banner-img {{ section.settings.height }}">
+                    {%- if section.settings.image != blank -%}
+                        <img
+                            srcset="
+                            {%- if section.settings.image.width >= 360 -%}{{ section.settings.image | image_url: width: 360 }} 360w,{%- endif -%}
+                            {%- if section.settings.image.width >= 520 -%}{{ section.settings.image | image_url: width: 520 }} 520w,{%- endif -%}
+                            {%- if section.settings.image.width >= 650 -%}{{ section.settings.image | image_url: width: 650 }} 650w,{%- endif -%}
+                            {%- if section.settings.image.width >= 780 -%}{{ section.settings.image | image_url: width: 780 }} 780w,{%- endif -%}
+                            {%- if section.settings.image.width >= 900 -%}{{ section.settings.image | image_url: width: 900 }} 900w,{%- endif -%}
+                            {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1000 }} 1000w,{%- endif -%}"
+                            src="{{ section.settings.image | image_url: 'pico' }}"
+                            sizes="(min-width: {{ settings.container_width }}px) {{ settings.container_width | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), 100vw"
+                            alt="{{ section.settings.image.alt | escape }}"
+                            class="w-100"
+                            loading="lazy"
+                            width="{{ section.settings.image.width | divided_by: 3 }}"
+                            height="{{ section.settings.image.height | divided_by: 3 }}"
+                        >
+                    {%- else -%}
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- endif -%}
+
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-5 mt-4 mt-md-0 {% if section.settings.image_alignment == 'left' %}order-md-2{% else %}order-md-1{% endif %}">
+                <div class="inside-block {{ section.settings.alignment }}">
+                    {% if section.settings.heading_txt != blank %}
+                        <h3 class="mb-3">{{ section.settings.heading_txt }}</h3> 
+                    {% endif %}
+                    {% if section.settings.txt != blank %}
+                        <div class="mb-3 mb-lg-5">{{ section.settings.txt }}</div>
+                    {% endif %}    
+                    {% if section.settings.step_heading != blank %}
+                        <h6 class="mb-2 mb-md-3 text-uppercase">{{ section.settings.step_heading }}</h6>
+                    {% endif %}
+                    {% if section.settings.steps_captions != blank %}
+                        {% assign caption = section.settings.steps_captions | newline_to_br | strip_newlines | split: '<br />' %}
+                        <ul class="list-unstyled mb-5">
+                            {% for cap in caption %}
+                                <li class="mb-2 mb-md-3">{{ cap }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% if section.settings.btn_txt != blank %}
+                        <a {% if section.settings.btn_link %} href="{{ section.settings.btn_link }}" {% endif %}class="btn btn{% if section.settings.btn_type == 'outline' %}-{% endif %}{{ section.settings.btn_type }}-{{ section.settings.btn_variant }} {{ section.settings.btn_size }}">{{ section.settings.btn_txt }}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+ 
+
+{% schema %}
+    {
+        "name": "Image With Text",
+        "class": "image-text-style",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Layout"
+            },
+            {
+                "type": "checkbox",
+                "id": "fluid_layout",
+                "label": "Full Width Layout?",
+                "default": false
+            },
+            {
+                "type": "header",
+                "content": "Content"
+            },
+            {
+                "type": "textarea",
+                "id": "heading_txt",
+                "label": "Heading Text",
+                "default": "Awesome Heading"
+            },
+            {
+                "type": "richtext",
+                "id": "txt",
+                "label": "Text",
+                "default": "<p>Lipsum dolor sit amet, consectetur adipiscing elit. Aliquam pulvinar ac tortor imperdiet commodo.</p>"
+            },
+            {
+                "type": "text",
+                "id": "step_heading",
+                "label": "Step Heading",
+                "default": "Awesome Sub Heading"
+            },
+            {
+                "type": "textarea",
+                "id": "steps_captions",
+                "label": "Details List",
+                "info":"Each entry must be on a new line."
+            },
+            {
+                "type": "header",
+                "content": "Button"
+            },
+            {
+                "type": "text",
+                "id": "btn_txt",
+                "label": "Button Text"
+            },  
+            {
+                "type": "url",
+                "id": "btn_link",
+                "label": "Button Link"
+            },      
+            {
+                "type": "select",
+                "id": "btn_type",
+                "label": "Button Type",
+                "options": [
+                    {
+                        "value": "outline",
+                        "label": "Outline"
+                    },
+                    {
+                        "value": "",
+                        "label": "Solid"
+                    }
+                ],
+                "default": ""
+            },
+            {
+                "type": "select",
+                "id": "btn_variant",
+                "label": "Button Variant",
+                "options": [
+                    {
+                        "value": "primary",
+                        "label": "Primary"
+                    },
+                    {
+                        "value": "secondary",
+                        "label": "Secondary"
+                    },
+                    {
+                        "value": "white",
+                        "label": "White"
+                    },
+                    {
+                        "value": "dark",
+                        "label": "Dark"
+                    }
+                ],
+                "default": "primary"
+            },
+            {
+                "type": "select",
+                "id": "btn_size",
+                "label": "Button Size",
+                "options": [
+                    {
+                        "value": "",
+                        "label": "Default"
+                    },
+                    {
+                        "value": "btn-sm",
+                        "label": "Small"
+                    },
+                    {
+                        "value": "btn-lg",
+                        "label": "Large"
+                    }
+                ],
+                "default": ""
+            },
+            {
+                "type": "header",
+                "content": "Image"
+            },
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Select Image",
+                "info": "For Better Viewing Use Example dimentions: 775*735 ( Aspect Ratio: 1.05 )"
+            },
+            {
+                "type":"header",
+                "content":"styling"
+            },
+            {
+                "type": "color",
+                "id": "section_bg_color",
+                "label": "Background Color",
+                "default": "#FAFAF7"
+            },
+            {
+                "type": "color",
+                "id": "section_text_color",
+                "label": "Text Color",
+                "default": "#000000"
+            },
+            {
+                "type": "select",
+                "id": "alignment",
+                "label": "Text Alignment",
+                "options": [
+                    {
+                        "value": "text-center",
+                        "label": "Center"
+                    },
+                    {
+                        "value": "text-left",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "text-end",
+                        "label": "Right"
+                    }
+                ],
+                "default": "text-left"
+            },
+            {
+                "type": "select",
+                "id": "image_alignment",
+                "label": "Image Alignment",
+                "options": [
+                    {
+                        "value": "left",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "right",
+                        "label": "Right"
+                    }
+                ],
+                "default": "left"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Image With Text",
+                "category": "Content"
+            }
+        ]
+    }
+{% endschema %}
+
+<style>
+    .inside-block ul li:before{
+        content: "\f149";
+        display: inline-block;
+        font-family: "Ionicons";
+        color:var(--bs-color-primary);
+        text-rendering: auto;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        margin-right: 0.9rem;
+        font-size: 1.8rem;
+        vertical-align: middle;
+    }
+</style>

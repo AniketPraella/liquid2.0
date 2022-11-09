@@ -1,0 +1,240 @@
+<section class="section-content"  data-section-id="{{ section.id }}" style="background-color: {{ section.settings.section_bg_color }}; color: {{ section.settings.section_txt_color }}">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+        <div class="row">
+            <div class="col-12 col-lg-6 col-md-8 text-center mb-md-5 mb-4 mx-auto">
+                {% if section.settings.heading_txt != blank %}
+                  <h3 class="section-title mb-3">{{ section.settings.heading_txt }}</h3>
+                {% endif %}
+
+                {% if section.settings.lead_txt != blank %}
+                  <p>
+                      {{ section.settings.lead_txt }}
+                  </p>
+                {% endif %}
+
+            </div>
+        </div>
+
+        {% assign blocks_size = section.blocks | size %}
+        {% if blocks_size > 0 %}
+          <div class="row">
+              {% for block in section.blocks %}
+              <div class="{% unless section.settings.grid_size == '12' %}col-6{% endunless %} col-md-{{ section.settings.grid_size }}" {{ block.shopify_attributes }} data-block-id="{{ block.id }}">
+                  <div class="feature d-flex flex-column {% if forloop.last == true %} mb-0 {% else %} mb-sm-0 mb-4{% endif %}">
+                      <div class="text-center mb-4">
+                        {% if block.settings.icon_img != blank %}
+                        <img src="{{ block.settings.icon_img }}" alt="{{ block.settings.title }}" title="{{ block.settings.title }}"
+                        width="150"
+                        height="150" loading="lazy"/>
+                        {% else %}
+                        {{ 'image' | placeholder_svg_tag: 'bg-gray-100' }}
+                        {% endif %}
+                      </div>
+                      <div class="text-center px-4">
+                            {% if block.settings.title != blank %}
+                                <h5 class="mb-3 font-size-lg text-uppercase fw-normal lh-base">{{ block.settings.title }}</h5>
+                            {% endif %}
+                            {% if block.settings.txt != blank %}
+                                <div>{{ block.settings.txt }}</div>
+                            {% endif %}
+                      </div>
+                  </div>
+              </div>
+              {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if section.settings.btn_txt != blank %}
+          <div class="row">
+              <div class="col-12 text-center">
+                  <a class="btn btn{% if section.settings.btn_type == 'outline' %}-{% endif %}{{ section.settings.btn_type }}-{{ section.settings.btn_variant }} {{ section.settings.btn_size }} mt-5" href="{{ section.settings.btn_url }}">{{ section.settings.btn_txt }}</a>
+              </div>
+          </div>
+        {% endif %}
+ 
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Features Grid",
+    "class": "index-features-grid",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "checkbox",
+        "id": "fluid_layout",
+        "label": "Full Width Layout?",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "grid_size",
+        "label": "Grid Size",
+        "options": [{
+            "value": "12",
+            "label": "1 Column"
+          },
+          {
+            "value": "6",
+            "label": "2 Columns"
+          },
+          {
+            "value": "4",
+            "label": "3 Columns"
+          },
+          {
+            "value": "3",
+            "label": "4 Columns"
+          },
+          {
+            "value": "2",
+            "label": "6 Columns"
+          }
+        ],
+        "default": "4"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "textarea",
+        "id": "heading_txt",
+        "label": "Heading Text",
+        "default": "Awesome Heading"
+      },
+      {
+        "type": "textarea",
+        "id": "lead_txt",
+        "label": "Lead Text",
+        "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pulvinar ac tortor imperdiet commodo."
+      },
+      {
+        "type": "text",
+        "id": "btn_txt",
+        "label": "Button Text"
+      },
+      {
+        "type": "url",
+        "id": "btn_url",
+        "label": "Button URL"
+      },
+      {
+        "type": "header",
+        "content": "Styling"
+      },
+      {
+        "type": "color",
+        "id": "section_bg_color",
+        "label": "Background Color",
+        "default": "#FAFAF7"
+      },
+      {
+        "type": "color",
+        "id": "section_txt_color",
+        "label": "Text Color",
+        "default": "#222222"
+      },
+      {
+        "type": "select",
+        "id": "btn_type",
+        "label": "Button Type",
+        "options": [{
+            "value": "outline",
+            "label": "Outline"
+          },
+          {
+            "value": "",
+            "label": "Solid"
+          }
+        ],
+        "default": "outline"
+      },
+      {
+        "type": "select",
+        "id": "btn_variant",
+        "label": "Button Variant",
+        "options": [{
+            "value": "primary",
+            "label": "Primary"
+          },
+          {
+            "value": "secondary",
+            "label": "Secondary"
+          },
+          {
+            "value": "light",
+            "label": "Light"
+          },
+          {
+            "value": "dark",
+            "label": "Dark"
+          }
+        ],
+        "default": "primary"
+      },
+      {
+        "type": "select",
+        "id": "btn_size",
+        "label": "Button Size",
+        "options": [{
+            "value": "",
+            "label": "Default"
+          },
+          {
+            "value": "btn-sm",
+            "label": "Small"
+          },
+          {
+            "value": "btn-lg",
+            "label": "Large"
+          }
+        ],
+        "default": ""
+      }
+    ],
+    "presets": [
+      {
+        "name": "Features Grid",
+        "category": "Content"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "content",
+        "name": "Feature Block",
+        "settings": [
+          {
+            "type": "text",
+            "id": "icon_img",
+            "label": "Icon Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading"
+          },
+          {
+            "type": "richtext",
+            "id": "txt",
+            "label": "Text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Features Grid",
+        "blocks": [
+            {
+                "type": "content"
+            }
+        ]
+      }
+    ]
+  }
+{% endschema %}

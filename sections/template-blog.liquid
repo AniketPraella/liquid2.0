@@ -1,0 +1,209 @@
+{%- liquid 
+  assign fluid_layout = section.settings.fluid_layout
+  assign items_per_page = section.settings.items_per_page
+  assign sidebar_enabled = section.settings.enable_sidebar
+  assign blog_title = blog.title
+-%}
+
+{% if current_tags %}
+  {% capture blog_title %}{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}{% endcapture %}
+{% endif %}
+
+<div data-section-id="{{ section.id }}">
+  {% paginate blog.articles by items_per_page %}
+    <section class="section-content">
+        <div class="{% if fluid_layout %}container-fluid{% else %}container{% endif %}">
+            <div class="row mb-lg-6 mb-md-5 mb-4">
+                <div class="col-12 text-center">
+                    <h1 class="page-title">{{ blog_title }}</h1>
+                </div>
+            </div>
+
+            {% if sidebar_enabled %}
+                {% comment %} layout with sidebar {% endcomment %}
+                <div class="row">
+                    <div class="col-lg-9">
+                      <div class="row justify-content-center">
+                        {% for article in blog.articles %}
+                        <div class="{% if fluid_layout %}col-sm-4{% else %}col-sm-6 {% endif %} mb-5 d-flex align-items-stretch">
+                            {% render 'card-article-style', article: article %}
+                        </div>
+                        {% endfor %}
+                      </div>
+                      {% if paginate.pages > 1 %}
+                        <div class="row">
+                            <div class="col-12 text-center mt-5">
+                                {% render 'pagination', paginate: paginate %}
+                            </div>
+                        </div>
+                      {% endif %}
+                    </div>
+                    <div class="col-lg-3">
+                      {% render 'sidebar-blog' %}
+                    </div>
+                </div>
+
+            {% else %}
+
+                {% comment %} layout without sidebar {% endcomment %}
+                <div class="row justify-content-center">
+                    {% for article in blog.articles %}
+                    <div class="col-sm-6 col-lg-4 my-3 d-flex align-items-stretch">
+                        {% render 'card-article-style', article: article %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% if paginate.pages > 1 %}
+                  <div class="row">
+                      <div class="col-12 text-center mt-5">
+                          {% render 'pagination', paginate: paginate %}
+                      </div>
+                  </div>
+                {% endif %}
+
+            {% endif %}
+
+        </div>
+    </section>
+  {% endpaginate %}
+</div>
+
+
+{% schema %}
+  {
+    "name": "Blog Template",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "checkbox",
+        "id": "fluid_layout",
+        "label": "Full Width Layout?",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_sidebar",
+        "label": "Enable Sidebar?",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "sidebar_is_sticky",
+        "label": "Sticky Sidebar?",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "items_per_page",
+        "label": "Articles Per Page",
+        "min": 1,
+        "max": 50,
+        "step": 1,
+        "default": 12
+      },
+      {
+        "type": "paragraph",
+        "content": "Use the section below to customize the sidebar content."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "socials",
+        "name": "Socials",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "enable_socials",
+            "label": "Enabled?",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "socials_title",
+            "label": "Title",
+            "default": "Connect with Us"
+          },
+          {
+            "type": "paragraph",
+            "content": "Select Networks"
+          },
+          {
+            "type": "checkbox",
+            "id": "social_icon_facebook",
+            "label": "Facebook",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "social_icon_twitter",
+            "label": "Twitter",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "social_icon_googleplus",
+            "label": "Google+",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "social_icon_instagram",
+            "label": "Instagram",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "recent-articles",
+        "name": "Recent Articles",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "enable_recent_articles",
+            "label": "Enabled?",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "recent_articles_title",
+            "label": "Title",
+            "default": "Recent Articles"
+          },
+          {
+            "type": "range",
+            "id": "total_recent_articles",
+            "label": "Articles Limit",
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "default": 5
+          }
+        ]
+      },
+      {
+        "type": "tags",
+        "name": "Tags",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "enable_tags",
+            "label": "Enabled?",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "tags_title",
+            "label": "Title",
+            "default": "Tags"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

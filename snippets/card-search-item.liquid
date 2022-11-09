@@ -1,0 +1,114 @@
+<div class="card card-product card-product-style-1 text-start rounded-0 border-0">
+
+    <div class="card-img card-search-item {% if item.featured_image.size == 0 %}bg-gray-300{% endif %}">
+        {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+  
+        <a href="{{ item.url | within: collection }}" title="{{ item.title | escape }}">
+          {% if item.object_type == 'product' %}
+            {% if item.featured_image.size > 0 %}
+                  <img
+                  srcset="
+                    {%- if item.featured_image.width >= 360 -%}{{ item.featured_image | image_url: width: 360 }} 360w,{%- endif -%}
+                    {%- if item.featured_image.width >= 533 -%}{{ item.featured_image | image_url: width: 533 }} 533w,{%- endif -%}
+                    {%- if item.featured_image.width >= 720 -%}{{ item.featured_image | image_url: width: 720 }} 720w,{%- endif -%}
+                    {{ item.featured_image | image_url }} {{ item.featured_image.width }}w"
+                  src="{{ item.featured_image | image_url: width: 533 }}"
+  
+                  sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 100 | divided_by: 3 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"
+                  loading="lazy"
+                  class="img-fluid"
+                  alt="{{ item.featured_image.alt | default: item.title | escape }}"
+                  width="{{ item.featured_image.width }}"
+                  height="{{ item.featured_image.width | divided_by: item.featured_image.aspect_ratio }}"
+                > 
+            {% elsif settings.no_image_replacement != blank %}
+                  <img class="img-fluid"
+                  srcset="
+                  {%- if settings.no_image_replacement.width >= 360 -%}{{ settings.no_image_replacement | image_url: width: 360 }} 360w,{%- endif -%}
+                  {%- if settings.no_image_replacement.width >= 533 -%}{{ settings.no_image_replacement | image_url: width: 533 }} 533w,{%- endif -%}
+                  {%- if settings.no_image_replacement.width >= 720 -%}{{ settings.no_image_replacement | image_url: width: 720 }} 720w,{%- endif -%}
+                  {{ settings.no_image_replacement | image_url }} {{ settings.no_image_replacement.width }}w"
+                  src="{{ settings.no_image_replacement | image_url }}"  
+                  sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 100 | divided_by: 3 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"
+
+                  loading="lazy"
+                  width="{{ settings.no_image_replacement.width }}"
+                  height="{{ settings.no_image_replacement.width | divided_by: settings.no_image_replacement.aspect_ratio }}" 
+                  alt="{{ settings.no_image_replacement.alt | default: item.title | escape }}"/>
+            {% else %}
+              {{ 'product-' | append: current | placeholder_svg_tag: 'img-fluid' }}
+            {% endif %}
+          {% else %}
+            {% if item.image.size > 0 %}
+              <img class="img-fluid"
+                  srcset="
+                    {%- if item.image.width >= 360 -%}{{ item.image | image_url: width: 360 }} 360w,{%- endif -%}
+                    {%- if item.image.width >= 533 -%}{{ item.image | image_url: width: 533 }} 533w,{%- endif -%}
+                    {%- if item.image.width >= 720 -%}{{ item.image | image_url: width: 720 }} 720w,{%- endif -%}
+                    {{ item.image | image_url }} {{ item.image.width }}w"
+                  src="{{ item.image | image_url: width: 533 }}"  
+                  sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 100 | divided_by: 3 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"
+                  loading="lazy"
+                  width="{{ item.image.width }}"
+                  height="{{ item.image.width | divided_by: item.image.aspect_ratio }}"
+                  alt="{{ item.image.alt | default: item.title | escape }}"/>
+
+              {% elsif settings.no_image_replacement != blank %}
+                  <img class="img-fluid"
+                      srcset="
+                      {%- if settings.no_image_replacement.width >= 360 -%}{{ settings.no_image_replacement | image_url: width: 360 }} 360w,{%- endif -%}
+                      {%- if settings.no_image_replacement.width >= 533 -%}{{ settings.no_image_replacement | image_url: width: 533 }} 533w,{%- endif -%}
+                      {%- if settings.no_image_replacement.width >= 720 -%}{{ settings.no_image_replacement | image_url: width: 720 }} 720w,{%- endif -%}
+                      {{ settings.no_image_replacement | image_url }} {{ settings.no_image_replacement.width }}w"
+                      src="{{ settings.no_image_replacement | image_url }}"  
+                      sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 100 | divided_by: 3 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"
+
+                      loading="lazy"
+                      width="{{ settings.no_image_replacement.width }}"
+                      height="{{ settings.no_image_replacement.width | divided_by: settings.no_image_replacement.aspect_ratio }}" 
+                      alt="{{ settings.no_image_replacement.alt | default: item.title | escape }}"/>
+
+
+            {% else %}
+              {% comment %}Extract 1st image from the item contents{% endcomment %}
+              {% if item.content contains "<img" %}
+                {% assign src = item.content | split: 'src="' %}
+                {% assign src = src[1] | split: '"' | first %}
+                <img class="img-fluid" src="{{ src }}"
+                  loading="lazy"
+                  width="850"
+                  height="650"
+                  alt="{{ item.title }}">
+              {% else %}
+                {{ 'collection-' | append: current | placeholder_svg_tag: 'img-fluid' }}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        </a>
+    </div>
+  
+    <div class="card-body row no-gutters px-0">
+        {% if item.object_type == 'product' %}
+          <div class="col-sm-8">
+            <div class="text-uppercase small text-muted mb-1">{{ item.object_type }}</div>
+            <h6 class="card-title m-0">{{ item.title | link_to: item.url }}</h6>
+          </div>
+            <div class="col-sm-4 text-end">
+                {% if item.compare_at_price > item.price %}
+                    <s class="text-gray-700 m-0 p-0">{{ item.compare_at_price | money }}</s>
+                {% endif %}
+                <span class="m-0 p-0">{{ item.price | money }}</span>
+            </div>
+        {% else %}
+          <div class="col-12">
+            <div class="text-uppercase small text-muted">{{ item.object_type }}</div>
+            <h6 class="card-title m-0">{{ item.title | link_to: item.url }}</h6>
+          </div>
+        {% endif %}
+  
+        <div class="col-12">
+          <p class="mt-3">{{ item.content | strip_html | truncatewords: 15 }}</p>
+        </div>
+    </div>
+  </div>
+  

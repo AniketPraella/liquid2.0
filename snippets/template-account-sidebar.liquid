@@ -1,0 +1,20 @@
+<div class="list-group mb-4 mb-lg-0 sticky-top">
+    <ul class="list-unstyled m-0 border">
+        <li class="border-bottom">
+            <a class="p-3 d-block" href="/account" name="{{ 'customer.orders.title' | t }}" title="{{ 'customer.orders.title' | t }}" rel="nofollow" aria-label="{{ 'customer.orders.title' | t }}">
+                {{ 'customer.orders.title' | t }}
+            </a>
+        </li>
+        <li class="border-bottom">    
+            <a class="p-3 d-block" href="{{ routes.account_addresses_url }}">
+                {{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})
+            </a>
+        </li>
+        <li>    
+            <a class="p-3 d-block" href="{{ routes.account_logout_url }}">  
+                {{ 'customer.log_out' | t }}
+            </a>
+        </li>
+    </ul>
+    
+</div>  

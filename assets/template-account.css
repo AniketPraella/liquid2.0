@@ -1,0 +1,20 @@
+.account-tabs .tablink .nav-link{
+    padding: 0.75rem 1.2rem;
+}
+
+.account-tabs .tablink.open .nav-link{
+    background: var(--bs-color-primary);
+    color: var(--bs-body-bg);
+    border-radius: var(--bs-border-radius-button);
+} 
+
+
+.errors{
+    background: #ffdada;
+    border-radius: 5px;
+    color: var(--bs-color-danger);
+}
+.errors ul{
+    list-style: none;
+    padding: 4px 15px 4px;
+}

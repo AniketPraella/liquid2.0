@@ -1,0 +1,169 @@
+<link rel="stylesheet" href="{{ 'global-logo-list.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'global-logo-list.css' | asset_url | stylesheet_tag }}</noscript>
+
+<section class="section-content" style="background: {{ section.settings.section_bg_color }}; color: {{ section.settings.section_txt_color }};" data-section-id="{{ section.id }}">
+    <div data-type="slider">
+            <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+                <div class="row justify-content-center text-center">
+                    <div class="col-xl-6 col-lg-7 col-md-8 px-xl-4 mb-5"> 
+                        {% if section.settings.heading != blank %}
+                            <h3 class="mb-3 section-title">{{ section.settings.heading }}</h3>
+                        {% endif %}
+                        {% if block.settings.txt != blank %}
+                            <div>{{ section.settings.txt }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+        
+                {% if section.blocks.size > 0 %}
+                    <slider-element class="swiper-container carousel d-block position-relative arrow-outside">
+                        <div class="swiper swiper-slider logo-list" data-slider='{
+                            "loop": false,
+                            "slidesPerView": 2,
+                            "spaceBetween": 30,
+                            "grabCursor": true,
+                            "navigation": {
+                                "nextEl": ".logo-button-next",
+                                "prevEl": ".logo-button-prev"
+                            },
+                            "pagination": {
+                                "el": ".swiper-pagination"
+                            },
+                            "breakpoints": {
+                                "560": {
+                                    "slidesPerView": 3,
+                                    "spaceBetween": 20
+                                },
+                                "768": {
+                                    "slidesPerView": 4,
+                                    "spaceBetween": 30
+                                },
+                                "992": {
+                                    "slidesPerView": 5,
+                                    "spaceBetween": 30
+                                },
+                                "1200": {
+                                    "slidesPerView": 6,
+                                    "spaceBetween": 30
+                                }
+                            }
+                        }'>
+                            <div class="swiper-wrapper">
+                                {% for block in section.blocks %}
+                                    <div class="text-center swiper-slide" data-block-id="{{ block.id }}"> 
+                                        <a {% if block.settings.logo_url %}href="{{ block.settings.logo_url }}"{% endif %} class="logo-list-img"> 
+                                            {% if block.settings.logo_img != blank %} 
+                                               
+                                                <img srcset="{{ block.settings.logo_img }}"
+                                                    loading="lazy" 
+                                                    class="mw-100"
+                                                    alt="{{ block.settings.logo_img.alt | default: 'Featured In' | escape }}"
+                                                    width="350"
+                                                    height="150" />
+                                            {% else %}
+                                                {{ 'image' | placeholder_svg_tag: 'border-gray-300 border bg-gray-100 ' }}
+                                            {% endif %} 
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% if section.settings.nav_dots %}
+                                <div class="swiper-pagination"></div>
+                            {% endif %}
+                        </div>
+                        {% if section.settings.nav_arrows %}
+                            <div class="swiper-button-next logo-button-next icon-next"></div>
+                            <div class="swiper-button-prev logo-button-prev icon-previous"></div>
+                        {% endif %}
+                    </slider-element>
+                {% endif %}
+            </div>
+    </div>
+</section>
+    {% schema %}
+        {
+            "name": "Logo List",
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Layout"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "fluid_layout",
+                    "label": "Full Width Layout?",
+                    "default": false
+                },
+                {
+                    "type": "header",
+                    "content": "Content"
+                },
+                {
+                    "type": "textarea",
+                    "id": "heading",
+                    "label": "Heading Text",
+                    "default": "Awesome Heading"
+                },
+                {
+                    "type": "richtext",
+                    "id": "txt",
+                    "label": "Text",
+                    "default": "<p>Awesome Heading</p>"
+                },
+                {
+                    "type": "color",
+                    "id": "section_bg_color",
+                    "label": "Background Color",
+                    "default": "#FAFAF7"
+                },
+                {
+                    "type": "color",
+                    "id": "section_txt_color",
+                    "label": "Text Color",
+                    "default": "#222222"
+                },
+                {
+                    "type": "header",
+                    "content": "Carousel Option"
+                },
+                {
+                    "type": "checkbox", 
+                    "id": "nav_arrows",
+                    "label": "Arrows Navigation",
+                    "default": true 
+                },
+                {
+                    "type": "checkbox",
+                    "id": "nav_dots",
+                    "label": "Dots Navigation",
+                    "default": true
+                }
+            ],
+            "presets": [
+                {
+                    "name": "Logo List",
+                    "category": "Content"
+                }
+            ],
+            "blocks": [
+                {
+                    "type": "content",
+                    "name": "Logo Item",
+                    "settings": [
+                        {
+                            "type": "text",
+                            "id": "logo_img",
+                            "label": "Add Image url"
+                        },
+                        {
+                            "type": "url",
+                            "id": "logo_url",
+                            "label": "url"
+                        }
+                    ]
+                }
+            ]
+        }
+    {% endschema %}
+    

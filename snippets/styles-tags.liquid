@@ -1,0 +1,62 @@
+{%- liquid  render 'theme-style' -%}
+
+{% comment %} Icon css {% endcomment %}
+<link href="{{ 'global-icon.css' | asset_url }}" rel="stylesheet" type="text/css">
+
+{% comment %} Global css {% endcomment %}
+<link href="{{ 'global.css' | asset_url }}" rel="stylesheet" type="text/css">
+
+{% comment %} Swipper Slider css {% endcomment %}
+<link href="{{ 'swiper-bundle.min.css' | asset_url }}" rel="stylesheet" type="text/css">
+
+{% comment %} Product Card css {% endcomment %}
+<link href="{{ 'component-card.css' | asset_url }}" rel="stylesheet" type="text/css">
+
+{% comment %}theme-check-disable LiquidTag{% endcomment %}
+{%- if template.name == 'index' -%}
+    <link href="{{ 'template-index.css' | asset_url }}" rel="stylesheet" type="text/css">
+{%- endif -%}
+{% comment %}theme-check-enable LiquidTag{% endcomment %}
+
+{%- if template.name == 'list-collections' -%} 
+    {% comment %} Pagination css {% endcomment %}
+    <link href="{{ 'component-pagination.css' | asset_url }}" rel="stylesheet" type="text/css">
+{%- endif -%}
+
+{% comment %} Collection Page css {% endcomment %}
+{%- if template.name == 'collection' -%} 
+    {% comment %} Collection Page custom css {% endcomment %}
+    <link href="{{ 'template-collection.css' | asset_url }}" rel="stylesheet" type="text/css">
+
+    {% comment %} Collection Filter css {% endcomment %}
+    <link href="{{ 'component-filter.css' | asset_url }}" rel="stylesheet" type="text/css">
+
+    {% comment %} Pagination css {% endcomment %}
+    <link href="{{ 'component-pagination.css' | asset_url }}" rel="stylesheet" type="text/css">
+{%- endif -%}
+
+{% comment %} Product Page css {% endcomment %}
+{%- if template.name == 'product' -%}
+    <link href="{{ 'template-product.css' | asset_url }}" rel="stylesheet" type="text/css">
+{%- endif -%}
+
+{% comment %} Search Page css {% endcomment %}
+{%- if template.name == 'search' -%} 
+    {% comment %} Search Filter css {% endcomment %}
+    <link href="{{ 'component-filter.css' | asset_url }}" rel="stylesheet" type="text/css">
+
+    {% comment %} Pagination css {% endcomment %}
+    <link href="{{ 'component-pagination.css' | asset_url }}" rel="stylesheet" type="text/css">
+{%- endif -%}
+
+<link href="{{ 'component-modal.css' | asset_url }}" rel="stylesheet" type="text/css">
+
+{%- comment -%} FAQ page css {%- endcomment -%}
+{%- if page.handle == 'faq' -%} 
+    <link href="{{ 'template-faq.css' | asset_url }}" rel="stylesheet" type="text/css">
+{% endif %}
+
+{%- comment -%} Account page css {%- endcomment -%}
+{%- if template.directory == 'customers' -%}
+    <link href="{{ 'template-account.css' | asset_url }}" rel="stylesheet" type="text/css">
+{%- endif -%}

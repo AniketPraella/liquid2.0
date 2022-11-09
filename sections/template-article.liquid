@@ -1,0 +1,480 @@
+{%- liquid 
+  assign sidebar_enabled = section.settings.enable_sidebar
+  assign number_of_comments = article.comments_count
+  assign article_image = article.image.src | image_url: width: 100, height: 100
+
+  if comment and comment.status != 'published'
+    assign number_of_comments = article.comments_count | plus: 1
+  endif
+
+  assign current_found = false
+  assign done = false
+  for a in blog.articles
+    if current_found and done == false
+      assign next_article = a
+      assign done = true
+    endif
+    unless done
+      if a.id == article.id 
+        assign current_found = true
+      else
+        assign prev_article = a
+      endif
+    endunless
+  endfor
+-%}
+
+<section data-section-id="{{ section.id }}" class="section-content" role="article">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+      <div class="row">
+          <div class="col-12 text-center">
+            <h1>{{ article.title }}</h1>
+            <div class="article-meta h6 mt-3">
+              <time datetime="formatDate(article.node.publishedAt)"> {{ article.published_at | date: "%a, %b %d, %Y" }}</time>
+              
+              <span>By: {{ article.author }}</span>
+              {% if blog.comments_enabled? and article.comments_count > 0 %}
+              Comments: {{ article.comments_count }}
+              {% endif %}
+            </div>
+          </div>
+      </div>
+
+      {% unless article_image contains 'no-image' %}
+        <div class="row mt-5">
+          <div class="col-12">
+            <div style="overflow: hidden">
+              <img
+                  src="{{ article.image.src | image_url: width: 1500 }}"
+                  srcset="
+                    {%- if article.image.width >= 375 -%}{{ article.image | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if article.image.width >= 550 -%}{{ article.image | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if article.image.width >= 768 -%}{{ article.image | image_url: width: 768 }} 767w,{%- endif -%}
+                    {%- if article.image.width >= 991 -%}{{ article.image | image_url: width: 991 }} 991w,{%- endif -%}
+                    {%- if article.image.width >= 1200 -%}{{ article.image | image_url: width: 1200 }} 1200w,{%- endif -%}
+                    {%- if article.image.width >= 1500 -%}{{ article.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {{ article.image | image_url }} {{ article.image.width }}w"
+                  sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width }}, 100vw"
+                  loading="lazy"
+                  alt="{{ article.image.alt | default: article.title }}"
+                  width="{{ article.image.width }}"
+                  height="{{ article.image.width | divided_by: article.image.aspect_ratio }}"/>
+              </div>
+          </div>
+        </div>
+      {% endunless %}
+
+      <div class="row mt-5">
+
+          {% if sidebar_enabled %}
+              {% comment %} layout with sidebar {% endcomment %}
+              <div class="col-lg-9 article-body has-sidebar pr-lg-5">
+                <div class="rte mt-lg-3">
+                  {{ article.content }}
+                </div>
+                {% if section.settings.enable_social_sharing %}
+                  <div class="my-5 text-center">
+                    <h6>{{ 'templates.blogs.general.share' | t }}</h6>
+                    {% render 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
+                  </div>
+                {% endif %}
+              </div>
+              <div class="col-lg-3">
+                {% render 'sidebar-blog' %}
+              </div>
+
+          {% else %}
+              {% comment %} layout without sidebar {% endcomment %}
+              <div class="col-12 article-body">
+                <div class="rte">
+                  {{ article.content }}
+                </div>
+                {% if section.settings.enable_social_sharing %}
+                  <div class="mt-5 text-center">
+                    <h6>{{ 'templates.blogs.general.share' | t }}</h6>
+                    {% render 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
+                  </div>
+                {% endif %}
+              </div>
+
+          {% endif %}
+
+      </div>
+
+    </div>
+</section>
+
+{% paginate article.comments by 5 %}
+
+{% if article.comments_enabled? and number_of_comments > 0 %}
+<section class="section-content pb-0 bg-white" id="comments">
+  <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+
+    <div class="row">
+      <div class="col-12">
+        <h2 class="section-title text-center">{{ 'templates.blogs.comments.heading' | t }}</h2>
+      </div>
+    </div>
+
+    {% if comment and comment.created_at %}
+    <div class="row my-3">
+      <div class="col-lg-10 ml-auto mr-auto">
+        <div class="alert alert-success">
+        {% if blog.moderated? and comment.status != 'published' %}
+            {{ 'templates.blogs.comments.success_moderated' | t }}
+        {% else %}
+            {{ 'templates.blogs.comments.success' | t }}
+        {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+      <div class="col-lg-10 ml-auto mr-auto">
+        {% for comment in article.comments %}
+          <div class="media" id="{{ comment.id }}">
+            <div class="media-body">
+              <h5 class="my-0">{{ comment.author }}</h5>
+              <p class="small text-muted font-italic">- {{ comment.created_at | date: "%B %d, %Y" }}</p>
+              {{ comment.content }}
+              {% unless forloop.last %}
+                <hr/>
+              {% endunless %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% if paginate.pages > 1 %}
+      <div class="row">
+        <div class="col-12 text-center">
+          {{ paginate | default_pagination }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endif %}
+
+{% endpaginate %}
+
+{% if article.comments_enabled? %}
+<section class="section-content bg-white">
+  <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+
+    <div class="row">
+      <div class="col-12">
+        <h2 class="section-title text-center">{{ 'templates.blogs.comments.title' | t }}</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-8 ml-auto mr-auto">
+        <!-- Comment Form -->
+        {% form "new_comment", article %}
+
+          {% if form.errors %}
+            <div class="row">
+              <div class="col">
+                <div class="alert alert-warning">{{ form.errors | default_errors }}</div>
+              </div>
+            </div>
+          {% endif %}
+
+          <div class="row">
+            <div class="col-md-6">
+              <input type="text"
+                  class="form-control mt-4"
+                  id="comment-author"
+                  name="comment[author]"
+                  aria-label="name"
+                  placeholder="{{ 'templates.blogs.comments.name' | t }}"
+                  value="{{ form.author }}"
+                  required
+                  spellcheck="false"
+                  autocomplete="off"
+                  autocapitalize="off">
+            </div>
+            <div class="col-md-6">
+              <input
+                  type="email"
+                  class="form-control mt-4"
+                  id="comment-email"
+                  name="comment[email]"
+                  aria-label="email"
+                  placeholder="{{ 'templates.blogs.comments.email' | t }}"
+                  value="{{ form.email }}"
+                  required
+                   spellcheck="false"
+                   autocomplete="off"
+                   autocapitalize="off">
+            </div>
+            <div class="col-sm-12">
+              <textarea
+                  class="form-control mt-4"
+                  rows="4" id="comment-body"
+                  name="comment[body]"
+                  aria-label="comments"
+                  placeholder="{{ 'templates.blogs.comments.message' | t }}"
+                  required
+                   spellcheck="false"
+                   autocomplete="off"
+                   autocapitalize="off">
+                      {{ form.body }}
+              </textarea>
+            </div>
+            <div class="col-sm-12 text-center">
+              {% if blog.moderated? %}
+                <p class="mt-3 mb-0 font-italic">{{ 'templates.blogs.comments.moderated' | t }}</p>
+              {% endif %}
+              <input type="submit" value="{{ 'templates.blogs.comments.post' | t }}" class="btn btn-primary mt-4" />
+            </div>
+          </div>
+        {% endform %}
+        <!-- End Comment Form -->
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endif %}
+
+{% comment %} article navigation {% endcomment %}
+{% if section.settings.enable_article_navigation %}
+  {%- liquid 
+    assign current_found = false
+    assign done = false
+
+    for a in blog.articles
+      if current_found and done == false
+        assign next_article = a
+        assign done = true
+      endif
+      unless done
+        if a.id == article.id
+          assign current_found = true
+        else
+          assign prev_article = a
+        endif
+      endunless
+    endfor
+  -%}
+
+  {% if section.settings.navigation_type == 'modern' %}
+    {% if next_article %}
+      <section class="article-navigation section-content">
+        <a href="{{ next_article.url }}" title="{{ next_article.title }}" aria-label="{{ next_article.title }}">
+          <link rel="prerender" href="{{ next_article.url }}">
+          <div class="inner py-5">
+            <div class="container">
+              <div class="row">
+                <div class="col-12 text-center">
+                  <h6 class="text-warning">{{ 'templates.blogs.modern_navigation.next' | t }} <span class="icon-arrow-next"></span></h6>
+                  <h4 class="text-white my-0">{{ next_article.title }}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="overlay"></div>
+          <div
+            style="background-image: url({{ next_article.image.src | image_url: width: 350, crop: 'center', format: 'pjpg' }});"
+            class="bg-img"></div>
+        </a>
+      </section>
+    {% endif %}
+  {% else %}
+    <section class="section-content bg-gray-100">
+      <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+        <div class="row">
+          <div class="col-6 col-md-5 d-flex align-items-center">
+            {% if prev_article %}
+              <a href="{{ prev_article.url }}" class="d-flex align-items-center" title="{{ prev_article.title }}" aria-label="{{ prev_article.title }}">
+                <span class="icon-previous me-3"></span>
+                <img src="{{ prev_article.image.src | image_url: width: 50, height: 50, crop: 'center' }}" 
+                class="d-none d-md-inline-block me-3" 
+                width="{{ prev_article.image.width }}"
+                height="{{ prev_article.image.width | divided_by: prev_article.image.aspect_ratio }}"
+                loading="lazy" alt="{{ prev_article.title }}"/>
+                <span class="pe-lg-4">{{ prev_article.title }}</span>
+              </a>
+            {% endif %}
+          </div>
+          <div class="col-md-2 d-none d-md-flex align-items-center justify-content-center">
+            <a href="{{ blog.url }}" data-toggle="tooltip" data-placement="top" title="Back to {{ blog.title | downcase }} index"><span class="ion-grid display-4"></span></a>
+          </div>
+          <div class="col-6 col-md-5 d-flex align-items-center justify-content-end">
+            {% if next_article %}
+              <a href="{{ next_article.url }}" class="d-flex align-items-center" title="{{ next_article.title }}" aria-label="{{ next_article.title }}">
+                <link rel="prerender" href="{{ next_article.url }}">
+                <span class="ps-lg-4">{{ next_article.title }}</span>
+                <img src="{{ next_article.image.src | image_url: width: 50, height: 50, crop: 'center' }}" class="d-none d-md-inline-block ms-3"
+                  width="{{ next_article.image.width }}"
+                  height="{{ next_article.image.width | divided_by: next_article.image.aspect_ratio }}"
+                  loading="lazy" alt="{{ next_article.title }}"/>
+                  <span class="icon-next ms-3"></span>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endif %}
+{% endif %}
+
+
+{% schema %}
+  {
+    "name": "Article Template",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "checkbox",
+        "id": "fluid_layout",
+        "label": "Full Width Layout?",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_social_sharing",
+        "label": "Enable Article Social Sharing?",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_sidebar",
+        "label": "Enable Sidebar?",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "sidebar_is_sticky",
+        "label": "Sticky Sidebar?",
+        "default": false
+      },
+      {
+        "type": "paragraph",
+        "content": "Use the 'Content' section below to customize the sidebar content."
+      },
+      {
+        "type": "header",
+        "content": "Article Navigation"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_article_navigation",
+        "label": "Enable Article Navigation?",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "navigation_type",
+        "label": "Navigation Type",
+        "options": [{
+            "value": "simple",
+            "label": "Simple"
+          },
+          {
+            "value": "modern",
+            "label": "Modern"
+          }
+        ],
+        "default": "simple"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "socials",
+        "name": "Socials",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "enable_socials",
+            "label": "Enabled?",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "socials_title",
+            "label": "Title",
+            "default": "Connect with Us"
+          },
+          {
+            "type": "paragraph",
+            "content": "Select Networks"
+          },
+          {
+            "type": "checkbox",
+            "id": "social_icon_facebook",
+            "label": "Facebook",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "social_icon_twitter",
+            "label": "Twitter",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "social_icon_instagram",
+            "label": "Instagram",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "recent-articles",
+        "name": "Recent Articles",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "enable_recent_articles",
+            "label": "Enabled?",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "recent_articles_title",
+            "label": "Title",
+            "default": "Recent Articles"
+          },
+          {
+            "type": "range",
+            "id": "total_recent_articles",
+            "label": "Articles Limit",
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "default": 5
+          }
+        ]
+      },
+      {
+        "type": "tags",
+        "name": "Tags",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "enable_tags",
+            "label": "Enabled?",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "tags_title",
+            "label": "Title",
+            "default": "Tags"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

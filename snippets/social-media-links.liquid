@@ -1,0 +1,33 @@
+<ul class="social-links list-unstyled list-inline mt-3 mb-0">
+    {% if section.settings.social_icon_facebook %}
+    <li class="list-inline-item">
+        <a href="{{ settings.social_facebook_link }}" target="_blank" style="color: {{ section.settings.footer_top_link_color }};" title="Facebook" rel="nofollow" aria-label="Facebook">
+            <span class="icon-facebook"></span>
+        </a>
+    </li>
+    {% endif %}
+
+    {% if section.settings.social_icon_twitter %}
+    <li class="list-inline-item">
+        <a href="{{ settings.social_twitter_link }}" target="_blank" style="color: {{ section.settings.footer_top_link_color }};" title="Twitter" rel="nofollow" aria-label="Twitter">
+            <span class="icon-twitter"></span>
+        </a>
+    </li>
+    {% endif %}
+
+    {% if section.settings.social_icon_instagram %}
+    <li class="list-inline-item">
+        <a href="{{ settings.social_instagram_link }}" target="_blank" style="color: {{ section.settings.footer_top_link_color }};" title="Instagram" rel="nofollow" aria-label="Instagram">
+            <span class="icon-instagram"></span>
+        </a>
+    </li>
+    {% endif %}
+
+    {% if section.settings.social_icon_youtube %}
+    <li class="list-inline-item">
+        <a href="{{ settings.social_youtube_link }}" target="_blank" style="color: {{ section.settings.footer_top_link_color }};" title="YouTube" rel="nofollow" aria-label="YouTube">
+            <span class="icon-youtube-new"></span>
+        </a>
+    </li>
+    {% endif %}
+</ul>

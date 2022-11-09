@@ -1,0 +1,308 @@
+{{ 'global-header.css' | asset_url | stylesheet_tag }}
+
+{% assign logo_svg = section.settings.logo_svg %}
+<{% if section.settings.enable_sticky_header %}sticky-header{% else %}div{% endif %}>
+  <header class="site-header {% if section.settings.show_line_separator %}border-bottom{% endif %}" style="background-color: {{ section.settings.header_bg_color }};">
+
+    {% if section.settings.topbar_enabled %}
+    <div class="topbar d-flex align-items-center" data-top-bar style="background-color: {{ section.settings.topbar_bg_color }}; min-height: {{ section.settings.topbar_height }}px;">
+      <div class="container">
+          <div class="d-block text-center ls-1 py-1" style="color: {{ section.settings.topbar_text_color }};font-size: {{ section.settings.topbar_font_size }}">
+            {{ section.settings.topbar_text }}
+          </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {%- comment -%}Desktop Menu{%- endcomment -%}
+    {%- if section.settings.menu != blank -%}
+      <nav class="navbar navbar-main navbar-expand-lg py-0" aria-label="Main Navigation">
+        <div class="{% if section.settings.fluid_header %}container-fluid{% else %}container px-sm-3 px-2{% endif %}">
+          <!-- Dektop Header Logo -->
+          {%- if request.page_type == 'index' -%}
+            <div class="header__heading mb-0">
+          {%- endif -%}
+              <a href="{{ routes.root_url }}" class="navbar-brand me-5 d-none d-lg-block" title="{{ shop.name | escape }}" aria-label="{{ shop.name | escape }}">
+                {%- if logo_svg != blank -%}
+                  <img src="{{ section.settings.logo_svg }}" alt="{{ shop.name | escape }}" class="img-fluid" height="auto" width="150" loading="lazy" style="width: {{ section.settings.logo_width }}px">
+                {%- elsif section.settings.logo != blank -%}
+                  <img srcset="{{ section.settings.logo | image_url: width: 500 }}"
+                    src="{{ section.settings.logo | image_url }}"
+                    loading="lazy"
+                    class="img-fluid"
+                    width="{{ section.settings.logo.width }}"
+                    height="{{ section.settings.logo.height }}"
+                    alt="{{ section.settings.logo.alt | default: shop.name | escape }}" 
+                    style="max-width: {{ section.settings.logo_width }}px" >
+                {%- else -%}
+                  <span class="h5 text-primary">{{ shop.name }}</span>
+                {%- endif -%}
+              </a>
+          {%- if request.page_type == 'index' -%}
+            </div>
+            <h1 class="d-none">{{ shop.name }}</h1>
+          {%- endif -%}
+
+          <div class="collapse navbar-collapse">
+            {% render 'desktop-navbar' %}
+          </div>
+
+          <div class="nav navbar-mobile w-100 d-flex align-items-center list-unstyled py-3 d-lg-none">
+            <div class="col-4 col-sm-4 px-0 text-left navbar-icon-links">
+                <div class="nav-item">
+                    <a class="nav-link" href="#" id="mobile-menu" title="menu" rel="nofollow" aria-label="Menu" role="button" aria-expanded="false" aria-controls="mobile-menu-drawer">
+                        <span class="icon-menu"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-4 col-sm-4 text-center">
+                {%- if request.page_type == 'index' -%}
+                <div class="header__heading mb-0">
+                {%- endif -%}
+                    <a href="{{ routes.root_url }}" class="navbar-brand nav-item" title="{{ shop.name | escape }}" aria-label="{{ shop.name | escape }}">
+                        {%- if logo_svg != blank -%}
+                            <img src="{{ logo_svg }}" alt="{{ shop.name | escape }}" class="img-fluid" style="width: {{ section.settings.logo_width }}px" loading="lazy" 
+                            width="{{ section.settings.logo_width }}"
+                            height="40"
+                        >
+                        {%- elsif section.settings.logo != blank -%}
+                          <img srcset="{{ section.settings.logo | image_url: width: 500 }}"
+                            src="{{ section.settings.logo | image_url }}"
+                            loading="lazy"
+                            class="img-fluid"
+                            width="{{ section.settings.logo.width }}"
+                            height="{{ section.settings.logo.height }}"
+                            alt="{{ section.settings.logo.alt | default: shop.name | escape }}" 
+                            style="max-width: {{ section.settings.logo_width }}px">
+                        {%- else -%}
+                            <span class="h5 text-primary">{{ shop.name }}</span>
+                        {%- endif -%}
+                    </a>
+                {%- if request.page_type == 'index' -%}
+                </div>
+                {%- endif -%}
+            </div>
+            <div class="col-4 col-sm-4 px-0 text-right">
+                <ul class="align-items-center d-flex justify-content-end list-unstyled mb-0 ms-auto navbar-icon-links">
+                    {% if shop.customer_accounts_enabled %}
+                        <li class="nav-item px-2">
+                            <a class="nav-link" href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" title="account" rel="nofollow" aria-label="Account">
+                                <span class="icon-user"></span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {%- if settings.enable_search -%}
+                    <li class="nav-item px-2">
+                      <a href="{{ routes.search_url }}" class="nav-link modal__toggle open-searchform" aria-haspopup="dialog" aria-label="{{ 'general.search.title' | t }}">
+                        <span class="icon-search"></span>
+                      </a>
+                    </li>
+                    {%- endif -%}
+                    <li class="nav-item px-2">
+                        <a href="{{ routes.cart_url }}" class="nav-link header__icon--cart position-relative" focusable="false" id="cart-icon-mobile" rel="nofollow" title="cart" rel="nofollow" aria-label="Cart">
+                        <span class="icon-bag align-middle"></span>
+                        <span class="visually-hidden">{{ 'templates.cart.title' | t }}</span>
+                        {%- if cart != empty -%}
+                            {%- if cart.item_count < 100 -%}
+                            <span aria-hidden="true" class="cart-count">{{ cart.item_count }}</span>
+                            {%- endif -%}
+                        {%- endif -%}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+          </div>
+
+        </div>
+      </nav>
+    {%- endif -%}
+  </header> 
+</{% if section.settings.enable_sticky_header %}sticky-header{% else %}div{% endif %}>
+
+
+{%- if section.settings.enable_sticky_header -%}
+  <script src="{{ 'component-sticky-header.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+
+{% comment %} Organization {% endcomment %}
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    {% if section.settings.logo or logo_svg %}
+      {% if logo_svg %}
+        "logo": {{ logo_svg | json }},
+      {% else %}
+        {% assign image_size = section.settings.logo.width | append: 'x' %}
+        "logo": {{ section.settings.logo | image_url: image_size | prepend: "https:" | json }},
+      {% endif %}
+    {% endif %}
+    "sameAs": [
+      {{ settings.social_twitter_link | json }},
+      {{ settings.social_facebook_link | json }},
+      {{ settings.social_pinterest_link | json }},
+      {{ settings.social_instagram_link | json }},
+      {{ settings.social_tumblr_link | json }},
+      {{ settings.social_snapchat_link | json }},
+      {{ settings.social_youtube_link | json }},
+      {{ settings.social_vimeo_link | json }}
+    ],
+    "url": {{ shop.url | append: page.url | json }}
+  }
+</script>
+
+
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.header_topbar.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "topbar_enabled",
+      "label": "t:sections.header.settings.header_topbar_enabled.label",
+      "default": false
+    },
+    {
+      "type": "html",
+      "id": "topbar_text",
+      "label": "t:sections.header.settings.header_topbar_text.label"
+    },
+    {
+      "type": "color",
+      "id": "topbar_bg_color",
+      "label": "t:sections.header.settings.header_topbar_bg_color.label",
+      "default": "#D29C7D"
+    },
+    {
+      "type": "color",
+      "id": "topbar_text_color",
+      "label": "t:sections.header.settings.header_topbar_text_color.label",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "topbar_height",
+      "label": "t:sections.header.settings.header_topbar_height.label",
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "topbar_font_size",
+      "label": "t:sections.header.settings.header_topbar_font_size.label",
+      "default": "13px"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.header_layout.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "fluid_header",
+      "label": "t:sections.header.settings.full_width.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_header",
+      "default": true,
+      "label": "t:sections.header.settings.enable_sticky_header.label",
+      "info": "t:sections.header.settings.enable_sticky_header.info"
+    },
+    {
+      "type": "color",
+      "id": "header_bg_color",
+      "label": "t:sections.header.settings.header_bg_color.label",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_line_separator",
+      "default": false,
+      "label": "t:sections.header.settings.show_line_separator.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.header_logo.label"
+    },
+    {
+      "type": "textarea",
+      "id": "logo_svg",
+      "label": "t:sections.header.settings.logo_svg.label",
+      "info": "t:sections.header.settings.logo_svg.info"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.header.settings.logo.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.header_stlying.label"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "default": 100,
+      "unit": "t:sections.header.settings.logo_width.unit",
+      "label": "t:sections.header.settings.logo_width.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.header_menu.label"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.menu.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "megamenu",
+      "name": "MegaMenu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Menu Title",
+          "info": "Use Exact string as header"
+        },
+        {
+            "type":"image_picker",
+            "id":"image",
+            "label": "Image",
+            "info": "Use 480x480 sized image."
+        },
+        {
+            "type":"text",
+            "id":"link_text",
+            "label":"Link text"
+        },
+        {
+            "type":"url",
+            "id":"link_url",
+            "label":"URL"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+
+

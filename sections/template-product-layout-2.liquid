@@ -1,0 +1,412 @@
+<div data-section-id="{{ section.id }}" data-template="product" class="{% if product.has_only_default_variant %}only-default-variant{% endif %}">
+    {%- liquid 
+      assign productExcludeTag = settings.product_exclude_tag_text
+      assign fluid_layout = section.settings.fluid_layout
+      assign current_variant = product.selected_or_first_available_variant
+      assign featured_image = current_variant.featured_image | default: product.featured_image
+  
+      capture current
+        cycle 1, 2
+      endcapture
+    -%}
+  
+    <section class="section-content" data-product-container>
+      <div class="{% if fluid_layout %}container-fluid{% else %}container{% endif %}">
+          <div class="row">
+              {% render 'breadcrumbs' %}
+          </div>
+  
+          <div class="row align-items-start">
+              <div class="col-lg-8">
+                  <div data-type="slider" class="product-images-wrapper pr-lg-4 text-center">
+                      {% if featured_image != blank %}
+                          <a class="skip-to-content-link button visually-hidden" href="#ProductInfo-{{ section.id }}">
+                            {{ "accessibility.skip_to_product_info" | t }}
+                          </a>
+                          <div class="row mx-md-n2 mx-n1" data-productImagesContainer role="tree">
+                            {% for media in product.media %}
+                                {% if media.media_type == 'image' %}
+                                    {% assign image = media %}
+                                    <div class="product--media col-6 my-md-2 my-1 px-md-2 px-1 position-relative" data-mediaID="{{ image.id }}" role="treeitem">
+                                        <img srcset="
+                                          {%- if image.src.width >= 350 -%}{{ image.src | image_url: width: 350 }} 350w,{%- endif -%}
+                                          {%- if image.src.width >= 550 -%}{{ image.src | image_url: width: 550 }} 550w,{%- endif -%}
+                                          {%- if image.src.width >= 750 -%}{{ image.src | image_url: width: 750 }} 750w,{%- endif -%}
+                                          {%- if image.src.width >= 991 -%}{{ image.src | image_url: width: 991 }} 991w,{%- endif -%}
+                                          {%- if image.src.width >= 1200 -%}{{ image.src | image_url: width: 1200 }} 1200w,{%- endif -%} 
+                                          {%- if image.src.width >= 1500 -%}{{ image.src | image_url: width: 1500 }} 1500w,{%- endif -%} 
+                                          {{ image.src | image_url }} {{ image.src.width }}w"
+                                          src="{{ image.src | image_url: width: 1500 }}" loading="lazy"
+                                          data-variant-title="{{ image.alt | escape }}"
+                                          sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | divided_by: 2 }}px, 100vw"
+                                          alt="{{ image.alt | escape }}"
+                                          width="{{ image.src.width }}"
+                                          height="{{ image.src.width | divided_by: image.src.aspect_ratio | round }}"
+                                      >
+                                    </div>
+                                {% elsif media.media_type == 'external_video' or media.media_type == 'video' %}
+                                    <div class="product--media col-6 my-md-2 my-1 px-md-2 px-1 position-relative" data-mediaID="{{ media.id }}" role="treeitem">
+                                        {%- render 'media', media: media -%}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                      {% else %}
+                        {{ 'image' | append: current | placeholder_svg_tag: 'img-fluid' }}
+                      {% endif %}
+                  </div>
+              </div>
+  
+              <div class="col-lg-4 sticky-lg-top" id="ProductInfo-{{ section.id }}">
+                  <div class="product-details-wrapper mt-5 mt-lg-0" data-slider_type="{{ section.settings.slider_type }}">
+                    <h1>{{ product.title }}</h1>
+                    {%- for block in section.blocks -%}
+                      {%- case block.type -%}
+                      {%- when '@app' -%}
+                          {% render block %}
+                      {%- when 'subtitle' -%}
+                          <div class="align-items-center mt-2">
+                              {{ block.settings.subtitle }}
+                          </div>
+                      {%- when 'vendor' -%}
+                          {% assign show_vendor = block.settings.show_vendor %}
+                          <div class="align-items-center">
+                              {% if show_vendor %} <span class="my-0">{{ product.vendor }}</span> {% endif %}
+                          </div>
+                      {%- when 'price' -%}
+                          <div class="price-wrapper mt-2">
+                              {%- if current_variant.compare_at_price > current_variant.price -%}<s class="h6 text-gray-600 mr-2 money" data-comparePrice>{{ current_variant.compare_at_price | money }}</s>{%- endif -%}
+                              <span class="h5 actual-price money" data-currentPrice>{{ current_variant.price | money }}</span>
+                          </div>
+                          {%- form 'product', product, data-productid: product.id, id: 'product-form-installment', class: 'installment caption-large mt-4' -%}
+                              <input type="hidden" name="id" data-productid="{{ product.id }}" value="{{ product.selected_or_first_available_variant.id }}">
+                              {{ form | payment_terms }}
+                          {%- endform -%}
+                      {%- when 'product-tabs' -%}
+                        {%- liquid 
+                          if block.settings.enable_product_tabs and section.settings.product_tabs_placement == 'beside_slider'
+                            render 'block-product-tabs'
+                          endif
+                        -%}
+                      {%- when 'product_form' -%}
+                        {%- liquid 
+                          unless product.tags contains productExcludeTag
+                            render 'form-product', product: product, current_variant: current_variant, format: 'product-page'
+                          endunless
+                        -%}
+                      {%- when 'share' -%}
+                          {% if block.settings.show_social_share %}
+                              <h6 class="mt-5 mb-2">{{ 'products.product.share' | t }}</h6>
+                              {% render 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
+                          {% endif %}
+                      {%- endcase -%}
+                    {%- endfor -%}
+                  </div>
+  
+              </div>
+          </div>
+      </div>
+    </section>
+  
+    {%- liquid 
+      for block in section.blocks
+        case block.type
+        when 'product-tabs'
+          if block.settings.enable_product_tabs and section.settings.product_tabs_placement == 'below_slider'
+            render 'block-product-tabs', block: block
+          endif
+        when 'related-products'
+          if block.settings.enable_related_products
+            render 'block-related-products', block: block
+          endif
+        endcase
+      endfor
+    -%}
+  </div>
+  
+  <script type="application/json" data-productMedia>
+    {{ product.media | json }}
+  </script>
+  
+  {% schema %}
+  {
+    "name": "t:sections.template-product.name",
+    "tag": "section",
+    "class": "product-section spaced-section",
+    "blocks": [
+      {
+        "type": "@app"
+      },
+      {
+        "type": "vendor",
+        "name": "Vendor",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "show_vendor",
+            "default": true,
+            "label": "Show Vendor"
+          }
+        ]
+      },
+      {
+        "type": "price",
+        "name": "Price",
+        "limit": 1
+      },
+      {
+        "type": "product_form",
+        "name": "Product Form",
+        "limit": 1
+      },
+      {
+        "type": "description",
+        "name": "Description",
+        "limit": 1
+      },
+      {
+        "type": "subtitle",
+        "name": "SubTitle",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "subtitle",
+            "label": "SubTitle"
+          }
+        ]
+      },
+      {
+        "type": "share",
+        "name": "Share",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "show_social_share",
+            "default": true,
+            "label": "Show Social Sharing"
+          }
+        ]
+      },
+      {
+        "type": "product-tabs",
+        "name": "Product Tabs",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_product_tabs",
+            "label": "Enabled?",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "product_tabs_fluid_layout",
+            "label": "Full Width Layout?",
+            "default": false
+          },
+          {
+            "type": "select",
+            "id": "product_tabs_layout",
+            "label": "Product Tabs Layout",
+            "options": [
+              {
+                "value": "tabify",
+                "label": "Tabify"
+              },
+              {
+                "value": "accordion",
+                "label": "Accordion"
+              }
+            ],
+            "default": "tabify"
+          },
+          {
+            "type": "header",
+            "content": "Tabs"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_descripion_tab",
+            "label": "Enable Description Tab?",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_custom_tab_1",
+            "label": "Enable Custom Tab 1?"
+          },
+          {
+            "type": "text",
+            "id": "tab_1_title",
+            "label": "Tab 1 Title",
+            "default": "Tab Title 1"
+          },
+          {
+            "type": "page",
+            "id": "tab_1_content",
+            "label": "Tab 1 Content"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_custom_tab_2",
+            "label": "Enable Custom Tab 2?"
+          },
+          {
+            "type": "text",
+            "id": "tab_2_title",
+            "label": "Tab 2 Title",
+            "default": "Tab Title 2"
+          },
+          {
+            "type": "richtext",
+            "id": "tab_2_content",
+            "label": "Tab 2 Content"
+          }
+        ]
+      },
+      {
+        "type": "related-products",
+        "name": "Related Products",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_related_products",
+            "label": "Enabled?"
+          },
+          {
+            "type": "checkbox",
+            "id": "related_products_fluid_layout",
+            "label": "Full Width Layout?",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "related_products_view",
+            "label": "Total Items to Show",
+            "min": 0,
+            "max": 16,
+            "step": 1,
+            "default": 9
+          },
+          {
+            "type": "range",
+            "id": "related_products_auto_play",
+            "label": "Autoplay",
+            "info": "Duration of animation between slides (in seconds). Set to zero if you don't want the slider to autoplay.",
+            "min": 0,
+            "max": 10,
+            "step": 1,
+            "default": 0
+          },
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "text",
+            "id": "related_products_heading_txt",
+            "label": "Heading Text",
+            "default": "Related Products"
+          },
+          {
+            "type": "select",
+            "id": "product_type",
+            "label": "Product Type",
+            "options": [
+              {
+                "value": "product-recommendations",
+                "label": "Product Recommendations"
+              },
+              {
+                "value": "related-products",
+                "label": "Related Products"
+              }
+            ],
+            "default": "product-recommendations"
+          },
+          {
+            "type": "paragraph",
+            "content": "Product Recommendations: Products comes from Shopify."
+          },
+          {
+            "type": "paragraph",
+            "content": "Related Products: Products which belongs to same collection."
+          },
+          {
+            "type": "header",
+            "content": "Styling"
+          },
+          {
+            "type": "color",
+            "id": "related_products_section_bg_color",
+            "label": "Background Color",
+            "default": "#FAFAF7"
+          },
+          {
+            "type": "color",
+            "id": "related_products_section_color",
+            "label": "Text Color",
+            "default": "#343a40"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "checkbox",
+        "id": "fluid_layout",
+        "label": "Full Width Layout?",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Features"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show Vendor?",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_dynamic_checkout",
+        "label": "Enable Dynamic checkout Buttons?",
+        "default": false,
+        "info": "Using the payment methods available on your store, customers see their preferred option, like PayPal or Apple Pay. [Learn more](https:\/\/help.shopify.com\/manual\/using-themes\/change-the-layout\/dynamic-checkout)"
+      },
+      {
+        "type": "select",
+        "id": "product_tabs_placement",
+        "label": "Product Tabs Placement",
+        "options": [
+          {
+            "value": "beside_slider",
+            "label": "Beside Product Slider"
+          },
+          {
+            "value": "below_slider",
+            "label": "Below Product Slider"
+          }
+        ],
+        "default": "below_slider"
+      }
+    ]
+  }
+  {% endschema %}

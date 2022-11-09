@@ -1,0 +1,14 @@
+{
+  "layout": false,
+  "wrapper": "main#product-quickshop-html",
+  "sections": {
+    "main": {
+      "type": "template-product-quickshop",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

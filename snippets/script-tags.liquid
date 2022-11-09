@@ -1,0 +1,74 @@
+{% comment %}theme-check-disable ParserBlockingJavaScript{% endcomment %}
+<script src="{{ 'utility.js' | asset_url }}" ></script>
+
+<script src="{{ 'global.js' | asset_url }}"></script>
+
+{% comment %}theme-check-enable ParserBlockingJavaScript{% endcomment %}
+
+{%- if settings.enable_search -%}
+<script src="{{ 'component-search.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{% if settings.enable_quickshop %}
+<script src="{{ 'component-quickshop.js' | asset_url }}" defer></script>
+{% endif %}
+
+{%- if settings.enable_cart_drawer or template.name == 'cart' -%}
+    <script src="{{ 'component-ajax-cart.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{%- comment -%} Index Page JS {%- endcomment -%}
+{%- if template.name == 'index' -%}
+<script src="{{ 'template-index.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{%- comment -%} Collection Page Filtering and Sorting {%- endcomment -%}
+{%- if template.name == 'collection' -%}
+<script src="{{ 'component-collection-filters.js' | asset_url }}" defer></script>
+<script src="{{ 'template-collection.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{%- comment -%} Product Page JS {%- endcomment -%}
+{%- if template.name == 'product' -%}
+<script src="{{ 'template-product.js' | asset_url }}" defer></script>
+{%- endif -%}
+<script src="{{ 'component-product-form.js' | asset_url }}" defer></script>
+
+{%- comment -%} Cart Page JS {%- endcomment -%}
+{% if template.name == 'cart' %}
+<script src="{{ 'template-cart.js' | asset_url }}" defer></script>
+{% endif %}
+
+{%- comment -%} Search Page JS {%- endcomment -%}
+{%- if template.name == 'search' -%}
+<script src="{{ 'component-search-filter.js' | asset_url }}" defer></script>
+<script src="{{ 'template-search.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{%- comment -%} Login/Register Page JS {%- endcomment -%}
+{%- if template.name == 'login' or template.name == 'register' -%}
+<script src="{{ 'template-login-register.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{%- comment -%} Address Page JS {%- endcomment -%}
+{%- if template.name == 'addresses' -%}
+<script src="{{ 'template-account-address.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{%- comment -%} Blog Page JS {%- endcomment -%}
+{%- if template.name == 'blog' or template.name == 'article' -%}
+<script src="{{ 'template-blog-article.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{%- comment -%} Article Page JS {%- endcomment -%}
+{%- if template == 'page.faq' -%}
+<script src="{{ 'template-faq.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{%- comment -%} <script src="{{ 'custom.js' | asset_url }}" defer></script> {%- endcomment -%}
+
+{%- comment -%} Customization page JS {%- endcomment -%}
+{%- if request.design_mode -%}
+<script src="{{ 'sections.js' | asset_url }}" defer></script>
+{%- endif -%}
+

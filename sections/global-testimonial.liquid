@@ -1,0 +1,216 @@
+<link rel="stylesheet" href="{{ 'global-testimonial.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'global-testimonial.css' | asset_url | stylesheet_tag }}</noscript>
+
+<section class="section-content position-relative" data-section-id="{{ section.id }}" style="background: {{ section.settings.section_bg_color }}; color:{{ section.settings.section_text_color }}">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+        <div class="row mb-3">
+            <div class="col-12 text-center">
+                {% if section.settings.heading_txt != blank %}
+                  <h6 class="section-title text-uppercase">{{ section.settings.heading_txt }}</h6>
+                {% endif %}
+ 
+                {% if section.settings.lead_txt != blank %}
+                  <p class="mb-0">
+                      {{ section.settings.lead_txt }}
+                  </p>
+                {% endif %}
+            </div>
+        </div>
+        {% if section.blocks.size > 0 %}
+            <slider-element class="swiper-container carousel">
+                <div class="swiper swiper-slider testimonial-list pb-7" data-slider='{
+                    "loop": false,
+                    "slidesPerView": 1,
+                    "spaceBetween": 30,
+                    "grabCursor": true,
+                    "navigation": {
+                        "nextEl": ".testimonial-button-next",
+                        "prevEl": ".testimonial-button-prev"
+                    },
+                    "pagination": {
+                        "el": ".swiper-pagination"
+                    }
+                }'>
+                    <div class="swiper-wrapper">
+                        {% for block in section.blocks %}
+                            <div class="{{ block.settings.alignment }} swiper-slide" data-block-id="{{ block.id }}"> 
+                                {% if block.settings.title != blank %}
+                                    <div class="col-xl-7 col-lg-8 col-md-10 px-0 mx-auto">    
+                                        <div class="mb-0 h3 fw-normal lh-base">{{ block.settings.title }}</div> 
+                                        {% if block.settings.author_name != blank %}<p class="lead font-italic font-weight-normal mb-0 mt-3">{{ block.settings.author_name }}</p>{% endif %}
+                                    </div>     
+                                {% endif %}
+                                {% if block.settings.quote_logo != blank %} 
+                                    <div class="testimonial-logo-img pt-5 pt-lg-6 d-flex align-items-center justify-content-center">
+                                        <img src="{{ block.settings.quote_logo }}" class="mw-100" alt="{{ block.settings.title | escape }}" 
+                                        width="150"
+                                        height="150" loading="lazy"/>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}     
+                    </div>
+                    {% if section.settings.nav_arrows %}
+                        <div class="swiper-button-next testimonial-button-next icon-next"></div>
+                        <div class="swiper-button-prev testimonial-button-prev icon-previous"></div> 
+                    {% endif %}
+                    {% if section.settings.nav_dots %}
+                        <div class="swiper-pagination w-100"></div>
+                    {% endif %}
+                </div>
+            </slider-element>
+        {% endif %} 
+    </div>
+</section>
+
+
+
+{% schema %}
+    {
+        "name": "Global Testimonial",
+        "class": "global-testimonial-text",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Layout"
+            },
+            {
+                "type": "checkbox",
+                "id": "fluid_layout",
+                "label": "Full Width Layout?",
+                "default": false
+            },
+            {
+                "type": "header",
+                "content": "Content"
+            },
+            {
+                "type": "textarea",
+                "id": "heading_txt",
+                "label": "Heading Text"
+            },
+            {
+                "type": "richtext",
+                "id": "lead_txt",
+                "label": "Lead Text"
+            },
+            {
+                "type": "header",
+                "content": "Styling"
+            },
+            {
+                "type": "color",
+                "id": "section_bg_color",
+                "label": "Background Color",
+                "default": "#FFFFFF"
+            },
+            {
+                "type": "color",
+                "id": "section_text_color",
+                "label": "Text Color",
+                "default": "#000000"
+            },
+            {
+                "type": "image_picker",
+                "id": "bg_img",
+                "label": "Background Image"
+            },
+            {
+                "type": "checkbox",
+                "id": "enable",
+                "label": "Enable Overlay?",
+                "default": false
+            },
+            {
+                "type": "color",
+                "id": "overlay_color",
+                "label": "Overlay Color",
+                "default": "#000"
+            },
+            {
+                "type":"range",
+                "id":"opacity",
+                "min":0,
+                "max":1,
+                "step":0.1,
+                "label":"Opacity",
+                "default":0.5
+            },
+            {
+                "type": "header",
+                "content": "Carousel Option"
+            },
+            {
+                "type": "checkbox", 
+                "id": "nav_arrows",
+                "label": "Arrows Navigation",
+                "default": true 
+            },
+            {
+                "type": "checkbox",
+                "id": "nav_dots",
+                "label": "Dots Navigation",
+                "default": true
+            }
+        ],
+        "blocks": [
+            {
+                "type": "logowidthtext",
+                "name": "Logo Widthtext Block",
+                "settings": [
+                    {
+                        "type": "header",
+                        "content": "Content"
+                    },
+                    {
+                        "type": "text",
+                        "id": "quote_logo",
+                        "label": "Logo SVG Image?"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "title",
+                        "label": "Description",
+                        "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pulvinar ac tortor imperdiet commodo.</p>"
+                    },
+                    {
+                        "type": "text",
+                        "id": "author_name",
+                        "label": "Name or Info"
+                    },
+                    {
+                        "type": "header",
+                        "content": "Styling"
+                    },
+                    {
+                        "type": "select",
+                        "id": "alignment",
+                        "label": "Alignment",
+                        "options": [
+                            {
+                                "value": "text-center",
+                                "label": "Center"
+                            },
+                            {
+                                "value": "text-left",
+                                "label": "Left"
+                            },
+                            {
+                                "value": "text-right",
+                                "label": "Right"
+                            }
+                        ],
+                        "default": "text-center"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Global Testimonial",
+                "category": "Content"
+            }
+        ]
+    }
+{% endschema %}

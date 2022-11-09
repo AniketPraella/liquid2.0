@@ -1,0 +1,17 @@
+{% assign customPagination = section.settings.custom_pagination | strip | newline_to_br | strip_newlines | split: "," %}
+
+<custom-select class="sortby-dropdown radio-out {% if type == 'mobile' %} sortby-dropdown-m {% endif %}">
+    <div class="filter__wrapper me-0 border-0 d-flex default justify-content-between p-0 align-items-center position-relative"><span class="option_txt">{{ product_count }}</span><i class="swag-arrow-d3 ms-auto font-size-lg lh-1"></i></div>
+    <div class="custom--select">
+        <ul class="list-unstyled m-0 toggle-content" data-custom-pagination data-type="content">
+            {% for custom_paginate in customPagination %}
+                {%- assign custom_paginate = custom_paginate | append: ' ' -%}
+                <li data-value="{{ option.value | escape }}" class="form-check py-1 {% if custom_paginate contains product_count %}selected{% endif %}" >
+                    {%- assign product_count = product_count | strip | escape | plus: 0 -%}
+                    <input type="radio" value="{{ custom_paginate }}" class="pagination_value form-check-input sortby_options"  name="count" id="custom_sort_by-{{ custom_paginate }}" {% if custom_paginate contains product_count %} checked{% endif %}/>
+                    <label for="custom_sort_by-{{ custom_paginate }}" class="option_txt form-check-label w-100" title="paginate">{{ custom_paginate }}</label>
+                </li>
+            {%- endfor -%}
+        </ul>
+    </div>
+</custom-select>

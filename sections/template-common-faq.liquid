@@ -1,0 +1,93 @@
+<section class="faq-page pb-3 pb-md-6">
+    <div class="row align-items-center no-gutter" style="background:{{ section.settings.section_bg_color }}; color:{{ section.settings.section_txt_color }}">
+        <div class="col-12 py-9 text-center px-sm-4">
+            <h1 class="fw-semibold letter-spacing mb-2">{{ page.title }}</h1>
+            {% if section.settings.txt != '' %}
+                <p class="col-xl-5 col-lg-8 mx-auto px-xl-1 px-3 fw-light letter-spacing mb-0">{{ section.settings.txt }}</p>
+            {% endif %}    
+        </div>
+    </div>
+        
+    <div class="container pt-7">
+        {% assign faqList = section.settings.faq_blocks | newline_to_br | split: '<br />' %}
+        {% if faqList.size > 0 %}
+            <div class="row mb-md-5">
+                <div class="col-md-3 mb-6">
+                    <div class="sticky-top pt-3">
+                        <div class="p-5" id="title-color" style="background:{{ section.settings.bg_color }};">
+                            <ul class="list-unstyled mb-0" id="faq-scrollspy-navs" data-faq>
+                                {% for faq in faqList %}
+                                    <li class="faq-listing" >
+                                        <a href="#{{ faq | handleize }}" class="text-uppercase ls-sm lh-lg font-size-sm mb-0 {% if forloop.first == true %}active{% endif %}" onclick="faqSelected(this)">{{ faq }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 ps-lg-10" data-questionsParent>
+                    
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+</section>
+
+
+{% schema %}
+  {
+    "name": "FAQs Template",
+    "class": "common-faq-block",
+    "settings": [
+        {
+            "type":"header",
+            "content":"styling"
+        },
+        {
+            "type": "color",
+            "id": "section_bg_color",
+            "label": "Background Color",
+            "default": "#FAFAF7"
+        },
+        {
+            "type": "color",
+            "id": "section_txt_color",
+            "label": "Text Color",
+            "default": "#000000"
+        },
+        {
+            "type": "header",
+            "content": "Layout"
+        },
+        {
+            "type": "checkbox",
+            "id": "fluid_layout",
+            "label": "Full Width Layout?",
+            "default": false
+        },
+        {
+            "type": "textarea",
+            "id": "txt",
+            "label": "Text"
+        },
+		{
+            "type": "text",
+            "id": "title",
+            "label": "Page Title",
+            "default": "Frequently Asked Questions"
+        },
+        {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background Color",
+            "default": "#FAFAF7"
+        },
+        {
+            "type": "textarea",
+            "id": "faq_blocks",
+            "label": "Title"
+        }
+	]
+}
+{% endschema %}

@@ -1,0 +1,46 @@
+{% assign article_image = article.image.src | image_url: width: 100, height: 100 %}
+
+<div class="card bg-white text-left">
+
+  {% unless article_image contains 'no-image' %}
+    <a href="{{ article.url }}" class="card-img d-block">
+        <img
+          srcset="
+            {%- if article.image.src.width >= 360 -%}{{ article.image.src | image_url: width: 360 }} 360w,{%- endif -%}
+            {%- if article.image.src.width >= 533 -%}{{ article.image.src | image_url: width: 533 }} 533w,{%- endif -%}
+            {%- if article.image.src.width >= 720 -%}{{ article.image.src | image_url: width: 720 }} 720w,{%- endif -%}
+            {{ article.image.src | image_url }} {{ article.image.src.width }}w"
+          src="{{ article.image.src | image_url: width: 533 }}"
+          sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 100 | divided_by: 3 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"
+          alt="{{ article.image.src.alt | escape }}"
+          class="motion-reduce w-100" loading="lazy"
+          width="{{ article.image.width }}"
+          height="{{ article.image.height }}"
+        >
+    </a>
+  {% else %}
+    {% if settings.no_image_replacement != blank %}
+      <a href="{{ article.url }}" class="card-img d-block">
+          <img srcset="{{ settings.no_image_replacement | image_url: width: 578, crop: 'center', format: 'pjpg' }}"
+              loading="lazy"
+              src="{{ settings.no_image_replacement | image_url }}"
+              alt="{{ settings.no_image_replacement.alt | default: article.title | escape }}"
+              width="{{ settings.no_image_replacement.width }}"
+              height="{{ settings.no_image_replacement.width | divided_by: settings.no_image_replacement.aspect_ratio }}" >
+      </a>
+    {% endif %}
+  {% endunless %}
+
+  <div class="card-body">
+    <div class="text-uppercase small text-muted">{{ blog.title }}</div>
+    <h5><a href="{{ article.url }}">{{ article.title }}</a></h5>
+    <div class="small text-muted">
+      <time datetime="{{ article.published_at | date: "%a, %b %d, %Y" }}"> {{ article.published_at | date: "%a, %b %d, %Y" }}</time>
+    </div>
+  </div>
+  {% if article.author %}
+    <div class="card-footer bg-transparent">
+      <span class="font-italic font-secondary font-size-md">by</span> <span>{{ article.author }}</span>
+    </div>
+  {% endif %}
+</div>

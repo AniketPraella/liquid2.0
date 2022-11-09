@@ -1,0 +1,109 @@
+.card-carousel .swiper-slide {
+    height: auto;
+    min-height: 100%;
+    display: flex;
+}
+
+.card-product .card-img>a {
+    position: relative;
+    padding-top: 120%;
+    display: block;
+}
+.card-product .card-img>a img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.card-product .card-img>a img:nth-child(2) {
+    z-index: -1;
+}
+
+.card-product .card-img>a:hover img {
+    z-index: 1;
+}
+
+.card-product-promo p{
+    margin-bottom:0;
+}
+
+.card-product .badges {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 4px;
+}
+
+.badge:empty {
+    display: none;
+}
+
+
+.swatch input {
+    display: none;
+}
+
+.card-product .swatch .form-label {
+    padding: 0.25rem 0.5rem;
+    min-width: 32px;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid var(--bs-body-color);
+    font-size: var(--bs-font-size-md);
+    /* border-radius: 2rem; */
+}
+
+.card-product .swatch input:checked+label {
+    background: var(--bs-color-black);
+    color: var(--bs-body-bg);
+    border: 1px solid var(--bs-color-black);
+}
+
+.card-product .swatch.color-swatch .swatch-label {
+    min-width: 16px;
+    min-height: 16px;
+    display: block;
+    border-radius: 50%;
+    border: 0;
+    position: relative;
+}
+
+.card-product .swatch.color-swatch {
+    border-radius: 50%;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-product .swatch.color-swatch input:checked+.swatch-label:after {
+    content: '';
+    display: block;
+    position: absolute;
+    background: #fff;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card-product .swatch.color-swatch input:checked+.swatch-label.White:after {
+    background: #000;
+}
+
+.card-product .product-form__input {
+    margin-bottom: 1rem !important;
+}
+
+.card-product .product-form form {
+    margin-top: 0 !important;
+}
+
+.card-product .product-form .form__label {
+    display: none;
+}
+
+.card-product  .quickshop--button{
+    display: block;
+}

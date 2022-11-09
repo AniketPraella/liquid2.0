@@ -1,0 +1,94 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+
+<div class="pt-7 pt-lg-10 pb-7 pb-lg-9" style="background-color: #F3F7F9;">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-12 mx-auto text-center">
+                <h6 class="m-0">{{ settings.welcome_text }}</h6>
+                <h1 class="mb-5">{{ 'customer.account.first_name_pretext' | t }}, {{ customer.first_name }}!</h1>
+                <ul class="d-flex justify-content-center list-unstyled m-0 account_nav">
+                    <li class="px-3 lh-1 border-end border-gray-500">
+                        <a class="font-size-md text-capitalize fw-bold lh-1 active" href="/account" title="{{ 'customer.orders.title' | t }}" rel="nofollow" aria-label="{{ 'customer.orders.title' | t }}">
+                           {{ 'customer.orders.title' | t }}
+                        </a>
+                    </li>
+                    <li class="px-3 lh-1 border-end border-gray-500">    
+                        <a class="font-size-md text-capitalize lh-1" href="{{ routes.account_addresses_url }}">
+                            {{ 'customer.account.view_addresses' | t }}
+                        </a>
+                    </li>
+                    <li class="px-3 lh-1">    
+                        <a class="font-size-md text-capitalize lh-1" href="{{ routes.account_logout_url }}">
+                            {{ 'customer.log_out' | t }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pt-5 pt-lg-12 pb-12 pb-lg-13 mb-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 mb-lg-0 mb-7 border-end border-secondary">
+                <div class="d-flex align-items-center mb-3 mb-lg-4">
+                    <div class="profile position-relative me-3">
+                        <p class="m-0 font-family-heading text-uppercase text-white position-absolute fw-bold">{{ customer.first_name | slice: 0 }}{{ customer.last_name | slice: 0 }}</p>
+                    </div>
+                    <h5 class="text-uppercase profile-text font-family-heading m-0">{{ customer.name }}</h5>
+                </div>
+                <div>
+                    <p class="mb-2">{{ customer.email }}</p>
+                    <p class="mb-2">{{ 'customer.account.password_label' | t }}: **********  (<a href="/account/login#recover" class="text-primary">{{ 'customer.account.reset_label' | t }}</a>)</p>
+                    <p class="mb-2">{{ 'customer.account.total_orders' | t }}: {{ customer.orders.size }}</p>
+                </div>
+            </div>
+            <div class="col-lg-9 ps-lg-9">
+                <h4 class="mb-4 order_title">{{ 'customer.orders.title' | t }}</h4>
+                {%- if customer.orders.size > 0 -%}
+                    {% paginate customer.orders by 15 %}
+                        <table role="table" class="order-history account-table table mb-0">
+                            <caption class="visually-hidden">{{ 'customer.orders.title' | t }}</caption>
+                            <thead role="rowgroup" class="group-name">
+                            <tr role="row">
+                                <th id="ColumnOrder" scope="col" role="columnheader" class="h6 font-family-josefin">{{ 'customer.orders.order_number' | t }} & {{ 'customer.orders.date' | t }}</th>
+                                <th id="ColumnFulfillment" scope="col" role="columnheader" class="h6 font-family-josefin">{{ 'customer.orders.fulfillment_status' | t }}</th>
+                                <th id="ColumnTotal" scope="col" role="columnheader" class="h6 font-family-josefin text-end">{{ 'customer.orders.total' | t }}</th>
+                            </tr>
+                            </thead>
+                            <tbody role="rowgroup" class="bg-white">
+                            {%- for order in customer.orders -%}
+                                <tr role="row">
+                                    <td role="cell"
+                                        headers="ColumnOrder"
+                                        data-label="{{ 'customer.orders.order_number' | t }}">
+                                        <span class="d-md-inline-block d-block">
+                                            <a href="{{ order.customer_url }}" class="text-primary fw-bold" aria-label="{{ 'customer.orders.order_number_link' | t: number: order.name }}">
+                                                {{ order.name }}
+                                            </a>
+                                        </span> on {{ order.created_at | time_tag: format: 'date' }}
+                                    </td>
+                                    <td headers="ColumnFulfillment" role="cell" data-label="{{ 'customer.orders.fulfillment_status' | t }}">
+                                        {{ order.fulfillment_status_label }}
+                                    </td>
+                                    <td class="text-end" headers="ColumnTotal" role="cell" data-label="{{ 'customer.orders.total' | t }}">
+                                        {{ order.total_price | money }}
+                                    </td>
+                                </tr>
+                            {%- endfor -%}
+                            </tbody>
+                        </table>
+                        {%- if paginate.pages > 1 -%}
+                            <div class="mt-4">
+                                {% render 'pagination', paginate: paginate %}
+                            </div>
+                        {%- endif -%}
+                    {% endpaginate %}
+                {%- else -%}
+                    <p>{{ 'customer.orders.none' | t }}</p>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+</div>

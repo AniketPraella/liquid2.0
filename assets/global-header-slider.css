@@ -1,0 +1,82 @@
+.header-slider .shortheight .swiper-slide{
+    height: 40vh;
+    min-height: 400px;
+}
+
+.header-slider .tallheight .swiper-slide{
+    height: 60vh;
+    min-height: 600px;
+}
+
+.header-slider .fullheight .swiper-slide{
+    height: 100vh;
+    min-height: 700px;
+}
+
+.header-slider .swiper-slide img,
+.header-slider .swiper-slide svg{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.slider-content{
+    position: relative;
+    z-index: 2;
+}
+.overlay {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block !important;
+    width: 100%;
+    height: 100%;
+}
+.header-slider .swiper-button-next, 
+.header-slider  .swiper-button-prev{
+    z-index: 3;
+}  
+
+.header-slider .swiper-button-next{
+    right: 20px;
+} 
+
+.header-slider  .swiper-button-prev{
+    left: 20px;
+}
+
+.header-video-slide .content-section, 
+.header-video-slide .video-section{
+    padding-top: 0;
+    height: 100%;
+    position: relative;
+}
+
+.header-video-slide .video-section video{
+    width: 100%;
+    height: 100%;
+}
+
+.header-video-slide .content-section .poster-image, 
+.header-video-slide .video-section iframe{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.video-with--text:not(.show--video) .video-section{
+    display: none;
+}
+.video-with--text.placement--grid.show--video .content-section{
+    display: none;
+}

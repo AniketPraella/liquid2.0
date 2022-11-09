@@ -1,0 +1,522 @@
+{{ 'global-image-banner.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+    assign mobileImage = section.settings.image
+    if section.settings.image_mobile != blank
+        assign mobileImage =  section.settings.image_mobile
+    endif
+-%}
+
+<section class="{% if section.settings.section_padding %}section-content{% endif %}"  data-section-id="{{ section.id }}">
+    <div id="Banner-{{ section.id }}" class="banner-section position-relative {{ section.settings.height }}">
+        {%- if section.settings.image != blank -%}
+            <div class="banner__media">
+              {% if section.settings.image_mobile != blank %}
+                <picture>
+                    {%- if mobileImage.width >= 375 -%}<source media="(max-width: 375px)" srcset="{{ mobileImage | image_url: width: 375 }}">{%- endif -%}
+                    {%- if mobileImage.width >= 550 -%}<source media="(max-width: 550px)" srcset="{{ mobileImage | image_url: width: 550 }}">{%- endif -%}
+                    {%- if mobileImage.width >= 767 -%}<source media="(max-width: 767px)" srcset="{{ mobileImage | image_url: width: 767 }}">{%- endif -%}
+                    {%- if section.settings.image.width >= 991 -%}<source media="(max-width: 991px)" srcset="{{ section.settings.image | image_url: width: 991 }}">{%- endif -%}
+                    {%- if section.settings.image.width >= 1200 -%}<source media="(max-width: 1200px)" srcset="{{ section.settings.image | image_url: width: 1200 }}">{%- endif -%}
+                    {%- if section.settings.image.width >= 1500 -%}<source media="(max-width: 1500px)" srcset="{{ section.settings.image | image_url: width: 1500 }}">{%- endif -%}
+                    {%- if section.settings.image.width >= 1720 -%}<source media="(max-width: 1720px)" srcset="{{ section.settings.image | image_url: width: 1720 }}">{%- endif -%}
+                    {%- if section.settings.image.width >= 1920 -%}<source media="(max-width: 1920px)" srcset="{{ section.settings.image | image_url: width: 1920 }}">{%- endif -%}
+                    {%- if section.settings.image.width >= 2560 -%}<source media="(max-width: 2560px)" srcset="{{ section.settings.image | image_url: width: 2560 }}">{%- endif -%}
+                    {%- if section.settings.image.width >= 3800 -%}<source media="(max-width: 3800px)" srcset="{{ section.settings.image | image_url: width: 3800 }}">{%- endif -%}
+                    <img src="{{ section.settings.image | image_url }}" loading="lazy"
+                    alt="{{ section.settings.image.alt | default: block.settings.heading | escape }}"
+                    width="{{ section.settings.image.width }}"
+                    height="{{ section.settings.image.width | divided_by: section.settings.image.aspect_ratio | round }}"
+                    >
+                </picture>
+              {% else %}
+              	<img srcset="
+                    {%- if mobileImage.width >= 375 -%}{{ mobileImage | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if mobileImage.width >= 550 -%}{{ mobileImage | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if mobileImage.width >= 768 -%}{{ mobileImage | image_url: width: 768 }} 767w,{%- endif -%}
+                    {%- if section.settings.image.width >= 991 -%}{{ section.settings.image | image_url: width: 991 }} 991w,{%- endif -%}
+                    {%- if section.settings.image.width >= 1200 -%}{{ section.settings.image | image_url: width: 1200 }} 1200w,{%- endif -%}
+                    {%- if section.settings.image.width >= 1500 -%}{{ section.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if section.settings.image.width >= 1780 -%}{{ section.settings.image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if section.settings.image.width >= 1920 -%}{{ section.settings.image | image_url: width: 1920 }} 1920w,{%- endif -%}
+                    {%- if section.settings.image.width >= 2560 -%}{{ section.settings.image | image_url: width: 2560 }} 2560w,{%- endif -%}
+                    {%- if section.settings.image.width >= 3800 -%}{{ section.settings.image | image_url: width: 3800 }} 3800w,{%- endif -%}
+                    {{ section.settings.image | image_url }} {{ section.settings.image.width }}w"
+                    src="{{ section.settings.image | image_url: width: 1500 }}" loading="lazy"
+                    alt="{{ section.settings.image.alt | default: block.settings.heading | escape }}"
+                    width="{{ section.settings.image.width }}"
+                    height="{{ section.settings.image.width | divided_by: section.settings.image.aspect_ratio | round }}"
+                    sizes="(max-width: 375px) 375px, (max-width: 550px) 550px, (max-width: 750px) 750px,
+                           (max-width: 991px) 991px, (max-width: 1200px) 1200px, (max-width: 1500px) 1500px, (max-width: 1780px) 1780px, (max-width: 1920px) 1920px,
+                           (max-width: 2560px) 2560px, (max-width: 3800px) 3800px, {{ section.settings.image.width }}px" >
+              {% endif %}
+                {% if section.settings.enable_overlay %}
+                    <div class="overlay" style="background-color: {{ section.settings.overlay_bg_color }}!important; opacity: {{ section.settings.overlay_opacity }}!important;"></div>
+                {% endif %}
+            </div>
+        {%- else -%}
+            <div class="banner__media placeholder">
+            {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+        {%- endif -%}
+        <div class="banner__content container py-md-11 {{ section.settings.text_caption_align }}" style="align-items: {{ section.settings.desktop_text_box_position }};">
+            <div class="col-xl-5 col-lg-6 col-md-7 px-0 {{ section.settings.text_align }}" style="color: {{ section.settings.txt_color }}">
+                {%- for block in section.blocks -%}
+                {%- case block.type -%}
+                    {%- when 'heading' -%}
+                    <h2 class="banner__heading h1 mb-3" {{ block.shopify_attributes }} data-block-id="{{ block.id }}">
+                        <span>{{ block.settings.heading | escape }}</span>
+                    </h2> 
+                    {%- when 'text' -%}
+                    <div class="banner__text" {{ block.shopify_attributes }} data-block-id="{{ block.id }}">
+                        <span>{{ block.settings.text | escape }}</span>
+                    </div>
+                    {%- when 'countdown' -%}
+                        {%- if block.settings.countdown_enable -%}
+                            {%- assign currentDate = 'now' | date: "%s" -%}
+                            {%- assign settingsDate = block.settings.countdown_text | date: "%s" -%}
+                            <custom-countdown class="mb-4" data-section_timer="{{ block.settings.countdown_text }}">
+                                {% if block.settings.countdown_enable and settingsDate > currentDate %}
+                                    {% if block.settings.countdown_pretext != blank %}
+                                        <p class="text-uppercase fw-bold font-size-md mb-3" style="color: {{ block.settings.caption_txt_color }};">{{ block.settings.countdown_pretext }}</p>
+                                    {% endif %}
+                                    <div class="d-flex align-items-start">
+                                        <div class="time-box-wrapper d-flex align-items-center flex-wrap">
+                                            <div class="time-box" {% if block.settings.countdown_bg_color != blank %}style="background: {{block.settings.countdown_bg_color}}"{% endif %}>
+                                                <h2 class="fw-normal mb-0" data-countdown_day_1 {% if block.settings.countdown_text_color != blank %}style="color: {{block.settings.countdown_text_color}}"{% endif %}></h2>
+                                            </div>
+                                            <div class="time-box" {% if block.settings.countdown_bg_color != blank %}style="background: {{block.settings.countdown_bg_color}}"{% endif %}>
+                                                <h2 class="fw-normal mb-0" data-countdown_day_2 {% if block.settings.countdown_text_color != blank %}style="color: {{block.settings.countdown_text_color}}"{% endif %}></h2>
+                                            </div>
+                                            <div class="fw-normal font-size-lg font-family-base text-uppercase text-center my-2 w-100" style="color: {{ block.settings.caption_txt_color }};">days</div>
+                                        </div>
+                                        <div>
+                                            <h2 class="px-2 mb-0 d-flex align-items-center" style="color: {{ block.settings.caption_txt_color }};height:60px;">:</h2>
+                                        </div>
+                                        <div class="time-box-wrapper d-flex align-items-center flex-wrap">
+                                            <div class="time-box" {% if block.settings.countdown_bg_color != blank %}style="background: {{block.settings.countdown_bg_color}}"{% endif %}>
+                                                <h2 class="fw-normal mb-0" data-countdown_hour_1 {% if block.settings.countdown_text_color != blank %}style="color: {{block.settings.countdown_text_color}}"{% endif %}></h2>
+                                            </div>
+                                            <div class="time-box" {% if block.settings.countdown_bg_color != blank %}style="background: {{block.settings.countdown_bg_color}}"{% endif %}>
+                                                <h2 class="fw-normal mb-0" data-countdown_hour_2 {% if block.settings.countdown_text_color != blank %}style="color: {{block.settings.countdown_text_color}}"{% endif %}></h2>
+                                            </div>
+                                            <div class="fw-normal font-size-lg font-family-base text-uppercase text-center my-2 w-100" style="color: {{ block.settings.caption_txt_color }};">Hours</div>
+                                        </div>
+                                        <div>
+                                            <h2 class="px-2 mb-0 d-flex align-items-center" style="color: {{ block.settings.caption_txt_color }};height:60px;">:</h2>
+                                        </div>
+                                        <div class="time-box-wrapper d-flex align-items-center flex-wrap">
+                                            <div class="time-box" {% if block.settings.countdown_bg_color != blank %}style="background: {{block.settings.countdown_bg_color}}"{% endif %}>
+                                                <h2 class="fw-normal mb-0" data-countdown_min_1 {% if block.settings.countdown_text_color != blank %}style="color: {{block.settings.countdown_text_color}}"{% endif %}></h2>
+                                            </div>
+                                            <div class="time-box" {% if block.settings.countdown_bg_color != blank %}style="background: {{block.settings.countdown_bg_color}}"{% endif %}>
+                                                <h2 class="fw-normal mb-0" data-countdown_min_2 {% if block.settings.countdown_text_color != blank %}style="color: {{block.settings.countdown_text_color}}"{% endif %}></h2>
+                                            </div>
+                                            <div class="fw-normal font-size-lg font-family-base text-uppercase text-center my-2 w-100" style="color: {{ block.settings.caption_txt_color }};">Mins</div>
+                                        </div>
+                                        <div>
+                                            <h2 class="px-2 mb-0 d-flex align-items-center" style="color: {{ block.settings.caption_txt_color }};height:60px;">:</h2>
+                                        </div>
+                                        <div class="time-box-wrapper d-flex align-items-center flex-wrap">
+                                            <div class="time-box" {% if block.settings.countdown_bg_color != blank %}style="background: {{block.settings.countdown_bg_color}}"{% endif %}>
+                                                <h2 class="fw-normal mb-0" data-countdown_sec_1 {% if block.settings.countdown_text_color != blank %}style="color: {{block.settings.countdown_text_color}}"{% endif %}></h2>
+                                            </div>
+                                            <div class="time-box" {% if block.settings.countdown_bg_color != blank %}style="background: {{block.settings.countdown_bg_color}}"{% endif %}>
+                                                <h2 class="fw-normal mb-0" data-countdown_sec_2 {% if block.settings.countdown_text_color != blank %}style="color: {{block.settings.countdown_text_color}}"{% endif %}></h2>
+                                            </div>
+                                            <div class="fw-normal font-size-lg font-family-base text-uppercase text-center my-2 w-100" style="color: {{ block.settings.caption_txt_color }};">sec</div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </custom-countdown>
+                        {%- endif -%}
+                    {%- when 'buttons' -%}
+                        <div class="mt-4 mt-md-4" {{ block.shopify_attributes }} data-block-id="{{ block.id }}">
+                            {%- if block.settings.button_label_1 != blank -%}
+                                <a href="{{ block.settings.button_link_1 }}" class="btn btn{% if block.settings.btn_type_1 == 'outline' %}-{% endif %}{{ block.settings.btn_type_1 }}-{{ block.settings.btn_variant_1 }} {{ block.settings.btn_size_1 }}m-2">{{ block.settings.button_label_1 | escape }}</a>
+                            {%- endif -%}
+                            {%- if block.settings.button_label_2 != blank -%}
+                                <a href="{{ block.settings.button_link_2 }}" class="btn btn{% if block.settings.btn_type_2 == 'outline' %}-{% endif %}{{ block.settings.btn_type_2 }}-{{ block.settings.btn_variant_2 }} {{ block.settings.btn_size_2 }}m-2">{{ block.settings.button_label_2 | escape }}</a>
+                            {%- endif -%}
+                        </div>
+                    {%- endcase -%}
+                {%- endfor -%}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.image-banner.name",
+  "tag": "section",
+  "class": "spaced-section spaced-section--full-width",
+  "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Desktop Image",
+            "info": "For Better Viewing Use Example dimentions: 2030*960 ( Aspect Ratio: 2.11 )"
+        },
+        {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "Mobile Image",
+            "info": "For Better Viewing Use Example dimentions: 768*1110 ( Aspect Ratio: 0.69 )"
+        },
+        {
+            "type":"color",
+            "id":"txt_color",
+            "label":"Color"
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_overlay",
+            "label": "Enabled?",
+            "default": true
+        },
+        {
+            "type": "color",
+            "id": "overlay_bg_color",
+            "label": "Overlay Background Color",
+            "default": "#000000"
+        },
+        {
+            "type": "range",
+            "id": "overlay_opacity",
+            "label": "Overlay Opacity",
+            "min": 0.1,
+            "max": 1,
+            "step": 0.1,
+            "default": 0.5
+        },
+        {
+            "type": "select",
+            "id": "height",
+            "label": "Section Height",
+            "options": [
+                {
+                    "value": "shortheight",
+                    "label": "Short"
+                },
+                {
+                    "value": "tallheight",
+                    "label": "Tall"
+                },
+                {
+                    "value": "fullheight",
+                    "label": "Full Height"
+                }
+            ],
+            "default": "tallheight"
+        },
+        {
+            "type": "select",
+            "id": "desktop_text_box_position",
+            "options": [
+                {
+                    "value": "flex-start",
+                    "label": "t:sections.image-banner.settings.desktop_text_box_position.options__1.label"
+                },
+                {
+                    "value": "center",
+                    "label": "t:sections.image-banner.settings.desktop_text_box_position.options__2.label"
+                },
+                {
+                    "value": "flex-end",
+                    "label": "t:sections.image-banner.settings.desktop_text_box_position.options__3.label"
+                }
+            ],
+            "default": "center",
+            "label": "t:sections.image-banner.settings.desktop_text_box_position.label"
+        },
+        {
+            "type": "select",
+            "id": "text_caption_align",
+            "options": [
+                {
+                    "value": "justify-content-start",
+                    "label": "Left"
+                },
+                {
+                    "value": "justify-content-center",
+                    "label": "center"
+                },
+                {
+                    "value": "justify-content-end",
+                    "label": "right"
+                }
+            ],
+            "default": "justify-content-center",
+            "label": "Caption Horizontal Alignment"
+        },
+        {
+            "type": "select",
+            "id": "text_align",
+            "options": [
+                {
+                    "value": "text-left",
+                    "label": "Left"
+                },
+                {
+                    "value": "text-center",
+                    "label": "center"
+                },
+                {
+                    "value": "text-right",
+                    "label": "right"
+                }
+            ],
+            "default": "text-center",
+            "label": "Text Alignment"
+        },
+        {
+            "type":"checkbox",
+            "id":"section_padding",
+            "label":"Section Padding?",
+            "default":false
+        }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.image-banner.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Image banner",
+          "label": "t:sections.image-banner.blocks.heading.settings.heading.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.image-banner.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Give customers details about the banner image(s) or content on the template.",
+          "label": "t:sections.image-banner.blocks.text.settings.text.label"
+        }
+      ]
+    },
+    {
+      "type": "buttons",
+      "name": "t:sections.image-banner.blocks.buttons.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label_1",
+          "default": "Button label",
+          "label": "t:sections.image-banner.blocks.buttons.settings.button_label_1.label",
+          "info": "t:sections.image-banner.blocks.buttons.settings.button_label_1.info"
+        },
+        {
+          "type": "url",
+          "id": "button_link_1",
+          "label": "t:sections.image-banner.blocks.buttons.settings.button_link_1.label"
+        },      
+        {
+            "type": "select",
+            "id": "btn_type_1",
+            "label": "Button Type",
+            "options": [
+                {
+                    "value": "outline",
+                    "label": "Outline"
+                },
+                {
+                    "value": "",
+                    "label": "Solid"
+                }
+            ],
+            "default": ""
+        },
+        {
+            "type": "select",
+            "id": "btn_variant_1",
+            "label": "Button Variant",
+            "options": [
+                {
+                    "value": "primary",
+                    "label": "Primary"
+                },
+                {
+                    "value": "secondary",
+                    "label": "Secondary"
+                },
+                {
+                    "value": "white",
+                    "label": "White"
+                },
+                {
+                    "value": "dark",
+                    "label": "Dark"
+                }
+            ],
+            "default": "primary"
+        },
+        {
+            "type": "select",
+            "id": "btn_size_1",
+            "label": "Button Size",
+            "options": [
+                {
+                    "value": "",
+                    "label": "Default"
+                },
+                {
+                    "value": "btn-sm",
+                    "label": "Small"
+                },
+                {
+                    "value": "btn-lg",
+                    "label": "Large"
+                }
+            ],
+            "default": ""
+        },
+        {
+          "type": "text",
+          "id": "button_label_2",
+          "default": "Button label",
+          "label": "t:sections.image-banner.blocks.buttons.settings.button_label_2.label",
+          "info": "t:sections.image-banner.blocks.buttons.settings.button_label_2.info"
+        },
+        {
+          "type": "url",
+          "id": "button_link_2",
+          "label": "t:sections.image-banner.blocks.buttons.settings.button_link_2.label"
+        },      
+        {
+            "type": "select",
+            "id": "btn_type_2",
+            "label": "Button Type",
+            "options": [
+                {
+                    "value": "outline",
+                    "label": "Outline"
+                },
+                {
+                    "value": "",
+                    "label": "Solid"
+                }
+            ],
+            "default": ""
+        },
+        {
+            "type": "select",
+            "id": "btn_variant_2",
+            "label": "Button Variant",
+            "options": [
+                {
+                    "value": "primary",
+                    "label": "Primary"
+                },
+                {
+                    "value": "secondary",
+                    "label": "Secondary"
+                },
+                {
+                    "value": "white",
+                    "label": "White"
+                },
+                {
+                    "value": "dark",
+                    "label": "Dark"
+                }
+            ],
+            "default": "primary"
+        },
+        {
+            "type": "select",
+            "id": "btn_size_2",
+            "label": "Button Size",
+            "options": [
+                {
+                    "value": "",
+                    "label": "Default"
+                },
+                {
+                    "value": "btn-sm",
+                    "label": "Small"
+                },
+                {
+                    "value": "btn-lg",
+                    "label": "Large"
+                }
+            ],
+            "default": ""
+        }
+      ]
+    },
+    {
+        "type": "countdown",
+        "name": "Countdown",
+        "limit": 1,
+        "settings": [
+            {
+                "type": "header",
+                "content": "Countdown Settings"
+            },
+            {
+                "type": "checkbox",
+                "id": "countdown_enable",
+                "label": "Countdown enable",
+                "default": true
+            },
+            {
+                "type": "text",
+                "id": "countdown_pretext",
+                "label": "countdown Lable",
+                "default": "Time Running Out"
+            },
+            {
+                "type": "text",
+                "id": "countdown_text",
+                "label": "Countdown",
+                "info":"November 20, 2021 23:59",
+                "default": "November 20, 2021 23:59"
+            },
+            {
+                "type": "paragraph",
+                "content": "Stlying"
+            },
+            {
+                "type": "color",
+                "id": "countdown_bg_color",
+                "label": "Countdown BG color",
+                "default": "#222b45"
+            },
+            {
+                "type": "color",
+                "id": "countdown_text_color",
+                "label": "Countdown Text color",
+                "default": "#ffffff"
+            }
+        ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.image-banner.presets.name",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "buttons"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

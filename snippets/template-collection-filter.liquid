@@ -1,0 +1,323 @@
+{% assign allTags = collection.tags | downcase %}
+{% assign currentTags = current_tags | downcase %}
+
+<div class="collection-filters sticky-top" id="main-collection-filters" data-id="{{ section.id }}">
+    <div class="d-lg-none collection-filter-header position-relative">
+        <div class="collection-filters-close"><a href="" class="icon-close icon-size-20 text-black d-block"></a></div>
+        <h5 class="mb-0 text-center">{{ 'templates.collection.filter_lable' | t }}</h5>
+    </div>
+    {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
+        {%- assign total_active_values = 0 -%}
+        <collection-filters class="filters small-hide" data-filterType="{{ section.settings.filter_type }}" data-accordionType="{% if section.settings.open_single_accordians %}single{% else %}multiple{% endif %}">
+          <form id="CollectionFiltersForm" class="filter__form pt-4 px-3 pb-2 p-lg-0">
+            <input type="hidden" name="count" data-custom_pagination_id value="{{ product_count }}" />
+           
+            {%- if section.settings.enable_sorting -%}
+                  <div class="sorting mb-4 d-block d-lg-none">
+                      {%- render 'template-collection-sorting', sort_by: sort_by, type: 'mobile' -%}
+                  </div>
+            {%- endif -%}
+
+            {%- if section.settings.enable_filtering -%}
+              <div class="filter__wrapper mb-3">
+              {% if section.settings.enable_sub_collections %}
+                {%- assign collectionHandle = collection.title | handleize -%}
+                {%- assign subCollectionMenu = linklists[subCollections] -%}
+                {%- if subCollectionMenu and subCollectionMenu.links.size > 0 -%}
+                  <div class="filter__container p-3 js-filter border" data-index="sub_collection" data-subCollections>
+                    <a class="filter__toggle d-flex align-items-center h6 text-uppercase mb-0" href="#" title="Open {{ 'templates.collection.sub_collection' | t }}" rel="nofollow" aria-label="Open {{ 'templates.collection.sub_collection' | t }}" role="button" aria-expanded="false" aria-controls="filter_toggle_{{ menuHandle }}">
+                        <span>{{ 'templates.collection.sub_collection' | t }}</span>
+                        <span class="count-bubble"></span>
+                        <span class="icon-arrow-down ms-auto font-size-lg lh-1"></span>
+                    </a>
+                    <div class="filter__block toggle-content" id="filter_toggle_{{ menuHandle }}" data-type="content">
+                      <ul class="filter__list pt-3 list-unstyled m-0" role="list">
+                        {%- for coll in subCollectionMenu.links -%}
+                          {%- assign collHandle = coll.title | handleize -%}
+                          <li class="my-2 filter__item">
+                              <div class="form-check"> 
+                                  <a href="{{ coll.url }}" class="collection-entry {% if collHandle == collectionHandle %}active{% endif %}">{{ coll.title }}</a>
+                              </div>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endif %}
+
+              {%- for filter in collection.filters -%}
+                {%- assign filterLabel = filter.label | handleize -%}
+                {%- assign total_active_values = total_active_values | plus: filter.active_values.size -%}
+                {% case filter.type %}
+                {% when 'list' %}
+                  <div class="filter__container p-3 js-filter border mb-3 {% if filterLabel == 'color' %}color-options{% endif %}" {% if filterLabel == 'color' %}data-colorFilter{% endif %} data-index="{{ forloop.index }}">
+                    <a class="filter__toggle d-flex align-items-center h6 text-uppercase mb-0" href="#" title="Open {{ filter.label }}" rel="nofollow" aria-label="Open {{ filter.label }}" role="button" aria-expanded="false" aria-controls="filter_toggle_{{ filter.label | handleize }}">
+                        <span>{{ filter.label | escape }}</span>
+                        <span class="count-bubble">{%- if filter.active_values.size > 0 -%}{{ filter.active_values.size }}{%- endif -%}</span>
+                        <span class="icon-arrow-down ms-auto font-size-lg lh-1"></span>
+                    </a>
+                    <div class="filter__block toggle-content  {% if filterLabel == 'color' %}color-options-list{% endif %}" id="filter_toggle_{{ filter.label | handleize }}" data-type="content">
+                      <ul class="filter__list pt-3 list-unstyled m-0" role="list">
+                        {%- for value in filter.values -%}
+                          <li class="{% unless filterLabel == 'color' %} my-2 {% endunless %} filter__item">
+                              <div class="form-check {% if filterLabel == 'color' %}color-options{% endif %}"> 
+                                  <input type="checkbox"
+                                      class="form-check-input"
+                                      name="{{ value.param_name }}"
+                                      value="{{ value.value }}"
+                                      id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                                      data-handle="{{ value.value | handle }}"
+                                      {% if value.active %}checked{% endif %}
+                                      {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                                  >
+                                  <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="form-check-label option-label filter-checkbox{% if value.count == 0 and value.active == false %} filter-checkbox--disabled{% endif %}" title="{{ value.label | escape }}">
+                                    {% unless filterLabel == 'color' %}{{ value.label | escape }} <span>{{ value.count }}</span>{% endunless %}
+                                  </label>
+                              </div>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                  </div>
+                {% when 'price_range' %}
+                  {%- liquid
+                    assign currentMinValue = filter.min_value.value | money_without_currency | escape
+                    assign currentMaxValue = filter.max_value.value | money_without_currency | escape 
+                  -%}
+
+                  {% if section.settings.price_filter_layout == 'list' %}
+                    {% assign priceRange = section.settings.price_filter_values | strip | newline_to_br | strip_newlines | split: "<br />" %}
+                    {% if priceRange.size > 0 %}
+                      <div class="filter__container p-3 js-filter border mb-3" data-index="{{ forloop.index }}">
+                        <a class="filter__toggle d-flex align-items-center h6 text-uppercase mb-0" href="#" title="Open {{ filter.label }}" rel="nofollow" aria-label="Open {{ filter.label }}" role="button" aria-expanded="false" aria-controls="filter_toggle_{{ filter.label | handleize }}">
+                            <span>{{ filter.label | escape }}</span>
+                            {% if filter.min_value.value != nil and filter.max_value.value != nil %}
+                              <span class="count-bubble">1</span>
+                            {% endif %}
+                            <span class="icon-arrow-down ms-auto font-size-lg lh-1"></span>
+                        </a>
+                        <div class="filter__block toggle-content" id="filter_toggle_{{ filter.label | handleize }}" data-type="content">
+                          <ul class="filter__list pt-3 list-unstyled m-0" role="list">
+                            {%- for priceTag in priceRange -%}
+                              {%- liquid
+                                assign splitPrice = priceTag | split: '-'
+                                assign lowerPrice = splitPrice[0]
+                                assign higherPrice = splitPrice[1]
+                              -%}
+
+                              <li class="my-2 filter__item">
+                                  <div class="form-check {% if filterLabel == 'color' %}color-options{% endif %}">
+                                      <input type="radio"
+                                          class="form-check-input"
+                                          data-priceRange
+                                          name="price-list"
+                                          value="{{ filter.min_value.param_name }}={{ lowerPrice | replace: ',', '' }}&{{ filter.max_value.param_name }}={{ higherPrice | replace: ',', '' }}"
+                                          id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                                          {% if lowerPrice == currentMinValue and currentMaxValue == higherPrice %}checked{% endif %}>
+
+                                      <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="form-check-label option-label filter-checkbox{% if value.count == 0 and value.active == false %} filter-checkbox--disabled{% endif %}" title="{{ value.label | escape }}">
+                                        {{ cart.currency.symbol }}{{ lowerPrice }} - {{ cart.currency.symbol }}{{ higherPrice }}
+                                      </label>
+                                  </div>
+                              </li>
+                            {%- endfor -%}
+                          </ul>
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% elsif section.settings.price_filter_layout == 'range_slider' %}
+                    {%- liquid
+                      assign currencies_using_comma_decimals = 'ANG,ARS,BRL,BYN,BYR,CLF,CLP,COP,CRC,CZK,DKK,EUR,HRK,HUF,IDR,ISK,MZN,NOK,PLN,RON,RUB,SEK,TRY,UYU,VES,VND' | split: ','
+                      assign uses_comma_decimals = false
+                      if currencies_using_comma_decimals contains cart.currency.iso_code
+                        assign uses_comma_decimals = true
+                      endif
+                    -%}
+                    <div class="filter__container p-3 js-filter border mb-3" data-index="{{ forloop.index }}">
+                      <a class="filter__toggle d-flex align-items-center h6 text-uppercase mb-0" href="#" title="Open {{ filter.label }}" rel="nofollow" aria-label="Open {{ filter.label }}" role="button" aria-expanded="false" aria-controls="filter_toggle_{{ filter.label | handleize }}">
+                        <span>{{ filter.label | escape }}</span>
+                        {% if filter.min_value.value != nil and filter.max_value.value != nil %}
+                          <span class="count-bubble">1</span>
+                        {% endif %}
+                        <span class="icon-arrow-down ms-auto font-size-lg lh-1"></span>
+                      </a>
+                      <div class="filter__block toggle-content" id="filter_toggle_{{ filter.label | handleize }}" data-type="content">
+                        <range-slider>
+                          <section id="range-slider" class="range-slider filter__item">
+                            <span class="rangeValues"></span>
+                            <input 
+                              name="{{ filter.min_value.param_name }}"
+                              id="Filter-{{ filter.label | escape }}-gte-{{ forloop.index }}"
+                              {%- if filter.min_value.value -%}
+                                {%- if uses_comma_decimals -%}
+                                  value="{{ filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                                {%- else -%}
+                                  value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                                {% endif %}
+                                {% else %}
+                                value="0"
+                              {%- endif -%}
+                              type="range"
+                              placeholder="0"
+                              min="0"
+                              max="{{ filter.range_max | money_without_currency | replace: ',', '' | plus: 0 | ceil }}">
+                            </input>
+
+                            <input 
+                              name="{{ filter.max_value.param_name }}"
+                              id="Filter-{{ filter.label | escape }}-lte-{{ forloop.index }}"
+                              {%- if filter.max_value.value -%}
+                                {%- if uses_comma_decimals -%}
+                                  value="{{ filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                                {%- else -%}
+                                  value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                                {% endif %}
+                                {% else %}
+                                value="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                              {%- endif -%}
+                              type="range"
+                              placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                              min="0"
+                              max="{{ filter.range_max | money_without_currency | replace: ',', '' | plus: 0 | ceil }}">
+                            </input>
+
+                          </section>
+                      </range-slider>
+
+                      </div>
+                    </div>
+                  {% else %}
+                    {%- liquid
+                      assign currencies_using_comma_decimals = 'ANG,ARS,BRL,BYN,BYR,CLF,CLP,COP,CRC,CZK,DKK,EUR,HRK,HUF,IDR,ISK,MZN,NOK,PLN,RON,RUB,SEK,TRY,UYU,VES,VND' | split: ','
+                      assign uses_comma_decimals = false
+                      if currencies_using_comma_decimals contains cart.currency.iso_code
+                        assign uses_comma_decimals = true
+                      endif
+                    -%}
+                    <div class="filter__container p-3 js-filter border mb-3" data-index="{{ forloop.index }}">
+                      <a class="filter__toggle d-flex align-items-center h6 text-uppercase mb-0" href="#" title="Open {{ filter.label }}" rel="nofollow" aria-label="Open {{ filter.label }}" role="button" aria-expanded="false" aria-controls="filter_toggle_{{ filter.label | handleize }}">
+                          <span>{{ filter.label | escape }}</span>
+                          {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+                            <span class="count-bubble count-bubble--dot">1</span>
+                          {%- endif -%}
+                          <span class="icon-arrow-down ms-auto font-size-lg lh-1"></span>
+                      </a>
+                      <div class="filter__block toggle-content" id="filter_toggle_{{ filter.label | handleize }}" data-type="content">
+                        <price-range class="filter__price pt-4 pb-2 d-flex align-items-center">
+                          <div class="d-flex w-100 align-items-center">
+                            <span class="field__currency me-2">{{ cart.currency.symbol }}</span>
+                            <input class="form-control form-control-sm"
+                              name="{{ filter.min_value.param_name }}"
+                              id="Filter-{{ filter.label | escape }}-gte-{{ forloop.index }}"
+                              {%- if filter.min_value.value -%}
+                                {%- if uses_comma_decimals -%}
+                                  value="{{ filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                                {%- else -%}
+                                  value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                                {% endif %}
+                              {%- endif -%}
+                              type="number"
+                              placeholder="0"
+                              min="0"
+                              max="{{ filter.range_max | money_without_currency | replace: ',', '' }}">
+                            </input>
+                          </div>
+                          <span class="mx-3">-</span>
+                          <div class="d-flex w-100 align-items-center">
+                            <span class="field__currency me-2">{{ cart.currency.symbol }}</span>
+                            <input class="form-control form-control-sm"
+                              name="{{ filter.max_value.param_name }}"
+                              id="Filter-{{ filter.label | escape }}-lte-{{ forloop.index }}"
+                              {%- if filter.max_value.value -%}
+                                {%- if uses_comma_decimals -%}
+                                  value="{{ filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                                {%- else -%}
+                                  value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                                {% endif %}
+                              {%- endif -%}
+                              type="number"
+                              placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                              min="0"
+                              max="{{ filter.range_max | money_without_currency | replace: ',', '' }}">
+                            </input>
+                          </div>
+                        </price-range>
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endcase %}
+              {%- endfor -%}
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'tags_group' -%}
+                    {%- liquid 
+                      assign filterLable = block.settings.title | strip
+                      assign tagsList = block.settings.tag_list | strip | newline_to_br | strip_newlines | split: "<br />"
+                    -%}
+                    {% if tagsList.size > 0 %}
+                      {% assign tagFound = 0 %}
+                      <div class="filter__container p-3 js-filter border mb-3" data-index="tags-filter-{{ forloop.index }}">
+                        <a class="filter__toggle d-flex align-items-center h6 text-uppercase mb-0" href="#" title="Open {{ filterLable }}" rel="nofollow" aria-label="Open {{ filterLable }}" role="button" aria-expanded="false" aria-controls="filter_toggle_{{ filterLable | handleize }}">
+                          <span>{{ filterLable | escape }}</span>
+                          <span class="count-bubble visually-hidden d-none">1</span>
+                          <span class="icon-arrow-down ms-auto font-size-lg lh-1"></span>
+                        </a>
+                        <div class="filter__block toggle-content" id="filter_toggle_{{ filterLable | handleize }}" data-type="content">
+                          <ul class="filter__list p-3 pb-lg-3 pb-0 list-unstyled m-0 text-primary" role="list">
+                            {%- for tag in tagsList -%}
+                                {% assign tagValue = tag | downcase %}
+                                {% if allTags contains tagValue %}
+                                  {% assign tagFound =  tagFound | plus: 1 %}
+                                  <li class="filter__item">
+                                      <div class="d-flex my-2">
+                                          <input type="checkbox"
+                                              data-tagsList
+                                              class="form-check-input"
+                                              name="tagsFilter-{{ filterLable | handleize }}"
+                                              value="{{ tag | handleize }}"
+                                              {% if currentTags contains tagValue %}checked{% endif %}
+                                              id="Filter-{{ filterLable | escape }}-{{ forloop.index }}">
+                                          <label for="Filter-{{ filterLable | escape }}-{{ forloop.index }}" class="form-check-label option-label filter-checkbox ps-2" title="{{ tag | escape }}">
+                                            {{ tag }}
+                                          </label>
+                                      </div>
+                                  </li>
+                                {% endif %}
+                            {%- endfor -%}
+                          </ul>
+                          {% if tagFound <= 0 %}
+                            <script type="text/javascript">
+                                const filterList = document.querySelector('#filter_toggle_{{ filterLable | handleize }}');
+                                if(filterList && filterList.closest('.filter__container')){
+                                  filterList.closest('.filter__container').classList.add('d-none');
+                                }
+                            </script>
+                          {% endif %}
+                        </div>
+                      </div>
+                    {% endif %}
+                  {%- endif-%}
+            {%- endfor -%}
+              <noscript>
+                <button type="submit" class="filter__button button">{{ 'sections.collection_template.filter_button' | t }}</button>
+              </noscript>
+            </div>
+            {% endif %}
+            
+            {% if collection.current_vendor or collection.current_type %}
+              <input type="hidden" name="q" value="{{ collection.current_vendor }}{{ collection.current_type }}">
+            {% endif %}
+
+            {% if section.settings.enable_sorting %}
+              <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+            {% endif %}
+
+            <div class="col-12 d-lg-none mt-auto">
+                <button class="btn btn-primary btn-sm btn-block" type="button" aria-label="{{ 'templates.collection.apply_btn' | t }}" data-applyFilters>
+                  </span>{{ 'templates.collection.apply_btn' | t }}
+                </button>
+            </div>
+          </form>
+        </collection-filters>
+    {%- endif -%}
+  </div>

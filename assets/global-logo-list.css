@@ -1,0 +1,11 @@
+.logo-list .logo-list-img{
+    height: 80px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.logo-list .logo-list-img  img{
+    max-height: 100%;
+}

@@ -1,0 +1,33 @@
+<div id="customerLoginForm" data-login-form>
+    {% form 'customer_login' %}
+       
+        <h3 class="text-center visually-hidden">{{ 'customer.login_page.title' | t }}</h3>
+
+        {% if form.errors %}
+            <div class="alert alert-warning" role="alert">
+            {{ form.errors | default_errors }}
+            </div>
+        {% endif %}
+
+        <div class="form-group form-floating">
+            <input type="email" name="customer[email]" aria-label="email" id="customerEmail" class="form-control {% if form.errors contains 'email' %} is-invalid{% endif %}" placeholder="{{ 'customer.login_page.email' | t }}" required>
+            <label for="customerEmail">{{ 'customer.login_page.email' | t }}</label>
+        </div>
+
+        {% if form.password_needed %}
+        <div class="form-group form-floating">
+            <input type="password" value="" id="customerPassword" name="customer[password]" aria-label="password" class="form-control {% if form.errors contains 'password' %} is-invalid{% endif %}" placeholder="{{ 'customer.login_page.password' | t }}" required>
+            <label for="customerPassword">{{ 'customer.login_page.password' | t }}</label>
+        </div>
+        {% endif %}
+
+        <input type="submit" class="btn btn-primary btn-block" value="{{ 'customer.login_page.sign_in' | t }}">
+
+        {% if form.password_needed %}
+            <p class="text-end mt-2 font-italic">
+                <a data-recover-link href="#recover">{{ 'customer.login_page.forgot_password' | t }}</a>
+            </p>
+        {% endif %}
+
+    {% endform %}
+  </div>

@@ -1,0 +1,92 @@
+
+.split-banner {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+}
+  
+.banner__media-half + .banner__media-half {
+    right: 0;
+    left: auto;
+}
+
+.banner__media-half {
+    width: 50%;
+}
+
+
+@media screen and (min-width: 768px) {
+    .split-banner.shortheight{
+        height: 40vh;
+        min-height: 400px;
+    }
+
+    .split-banner.tallheight{
+        height: 60vh;
+        min-height: 600px;
+    }
+
+    .split-banner.fullheight{
+        height: 100vh;
+        min-height: 700px;
+    }
+}
+
+
+@media screen and (max-width: 767px) {
+    .banner--mobile-bottom:not(.banner--stacked) > .banner__media {
+        height: 30vh;
+        min-height: 320px;
+    }
+    .banner:not(.banner--stacked) {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .banner--stacked {    
+        height: auto;
+    }
+    .banner--stacked .banner__media {
+        flex-direction: column;
+    }
+    .banner--stacked .banner__media-half {
+        width: 100%;
+    }
+    .banner--stacked .banner__media-half + .banner__media-half {
+        order: 1;
+    }
+    .split-banner:not(.banner--stacked):not(.banner--mobile-bottom){
+        padding: 3rem 0;
+    }
+    .split-banner:not(.banner--stacked):not(.banner--mobile-bottom) > .banner__content {
+        height: 30vh;
+        min-height: 320px;
+    }
+    .split-banner:not(.banner--stacked){
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .banner--stacked:not(.banner--mobile-bottom) .banner__content{
+        position: absolute;
+        height: 30vh;
+        min-height: 320px;
+    }
+    .split-banner.banner--stacked:not(.banner--mobile-bottom)>.banner__media,
+    .split-banner.banner--mobile-bottom .banner__media {
+        height: 30vh;
+        min-height: 320px;
+    }
+  .banner--mobile-bottom .banner__media,
+  .banner--stacked:not(.banner--mobile-bottom) .banner__media {
+    position: relative;
+  }
+
+  .banner--stacked.banner--adapt:not(.banner--mobile-bottom) .banner__content {
+    max-height: 100%;
+    overflow: hidden;
+    position: absolute;
+  }
+
+  .banner--stacked .banner__media-image-half {
+    width: 100%;
+  }
+}

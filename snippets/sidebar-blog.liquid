@@ -1,0 +1,90 @@
+<div class="sidebar-blog {% if section.settings.sidebar_is_sticky %}sticky-top{% endif %}">
+
+    {% for block in section.blocks %}
+    
+        {% comment %} social sharing {% endcomment %}
+        {% if block.settings.enable_socials %}
+          <div class="card card-socials mb-4" {{ block.shopify_attributes }}>
+            <div class="card-header">{{ block.settings.socials_title }}</div>
+            <div class="card-body text-left">
+              <ul class="list-unstyled social-icons list-inline my-0">
+                {% if block.settings.social_icon_facebook %}
+                <li class="list-inline-item mx-2">
+                    <a href="{{ settings.social_facebook_link }}" title="{{ 'general.social.links.facebook' | t }}" rel="nofollow" aria-label="{{ 'general.social.links.facebook' | t }}"><span class="icon-facebook font-size-lg"></span></a>
+                    <span class="visually-hidden visually-hidden--inline">{{ 'general.social.links.facebook' | t }}</span>
+                    <span class="visually-hidden visually-hidden--inline">{{ 'accessibility.link_messages.new_window' | t }}</span>
+                </li>
+                {% endif %}
+    
+                {% if block.settings.social_icon_twitter %}
+                <li class="list-inline-item mx-2">
+                    <a href="{{ settings.social_twitter_link }}" title="{{ 'general.social.links.twitter' | t }}" rel="nofollow" aria-label="{{ 'general.social.links.twitter' | t }}"><span class="icon-twitter font-size-lg"></span></a>
+                    <span class="visually-hidden visually-hidden--inline">{{ 'general.social.links.twitter' | t }}</span>
+                    <span class="visually-hidden visually-hidden--inline">{{ 'accessibility.link_messages.new_window' | t }}</span>
+                </li>
+                {% endif %}
+    
+                {% if block.settings.social_icon_instagram %}
+                <li class="list-inline-item mx-2">
+                    <a href="{{ settings.social_instagram_link }}" title="{{ 'general.social.links.instagram' | t }}" rel="nofollow" aria-label="{{ 'general.social.links.instagram' | t }}"><span class="ion-social-instagram font-size-lg"></span></a>
+                    <span class="visually-hidden visually-hidden--inline">{{ 'general.social.links.instagram' | t }}</span>
+                    <span class="visually-hidden visually-hidden--inline">{{ 'accessibility.link_messages.new_window' | t }}</span>
+                </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        {% endif %}
+    
+        {% comment %} recent articles {% endcomment %}
+        {% if block.settings.enable_recent_articles %}
+          <div class="card card-recent-articles mb-4">
+            <div class="card-header">{{ block.settings.recent_articles_title }}</div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    {% assign total_recent_articles = block.settings.total_recent_articles %}
+                    {% for article in blogs[blog.handle].articles limit: total_recent_articles %}
+                    <li class="list-group-item">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                            <a href="{{ article.url }}" class="d-block" title="{{ article.title }}" aria-label="{{ article.title }}">
+                                {% unless article_image contains 'no-image' %}
+                                <img class="d-flex mr-3" src="{{ article.image | image_url: width: 60, height: 60, crop: 'center' }}" class="img-fluid" alt="{{ article.title }}" loading="lazy"
+                                  width="{{ article.image.width }}"
+                                  height="{{ article.image.width | divided_by: article.image.aspect_ratio }}">
+                                {% endunless %}
+                            </a>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                            <h6 class="mt-0 mb-2"><a href="{{ article.url }}">{{ article.title }}</a></h6>
+                            <p class="py-0">{{ article.content | strip_html | truncatewords: 8 }}</p>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+          </div>
+        {% endif %}
+    
+    
+        {% comment %} tags list {% endcomment %}
+        {% if block.settings.enable_tags %}
+          <div class="card card-tags mb-4">
+            <div class="card-header">{{ block.settings.tags_title }}</div>
+            <div class="card-body">
+              {% for tag in blog.all_tags %}
+                {% if current_tags contains tag %}
+                  <span class="badge badge-pill badge-dark">{{ tag }}</span>
+                {% else %}
+                  <span class="badge badge-pill badge-light">{{ tag | link_to_tag: tag }}</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+    
+    {% endfor %}
+    
+    </div>
+    

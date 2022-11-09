@@ -1,0 +1,26 @@
+.pagination{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+}
+
+.page-item{
+  margin: 0 5px;
+  width: 26px;
+}
+.page-link{
+  width: 100%;
+  position: relative;
+}
+.page-link.active::after, .page-link:hover::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: currentColor;
+}

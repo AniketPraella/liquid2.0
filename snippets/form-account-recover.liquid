@@ -1,0 +1,30 @@
+<section data-recover-password-form style="display: none;">
+    <div id="customerLoginForm">
+        {% form 'recover_customer_password' %}
+
+        <h3 class="text-center">{{ 'customer.recover_password.title' | t }}</h3>
+        <p class="text-center">{{ 'customer.recover_password.subtext' | t }}</p>
+
+        {% if form.errors %}
+        <div class="alert alert-warning">
+            {{ form.errors | default_errors }}
+        </div>
+        {% endif %}
+
+        {% if form.posted_successfully? %}
+            <p class="success-msg">{{ 'customer.recover_password.success' | t }}</p>
+        {% endif %}
+
+        <div class="form-group input-group">
+            <input type="email" value="" id="resetCustomerEmail" name="email" aria-label="email" class="form-control" placeholder="{{ 'customer.recover_password.email' | t }}" required>
+        </div>
+
+        <input type="submit" class="btn btn-primary btn-block" value="{{ 'customer.recover_password.submit' | t }}">
+
+        <div class="mt-3 text-center">
+            <input type="reset" class="btn btn-outline-primary btn-sm hide-resetform" data-hideResetPass value="{{ 'customer.reset_password.cancel' | t }}">
+        </div>
+        {% endform %}
+    </div>
+</section>
+ 

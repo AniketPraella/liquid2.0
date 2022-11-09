@@ -1,0 +1,89 @@
+{
+  "sections": {
+    "main": {
+      "type": "template-product-layout-2",
+      "blocks": {
+        "76185562-4eb8-429b-a627-624a152e3944": {
+          "type": "vendor",
+          "settings": {
+            "show_vendor": true
+          }
+        },
+        "f74187b8-c891-42b8-9a6b-2c67a497b018": {
+          "type": "subtitle",
+          "settings": {
+            "subtitle": "<p>{{ product.metafields.descriptors.subtitle.value }}<\/p>"
+          }
+        },
+        "3b316236-d91e-4dd0-953a-173c1f40bfcf": {
+          "type": "price",
+          "settings": {
+          }
+        },
+        "fcbf423b-3c83-4097-901c-ca70b8b80e5c": {
+          "type": "description",
+          "settings": {
+          }
+        },
+        "b253ffff-d04d-43a0-9d68-fabdd77b595a": {
+          "type": "product_form",
+          "settings": {
+          }
+        },
+        "e53b8574-dd34-4eca-8c40-ac20d2e38598": {
+          "type": "share",
+          "settings": {
+            "show_social_share": true
+          }
+        },
+        "product-tabs": {
+          "type": "product-tabs",
+          "settings": {
+            "enable_product_tabs": true,
+            "product_tabs_fluid_layout": false,
+            "product_tabs_layout": "tabify",
+            "enable_descripion_tab": true,
+            "enable_custom_tab_1": false,
+            "tab_1_title": "Tab Title 1",
+            "tab_1_content": "",
+            "enable_custom_tab_2": false,
+            "tab_2_title": "Tab Title 2",
+            "tab_2_content": ""
+          }
+        },
+        "related-products": {
+          "type": "related-products",
+          "settings": {
+            "enable_related_products": true,
+            "related_products_fluid_layout": false,
+            "related_products_view": 6,
+            "related_products_auto_play": 0,
+            "related_products_heading_txt": "Related Products",
+            "product_type": "related-products",
+            "related_products_section_bg_color": "#ffffff",
+            "related_products_section_color": "#343a40"
+          }
+        }
+      },
+      "block_order": [
+        "76185562-4eb8-429b-a627-624a152e3944",
+        "f74187b8-c891-42b8-9a6b-2c67a497b018",
+        "3b316236-d91e-4dd0-953a-173c1f40bfcf",
+        "fcbf423b-3c83-4097-901c-ca70b8b80e5c",
+        "b253ffff-d04d-43a0-9d68-fabdd77b595a",
+        "e53b8574-dd34-4eca-8c40-ac20d2e38598",
+        "product-tabs",
+        "related-products"
+      ],
+      "settings": {
+        "fluid_layout": false,
+        "show_vendor": true,
+        "enable_dynamic_checkout": true,
+        "product_tabs_placement": "below_slider"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

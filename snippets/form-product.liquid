@@ -1,0 +1,127 @@
+<product-form class="product-form">
+
+{% comment %}theme-check-disable UnusedAssign{% endcomment %}
+{%- liquid 
+  assign purchaseLimit = null
+  if product.tags contains 'purchase-limit-'
+    assign productTags = product.tags | join: ','
+    assign purchaseLimitTag = productTags | split: 'purchase-limit-' | split: ','
+  endif
+-%}
+{% comment %}theme-check-enable UnusedAssign{% endcomment %}
+
+{%- assign product_form_id = 'product-form-' | append: product.id -%}
+{% form 'product', product, data-productid: product.id, id: product_form_id, class: "mt-4", data-product-form: "", data-product-id: product.id, data-type: 'add-to-cart-form', data-format: format %}
+
+  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+  <div class="row">
+    <div class="col-12 d-flex justify-content-between flex-column">
+      {% unless product.has_only_default_variant %}
+        {%- if settings.enable_swatches -%}
+          <variant-radios class="no-js-hidden" data-section="{{ section.id }}" data-url="{{ product.url | within: collection }}" data-type="variant-radios">
+            {%- for option in product.options_with_values -%}
+                <fieldset class="js product-form__input mb-4 {% if option.name == 'Color' or option.name == 'color' %}color-swatch{% endif %}" data-optionindex="{{ forloop.index }}">
+                    <legend class="form__label fw-medium text-uppercase font-size-sm mb-2">{{ option.name }}: <span class="selected-option">{{ option.selected_value }}</span></legend>
+                    <ul class="list-unstyled d-flex my-0 py-0">
+                        {%- for value in option.values -%}
+                            {%- capture swatchID -%}swatch-{{ product.id }}{% if format %}-{{ format }}{% endif %}-{{ option.name | handleize }}-{{ value | handleize }}{%- endcapture -%}
+                            <li class="me-2">
+                                <div class="swatch {% if option.name == 'Color' or option.name == 'color' %}color-swatch{% endif %}">
+                                    <input type="radio" class="form-control" id="{{ swatchID }}"
+                                        name="{{ option.name }}" value="{{ value | escape }}"
+                                        {% if option.selected_value == value %}checked{% endif %}
+                                        data-handle="{{ value | handle }}">
+                                    <label class="form-label swatch-label {{ value }}" for="{{ swatchID }}" title="{{ value }}"> {% unless option.name == 'Color' or option.name == 'color' %} {{ value }} {% endunless %}  </label>
+                                </div>
+                            </li>
+                        {%- endfor -%}
+                        </ul>
+                </fieldset>
+            {%- endfor -%}
+          </variant-radios>
+        {%- else -%}
+          <variant-selects class="no-js-hidden" data-section="{{ section.id }}" data-url="{{ product.url | within: collection }}" data-type="variant-select">
+            {%- for option in product.options_with_values -%}
+              <div class="product-form__input product-form__input--dropdown mb-4" data-optionindex="{{ forloop.index }}">
+                <label class="fw-medium text-uppercase font-size-sm mb-2" for="Option-{{ section.id }}-{{ forloop.index0 }}" title="{{ option.selected_value }}">
+                  {{ option.name }}: <span class="selected-option">{{ option.selected_value }}</span>
+                </label>
+                <div class="select">
+                  <select id="Option-{{ section.id }}-{{ forloop.index0 }}" class="form-select variant_selector" name="options[{{ option.name | escape }}]" form="product-form-{{ product.id }}">
+                    {%- for value in option.values -%}
+                      <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
+                        {{ value }}
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                </div>
+              </div>
+            {%- endfor -%}
+          </variant-selects>
+        {%- endif -%}
+      {% endunless %}
+
+      <div class="quantity-wrapper mb-4" data-qty-container>
+        <label for="Quantity" class="fw-medium text-uppercase font-size-sm mb-2" title="{{ 'products.product.quantity.label' | t }}">{{ 'products.product.quantity.label' | t }}</label>
+        <div class="input-group input-group-sm">
+          <div class="input-group-prepend">
+            <a href="#" class="input-group-text" rel="nofollow" aria-label="{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}" title="{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}" data-for="decrease" data-qty-btn>
+              <span class="btn-decrease"><span class="icon-minus"></span></span>
+              <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
+            </a>
+          </div>
+          <input type="number" name="quantity" aria-label="{{ 'products.product.quantity.input_label' | t: product: product.title | escape }}" value="1" step="1" min="1" inputmode="numeric" data-qty-input class="quantity form-control text-center" readonly>
+          <div class="input-group-append">
+            <a href="#" class="input-group-text" rel="nofollow" aria-label="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}" title="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}" data-for="increase" data-qty-btn>
+              <span class="btn-increase"><span class="icon-plus"></span></span>
+              <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: product.title | escape }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  {% comment %} DEFAULT HIDDEN OPTIONS SELECT {% endcomment %}
+  {% comment %} DO NOT REMOVE THIS {% endcomment %}
+  <noscript>
+    <div class="row {% if product.has_only_default_variant %}d-none{% endif %}">
+      <div class="col">
+          <select name="id" data-productid="{{ product.id }}">
+            {% for variant in product.variants %}
+                <option
+                  data-sku="{{ variant.sku }}" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}"
+                  value="{{ variant.id }}" {% if variant.available == false %}disabled{% endif %}>
+                  {{ variant.title }}{%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %} - {{ variant.price | money_with_currency }}
+                </option>
+            {% endfor %}
+          </select>
+      </div>
+    </div>
+  </noscript>
+
+<div class="row">
+    <div class="col-12 d-flex">
+        <button class="btn btn-outline-dark btn-sm flex-grow-1"
+            type="submit"
+            name="add"
+            aria-label="{{ 'products.product.add_to_cart' | t | escape }}"
+            {% unless current_variant.available %}disabled{% endunless %}>
+            <span class="add-text">{%- if current_variant.available -%}{{ 'products.product.add_to_cart' | t }}{%- else-%}{{ 'products.product.sold_out' | t }}{%- endif -%}</span>
+            <span class="spinner"></span>
+        </button>
+
+        {% comment %} Dynamic Checkout Button {% endcomment %}
+        {% if section.settings.enable_dynamic_checkout %}
+            <div class="mt-2">{{ form | payment_button }}</div>
+        {% endif %}
+    </div>
+</div>
+
+  <script class="variantsJSON-{{ product.id }}" data-variantJSON type="application/json">
+    {{ product.variants | json }}
+  </script>
+{% endform %}
+
+</product-form>

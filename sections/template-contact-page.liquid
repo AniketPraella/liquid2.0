@@ -1,0 +1,331 @@
+<section>
+    <div style="background:{{ section.settings.section_bg_color }}; color:{{ section.settings.section_txt_color }}">
+        <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+            <div class="row align-items-center no-gutter">
+                <div class="col-12 py-9 text-center px-sm-4">
+                    <h1 class="fw-semibold letter-spacing mb-2">{{ section.settings.heading }}</h1>
+                    <p class="col-xl-5 col-lg-8 mx-auto px-xl-1 px-3 fw-light letter-spacing mb-0">{{ section.settings.txt }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="py-md-11 py-9">
+        <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+            <div class="col-lg-11 mx-auto">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 mb-lg-0 mb-5">
+                        <div class="contact_banner position-relative{{ section.settings.height }}">
+                            {%- if section.settings.image != blank -%}
+                            <img srcset="
+                                {%- if section.settings.image.width >= 350 -%}{{ section.settings.image | image_url: width: 350 }} 350w,{%- endif -%}
+                                {%- if section.settings.image.width >= 550 -%}{{ section.settings.image | image_url: width: 550 }} 550w,{%- endif -%}
+                                {%- if section.settings.image.width >= 750 -%}{{ section.settings.image | image_url: width: 750 }} 750w,{%- endif -%}
+                                {%- if section.settings.image.width >= 991 -%}{{ section.settings.image | image_url: width: 991 }} 991w,{%- endif -%}
+                                {%- if section.settings.image.width >= 1200 -%}{{ section.settings.image | image_url: width: 1200 }} 1200w,{%- endif -%}
+                                {%- if section.settings.image.width >= 1500 -%}{{ section.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                                {{ section.settings.image | image_url }} {{ section.settings.image.width }}w"
+                                src="{{ section.settings.image | image_url: width: 1500 }}" loading="lazy"
+                                sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width }}, 100vw"
+                                alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}"
+                                width="{{ section.settings.image.width }}"
+                                height="{{ section.settings.image.width | divided_by: section.settings.image.aspect_ratio | round }}"
+                            >
+                            {%- else -%}
+                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                            {%- endif -%}
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="mb-4">
+                            <h3 class="fw-semibold letter-spacing mb-4">{{ page.title }}</h3>
+                            <div class="d-md-flex">
+                                <div class="pe-md-13">
+                                    <h6 class="fw-normal letter-spacing-xl font-family-base text-uppercase mb-2">{{ section.settings.email_heading }}</h6>
+                                    <h6 class="fw-light letter-spacing font-family-base mb-0">{{ section.settings.email_name }}</h6>
+                                </div>
+                                <div class="mt-md-0 mt-4">
+                                    <h6 class="fw-normal font-family-base letter-spacing-xl text-uppercase mb-2">{{ section.settings.social_heading }}</h6>
+                                    {% if section.settings.show_social_links %}
+                                        <ul class="social-links list-unstyled list-inline mb-0">
+                                            {% if section.settings.social_icon_instagram %}
+                                                <li class="list-inline-item">
+                                                    <a {% if settings.social_instagram_link != blank %}href="{{ settings.social_instagram_link }}"{% endif %} target="_blank" style="color: {{ section.settings.footer_top_link_color }};"  name="Instagram" title="Instagram" rel="nofollow noreferrer" aria-label="Instagram"
+                                                    class="d-flex align-items-center justify-content-center text-decoration-none">
+                                                        <span class="icon-instagram d-flex text-white"></span>
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+        
+                                            {% if section.settings.social_icon_facebook %}
+                                                <li class="list-inline-item">
+                                                    <a {% if settings.social_facebook_link != blank %}href="{{ settings.social_facebook_link }}"{% endif %} target="_blank" style="color: {{ section.settings.footer_top_link_color }};" name="Facebook" title="Facebook" rel="nofollow noreferrer" aria-label="Facebook"
+                                                    class="d-flex align-items-center justify-content-center text-decoration-none">
+                                                        <span class="icon-facebook d-flex text-white"></span>
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+        
+                                            {% if section.settings.social_icon_pinterest %}
+                                                <li class="list-inline-item">
+                                                    <a {% if settings.social_pinterest_link != blank %}href="{{ settings.social_pinterest_link }}"{% endif %} target="_blank" style="color: {{ section.settings.footer_top_link_color }};" name="pinterest" title="pinterest" rel="nofollow noreferrer" aria-label="pinterest"
+                                                    class="d-flex align-items-center justify-content-center text-decoration-none">
+                                                        <span class="icon-pinterest d-flex text-white"></span>
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+        
+                                            {% if section.settings.social_icon_twitter %}
+                                                <li class="list-inline-item">
+                                                    <a {% if settings.social_twitter_link != blank %}href="{{ settings.social_twitter_link }}"{% endif %} target="_blank" style="color: {{ section.settings.footer_top_link_color }};"  name="Twitter" title="Twitter" rel="nofollow noreferrer" aria-label="Twitter"
+                                                    class="d-flex align-items-center justify-content-center text-decoration-none">
+                                                        <span class="icon-twitter d-flex text-white"></span>
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+        
+                                            {% if section.settings.social_icon_youtube %}
+                                                <li class="list-inline-item">
+                                                    <a {% if settings.social_youtube_link != blank %}href="{{ settings.social_youtube_link }}"{% endif %} target="_blank" style="color: {{ section.settings.footer_top_link_color }};"  name="YouTube" title="YouTube" rel="nofollow noreferrer" aria-label="YouTube"
+                                                    class="d-flex align-items-center justify-content-center text-decoration-none">
+                                                        <span class="icon-youtube d-flex text-white"></span>
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact page-width page-width--narrow spaced-section">
+                            {%- form 'contact', id: 'ContactForm' -%}
+                                {%- if form.posted_successfully? -%}
+                                    <div class="form-status form-status-list form__message" tabindex="-1" autofocus>{{ 'templates.contact.form.post_success' | t }}</div>
+                                {%- elsif form.errors -%}
+                                    <div class="form__message">
+                                        <h2 class="form-status caption-large" role="alert" tabindex="-1" autofocus>{{ 'templates.contact.form.error_heading' | t }}</h2>
+                                    </div>
+                                    <ul class="form-status-list caption-large" role="list">
+                                        <li>
+                                            <a href="#ContactForm-email" class="link">
+                                                {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                {%- endif -%}
+                
+                                <div class="contact__fields">
+                                    <p class="text-uppercase fw-medium mb-3">{{ 'templates.contact.form.title' | t }}</p>
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <input class="form-control" autocomplete="first_name" type="text" id="ContactForm-first_name" name="contact[{{ 'templates.contact.form.first_name' | t }}]" value="{% if form.first_name %}{{ form.first_name }}{% elsif customer %}{{ customer.first_name }}{% endif %}" placeholder="{{ 'templates.contact.form.first_name' | t }}" required>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <input class="form-control" autocomplete="last_name" type="text" id="ContactForm-last_name" name="contact[{{ 'templates.contact.form.last_name' | t }}]" value="{% if form.last_name %}{{ form.last_name }}{% elsif customer %}{{ customer.last_name }}{% endif %}" placeholder="{{ 'templates.contact.form.last_name' | t }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="row field--with-error">
+                                        <div class="col-md-6 form-group">
+                                            <input autocomplete="email" type="email" id="ContactForm-email" class="form-control font-size-md lh-1" name="contact[email]"
+                                            spellcheck="false" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                                            aria-required="true" required
+                                            {% if form.errors contains 'email' %}
+                                                aria-invalid="true"
+                                                aria-describedby="ContactForm-email-error"
+                                            {% endif %}
+                                            placeholder="{{ 'templates.contact.form.email' | t }}">
+
+                                            {%- if form.errors contains 'email' -%}
+                                                <small class="contact__field-error" id="ContactForm-email-error">
+                                                    <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
+                                                    <span class="form__message">{% render 'icon-error' %}{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}</span>
+                                                </small>
+                                            {%- endif -%}
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <input type="text" id="ContactForm-phone" class="form-control font-size-md lh-1" autocomplete="tel" name="contact[{{ 'templates.contact.form.phone' | t }}]" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}" placeholder="{{ 'templates.contact.form.subject' | t }}">
+                                        </div>
+                                    </div>
+                                </div>
+                
+                                <div class="form-group">
+                                    <textarea rows="10" id="ContactForm-body" class="text-area form-control font-size-md lh-1" required
+                                        name="contact[{{ 'templates.contact.form.comment' | t }}]"
+                                        placeholder="{{ 'templates.contact.form.comment' | t }}">
+                                        {{- form.body -}}
+                                    </textarea>
+                                </div>
+                                <div class="contact__button text-end">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ 'templates.contact.form.send' | t }}
+                                    </button>
+                                </div>
+                            {%- endform -%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-light-white p-md-6 p-3">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d97400.25358776405!2d-74.41495688892194!3d40.28112733503218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3d2030736c22f%3A0x302b9cdc39c0014c!2sEnglishtown%2C+NJ+07726!5e0!3m2!1sen!2sus!4v1507282473485" 
+        width="600" height="450" style="border: 0px; pointer-events: none; width: 100%;" allowfullscreen=""></iframe>
+    </div>
+</section>
+
+
+<style>
+    .contact_banner{
+        padding-top: 100%;
+    }
+
+    @media screen and (min-width: 500px) and (max-width: 992px) {
+        .contact_banner{
+            padding-top: 60%;
+        }
+    } 
+
+    @media screen and (min-width: 992px) {
+        .contact_banner{
+            padding-top: 120%;
+        }
+    }  
+  
+    .contact_banner img,
+    .contact_banner svg{
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        object-fit: contain;
+    }
+</style>
+
+  
+{% schema %}
+  {
+    "name": "t:sections.page.name",
+    "tag": "section",
+    "class": "spaced-section",
+    "settings": [
+        {
+            "type": "page",
+            "id": "page",
+            "label": "t:sections.page.settings.page.label"
+        },
+        {
+            "type": "header",
+            "content": "Layout"
+        },
+        {
+            "type": "checkbox",
+            "id": "fluid_layout",
+            "label": "Full Width Layout?",
+            "default": false
+        },
+        {
+            "type":"header",
+            "content":"styling"
+        },
+        {
+            "type": "color",
+            "id": "section_bg_color",
+            "label": "Background Color",
+            "default": "#FAFAF7"
+        },
+        {
+            "type": "color",
+            "id": "section_txt_color",
+            "label": "Text Color",
+            "default": "#000000"
+        },
+        {
+            "type": "textarea",
+            "id": "heading",
+            "label": "Heading Text"
+        },
+        {
+            "type": "textarea",
+            "id": "txt",
+            "label": "Text"
+        },
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Select Image",
+            "info": "Use 650x650 sized image."
+        },
+        {
+            "type": "text",
+            "id": "email_heading",
+            "label": "Heading",
+            "default": "Email Us"
+        },
+        {
+            "type": "text",
+            "id": "email_name",
+            "label": "Email",
+            "default": "customerservice@hyntbeauty.com"
+        },
+        {
+            "type": "text",
+            "id": "social_heading",
+            "label": "Heading",
+            "default": "Connect with Us"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_social_links",
+            "label": "Show Social Links?",
+            "default": true
+        },
+        {
+            "type": "paragraph",
+            "content": "Select Networks"
+        },
+        {
+            "type": "checkbox",
+            "id": "social_icon_facebook",
+            "label": "Facebook",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "social_icon_pinterest",
+            "label": "pinterest",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "social_icon_twitter",
+            "label": "Twitter",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "social_icon_instagram",
+            "label": "Instagram",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "social_icon_youtube",
+            "label": "YouTube",
+            "default": true
+        }
+    ],
+    "presets": [
+      {
+        "name": "t:sections.page.presets.name"
+      }
+    ]
+  }
+{% endschema %}
+
+
+
+
+

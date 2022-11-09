@@ -1,0 +1,97 @@
+<div class="col-12">
+    <div class="row mb-4 align-items-start">
+        
+        <div class="col-lg-3 order-lg-1 d-none">
+            <div class="py-lg-2 pt-3 total-products" data-totalProducts>
+                <p class="m-0">{{ collection.products_count }} {{ 'templates.collection.results_found' | t }}</p>
+            </div>
+        </div>
+
+        {% if section.settings.enable_filtering or section.settings.enable_sorting %}
+            <div class="col-12 d-lg-none">
+                <div class="d-flex justify-content-between">
+                    {% if section.settings.enable_filtering %}
+                    <a href="#" class="btn btn-primary btn-sm" id="filter-drawer" data-for="filter" name="{{ 'templates.collection.filter_lable' | t }}" title="{{ 'templates.collection.filter_lable' | t }}" rel="nofollow" aria-label="{{ 'templates.collection.filter_lable' | t }}" role="button" aria-expanded="false" aria-controls="filtersCollapse">
+                        {{ 'templates.collection.filter_lable' | t }}
+                    </a>
+                    {% endif %}
+                    {% if section.settings.enable_sorting %}
+                    <a href="#" class="btn btn-primary btn-sm" id="sortby-drawer" data-for="sort_by" name="{{ 'templates.collection.sortby_lable' | t }}" title="{{ 'templates.collection.sortby_lable' | t }}" rel="nofollow" aria-label="{{ 'templates.collection.sortby_lable' | t }}" role="button" aria-expanded="false" aria-controls="filtersCollapse">
+                        {{ 'templates.collection.sortby_lable' | t }}
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+
+        <div class="col-12">
+            <div class="row">
+                <div class="col-8">
+                    {% if section.settings.enable_filtering %}
+                        <div class="d-lg-block d-none horizontal-filters" id="filtersCollapse">
+                            {%- render 'template-collection-filter', sort_by: sort_by, subCollections: subCollections -%}
+                        </div>
+                    {% endif %}
+                </div>
+                {%- if section.settings.enable_sorting -%}
+                    <div class="col-xl-3 col-3 ms-auto d-none d-lg-block order-lg-3">
+                        {%- render 'template-collection-sorting', sort_by: sort_by, type: 'desktop' -%}
+                    </div>
+                {%- endif -%}
+                {%- if section.settings.enable_custom_pagination -%}
+                    <div class="col-xl-1 col-1 ms-auto d-none d-lg-block  order-lg-3">
+                        <p class="mb-0 text-capitalize text-gray-300 filter-text me-2">{{ 'templates.collection.product_per_page' | t }} </p>   
+                        {% render 'custom-pagination', product_count: product_count %}
+                    </div>
+                {%- endif -%}
+            </div>
+        </div>
+
+        <div class="col-12">
+            {% if section.settings.enable_filtering %}
+                <div data-activeFilters class="col-lg-9 mt-lg-0 order-lg-2 mt-3 active-filters active-filters-desktop">
+                    <a href="{{ collection.url }}?sort_by={{ sort_by }}" class="active-filter__button font-size-sm me-2 px-2 py-1 bg-gray-600 text-white  filter-option-clear">{{ 'sections.collection_template.clear_all' | t }}</a>
+                    {%- for filter in collection.filters -%}
+                    {%- for value in filter.active_values -%}
+                        <a class="active-filter__button me-2 d-inline-flex align-items-center mb-1 px-2 py-1 bg-gray-200 font-size-sm filter-option-clear" href="{{ value.url_to_remove }}">
+                        {{ value.label | escape }}
+                        <span class="icon-close font-size-xs lh-1 ms-2"></span>
+                        </a>
+                    {%- endfor -%}
+                    {% if filter.type == "price_range" %}
+                        {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+                        <a class="active-filter__button px-2 py-1 me-2 d-inline-flex align-items-center mb-1 bg-gray-200 font-size-sm filter-option-clear" href="{{ filter.url_to_remove }}">
+                            {%- if filter.min_value.value -%}{{ filter.min_value.value | money }}{%- else -%}{{ 0 | money }}{%- endif -%}-{%- if filter.max_value.value -%}{{ filter.max_value.value | money }}{%- else -%}{{ filter.range_max | money }}{%- endif -%}
+                            <span class="icon-close font-size-xs lh-1 ms-2"></span>
+                        </a>
+                        {%- endif -%}
+                    {% endif %}
+                    {%- endfor -%}
+                    {% if current_tags %}
+                        {% for tag in current_tags %}
+                            {%- liquid 
+                                assign tag_text = tag
+                                assign tag_name = tag | strip
+                                if tag_name contains '_'
+                                    assign cat = tag | split: '_' | first
+                                    assign tag_text = tag | remove_first: cat | remove_first: '_'
+                                endif
+                            -%}
+
+                            {% capture tag_link %}{{ tag | link_to_remove_tag: tag_name }}{% endcapture %}
+                            {% assign tag_link_parts = tag_link | remove_first: '<a href="' | split: '" title="' %}
+                            {% assign tag_link = tag_link_parts[0] | strip %}
+
+                            <a class="active-filter__button me-2 d-inline-flex align-items-center my-1 px-3 py-2 text-primary text-uppercase fw-bold font-size-md filter-option-clear" data-remove="{{ tag | handleize }}" data-type="tag_based" href="{{ tag_link }}">
+                                {{ tag_text | escape }}
+                                <span class="icon-close lh-1 ms-2 icon-size-12 font-size-xs text-primary pointer-none"></span>
+                            </a>
+                        {%- endfor -%}
+                    {% endif %}
+                </div>
+            {%- endif -%}
+        </div>
+
+    </div>
+</div>

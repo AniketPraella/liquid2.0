@@ -1,0 +1,112 @@
+<link rel="stylesheet" href="{{ 'component-card.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'component-card.css' | asset_url | stylesheet_tag }}</noscript>
+
+{% assign productExcludeTag = settings.product_exclude_tag_text %}
+{% assign itemLimit = section.settings.items_per_collection %}
+<div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+  <div class="row">
+      <div class="col-sm-12 text-center">
+          <div class="fancy-heading active">
+            <h1 class="page-title">{{ section.settings.title | escape }}</h1>
+          </div>
+      </div>
+  </div>
+  {%- paginate collections by 12 -%}
+    {% for collection in collections %}
+      {% if collection.products.count > 0 %}
+
+        <div class="row no-gutters my-5">
+          <div class="col" data-type="slider">
+              <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-5">
+                <h3 class="">{{ collection.title }}</h3>
+                <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: collection.title }}">
+                  {{ 'templates.list-collection.view-all' | t }} <span class="icon-arrow-next ms-1 font-size-lg"></span>
+                </a>
+              </div>
+
+              <slider-element class="swiper-container carousel">
+                  <div class="swiper swiper-slider featured-collection-slider card-carousel" data-slider='{
+                          "loop": false,
+                          "shortSwipes": false,
+                          "slidesPerView": "1",
+                          "spaceBetween": 15,
+                          "grabCursor": true,
+                          "navigation": {
+                              "nextEl": ".swiper-button-next",
+                              "prevEl": ".swiper-button-prev"
+                          },
+                          "pagination": {
+                              "el": ".swiper-pagination"
+                          },
+                          "breakpoints": {
+                          "560": {
+                              "slidesPerView": 2,
+                              "spaceBetween": 20
+                          },
+                          "768": {
+                              "slidesPerView": 3,
+                              "spaceBetween": 30
+                          },
+                          "992": {
+                              "slidesPerView": 4,
+                              "spaceBetween": 30
+                          }
+                      }
+                  }'>
+                      <div class="swiper-wrapper">
+                          {% for product in collection.products limit: itemLimit %}
+                              {% unless product.tags contains productExcludeTag %}
+                                  <div class="swiper-slide">
+                                      {% render 'card-product-style-generic', product: product %}
+                                  </div>
+                              {% endunless %}
+                          {% endfor %}
+                      </div>
+                      <div class="swiper-button-next icon-next"></div>
+                        <div class="swiper-button-prev icon-previous"></div>
+                  </div>
+              </slider-element>
+          </div>
+
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    {%- render 'pagination', paginate: paginate -%}
+    
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.template-list-collections.name",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "fluid_layout",
+      "label": "Full Width Layout?",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.template-list-collections.settings.title.label",
+      "default": "Collections"
+    },
+    {
+      "type": "range",
+      "id": "items_per_collection",
+      "label": "Products Per Collection",
+      "min": 1,
+      "max": 12,
+      "step":1,
+      "default": 4
+    }
+  ]
+}
+{% endschema %}

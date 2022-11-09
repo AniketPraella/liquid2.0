@@ -1,0 +1,62 @@
+{%- liquid 
+    assign placement = 'grid'
+    assign video_type = blank
+    case media.media_type
+        when 'external_video'
+            if media.host == 'youtube'
+                assign video_type = 'youtube' 
+            endif
+            if media.host == 'vimeo'
+                assign video_type = 'vimeo'
+            endif
+            assign video_id = media.external_id
+        when 'video'
+            assign video_type = 'local'
+            for source in media.sources
+                if source.format == 'mp4'
+                    assign video_id = source.url
+                    break
+                endif
+            endfor
+    endcase
+-%}
+
+{% if video_type != blank %}
+    {% assign poster_image = media.preview_image.src %}
+    <div class="custom-video-container">
+        <custom-video class="placement--{{ placement }}" data-video-type="{{ video_type }}" data-video-id="{{ video_id }}" data-placement="{{ placement }}" data-autoplay="true" data-controls="true">
+            <div class="cta-btn" data-aos="hero">
+                <button class="play__button btn btn-primary" data-trigger-video aria-label="{{ 'sections.video-with-text.play_video' | t }}">
+                    <span class="icon-play text-body"></span>
+                </button>
+                <button class="pause__button btn btn-primary" data-pause-video aria-label="{{ 'sections.video-with-text.paused_video' | t }}">
+                    <span class="icon-pause"></span>
+                </button>
+            </div>
+            <div class="content-section">
+                <div class="poster-image {{ section.settings.height }}">
+                    {%- if poster_image != blank -%}
+                        <img srcset="
+                            {%- if poster_image.width >= 350 -%}{{ poster_image | image_url: width: 350 }} 350w,{%- endif -%}
+                            {%- if poster_image.width >= 550 -%}{{ poster_image | image_url: width: 550 }} 550w,{%- endif -%}
+                            {%- if poster_image.width >= 750 -%}{{ poster_image | image_url: width: 750 }} 750w,{%- endif -%}
+                            {%- if poster_image.width >= 991 -%}{{ poster_image | image_url: width: 991 }} 991w,{%- endif -%}
+                            {%- if poster_image.width >= 1200 -%}{{ poster_image | image_url: width: 1200 }} 1200w,{%- endif -%}
+                            {%- if poster_image.width >= 1500 -%}{{ poster_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                            {{ poster_image | image_url }} {{ poster_image.width }}w"
+                            src="{{ poster_image | image_url: width: 1500 }}" 
+                            loading="lazy"
+                            sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width }}, 100vw"
+                            alt="{{ media.alt | default: product.title | escape }}"
+                            width="{{ media.preview_image.width }}"
+                            height="{{ media.preview_image.width | divided_by: media.preview_image.aspect_ratio }}""
+                        >
+                    {%- else -%}
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- endif -%}
+                </div>
+            </div>
+            {%- if placement == 'grid' -%}<div class="video-section {{ section.settings.height }}" tabindex="0"></div>{% endif %}
+        </custom-video>
+    </div>
+{% endif %}

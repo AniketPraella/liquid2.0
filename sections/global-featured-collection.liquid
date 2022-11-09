@@ -1,0 +1,170 @@
+<link rel="stylesheet" href="{{ 'component-card.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'component-card.css' | asset_url | stylesheet_tag }}</noscript>
+
+{% assign collection_grid_type = section.settings.collection_grid_type %}
+{% assign productExcludeTag = settings.product_exclude_tag_text %}
+
+<section class="section-content" data-section-id="{{ section.id }}" data-grid-type="{{ collection_grid_type }}" style="background-color: {{ section.settings.section_bg_color }}; color: {{ section.settings.section_txt_color }}">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}" {% if collection_grid_type == 'grid' %}data-type="slider"{% endif %}>
+        <div class="row">
+            <div class="col-12 col-lg-6 col-md-8 text-center mb-md-5 mb-4 mx-auto">
+                {% if section.settings.heading_txt != blank %}
+                    <h3 class="section-title mb-3">{{ section.settings.heading_txt | escape }}</h3>
+                {% endif %}
+                {% if section.settings.lead_txt != blank %}
+                    <p>
+                        {{ section.settings.lead_txt }}
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+
+      {% if section.settings.home_featured_collection == blank or collections[section.settings.home_featured_collection] == empty or collections[section.settings.home_featured_collection].products_count == 0 %}
+        {%- liquid 
+          unless emptyState
+            assign emptyState = true
+          endunless
+
+          render 'onboarding-featured-products'
+        -%}
+      {% else %}
+        {% if collection_grid_type == 'collage' %}
+          <div class="row justify-content-center">
+            {% for product in collections[section.settings.home_featured_collection].products limit: 7 %}
+              {% unless product.tags contains productExcludeTag %}
+                <div class="{% if forloop.index <= 3 %}col-lg-4{% endif %} {% if forloop.index > 3 %}col-lg-3{% endif %} col-sm-6 my-3 d-flex align-items-stretch justify-content-around">
+                  {% render 'card-product-style-generic', product: product %}
+                </div>
+              {% endunless %}
+            {% endfor %}
+          </div>
+        {% else %}
+            <slider-element class="swiper-container carousel d-block position-relative arrow-outside">
+                <div class="swiper swiper-slider featured-collection-slider card-carousel" data-slider='{
+                      "loop": false,
+                      "shortSwipes": false,
+                      "slidesPerView": "1",
+                      "spaceBetween": 15,
+                      "grabCursor": true,
+                      "navigation": {
+                          "nextEl": ".product-button-next",
+                          "prevEl": ".product-button-prev"
+                      },
+                      "pagination": {
+                          "el": ".swiper-pagination"
+                      },
+                      "breakpoints": {
+                        "560": {
+                          "slidesPerView": 2,
+                          "spaceBetween": 20
+                        },
+                        "768": {
+                          "slidesPerView": 3,
+                          "spaceBetween": 30
+                        },
+                        "992": {
+                          "slidesPerView": 4,
+                          "spaceBetween": 30
+                        }
+                     }
+                  }'>
+                    <div class="swiper-wrapper">
+                        {% for product in collections[section.settings.home_featured_collection].products limit: 8 %}
+                          {% unless product.tags contains productExcludeTag %}
+                            <div class="swiper-slide">
+                                {% render 'card-product-style-generic', product: product %}
+                            </div>
+                          {% endunless %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="swiper-button-next product-button-next icon-next"></div>
+                <div class="swiper-button-prev product-button-prev icon-previous"></div>
+            </slider-element>
+        {% endif %}
+      {% endif %}
+    </div>
+</section>
+
+
+
+{% schema %}
+  {
+    "name": "Featured Collection",
+    "tag": "section",
+    "class": "index-featured-collectiion",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "checkbox",
+        "id": "fluid_layout",
+        "label": "Full Width Layout?",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "collection_grid_type",
+        "label": "Grid Type",
+        "options": [
+          {
+            "value": "collage",
+            "label": "Collage"
+          },
+          {
+            "value": "grid",
+            "label": "Grid"
+          }
+        ],
+        "default": "collage"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "textarea",
+        "id": "heading_txt",
+        "label": "Heading Text",
+        "default": "Featured Collection"
+      },
+      {
+        "type": "textarea",
+        "id": "lead_txt",
+        "label": "Lead Text"
+      },
+      {
+        "type": "header",
+        "content": "Collection"
+      },
+      {
+        "type": "collection",
+        "id": "home_featured_collection",
+        "label": "Select Collection"
+      },
+      {
+        "type": "header",
+        "content": "Styling"
+      },
+      {
+        "type": "color",
+        "id": "section_bg_color",
+        "label": "Background Color",
+        "default": "#FAFAF7"
+      },
+      {
+        "type": "color",
+        "id": "section_txt_color",
+        "label": "Text Color",
+        "default": "#222222"
+      }
+    ],
+    "presets": [{
+      "name": "Featured Collection",
+      "category": "Collection"
+    }]
+  }
+{% endschema %}

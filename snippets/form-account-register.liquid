@@ -1,0 +1,42 @@
+<div id="customerRegisterForm" data-register-form>
+    {% form 'create_customer' %}
+  
+      <h3 class="text-center visually-hidden">{{ 'customer.register.title' | t }}</h3>
+  
+      {% if form.errors %}
+      <div class="alert alert-warning">
+        {{ form.errors | default_errors }}
+      </div>
+      {% endif %}
+  
+      <div class="form-group form-floating">
+        <input type="text" id="registerCustomerFirstName" name="customer[first_name]" aria-label="first name" class="form-control " placeholder="{{ 'customer.register.first_name' | t }}" {% if form.first_name %}value="{{ form.first_name }}" {% endif %} required>
+        <label id="registerCustomerFirstName">{{ 'customer.register.first_name' | t }}</label>
+      </div>
+      <div class="form-group form-floating">
+        <input type="text" id="customerLastName" name="customer[last_name]" aria-label="last name" class="form-control border-left-0" placeholder="{{ 'customer.register.last_name' | t }}" {% if form.last_name %}value="{{ form.last_name }}" {% endif %} required>
+        <label id="customerLastName">{{ 'customer.register.last_name' | t }}</label>
+      </div>
+  
+      <div class="form-group form-floating">
+        <input type="email" id="registerCustomerEmail" name="customer[email]" aria-label="email" class="form-control {% if form.errors contains 'email' %} is-invalid{% endif %}" placeholder="{{ 'customer.register.email' | t }}" {% if form.email %} value="{{ form.email }}" {% endif %} autocorrect="off" autocapitalize="off" required>
+        <label id="registerCustomerEmail">{{ 'customer.register.email' | t }}</label>
+      </div>
+  
+      <div class="form-group form-floating">
+        <input type="password" id="registerCustomerPassword" data-password-input name="customer[password]" aria-label="password" class="form-control {% if form.errors contains 'password' %} is-invalid{% endif %}" placeholder="{{ 'customer.register.password' | t }}" required>
+        <label id="registerCustomerPassword">{{ 'customer.register.password' | t }}</label>
+      </div>
+  
+      <div class="form-check mb-4">
+        <label class="form-check-label" for="accepts_marketing" title="{{ 'customer.register.newsletter_subscribe' | t }}">
+          <input type="checkbox" id="accepts_marketing" name="customer[accepts_marketing]" aria-label="newsletter subscription" class="form-check-input" checked="checked" />
+          <span class="small">{{ 'customer.register.newsletter_subscribe' | t }}</span>
+        </label>
+      </div>
+  
+      <input type="submit" class="btn btn-primary btn-block" value="{{ 'customer.register.submit' | t }}">
+  
+    {% endform %}
+  </div>
+  

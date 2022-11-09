@@ -1,0 +1,54 @@
+<div class="marquee py-4" style="background-color: {{ section.settings.section_bg_color }}; color: {{ section.settings.section_txt_color }}">
+    <div class="marquee__inner">
+        {% for block in section.blocks %}
+        <div class="d-inline-block px-4">
+            <p class="mb-0 font-size-sm text-uppercase fw-medium">{{ block.settings.heading }}</p>
+        </div>
+    {% endfor %}
+    </div>
+  </div>
+
+{% schema %}
+{
+    "name": "Auto Scroll Info",
+    "tag": "section",
+    "settings":[
+        {
+            "type": "header",
+            "content": "Styling"
+        },
+        {
+            "type": "color",
+            "id": "section_bg_color",
+            "label": "Background Color",
+            "default": "#FAFAF7"
+        },
+        {
+            "type": "color",
+            "id": "section_txt_color",
+            "label": "Text Color",
+            "default": "#222222"
+        }
+    ],
+    "blocks": [
+        {
+        "type": "heading",
+        "name": "Text",
+        "settings": [
+            {
+                "type": "text",
+                "id": "heading",
+                "default": "Text",
+                "label": "Heading"
+            }
+        ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Auto Scroll Info"
+    }
+  ]
+}
+{% endschema %}
+ 

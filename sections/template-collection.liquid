@@ -1,0 +1,302 @@
+<div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+    <div class="row">
+
+        {%- assign filter_type = section.settings.filter_type -%}
+
+        {%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+
+        {%- liquid 
+          assign product_count = section.settings.products_per_page
+          assign page_url = contentForQuerystring | split: '"pageurl":"' | last | split: '"' | first | split: '.myshopify.com' | last | replace: '\/', '/' | replace: '%20', ' ' | replace: '\u0026', '&' 
+          assign product_count = section.settings.products_per_page
+
+          if section.settings.enable_custom_pagination and page_url contains "?" and page_url contains 'count='
+            assign page_url = page_url | split: '?'
+            assign page_url = page_url[1] | split: '&'
+            for param in page_url
+              if param contains 'count'
+                assign page_url = param | split: '='
+                assign product_count = page_url[1] | plus: 0
+              endif
+            endfor
+          endif
+        -%}
+
+        {%- case filter_type -%}
+          {%- when 'horizontal-filters' -%}
+            {%- render 'collection-topbar-filters' , product_count : product_count -%}
+          {%- else -%}
+            {%- render 'collection-sidebar-filters' , product_count : product_count -%}
+        {%- endcase -%}
+
+        <div class="col">
+            <div id="collection-product-grid">
+                {%- paginate collection.products by product_count -%}
+                    {%- if collection.products.size == 0 -%}
+                        <div class="row mt-5" id="template-collection" data-id="{{ section.id }}">
+                            <div class="col-12 text-center mt-5">
+                                <h5>{{ 'templates.collection.no_matches_within_filters' | t }}</h5>
+                                {% if section.settings.enable_filtering %}
+                                    <p>{{ 'templates.collection.refine_search' | t }} <a href="#" rel="nofollow" aria-label="{{ 'templates.collection.reset_filters' | t }}" title="{{ 'templates.collection.reset_filters' | t }}">{{ 'templates.collection.reset_filters' | t }}</a></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {%- else -%}
+                        <div class="row justify-content-center" id="template-collection" data-id="{{ section.id }}">
+                            {%- liquid 
+                              assign loopIndex = 0 
+                              assign totalProducts = collection.products.count
+                              assign productExcludeTag = settings.product_exclude_tag_text
+                            -%}
+
+                            {% for product in collection.products %}
+                              {% unless product.tags contains productExcludeTag %}
+                                  {% assign loopIndex = loopIndex | plus: 1 %}
+                                  <div class="col-12 col-lg-{{ section.settings.product_per_row }} col-md-4 col-sm-6 mb-5 d-flex align-items-stretch justify-content-around">
+                                      {% render 'card-product-style-generic', product: product %}
+                                  </div>
+                                  {% render 'card-collection-promo', loopIndex: loopIndex, totalProducts: totalProducts %}
+                              {% endunless %}
+                            {% endfor %}
+                        </div>
+                        {% if paginate.pages > 1 %}
+                            <div class="row" data-pagination data-type="{{ section.settings.pagination_type }}">
+                                <div class="col-12 text-center mt-5">
+                                {% if section.settings.pagination_type == 'loadmore' and paginate.next %}
+                                <a href="{{ paginate.next.url }}" rel="nofollow" class="btn btn-primary text-white" data-pagination id="load-more">
+                                    {{ 'templates.collection.load-more' | t }}
+                                </a>
+                                {% elsif section.settings.pagination_type == 'numbers' %}
+                                {% render 'pagination', paginate: paginate , product_count : product_count %}
+                                {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {%- endif -%}
+                {%- endpaginate -%}
+            </div>
+        </div>
+
+    {% if collection.description != blank %}
+      <div class="text-center mt-7">
+        {{ collection.description }}
+      </div>
+    {% endif %}
+    
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.template-collection.name",
+  "class": "section-content collection-grid-section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 24,
+      "step": 4,
+      "default": 16,
+      "label": "t:sections.template-collection.settings.products_per_page.label"
+    },
+    {
+      "type": "select",
+      "id": "product_per_row",
+      "label": "t:sections.template-collection.settings.products_per_row.label",
+      "options": [
+        {
+          "value": "6",
+          "label": "2"
+        },
+        {
+          "value": "4",
+          "label": "3"
+        },
+        {
+          "value": "3",
+          "label": "4"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "pagination_type",
+      "label": "Pagination Type",
+      "options": [
+        {
+          "value": "numbers",
+          "label": "Standard"
+        },
+        {
+          "value": "loadmore",
+          "label": "Modern"
+        }
+      ],
+      "default": "numbers"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.template-collection.settings.header__3.content"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.template-collection.settings.header__1.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sub_collections",
+      "default": true,
+      "label": "Enable Sub Collection block"
+    },
+    {
+      "type": "link_list",
+      "id": "sub_collections",
+      "label": "Sub Collections"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "default": true,
+      "label": "t:sections.template-collection.settings.enable_filtering.label",
+      "info": "t:sections.template-collection.settings.enable_filtering.info"
+    },
+    {
+        "type": "select",
+        "id": "filter_type",
+        "label": "Filter Type",
+        "options": [{
+            "value": "default",
+            "label": "Sidebar"
+          },
+          {
+            "value": "horizontal-filters",
+            "label": "Topbar"
+          }
+        ],
+        "default": "default"
+    },
+    {
+      "type": "select",
+      "id": "price_filter_layout",
+      "label": "Price Filter Layout",
+      "options": [
+        {
+          "value": "list",
+          "label": "List"
+        },
+        {
+          "value": "default",
+          "label": "Range"
+        },
+        {
+          "value": "range_slider",
+          "label": "Range Slider"
+        }
+      ],
+      "default": "default"
+    },
+    {
+      "type": "textarea",
+      "id": "price_filter_values",
+      "label": "Price Filters",
+      "info": "Each entry should be in new line. Use same money format as store without currency symbol. Ex: 0.00-10.00"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_pagination",
+      "default": true,
+      "label": "Enable dynamic Product Per Page"
+    },
+    {
+      "type": "text",
+      "id": "custom_pagination",
+      "label": "Product per page",
+      "default": "16,24,32",
+      "info": "Each entry should be separated by comma"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_single_accordians",
+      "default": true,
+      "label": "Open Single Filter accrodion",
+      "info": "If checked only one filter accrodions can be opened at a time"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "default": true,
+      "label": "t:sections.template-collection.settings.enable_sorting.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "tags_group",
+      "name": "Tag group",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Tag Group"
+        },
+        {
+          "type": "textarea",
+          "id": "tag_list",
+          "label": "Tag list (one per line)",
+          "default": "First tag \nSecond tag \nThird tag",
+          "info": "Tags are case sensitive and must match your product tag exactly"
+        }
+      ]
+    },
+    {
+      "type": "promo-blocks",
+      "name": "Promo Block",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "enable",
+          "default": true,
+          "label": "Enable"
+        },
+        {
+          "type": "text",
+          "id": "block_index",
+          "label": "Block Placement",
+          "info": "The block will be added after mentioned index(Must be in Number) in Product listing. Exclude Promo grid while calculating index."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Use 480x590 sized image."
+        },
+        {
+          "type": "richtext",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "subheading",
+          "label": "Subheading"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "URL"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

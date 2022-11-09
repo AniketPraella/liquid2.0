@@ -1,0 +1,23 @@
+.accordion__container.open .icon-plus-minus:before{
+    display:none;
+}
+.accordion__toggle h6 p{
+    margin-bottom:0;
+}
+#title-color ul li.faq-listing{
+    padding: 7px 0;
+}
+#title-color ul li.faq-listing a.active {
+    color: #9B6A45;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #9B6A45;
+}
+.faq-Banner{
+    height: 55vh;
+    min-height: 510px;
+    position: relative;
+}
+.accordion__container.open i::before{
+    content: "\66";
+    transition: all 0.3s;
+}

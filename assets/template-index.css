@@ -1,0 +1,27 @@
+.marquee {
+    overflow: hidden;
+    width: 100%;
+    display: block;
+}
+
+.marquee__inner {
+    width: 200vw;
+    animation: marquee 15s linear infinite;
+    display: flex;
+    justify-content: space-around;
+    }
+
+    .marquee__inner div {
+        display: block;
+        white-space: nowrap;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0vw);
+    }
+    
+    100% {
+        transform: translateX(-100vw);
+    }
+}

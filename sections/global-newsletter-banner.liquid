@@ -1,0 +1,94 @@
+{% if section.settings.show_newsletter %}
+<custom-klaviyo data-successMsg="{{ section.settings.success_msg | escape }}" data-Subscribed="{{ section.settings.subscribed_msg | escape }}">
+    <form id="email_signup" action="//manage.kmail-lists.com/ajax/subscriptions/subscribe?a=W2xXHU" method="POST">
+        <input type="hidden" id="listId" name="g" value="{{ section.settings.list_id }}">
+        <div class="mb-6 position-relative d-flex align-items-center mx-auto" style="max-width:315px;">
+            <input type="email" name="email" aria-label="email" id="newsletterFooterCustomerEmail" class="bg-gradient-dark form-control" placeholder="{{ 'general.social.newsletter_form.newsletter_email' | t }}" value="{% if customer %}{{ customer.email }}{% endif %}" autocorrect="off" autocapitalize="off" required>
+            <button type="submit" name="submit" aria-label="submit" class="bg-transparent btn btn-sm end-0 px-3 position-absolute text-dark border-dark border-start rounded-0">
+                {{ 'general.social.newsletter_form.button' | t }}
+            </button>
+        </div>
+        <div class="text-danger mt-2 mb-0" style="display: none;" data-final-result></div>
+    </form>
+</custom-klaviyo>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Newsletter Banner",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Styling"
+        },
+        {
+            "type": "color",
+            "id": "body_bg_color",
+            "label": "Page Background Color",
+            "default": "#222222"
+        },
+        {
+            "type": "color",
+            "id": "txt_color",
+            "label": "Text Color",
+            "default": "#fdf9f2"
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_full_bg",
+            "label": "Full Background Image?",
+            "default": true
+        },
+        {
+            "type": "paragraph",
+            "content": "Banner Image"
+        },
+        {
+            "type": "header",
+            "content": "Content"
+        },
+        {
+            "type": "image_picker",
+            "id": "large_image",
+            "label": "Larger Desktop"
+        },
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Desktop"
+        },
+        {
+            "type": "image_picker",
+            "id": "mobile_image",
+            "label": "Mobile"
+        },
+        {
+            "type": "paragraph",
+            "content": "Klaviyo Subscribe Form"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_newsletter",
+            "label": "Show Form?",
+            "default": true
+        },
+        {
+            "type": "text",
+            "id": "list_id",
+            "label": "Klaviyo List ID"
+        },
+        {
+            "type": "richtext",
+            "id": "success_msg",
+            "label": "Success Message"
+        },
+        {
+            "type": "richtext",
+            "id": "subscribed_msg",
+            "label": "Already Subscribed Message",
+            "default": "<p>Already Subscribed!</p>"
+        }
+    ]
+  }
+{% endschema %}
+  
