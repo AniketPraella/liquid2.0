@@ -5,8 +5,18 @@
 
 {%- for product in collections[box-collection-handle].products -%}
   {% unless product.tags contains productExcludeTag %}
-    <div class="{% if forloop.index <= 3 %}col-lg-4{% endif %} {% if forloop.index > 3 %}col-lg-3{% endif %} col-sm-6 my-3 d-flex align-items-stretch justify-content-around">
-      {% render 'card-product-style-generic', product: product %}
+    <div class="col-lg-3 col-sm-6 my-3 mb-5 d-flex align-items-stretch justify-content-around">
+      <div class="bundle-product">
+        <div class="mb-4"><img src="{{ product.featured_image | img_url: 'medium' }}"></div>
+        <div class="button-p-title-wrapper position-relative">
+          <div class="card-title m-0 h6 text-left pb-1">
+            <a class="product-link text-primary" role="product URL" href="javascript:void(0)">{{ product.title }}</a>
+          </div>
+          <div class="add-button-wrapper position-absolute w-100">
+            <button class="btn bg-primary text-white">ADD TO BOX</button>
+          </div>
+        </div>
+      </div>
     </div>
   {% endunless %}
 {%- endfor -%}

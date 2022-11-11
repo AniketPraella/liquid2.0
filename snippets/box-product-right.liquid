@@ -1,0 +1,28 @@
+<div class="mx-auto bundle-product-box-wrapper">
+  <h1>{{ product.title }}</h1>
+  <div class="price-wrapper mt-2">
+    {%- if current_variant.compare_at_price > current_variant.price -%}
+      <s class="h6 text-gray-600 mr-2 money">{{ product.selected_or_first_available_variant.compare_at_price | money }}</s>
+    {%- endif -%}
+    <span class="h5 actual-price money">{{ product.selected_or_first_available_variant.price | money }}</span>
+  </div>
+
+  <div class="row no-gutter border-top border-start mb-5 bg-white bundle-product-wrapper">
+    <div class="col-8 border-end border-bottom">
+      <div class="ractangle-box position-relative">
+        <span class="font-size-sm">What's In Your Box?</span>
+      </div>
+    </div>
+    {%- for item in (1..product.metafields.custom.no_of_box_items) -%}
+      <div class="col-4  border-end  border-bottom">
+        <div class="square-box">
+          <span class="font-size-sm">{{item}}</span>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+  <button class="btn btn-white btn-block">
+    <span class="item-progress"></span>
+    <span class="btn-add-cart-text position-relative">Add any item to start</span>
+  </button>
+</div>
