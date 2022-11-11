@@ -1,1 +1,12 @@
-hello
+{%- liquid
+    assign box-collection-handle = product.metafields.custom.box_collection.value.handle
+-%}
+
+
+{%- for product in collections[box-collection-handle].products -%}
+  {% unless product.tags contains productExcludeTag %}
+    <div class="{% if forloop.index <= 3 %}col-lg-4{% endif %} {% if forloop.index > 3 %}col-lg-3{% endif %} col-sm-6 my-3 d-flex align-items-stretch justify-content-around">
+      {% render 'card-product-style-generic', product: product %}
+    </div>
+  {% endunless %}
+{%- endfor -%}
