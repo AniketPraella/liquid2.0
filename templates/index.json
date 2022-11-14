@@ -683,11 +683,19 @@
             "title": "<p>dddddwsw<\/p>",
             "answer": "<p>ddccx<\/p>"
           }
+        },
+        "b32b2078-ef56-4419-8070-c18def9faaa3": {
+          "type": "question",
+          "settings": {
+            "title": "",
+            "answer": ""
+          }
         }
       },
       "block_order": [
         "ddf4d1bb-1904-46fb-b941-226933e93953",
-        "ea4b6761-03a8-497b-830f-0e74bd22f1bc"
+        "ea4b6761-03a8-497b-830f-0e74bd22f1bc",
+        "b32b2078-ef56-4419-8070-c18def9faaa3"
       ],
       "settings": {
         "enable": true,
