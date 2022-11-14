@@ -13,10 +13,41 @@
             <a class="product-link text-primary" role="product URL" href="javascript:void(0)">{{ product.title }}</a>
           </div>
           <div class="add-button-wrapper position-absolute w-100">
-            <button class="btn bg-primary text-white">ADD TO BOX</button>
+            <form id="product-bundle-{{ forloop.index }}">
+              <input type="hidden" id="id-{{ forloop.index }}" name="id" value="{{product.variants.first.id }}">
+              <input min="1" type="hidden" id="quantity-{{ forloop.index }}" name="quantity" value="1"/>
+              <button class="btn bg-primary text-white" onclick="bundleproductadd{{ forloop.index }}(event)">ADD TO BOX</button>
+            </form>
           </div>
         </div>
       </div>
     </div>
+    <script>
+      var bundleproductadd{{ forloop.index }} = (e) => {
+        e.preventDefault();
+
+        var request = new XMLHttpRequest();
+        var url = "/cart/add.js";
+        request.open("POST", url, true);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.onreadystatechange = function() {
+          if (request.readyState === 4 && request.status === 200) {
+            var jsonData = JSON.parse(request.response);
+            console.log(jsonData);
+          }
+        };
+        var pid = document.getElementById("id-{{ forloop.index }}").value;
+        var pqty = document.getElementById("quantity-{{ forloop.index }}").value;
+
+        var data = JSON.stringify({"id": pid, "quantity": pqty});
+
+        console.log(data);
+        request.send(data);
+
+        let productarray = [];
+        productarray.push("");
+      }
+    </script>
+
   {% endunless %}
 {%- endfor -%}
