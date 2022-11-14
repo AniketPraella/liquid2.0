@@ -34,6 +34,11 @@
           if (request.readyState === 4 && request.status === 200) {
             var jsonData = JSON.parse(request.response);
             console.log(jsonData);
+            productarray{{ forloop.index }} = [];
+            productarray{{ forloop.index }}.push(jsonData.variant_id, jsonData.title, jsonData.featured_image.url, jsonData.final_line_price, jsonData.quantity );
+            console.log("product array{{ forloop.index }} - " + productarray{{ forloop.index }})
+              document.querySelector('#square-box-{{ forloop.index | limit:7 }} span').innerHTML = `<img src="${productarray{{ forloop.index }}[2]}"/>`;
+            
           }
         };
         var pid = document.getElementById("id-{{ forloop.index }}").value;
@@ -41,11 +46,8 @@
 
         var data = JSON.stringify({"id": pid, "quantity": pqty});
 
-        console.log(data);
+        console.log("data " + data);
         request.send(data);
-
-        let productarray = [];
-        productarray.push("");
       }
     </script>
 

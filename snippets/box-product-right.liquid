@@ -15,7 +15,7 @@
     </div>
     {%- for item in (1..product.metafields.custom.no_of_box_items) -%}
       <div class="col-4  border-end  border-bottom">
-        <div class="square-box">
+        <div id="square-box-{{ forloop.index }}" class="square-box">
           <span class="font-size-sm">{{item}}</span>
         </div>
       </div>
