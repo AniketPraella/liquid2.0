@@ -68,7 +68,7 @@
     object-fit: cover;
 }
 
-@media screen and (max-width:900px){
+@media screen and (max-width:1000px){
     .bundle-box-product-page{
         background: unset;
     }

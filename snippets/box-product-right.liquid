@@ -7,25 +7,33 @@
     <span class="h5 actual-price money">{{ product.selected_or_first_available_variant.price | money }}</span>
   </div>
 
-  <div class="row no-gutter border-top border-start mb-5 bg-white bundle-product-wrapper">
-    <div class="col-8 border-end border-bottom">
-      <div class="ractangle-box position-relative">
-        <span class="font-size-sm">What's In Your Box?</span>
-      </div>
-    </div>
-    {%- for item in (1..product.metafields.custom.no_of_box_items) -%}
-      <div class="col-4  border-end  border-bottom">
-        <div id="square-box-{{ forloop.index }}" class="square-box">
-          <span class="font-size-sm">{{item}}</span>
+  <form method="post" action="/cart/add">
+    <div class="row no-gutter border-top border-start mb-5 bg-white bundle-product-wrapper">
+      <div class="col-8 border-end border-bottom">
+        <div class="ractangle-box position-relative">
+          <span class="font-size-sm">What's In Your Box?</span>
         </div>
       </div>
-    {%- endfor -%}
-  </div>
-  <button class="btn btn-white btn-block">
-    <span class="item-progress"></span>
-    <span class="btn-add-cart-text position-relative">Add any item to start</span>
-  </button>
+      {%- for item in (1..product.metafields.custom.no_of_box_items) -%}
+        <div class="col-4  border-end  border-bottom">
+          <div id="square-box-{{ forloop.index }}" class="square-box">
+            <span class="font-size-sm">{{item}}</span>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+    <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+    <input min="1" type="hidden" name="quantity" value="1"/>
+    <button class="btn btn-white btn-block bundleaddtocart" disabled="true">
+      <span class="item-progress"></span>
+      <span class="btn-add-cart-text position-relative">{{ product.metafields.custom.initial_button_text }}</span>
+    </button>
+  </form>
 </div>
 <script>
   maxlength = {{ product.metafields.custom.no_of_box_items }};
+  initialbuttontext = `{{ product.metafields.custom.initial_button_text }}`;
+  finalbuttontext = `{{ product.metafields.custom.final_button_name }}`;
+  secondbuttontext = `{{ product.metafields.custom.second_button_text }}`;
+  thirdbuttontext = `{{ product.metafields.custom.third_button_text }}`;
 </script>

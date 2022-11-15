@@ -45,8 +45,23 @@
          arraylength = (productarray.length - 1);
          
          addboxbutton = document.getElementsByClassName('addboxbutton');
+         bundleaddtocart = document.getElementsByClassName('bundleaddtocart');
+         bundleaddtocartfinal = document.getElementsByClassName('btn-add-cart-text');
+         bundleprogress = document.getElementsByClassName('item-progress');
 
-        document.querySelector('#square-box-' + productarraylength + ' span').innerHTML = `<img src="${productarray[arraylength].variant_image}"/><button class="icon-cross btn btn-secondary position-absolute right-0 top-0 p-1" onclick="removeproduct(${randomnumber}, ${arraylength}, event)">X</button>`;
+
+        document.querySelector('#square-box-' + productarraylength + ' span').innerHTML = `<img src="${productarray[arraylength].variant_image}"/>
+        <button class="icon-cross btn btn-secondary position-absolute right-0 top-0 p-1" onclick="removeproduct(${randomnumber}, ${arraylength}, event)">X</button>
+        <input type="hidden" name="properties[Bundle${arraylength+1}]" value="${productarray[arraylength].title}"/>`;
+
+            if (productarraylength>=1) {
+                bundleprogress[0].style.width= `10%`;
+                bundleaddtocartfinal[0].innerHTML= `${secondbuttontext} ${maxlength-productarray.length} MORE`;
+            }
+            if (productarraylength>=(maxlength-3)) {
+                bundleprogress[0].style.width= `70%`;
+                bundleaddtocartfinal[0].innerHTML= `${secondbuttontext} ${maxlength-productarray.length} TO GO`;
+            } 
 
          if (productarraylength==maxlength){
             console.log(productarraylength);
@@ -54,7 +69,14 @@
                 console.log(productarraylength);
                 addboxbutton[i].setAttribute("disabled", "true"); 
             }
+            bundleaddtocart[0].removeAttribute("disabled");
+            bundleprogress[0].style.width= `100%`;
+                bundleaddtocartfinal[0].innerHTML= `${finalbuttontext}`;
+
+            
          }
+         
+        
     }
 
     var removeproduct = (randomnumber, arraylength, e) =>{
@@ -67,6 +89,8 @@
                 addboxbutton[i].removeAttribute("disabled"); 
             }
     }
+
+
 </script>
 
     {%- comment -%} {% render 'box-product-js' %} {%- endcomment -%}
