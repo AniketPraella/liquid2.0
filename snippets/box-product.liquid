@@ -15,45 +15,60 @@
                 </div>
                 <div class="add-button-wrapper position-absolute w-100">
                 <form id="product-bundle-{{ forloop.index }}">
-                    <input type="hidden" id="id-{{ forloop.index }}" name="id" value="{{product.variants.first.id }}">
+                    <input type="hidden" id="id-{{ forloop.index }}" name="id" value="{{ product.variants.first.id }}">
+                    <input type="hidden" id="title-{{ forloop.index }}" name="title" value="{{ product.title }}">
+                    <input type="hidden" id="pimage-{{ forloop.index }}" name="pimage" value="{{ product.featured_image | img_url: 'medium' }}">
                     <input min="1" type="hidden" id="quantity-{{ forloop.index }}" name="quantity" value="1"/>
-                    <button class="btn bg-primary text-white" onclick="bundleproductadd{{ forloop.index }}(event)">ADD TO BOX</button>
+                    <button class="btn bg-primary text-white addboxbutton" onclick="bundleproductadd{{ forloop.index }}(event)">ADD TO BOX</button>
                 </form>
                 </div>
             </div>
         </div>
     </div>
+
+<script>
+    var bundleproductadd{{ forloop.index }} = (event) => {
+        event.preventDefault();
+        randomnumber = Math.floor((Math.random() * 999999) + 100);
+        productid = document.getElementById('id-{{ forloop.index }}').value;
+        producttitle = document.getElementById('title-{{ forloop.index }}').value;
+        productimage = document.getElementById('pimage-{{ forloop.index }}').value;
+        productquantity = document.getElementById('quantity-{{ forloop.index }}').value;
+        productarray.push({
+            "variant_id": productid,
+            "title": producttitle,
+            "quantity": productquantity,
+            "variant_image": productimage,
+            "randomno": randomnumber
+        })
+         productarraylength = productarray.length;
+         arraylength = (productarray.length - 1);
+         
+         addboxbutton = document.getElementsByClassName('addboxbutton');
+
+        document.querySelector('#square-box-' + productarraylength + ' span').innerHTML = `<img src="${productarray[arraylength].variant_image}"/><button class="icon-cross btn btn-secondary position-absolute right-0 top-0 p-1" onclick="removeproduct(${randomnumber}, ${arraylength}, event)">X</button>`;
+
+         if (productarraylength==maxlength){
+            console.log(productarraylength);
+            for (i = 0; i < addboxbutton.length; i++) {
+                console.log(productarraylength);
+                addboxbutton[i].setAttribute("disabled", "true"); 
+            }
+         }
+    }
+
+    var removeproduct = (randomnumber, arraylength, e) =>{
+        arrindex = productarray.indexOf(randomnumber);
+        productarray.splice(arrindex, 1);
+         document.querySelector('#square-box-' + (arraylength+1) + ' span').innerHTML = `${arraylength+1}`;
+         console.log(productarray)
+         for (i = 0; i < addboxbutton.length; i++) {
+                console.log(productarraylength);
+                addboxbutton[i].removeAttribute("disabled"); 
+            }
+    }
+</script>
+
     {%- comment -%} {% render 'box-product-js' %} {%- endcomment -%}
-    <script>
-        var bundleproductadd{{ forloop.index }} = (e) => {
-        e.preventDefault();
-        var request = new XMLHttpRequest();
-        var url = "/cart/add.js";
-        request.open("POST", url, true);
-        request.setRequestHeader("Content-Type", "application/json");
-        request.onreadystatechange = function() {
-            if (request.readyState === 4 && request.status === 200) {
-            var jsonData = JSON.parse(request.response);
-            console.log(jsonData);
-            maxlength = {{product.metafields.custom.no_of_box_items}};
-            productarray.push({"variant_id":jsonData.variant_id, "title":jsonData.title, "featured_image":jsonData.featured_image.url, "price":jsonData.final_line_price, "quantity":jsonData.quantity} );
-            console.log("product array - " + productarray)
-            arraylength = (productarray.length - 1);
-            arraylength2 = productarray.length;
-                document.querySelector('#square-box-' + arraylength2 + ' span').innerHTML = `<img src="${productarray[arraylength].featured_image}"/>`;
-            if (arraylength2==maxlength){
-              document.querySelectorAll('.add-button-wrapper button').
-            }
-            }
-        };
-        var pid = document.getElementById("id-{{ forloop.index }}").value;
-        var pqty = document.getElementById("quantity-{{ forloop.index }}").value;
-
-        var data = JSON.stringify({"id": pid, "quantity": pqty});
-
-        console.log("data " + data);
-        request.send(data);
-        }
-    </script>
   {% endunless %}
 {%- endfor -%}
