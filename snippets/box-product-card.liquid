@@ -1,0 +1,17 @@
+<div class="col-lg-3 col-sm-6 my-3 mb-5 d-flex align-items-stretch justify-content-around">
+    <div class="bundle-product">
+        <div class="mb-4"><img src="{{ product.featured_image | img_url: 'medium' }}"></div>
+        <div class="button-p-title-wrapper position-relative">
+            <div class="card-title m-0 h6 text-left pb-1">
+            <a class="product-link text-primary" role="product URL" href="javascript:void(0)">{{ product.title }}</a>
+            </div>
+            <div class="add-button-wrapper position-absolute w-100">
+            <form id="product-bundle-{{ forloop.index }}">
+                <input type="hidden" id="id-{{ forloop.index }}" name="id" value="{{product.variants.first.id }}">
+                <input min="1" type="hidden" id="quantity-{{ forloop.index }}" name="quantity" value="1"/>
+                <button class="btn bg-primary text-white" onclick="bundleproductadd{{ forloop.index }}(event)">ADD TO BOX</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

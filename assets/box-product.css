@@ -60,3 +60,8 @@
     width: 0%;
     background-color: #f8b1b8;
 }
+
+.square-box span img{
+    height:100%;
+    object-fit: cover;
+}
