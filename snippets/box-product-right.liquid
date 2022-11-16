@@ -8,6 +8,7 @@
   </div>
 
   <form method="post" action="/cart/add">
+  <input type="hidden" name="form_type" value="product">
     <div class="row no-gutter border-top border-start mb-5 bg-white bundle-product-wrapper">
       <div class="col-8 border-end border-bottom">
         <div class="ractangle-box position-relative">
@@ -24,11 +25,12 @@
     </div>
     <input type="hidden" name="id" value="{{ product.variants.first.id }}">
     <input min="1" type="hidden" name="quantity" value="1"/>
-    <button class="btn btn-white btn-block bundleaddtocart" disabled="true">
+    <button type="button" class="btn btn-white btn-block bundleaddtocart" disabled="true" onclick="addcartmultiproduct(event)">
       <span class="item-progress"></span>
       <span class="btn-add-cart-text position-relative">{{ product.metafields.custom.initial_button_text }}</span>
     </button>
   </form>
+
 </div>
 <script>
   maxlength = {{ product.metafields.custom.no_of_box_items }};

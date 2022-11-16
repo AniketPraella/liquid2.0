@@ -27,8 +27,16 @@
     </div>
 
 <script>
-    var bundleproductadd{{ forloop.index }} = (event) => {
-        event.preventDefault();
+
+    productarray = [];
+    
+    addboxbutton = document.getElementsByClassName('addboxbutton');
+    bundleaddtocart = document.getElementsByClassName('bundleaddtocart');
+    bundleaddtocartfinal = document.getElementsByClassName('btn-add-cart-text');
+    bundleprogress = document.getElementsByClassName('item-progress');
+
+    var bundleproductadd{{ forloop.index }} = (e) => {
+        e.preventDefault();
         randomnumber = Math.floor((Math.random() * 999999) + 100);
         productid = document.getElementById('id-{{ forloop.index }}').value;
         producttitle = document.getElementById('title-{{ forloop.index }}').value;
@@ -41,35 +49,54 @@
             "variant_image": productimage,
             "randomno": randomnumber
         })
-         productarraylength = productarray.length;
-         arraylength = (productarray.length - 1);
-         
-         addboxbutton = document.getElementsByClassName('addboxbutton');
-         bundleaddtocart = document.getElementsByClassName('bundleaddtocart');
-         bundleaddtocartfinal = document.getElementsByClassName('btn-add-cart-text');
-         bundleprogress = document.getElementsByClassName('item-progress');
-
-
-        document.querySelector('#square-box-' + productarraylength + ' span').innerHTML = `<img src="${productarray[arraylength].variant_image}"/>
-        <button class="icon-cross btn btn-secondary position-absolute right-0 top-0 p-1" onclick="removeproduct(${randomnumber}, ${arraylength}, event)">X</button>
-        <input type="hidden" name="properties[Bundle${arraylength+1}]" value="${productarray[arraylength].title}"/>`;
-
+   
+        addproducttobundle();
         updatebundleproduct();
         
     }
 
     var removeproduct = (randomnumber, arraylength, e) =>{
-        arrindex = productarray.indexOf(randomnumber);
+        arrindex = productarray.map(function(e) {
+                    return e.randomno;
+                    }).indexOf(randomnumber);
         productarray.splice(arrindex, 1);
-         document.querySelector('#square-box-' + (arraylength+1) + ' span').innerHTML = `${arraylength+1}`;
          console.log(productarray)
          for (i = 0; i < addboxbutton.length; i++) {
                 console.log(productarraylength);
                 addboxbutton[i].removeAttribute("disabled"); 
             }
             bundleaddtocart[0].setAttribute("disabled", "true");
+
+        addproducttobundleempty();
+        addproducttobundle();
         updatebundleproduct();
+        
+        
     }
+
+    function addproducttobundleempty(){
+        console.log('abc');
+        noofitem = document.querySelectorAll('.square-box img').length;
+        for (y = 1; y < (noofitem+1); y++) {
+            console.log(y)
+            document.querySelector('#square-box-' + y + ' span').innerHTML = `${y}`;
+        }
+    }
+
+    function addproducttobundle(){
+        
+        productarraylength = productarray.length;
+        arraylength = (productarray.length - 1);
+
+        for (x = 0; x < productarray.length; x++) {
+            console.log('xval ' + (x+1));
+            document.querySelector('#square-box-' + (x+1) + ' span').innerHTML = `<img src="${productarray[x].variant_image}"/>
+            <button type="button" class="icon-cross btn btn-secondary position-absolute right-0 top-0 p-1" onclick="removeproduct(${productarray[x].randomno}, ${x}, event)">X</button>
+            <input type="hidden" name="properties[Bundle${x+1}]" value="${productarray[x].title}"/>`;
+        }
+    }
+
+
 
     function updatebundleproduct(){
         if (productarray.length==0) {
@@ -85,7 +112,7 @@
         }
         if (productarray.length>=(maxlength-3)) {
             bundleprogress[0].style.width= `60%`;
-            bundleaddtocartfinal[0].innerHTML= `${secondbuttontext} ${maxlength-productarray.length} TO GO`;
+            bundleaddtocartfinal[0].innerHTML= `${thirdbuttontext} ${maxlength-productarray.length} TO GO`;
         } 
         if (productarray.length>=(maxlength-2)) {
             bundleprogress[0].style.width= `70%`;
@@ -98,7 +125,6 @@
         if (productarray.length==maxlength){
         console.log(productarraylength);
         for (i = 0; i < addboxbutton.length; i++) {
-            console.log(productarraylength);
             addboxbutton[i].setAttribute("disabled", "true"); 
         }
         bundleaddtocart[0].removeAttribute("disabled");
@@ -109,7 +135,7 @@
         }
     }
 
-
+    
 </script>
 
     {%- comment -%} {% render 'box-product-js' %} {%- endcomment -%}
