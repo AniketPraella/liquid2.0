@@ -53,29 +53,8 @@
         document.querySelector('#square-box-' + productarraylength + ' span').innerHTML = `<img src="${productarray[arraylength].variant_image}"/>
         <button class="icon-cross btn btn-secondary position-absolute right-0 top-0 p-1" onclick="removeproduct(${randomnumber}, ${arraylength}, event)">X</button>
         <input type="hidden" name="properties[Bundle${arraylength+1}]" value="${productarray[arraylength].title}"/>`;
-
-            if (productarraylength>=1) {
-                bundleprogress[0].style.width= `10%`;
-                bundleaddtocartfinal[0].innerHTML= `${secondbuttontext} ${maxlength-productarray.length} MORE`;
-            }
-            if (productarraylength>=(maxlength-3)) {
-                bundleprogress[0].style.width= `70%`;
-                bundleaddtocartfinal[0].innerHTML= `${secondbuttontext} ${maxlength-productarray.length} TO GO`;
-            } 
-
-         if (productarraylength==maxlength){
-            console.log(productarraylength);
-            for (i = 0; i < addboxbutton.length; i++) {
-                console.log(productarraylength);
-                addboxbutton[i].setAttribute("disabled", "true"); 
-            }
-            bundleaddtocart[0].removeAttribute("disabled");
-            bundleprogress[0].style.width= `100%`;
-                bundleaddtocartfinal[0].innerHTML= `${finalbuttontext}`;
-
-            
-         }
-         
+        
+        updatebundleproduct();
         
     }
 
@@ -88,6 +67,45 @@
                 console.log(productarraylength);
                 addboxbutton[i].removeAttribute("disabled"); 
             }
+        updatebundleproduct();
+    }
+
+    function updatebundleproduct(){
+        if (productarray.length==0) {
+            bundleprogress[0].style.width= `0%`;
+            bundleaddtocartfinal[0].innerHTML= `${initialbuttontext}`;
+        }
+        if (productarray.length>=1) {
+            bundleprogress[0].style.width= `20%`;
+            bundleaddtocartfinal[0].innerHTML= `${secondbuttontext} ${maxlength-productarray.length} MORE`;
+        }
+        if (productarray.length>=2) {
+            bundleprogress[0].style.width= `40%`;
+        }
+        if (productarray.length>=(maxlength-3)) {
+            bundleprogress[0].style.width= `60%`;
+            bundleaddtocartfinal[0].innerHTML= `${secondbuttontext} ${maxlength-productarray.length} TO GO`;
+        } 
+        if (productarray.length>=(maxlength-2)) {
+            bundleprogress[0].style.width= `70%`;
+
+        } 
+        if (productarray.length>=(maxlength-1)) {
+            bundleprogress[0].style.width= `90%`;
+
+        } 
+        if (productarray.length==maxlength){
+        console.log(productarraylength);
+        for (i = 0; i < addboxbutton.length; i++) {
+            console.log(productarraylength);
+            addboxbutton[i].setAttribute("disabled", "true"); 
+        }
+        bundleaddtocart[0].removeAttribute("disabled");
+        bundleprogress[0].style.width= `100%`;
+            bundleaddtocartfinal[0].innerHTML= `${finalbuttontext}`;
+
+        
+        }
     }
 
 
