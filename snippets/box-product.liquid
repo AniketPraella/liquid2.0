@@ -53,7 +53,7 @@
         document.querySelector('#square-box-' + productarraylength + ' span').innerHTML = `<img src="${productarray[arraylength].variant_image}"/>
         <button class="icon-cross btn btn-secondary position-absolute right-0 top-0 p-1" onclick="removeproduct(${randomnumber}, ${arraylength}, event)">X</button>
         <input type="hidden" name="properties[Bundle${arraylength+1}]" value="${productarray[arraylength].title}"/>`;
-        
+
         updatebundleproduct();
         
     }
@@ -67,6 +67,7 @@
                 console.log(productarraylength);
                 addboxbutton[i].removeAttribute("disabled"); 
             }
+            bundleaddtocart[0].setAttribute("disabled", "true");
         updatebundleproduct();
     }
 

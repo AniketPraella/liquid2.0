@@ -11,11 +11,11 @@
   -%}
   <section class="section-content{% if product.metafields.custom.box_collection and product.metafields.custom.no_of_box_items %} bundle-box-product-page{% endif %}" data-product-container>
     <div class="{% if fluid_layout %}container-fluid{% else %}container{% endif %}">
-      <div class="row">
+      <div class="row product-breadcrumbs">
         {% render 'breadcrumbs' %}
       </div>
       <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-8{% if product.metafields.custom.box_collection and product.metafields.custom.no_of_box_items %} bundle-box-product-page-left-sec{% endif %}">
           <div data-type="slider" class="product-images-wrapper pr-lg-4 text-center">
             {% if section.settings.template_type == 'classic-vertical' %}
               <div class="row">
