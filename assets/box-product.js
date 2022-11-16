@@ -16,14 +16,33 @@ var addcartmultiproduct = (e) => {
         
         }
     };
+
+    pro_titles = [];
+    for (px = 0; px < productarray.length; px++) {
+        console.log('xval ' + (px+1));
+        pro_title = document.querySelector(".bundle-box-product-page-right-sec [name='properties[Bundle" + (px+1) + "]']").value
+        pro_titles.push(pro_title + " | ");
+        console.log(pro_titles);
+    }
+
+    randomnumber = Math.floor((Math.random() * 999999) + 10000);
     pid = document.querySelector(".bundle-box-product-page-right-sec [name='id']").value
     pqty = document.querySelector(".bundle-box-product-page-right-sec [name='quantity']").value
 
-    var data = JSON.stringify({"id": pid, "quantity": pqty});
+    var data = JSON.stringify({
+        "id": pid,
+        "quantity": pqty,
+        properties: {
+            "randomnumber": randomnumber,
+            "product": pro_titles,
+            "type": "main"
+        }
+    });
 
     console.log("data " + data);
     request.send(data);
     productarray.splice(0, productarray.length);
     updatebundleproduct();
     addproducttobundleempty();
+    removeproduct();
 }
