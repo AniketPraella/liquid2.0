@@ -1,0 +1,115 @@
+
+
+// multi product add
+var addcartmultiproduct = (e) => {
+    e.preventDefault();
+
+    subvariantarray = [];
+    pro_titles = [];
+    for (px = 0; px < productarray.length; px++) {
+        console.log('xval ' + (px+1));
+        pro_title = document.querySelector(".bundle-box-product-page-right-sec [name='properties[Bundle" + (px+1) + "]']").value
+        pro_titles.push(pro_title + " | ");
+        console.log(pro_titles);
+    }
+
+    randomnumber = Math.floor((Math.random() * 999999) + 10000);
+    pid = document.querySelector(".bundle-box-product-page-right-sec [name='id']").value;
+    pqty = document.querySelector(".bundle-box-product-page-right-sec [name='quantity']").value;
+
+    subvariantarray.push({'id': pid, "quantity": pqty,
+    properties: {
+        "randomnumber": randomnumber,
+        "product": pro_titles,
+        "type": "main"
+        }
+    })
+    for (subp = 0; subp < productarray.length; subp++){
+        subvariantarray.push({'id': productarray[subp].variant_id, "quantity": 1,
+        properties: {
+            "randomnumber": randomnumber,
+            "type": "sub_product"
+        }
+    })
+    }
+    
+
+
+       /* subvariantarray = [];
+        subvariantarrayfinal = [];
+        filteredproduct = null;
+        var product_data = null;
+
+        for (subp = 0; subp < productarray.length; subp++){
+              subvariantarray.push(productarray[subp].variant_id);    
+        }
+
+        for (subps = 0; subp < productarray.length; subps++){
+            function sameId(value) {
+                return value = [...productarray[subps].variant_id];
+              }         
+        }
+        filteredproduct = subvariantarray.filter(sameId);
+
+        for (fsubp = 0; subp < filteredproduct.length; fsubp++){
+            subvariantarrayfinal.push({'id':filteredproduct[fsubp],'quantity':filteredproduct.length})
+          }
+          */
+      
+
+
+
+        // map over variant array to create an array of objects with quantity and id
+        // product_data = subvariantarray.map(variantId => {
+        //   return {quantity: 1, id: variantId}
+        // })
+      
+        // add the items to the data object we need to pass to the fetch call 
+        var data = {
+          items: subvariantarray
+        }
+            
+        console.log('data',data,subvariantarray);
+        // return false;
+        fetch('/cart/add.js', {
+          body: JSON.stringify(data),
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With':'xmlhttprequest'
+          },
+          method: 'POST'
+        }).then((response) => {
+          return response.json();
+        }).then((dataresponse) => {
+          /* yay! our products were added - do something here to indicate to the user */
+          console.log('products', dataresponse);
+        }).catch((err) => {
+          /* uh oh, we have error. */
+          console.error(err)
+        });
+
+    productarray.splice(0, productarray.length);
+    updatebundleproduct();
+    addproducttobundleempty();
+    removeproduct();
+}
+
+
+
+
+// cart page
+
+async function getsubCart() {
+    const result = await fetch("/cart.json");
+
+    if (result.status === 200) {
+        return result.json();
+    }
+
+    throw new Error(`Failed to get request, Shopify returned ${result.status} ${result.statusText}`);
+  }
+  const subcart =  getsubCart();
+
+// Example
+
