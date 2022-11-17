@@ -65,7 +65,7 @@
                                         endif
                                     -%}
 
-                                    <div class="cart-items py-4 px-md-3 border-bottom"  data-cart-item data-variant-id="{{ item.id }}">
+                                    <div class="cart-items py-4 px-md-3 border-bottom{% for property in item.properties %}{% if property contains 'sub_product' %} d-none{% endif %}{% endfor %}"  data-cart-item data-variant-id="{{ item.id }}">
                                         <div class="row align-items-center cart-item">
                                             <div class="col-12 mb-3 mb-md-0 col-md-6 cart-product-img">
                                                 <div class="d-flex align-items-center">

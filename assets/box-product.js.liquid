@@ -96,20 +96,3 @@ var addcartmultiproduct = (e) => {
 }
 
 
-
-
-// cart page
-
-async function getsubCart() {
-    const result = await fetch("/cart.json");
-
-    if (result.status === 200) {
-        return result.json();
-    }
-
-    throw new Error(`Failed to get request, Shopify returned ${result.status} ${result.statusText}`);
-  }
-  const subcart =  getsubCart();
-
-// Example
-
