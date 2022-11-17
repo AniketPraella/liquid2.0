@@ -4,7 +4,49 @@
 var addcartmultiproduct = (e) => {
     e.preventDefault();
 
+
+   // addAllItems(variantIdArray) {
+        // split fake liquid array to make proper array
+        var subvariantarray = [];
+        var product_data = null;
+        for (subp = 0; subp < productarray.length; subp++){
+            subvariantarray.push({'id': productarray[subp].variant_id, "quantity": 1})
+        }
+      
+        // map over variant array to create an array of objects with quantity and id
+        // product_data = subvariantarray.map(variantId => {
+        //   return {quantity: 1, id: variantId}
+        // })
+      
+        // add the items to the data object we need to pass to the fetch call 
+        var data = {
+          items: subvariantarray
+        }
+            
+        console.log('data',data,subvariantarray);
+        // return false;
+        fetch('/cart/add.js', {
+          body: JSON.stringify(data),
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With':'xmlhttprequest'
+          },
+          method: 'POST'
+        }).then((response) => {
+          return response.json();
+        }).then((dataresponse) => {
+          /* yay! our products were added - do something here to indicate to the user */
+          console.log('products', dataresponse);
+        }).catch((err) => {
+          /* uh oh, we have error. */
+          console.error(err)
+        });
+      //}
+
+
     /******************************************* for main product *********************************************/ 
+/*
 
     var request = new XMLHttpRequest();
     var url = "/cart/add.js";
@@ -44,6 +86,9 @@ var addcartmultiproduct = (e) => {
 
     console.log("data " + data);
     request.send(data);
+
+    */
+
     /******************************************* for main product END *********************************************/ 
 
     /******************************************* for sub products *********************************************/ 
