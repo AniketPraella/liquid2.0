@@ -1,8 +1,9 @@
 
 
 // multi product add
-var addcartmultiproduct = (e) => {
+var addcartmultiproduct = async (e) => {
     e.preventDefault();
+    bundleaddtocart[0].classList.add('loading');
 
     subvariantarray = [];
     pro_titles = [];
@@ -71,7 +72,7 @@ var addcartmultiproduct = (e) => {
             
         console.log('data',data,subvariantarray);
         // return false;
-        fetch('/cart/add.js', {
+        await fetch('/cart/add.js', {
           body: JSON.stringify(data),
           credentials: 'same-origin',
           headers: {
@@ -81,11 +82,13 @@ var addcartmultiproduct = (e) => {
           method: 'POST'
         }).then((response) => {
           return response.json();
-        }).then((dataresponse) => {
-          /* yay! our products were added - do something here to indicate to the user */
+        }).then (async (dataresponse) => {
           console.log('products', dataresponse);
+          cart =  await getCart();
+          cartpage = await getCartpage();
+          console.log('cart data ',cart);
+          console.log('cart page ',cartpage);
         }).catch((err) => {
-          /* uh oh, we have error. */
           console.error(err)
         });
 
@@ -93,5 +96,29 @@ var addcartmultiproduct = (e) => {
     updatebundleproduct();
     addproducttobundleempty();
     removeproduct();
+    bundleaddtocart[0].classList.remove('loading');
+
+    async function getCart() {
+      const result = await fetch("/cart.js");
+  
+      if (result.status === 200) {
+          return result.json();
+      }
+  
+      throw new Error(`Failed to get request, Shopify returned ${result.status} ${result.statusText}`);
+  }
+
+  async function getCartpage() {
+    const result = await fetch("/cart?sections=template-cart,header");
+
+    if (result.status === 200) {
+        return result.json();
+    }
+
+    throw new Error(`Failed to get request, Shopify returned ${result.status} ${result.statusText}`);
+}
+
+  
+
 }
 

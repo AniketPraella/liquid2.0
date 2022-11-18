@@ -89,6 +89,10 @@
     height: max-content;
 }
 
+.bundle-product[disabled="true"]{
+    opacity: 0.5;
+}
+
 [disabled="true"]{
     cursor: not-allowed;
 }

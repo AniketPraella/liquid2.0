@@ -7,7 +7,7 @@
   {% unless product.tags contains productExcludeTag %}
     {%- comment -%} {% render 'box-product-card' %} {%- endcomment -%}
     <div class="col-lg-3 col-md-4 col-6 my-3 mb-5 d-flex align-items-stretch justify-content-around">
-        <div class="bundle-product">
+        <div class="bundle-product" {% if product.selected_or_first_available_variant.available %}disabled="false"{% else %}disabled="true"{% endif %}>
             <div class="mb-4"><img src="{{ product.featured_image | img_url: 'medium' }}"></div>
             <div class="button-p-title-wrapper position-relative">
                 <div class="card-title m-0 h6 text-left pb-1">
