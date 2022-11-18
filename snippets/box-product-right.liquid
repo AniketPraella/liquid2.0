@@ -7,7 +7,7 @@
     <span class="h5 actual-price money">{{ product.selected_or_first_available_variant.price | money }}</span>
   </div>
 
-  <form method="post" action="/cart/add">
+  <form method="post" action="/cart/add" class="bundle-main-form">
   <input type="hidden" name="form_type" value="product">
     <div class="row no-gutter border-top border-start mb-5 bg-white bundle-product-wrapper">
       <div class="col-8 border-end border-bottom">

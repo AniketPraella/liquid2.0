@@ -31,6 +31,9 @@
 .bundle-product-box-wrapper{
     max-width:300px;
 }
+.bundle-main-form{
+    margin-top: 29px;
+}
 .bundle-product-wrapper .square-box, .bundle-product-wrapper .ractangle-box{
     width:100%;
     padding-top:100%;
@@ -72,11 +75,22 @@
     object-fit: cover;
 }
 
+.icon-cross {
+    width: 20px;
+    height: 20px;
+    font-size: 0.7em;
+    line-height: 1em;
+}
+
 
 .stickybox{
     position: sticky;
     top: 0;
     height: max-content;
+}
+
+[disabled="true"]{
+    cursor: not-allowed;
 }
 
 @media (min-width:1020px) and (max-width:1700px){

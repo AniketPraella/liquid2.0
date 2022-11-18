@@ -6,7 +6,7 @@
 {%- for product in collections[box-collection-handle].products -%}
   {% unless product.tags contains productExcludeTag %}
     {%- comment -%} {% render 'box-product-card' %} {%- endcomment -%}
-    <div class="col-lg-3 col-sm-6 my-3 mb-5 d-flex align-items-stretch justify-content-around">
+    <div class="col-lg-3 col-md-4 col-6 my-3 mb-5 d-flex align-items-stretch justify-content-around">
         <div class="bundle-product">
             <div class="mb-4"><img src="{{ product.featured_image | img_url: 'medium' }}"></div>
             <div class="button-p-title-wrapper position-relative">
@@ -19,7 +19,11 @@
                     <input type="hidden" id="title-{{ forloop.index }}" name="title" value="{{ product.title }}">
                     <input type="hidden" id="pimage-{{ forloop.index }}" name="pimage" value="{{ product.featured_image | img_url: 'medium' }}">
                     <input min="1" type="hidden" id="quantity-{{ forloop.index }}" name="quantity" value="1"/>
+                    {% if product.selected_or_first_available_variant.available %}
                     <button class="btn bg-primary text-white addboxbutton" onclick="bundleproductadd{{ forloop.index }}(event)">ADD TO BOX</button>
+                    {%  else -%}
+                    <button type="button" class="btn bg-primary text-white" disabled="true">{{ 'products.product.sold_out' | t }}</button>
+                    {% endif %}
                 </form>
                 </div>
             </div>
