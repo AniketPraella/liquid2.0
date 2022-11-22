@@ -147,7 +147,7 @@
                                                             aria-label="{{ 'templates.cart.remove' | t }}"
                                                             data-toggle="tooltip"
                                                             data-itemRemove data-index="{{ forloop.index }}"
-                                                            data-placement="left">
+                                                            data-placement="left" {% if item.properties['randomnumber'] %}data-itemRemoverandomno = "{{item.properties['randomnumber']}}"{% endif %} item-varientid="{{ item.variant_id }}" item-quantity="{{ item.quantity }}">
                                                             <span class="icon-close"></span>
                                                         </a>
                                                     {% endif %}

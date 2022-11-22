@@ -1,4 +1,5 @@
-
+siteoverlay = document.querySelector('site-overlay');
+sideajaxcart = document.querySelectorAll('ajax-cart');
 
 // multi product add
 var addcartmultiproduct = async (e) => {
@@ -86,6 +87,20 @@ var addcartmultiproduct = async (e) => {
           console.log('products', dataresponse);
           cart =  await getCart();
           cartpage = await getCartpage();
+          sideajaxcart[0].innerHTML = cartpage['template-cart-drawer'];
+          sideajaxcart = document.querySelectorAll('ajax-cart');
+          sideajaxcart[0].classList.add('opened-drawer');
+          sideajaxcart[1].classList.add('cart-drawer');
+          sideajaxcart[1].classList.add('opened-drawer');
+          siteoverlay.classList.add('overlay--body');
+          sideajaxcartclose = document.querySelector('ajax-cart .icon-close');
+          sideajaxcartclosebody = document.querySelector('body');
+          sideajaxcartclose.onclick = function(){
+            sideajaxcart[0].classList.remove('opened-drawer');
+          };
+          siteoverlay.onclick = function(){
+            sideajaxcart[0].classList.remove('opened-drawer');
+          }
           console.log('cart data ',cart);
           console.log('cart page ',cartpage);
         }).catch((err) => {
@@ -97,6 +112,9 @@ var addcartmultiproduct = async (e) => {
     addproducttobundleempty();
     removeproduct();
     bundleaddtocart[0].classList.remove('loading');
+    
+
+
 
     async function getCart() {
       const result = await fetch("/cart.js");
@@ -109,7 +127,7 @@ var addcartmultiproduct = async (e) => {
   }
 
   async function getCartpage() {
-    const result = await fetch("/cart?sections=template-cart,header");
+    const result = await fetch("/?sections=template-cart-drawer,header");
 
     if (result.status === 200) {
         return result.json();

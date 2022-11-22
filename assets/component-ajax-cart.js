@@ -260,11 +260,74 @@ class AjaxCart extends HTMLElement {
     removeItem(event){
       event.preventDefault();
       let currentTarget = event.currentTarget;
+      console.log('currentTarget ', currentTarget);
       let itemIndex = currentTarget.dataset.index || null;
-      if(itemIndex != null){
-          this.updateItemQty(itemIndex, 0);
+      console.log('itemIndex ', itemIndex);
+      let itemboxremove = currentTarget.getAttribute('data-itemremoverandomno');
+      console.log('itemboxremove ', itemboxremove);
+      if(itemboxremove != null){
+        this.removeitemrandom(itemboxremove);
+        let lineItem = document.querySelectorAll('[data-cart-item]')[itemIndex-1];
+        if(lineItem){ lineItem.classList.add('updating'); }
+      }else{
+        if(itemIndex != null){
+            this.updateItemQty(itemIndex, 0);
+        }
       }
     }
+
+    /*** 
+    *** remove bundle product */
+
+     async removeitemrandom(randno){
+      var removeitemdatavalue = [];
+      var removeitemdata = document.querySelectorAll(`[data-itemremoverandomno="${randno}"]`);
+      console.log('removeitemdata ', removeitemdata)
+      var itemcartdata = await getCart();
+      var itemcartdataitems = itemcartdata.items;
+      console.log('itemcartdataitems ', itemcartdataitems)
+      for (var x = 0; x < itemcartdataitems.length; x++) {
+        var itemquantity = itemcartdataitems[x].quantity;
+        console.log('itemquantity ', itemquantity);
+        if (itemcartdataitems[x].properties){
+        var itemrandomno = itemcartdataitems[x].properties.randomnumber;
+      }
+        console.log('itemrandomno ', itemrandomno);
+        var getrandno = randno;
+        console.log('getrandno ', getrandno);
+        if(itemrandomno == getrandno){
+          removeitemdatavalue.push(0);
+        }else{
+          removeitemdatavalue.push(itemquantity);
+        }
+        console.log('removeitemdatavalue ', removeitemdatavalue);
+      }
+      
+     
+      var updatedata = {
+        updates: removeitemdatavalue
+      }
+      fetch('/cart/update.js', {
+        body: JSON.stringify({updates: removeitemdatavalue }),
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With':'xmlhttprequest'
+        },
+        method: 'POST'
+        }).then((response) => {console.log(updatedata);this.getCartData();
+          return response.json();
+        }).then (async (dataresponse) => {
+          console.log('products', dataresponse);
+        }).catch((err) => {
+          console.error(err)
+        });
+    
+    }
+
+    /*
+    *****
+    ** remove bundle product END */
   
     /**
      * Cart Item Qunatity Increment/Decrement Button event
@@ -401,3 +464,60 @@ class AjaxCart extends HTMLElement {
     }
 }
 customElements.define("ajax-cart", AjaxCart);
+
+removeitemarray = [];
+removeitemdatavalue = [];
+/*
+async function removeitemrandom(randno){
+  removeitemdata = document.querySelectorAll(`[data-itemremoverandomno="${randno}"]`);
+  console.log('removeitemdata ', removeitemdata)
+  itemcartdata = await getCart();
+  itemcartdataitems = itemcartdata.items;
+  console.log('itemcartdataitems ', itemcartdataitems)
+  for (x = 0; x < itemcartdataitems.length; x++) {
+    itemquantity = itemcartdataitems[x].quantity;
+    console.log('itemquantity ', itemquantity);
+    itemrandomno = itemcartdataitems[x].properties.randomnumber;
+    console.log('itemrandomno ', itemrandomno);
+    getrandno = randno;
+    console.log('getrandno ', getrandno);
+    if(itemrandomno == getrandno){
+      removeitemdatavalue.push(0);
+    }else{
+      removeitemdatavalue.push(itemquantity);
+    }
+    console.log('removeitemdatavalue ', removeitemdatavalue);
+  }
+  
+ 
+  updatedata = {
+    updates: removeitemdatavalue
+  }
+  await fetch('/cart/update.js', {
+    body: JSON.stringify({updates: removeitemdatavalue }),
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Requested-With':'xmlhttprequest'
+    },
+    method: 'POST'
+    }).then((response) => {console.log(updatedata);
+      return response.json();
+    }).then (async (dataresponse) => {
+      console.log('products', dataresponse);
+    }).catch((err) => {
+      console.error(err)
+    });
+
+}
+*/
+
+async function getCart() {
+  const result = await fetch("/cart.js");
+
+  if (result.status === 200) {
+      return result.json();
+  }
+
+  throw new Error(`Failed to get request, Shopify returned ${result.status} ${result.statusText}`);
+}

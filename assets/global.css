@@ -1,5 +1,6 @@
 /* base */
 
+
 .no-js:not(html) {
     display: none !important;
 }
@@ -11871,7 +11872,7 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     transition: width 2s;
     transform: translateY(-50%);
     right: -24px;
-
+}
 [data-touch-moveable]{
     overscroll-behavior-y: contain;  
 }
@@ -11879,3 +11880,4 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 .shopify-challenge__container{
     padding: 5rem 0;
 }
+body.position-fixed{position:unset!important}
