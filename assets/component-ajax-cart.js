@@ -328,6 +328,65 @@ class AjaxCart extends HTMLElement {
     /*
     *****
     ** remove bundle product END */
+
+
+
+
+    /*** 
+    *** update qty bundle product */
+
+     async qtyupdateitemrandom(randno, finalQty){
+      var updateitemdataqty = [];
+      var removeitemdata = document.querySelectorAll(`[data-itemremoverandomno="${randno}"]`);
+      console.log('removeitemdata ', removeitemdata)
+      var itemcartdata = await getCart();
+      var itemcartdataitems = itemcartdata.items;
+      console.log('itemcartdataitems ', itemcartdataitems)
+      for (var x = 0; x < itemcartdataitems.length; x++) {
+        var itemquantity = itemcartdataitems[x].quantity;
+        console.log('itemquantity ', itemquantity);
+        if (itemcartdataitems[x].properties){
+        var itemrandomno = itemcartdataitems[x].properties.randomnumber;
+      }
+        console.log('itemrandomno ', itemrandomno);
+        var getrandno = randno;
+        console.log('getrandno ', getrandno);
+        if(itemrandomno == getrandno){
+          updateitemdataqty.push(finalQty);
+        }else{
+          updateitemdataqty.push(itemquantity);
+        }
+        console.log('updateitemdataqty ', updateitemdataqty);
+      }
+      
+     
+      var updatedata = {
+        updates: updateitemdataqty
+      }
+      fetch('/cart/update.js', {
+        body: JSON.stringify({updates: updateitemdataqty }),
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With':'xmlhttprequest'
+        },
+        method: 'POST'
+        }).then((response) => {console.log(updatedata);this.getCartData();
+          return response.json();
+        }).then (async (dataresponse) => {
+          console.log('products', dataresponse);
+        }).catch((err) => {
+          console.error(err)
+        });
+    
+    }
+
+    /*
+    *****
+    ** update qty bundle product END */
+
+
+
   
     /**
      * Cart Item Qunatity Increment/Decrement Button event
@@ -342,15 +401,32 @@ class AjaxCart extends HTMLElement {
       let itemIndex = $qtyInput.dataset.index || 1;
       let currentQty = parseInt($qtyInput.value) || 1;
       let finalQty = 1;
-  
-      if(action == 'decrease' && currentQty <= 1){
+
+      let qtyitemboxremove = currentTarget.getAttribute('qty-itemupdaterandomno');
+      console.log('qtyitemboxremove ', qtyitemboxremove);
+      if(qtyitemboxremove != null){
+        let lineItem = document.querySelectorAll('[data-cart-item]')[itemIndex-1];
+        if(action == 'decrease' && currentQty <= 1){
           return false;
-      }else if(action == 'decrease'){
-          finalQty = currentQty - 1;
+        }else if(action == 'decrease'){
+            finalQty = currentQty - 1;
+            this.qtyupdateitemrandom(qtyitemboxremove, finalQty);
+            if(lineItem){ lineItem.classList.add('updating'); }
+        }else{
+            finalQty = currentQty + 1;
+            this.qtyupdateitemrandom(qtyitemboxremove, finalQty);
+            if(lineItem){ lineItem.classList.add('updating'); }
+        }
       }else{
-          finalQty = currentQty + 1;
+        if(action == 'decrease' && currentQty <= 1){
+            return false;
+        }else if(action == 'decrease'){
+            finalQty = currentQty - 1;
+        }else{
+            finalQty = currentQty + 1;
+        }
+        this.updateItemQty(itemIndex, finalQty);
       }
-      this.updateItemQty(itemIndex, finalQty);
     }
 
     /**
@@ -465,9 +541,11 @@ class AjaxCart extends HTMLElement {
 }
 customElements.define("ajax-cart", AjaxCart);
 
+
+/*
 removeitemarray = [];
 removeitemdatavalue = [];
-/*
+
 async function removeitemrandom(randno){
   removeitemdata = document.querySelectorAll(`[data-itemremoverandomno="${randno}"]`);
   console.log('removeitemdata ', removeitemdata)
