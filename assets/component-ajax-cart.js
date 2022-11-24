@@ -352,7 +352,14 @@ class AjaxCart extends HTMLElement {
         var getrandno = randno;
         console.log('getrandno ', getrandno);
         if(itemrandomno == getrandno){
-          updateitemdataqty.push(finalQty);
+          if(finalQty==true){
+            var itemquantitynew = itemquantity+itemquantity;
+            updateitemdataqty.push(itemquantitynew);
+            console.log('updateitemdataqtytrue ', updateitemdataqty);
+          }else{
+            updateitemdataqty.push(itemquantity/2);
+            console.log('updateitemdataqtyfalse ', updateitemdataqty);
+          }
         }else{
           updateitemdataqty.push(itemquantity);
         }
@@ -409,11 +416,11 @@ class AjaxCart extends HTMLElement {
         if(action == 'decrease' && currentQty <= 1){
           return false;
         }else if(action == 'decrease'){
-            finalQty = currentQty - 1;
+            finalQty = false; //remove 1 item
             this.qtyupdateitemrandom(qtyitemboxremove, finalQty);
             if(lineItem){ lineItem.classList.add('updating'); }
         }else{
-            finalQty = currentQty + 1;
+            finalQty = true; //add 1 item
             this.qtyupdateitemrandom(qtyitemboxremove, finalQty);
             if(lineItem){ lineItem.classList.add('updating'); }
         }

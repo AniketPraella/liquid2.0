@@ -1,5 +1,7 @@
 {%- liquid
     assign box-collection-handle = product.metafields.custom.box_collection.value.handle
+    assign productExcludeTag = settings.product_exclude_tag_text
+    assign current_variant = product.selected_or_first_available_variant
 -%}
 
 
