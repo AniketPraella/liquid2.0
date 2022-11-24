@@ -8,6 +8,20 @@
         {{ collection.description }}
       </div>
     {% endif %}
+
+    <div class="col-12 mt-5 d-flex justify-content-end">
+      <select id="sort-by">
+        {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+
+        {% for option in collection.sort_options %}
+          <option value="{{ option.value }}" {% if option.value == sort_by %}selected="selected"{% endif %}>
+            {{ option.name }}{{sort_by}}
+          </option>
+        {% endfor %}
+      </select>
+
+    </div>
+
     {% paginate collection.products by 8 %}
       {% if collection.products.size == 0 %}
         <p class="text-center">No Products Available.</p>
@@ -52,3 +66,27 @@
 
 {% javascript %}
 {% endjavascript %}
+<script>
+  Shopify.queryParams = {};
+
+  // Preserve existing query parameters
+  if (location.search.length) {
+    var params = location.search.substr(1).split('&');
+
+    for (var i = 0; i < params.length; i++) {
+      var keyValue = params[i].split('=');
+
+      if (keyValue.length) {
+        Shopify.queryParams[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
+      }
+    }
+  }
+
+  // Update sort_by query parameter on select change
+  document.querySelector('#sort-by').addEventListener('change', function(e) {
+    var value = e.target.value;
+
+    Shopify.queryParams.sort_by = value;
+    location.search = new URLSearchParams(Shopify.queryParams).toString();
+  });
+</script>
