@@ -1,3 +1,39 @@
+{%- liquid 
+  assign productExcludeTag = settings.product_exclude_tag_text
+-%}
+<div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+  <div class="row">
+    {% if collection.description != blank %}
+      <div class="text-center mt-5 mb-5">
+        {{ collection.description }}
+      </div>
+    {% endif %}
+    {% paginate collection.products by 8 %}
+      {% if collection.products.size == 0 %}
+        <p class="text-center">No Products Available.</p>
+      {% else %}
+        {% for product in collection.products %}
+          {% unless product.tags contains productExcludeTag %}
+            <div class="col-12 col-lg-3 col-md-4 col-sm-6 mt-2 mb-2 d-flex align-items-stretch justify-content-around">
+                {% render 'card-product-layout-2', product: product %}
+            </div>
+          {% endunless %}
+        {% endfor %}
+        {% if paginate.pages > 1 %}
+          <div class="row" data-pagination data-type="numbers">
+            <div class="col-12 text-center mt-5">
+              {% render 'pagination', paginate: paginate , product_count : 8 %}
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</div>
+
+
+
+
 {% schema %}
   {
     "name": "collection layout 2",
