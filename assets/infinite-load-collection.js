@@ -29,6 +29,47 @@ targetloadmore.addEventListener('click', async (event)=>{
         targetloadmore.style.display = 'none';
     }
 })
+
+
+/****************************************
+ *********************  
+
+ Collection product sort  
+
+**********************
+**************************************/
+
+
+document.getElementById('sort-by').addEventListener('change', async function(e) {
+    e.preventDefault();
+    option_value = await getcolprodata(`?sort_by=${e.target.value}`);
+    console.log('option_value ', option_value);
+    collectionnewdataparsed = document.createElement('div');
+    collectionnewdataparsed.innerHTML = option_value['template-collection-layout-2'];
+    collectionnewdataget = collectionnewdataparsed.querySelectorAll('#collection-product-grid-2 .col-12.col-lg-3.col-md-4.col-sm-6');
+    console.log('collectionnewdataget ', collectionnewdataget);
+    newtargetloadmore = collectionnewdataparsed.querySelector('#load-more-product').href;
+    targetloadmore.setAttribute("href", newtargetloadmore);
+    colproductdata_sec = document.querySelector('#collection-product-grid-2');
+    colproductdata_sec.innerHTML = '';
+    for(var i=0; i < collectionnewdataget.length; i++){
+        colproductdata_sec.append(collectionnewdataget[i]);
+        console.log(collectionnewdataget[i]);
+    }
+})
+
+
+/****************************************
+ *********************  
+
+ Collection product sort  END
+ 
+**********************
+**************************************/
+
+
+
+
 async function getcolprodata(getnewbuttonhref) {
     const result = await fetch(`${getnewbuttonhref}&sections=template-collection-layout-2`);
   
