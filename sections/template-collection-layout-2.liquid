@@ -2,12 +2,16 @@
   assign productExcludeTag = settings.product_exclude_tag_text
 -%}
 <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
-  <div class="row">
-    {% if collection.description != blank %}
-      <div class="text-center mt-5 mb-5">
-        {{ collection.description }}
-      </div>
+  <div class="row mt-5 mb-5">
+    <div class="col-12">
+      {% if collection.description != blank %}
+        <div class="text-center">
+          {{ collection.description }}
+        </div>
     {% endif %}
+    </div>
+  </div>
+  <div class="row" id="colproductdata-sec">
 
     <div class="col-12 mt-5 d-flex justify-content-end">
       <select id="sort-by">
@@ -26,6 +30,7 @@
       {% if collection.products.size == 0 %}
         <p class="text-center">No Products Available.</p>
       {% else %}
+      <div class="row" id="collection-product-grid-2">
         {% for product in collection.products %}
           {% unless product.tags contains productExcludeTag %}
             <div class="col-12 col-lg-3 col-md-4 col-sm-6 mt-2 mb-2 d-flex align-items-stretch justify-content-around">
@@ -33,10 +38,18 @@
             </div>
           {% endunless %}
         {% endfor %}
+      </div>
         {% if paginate.pages > 1 %}
           <div class="row" data-pagination data-type="numbers">
             <div class="col-12 text-center mt-5">
               {% render 'pagination', paginate: paginate , product_count : 8 %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 text-center mt-5 mb-5">
+              <a href="{{ paginate.next.url }}" class="btn btn-primary text-white" id="load-more-product">
+                  Loading....
+              </a>
             </div>
           </div>
         {% endif %}
