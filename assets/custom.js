@@ -7,6 +7,8 @@ class customJS {
 
 typeof customJS !== 'undefined' && new customJS();
 */
+colproductdataSec = document.getElementById('collection-product-grid-2') || null;
+if (colproductdataSec){
 colproductdataSec.addEventListener('click', (e)=>{
     var quickshopLayout2 =  document.querySelectorAll('.quickshop-layout2') || null;
     console.log('quickshopLayout2 ', quickshopLayout2);
@@ -42,6 +44,7 @@ if (quickshopLayout2 != null){
     }
 
 })
+}
 
 /*
 let quickshopLayout2 =  document.querySelectorAll('.quickshop-layout2') || null;
