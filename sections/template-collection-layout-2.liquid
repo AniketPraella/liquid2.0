@@ -40,11 +40,6 @@
         {% endfor %}
       </div>
         {% if paginate.pages > 1 %}
-          <div class="row" data-pagination data-type="numbers">
-            <div class="col-12 text-center mt-5">
-              {% render 'pagination', paginate: paginate , product_count : 4 %}
-            </div>
-          </div>
           <div class="row">
             <div class="col-12 text-center mt-5 mb-5">
               <a href="{{ paginate.next.url }}" class="btn btn-primary text-white" id="load-more-product">
