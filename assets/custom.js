@@ -10,14 +10,15 @@ typeof customJS !== 'undefined' && new customJS();
 colproductdataSec.addEventListener('click', (e)=>{
     var quickshopLayout2 =  document.querySelectorAll('.quickshop-layout2') || null;
     console.log('quickshopLayout2 ', quickshopLayout2);
-    console.log('event.currentTarget ', e.target);
+    console.log('event.Target ', e.target);
 if (quickshopLayout2 != null){
     console.log('pas');
-    quickshopLayout2.forEach(quickbtn => quickbtn.addEventListener('click', (event)=>{
+    if(e.target.className.includes('icon-quickview') || e.target.className.includes('quickshop-layout2')){
+    // quickshopLayout2.forEach(quickbtn => quickbtn.addEventListener('click', (event)=>{
         // event.preventDefault();
-        phandleelement = event.currentTarget;
+        phandleelement = e.target;
         console.log('phandleelement', phandleelement);
-        phandle = phandleelement.getAttribute('data-handle');
+        phandle = phandleelement.getAttribute('data-handle') || phandleelement.closest('.quickshop-layout2').getAttribute('data-handle');
         console.log('phandle', phandle);
         loadquickshopLayout2(phandle).then(quickShopDataLayout2 =>{
             targetquickshop = document.querySelector('quick-shop');
@@ -28,7 +29,8 @@ if (quickshopLayout2 != null){
             closequickshopfun(closequickshopl2);
         });
     }
-    ));
+}
+    // ));
 
     function closequickshopfun(closequickshopl2){
         closequickshopl2.addEventListener('click', (event)=>{
@@ -38,8 +40,7 @@ if (quickshopLayout2 != null){
             siteOverlay.prototype.hideOverlay();
         })
     }
-}
-e.stopPropagation();
+
 })
 
 /*
