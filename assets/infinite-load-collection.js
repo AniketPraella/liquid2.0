@@ -15,7 +15,8 @@ targetloadmore.addEventListener('click', async (event)=>{
     collectionprodataparsed.innerHTML = collectionprodata['template-collection-layout-2']
     console.log("data", collectionprodata['template-collection-layout-2']);
     console.log(collectionprodataparsed);
-    collectionprodataget = collectionprodataparsed.querySelector('#collection-product-grid-2').children;
+    collectionprodataget = collectionprodataparsed.querySelector('#collection-product-grid-2');
+    collectionprodataget = collectionprodataget.querySelectorAll('.col-12.col-lg-3.col-md-4.col-sm-6');
     changetargetloadmore = collectionprodataparsed.querySelector('#load-more-product').href;
     console.log('changetargetloadmore ', changetargetloadmore);
     console.log('collectionprodataget ', collectionprodataget);

@@ -61,7 +61,7 @@
           </button>
 
           {%- if settings.enable_quickshop -%}
-              <a href="#" rel="nofollow" class="btn btn-dark btn-sm ms-2 quickshop-layout2" data-handle="{{ product.handle }}" title="{{ 'products.product.quickshop' | t | escape }}" aria-label="{{ 'products.product.quickshop' | t | escape }}" data-toggle="tooltip" data-trigger="hover" data-placement="top">
+              <a href="javascript:void()" rel="nofollow" class="btn btn-dark btn-sm ms-2 quickshop-layout2" data-handle="{{ product.handle }}" title="{{ 'products.product.quickshop' | t | escape }}" aria-label="{{ 'products.product.quickshop' | t | escape }}" data-toggle="tooltip" data-trigger="hover" data-placement="top">
                   <span class="icon-quickview font-size-lg"></span>
               </a>
           {%- endif -%}

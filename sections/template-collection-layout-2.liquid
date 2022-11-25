@@ -26,7 +26,7 @@
 
     </div>
 
-    {% paginate collection.products by 8 %}
+    {% paginate collection.products by 4 %}
       {% if collection.products.size == 0 %}
         <p class="text-center">No Products Available.</p>
       {% else %}
@@ -42,7 +42,7 @@
         {% if paginate.pages > 1 %}
           <div class="row" data-pagination data-type="numbers">
             <div class="col-12 text-center mt-5">
-              {% render 'pagination', paginate: paginate , product_count : 8 %}
+              {% render 'pagination', paginate: paginate , product_count : 4 %}
             </div>
           </div>
           <div class="row">
