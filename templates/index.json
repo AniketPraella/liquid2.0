@@ -697,7 +697,41 @@
         "57406aeb-7f16-4901-ba41-caf814ff1564"
       ],
       "settings": {
-        "sectiontitle": "FAQ"
+        "sectiontitle": "FAQ 1"
+      }
+    },
+    "be271bc5-e96f-4898-9fa5-1683bab7210e": {
+      "type": "faq-accordian",
+      "blocks": {
+        "380855ed-0324-4585-99b1-bdec7f4a7d0e": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Abc1<\/p>",
+            "answer": "<p>Abc123<\/p>"
+          }
+        },
+        "588b2d97-f534-41f5-aac7-056c98380da7": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Abc2<\/p>",
+            "answer": "<p>Abc1234<\/p>"
+          }
+        },
+        "32f04120-0b1d-4ee8-ac97-2656f7f76374": {
+          "type": "question",
+          "settings": {
+            "title": "<p>Abc3<\/p>",
+            "answer": "<p>Abc12345<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "380855ed-0324-4585-99b1-bdec7f4a7d0e",
+        "588b2d97-f534-41f5-aac7-056c98380da7",
+        "32f04120-0b1d-4ee8-ac97-2656f7f76374"
+      ],
+      "settings": {
+        "sectiontitle": "FAQ 2"
       }
     }
   },
@@ -715,6 +749,7 @@
     "1627036040e9086143",
     "163403325190e9c2fd",
     "e58f3eac-0c40-42ac-ad07-7aa401811331",
-    "0e051098-7285-43fe-84d8-d518b0f0987c"
+    "0e051098-7285-43fe-84d8-d518b0f0987c",
+    "be271bc5-e96f-4898-9fa5-1683bab7210e"
   ]
 }
