@@ -93,7 +93,6 @@ class faqAccordian extends HTMLElement {
   }
   toggleAccordion(event){
     console.log(event.currentTarget);
-    console.log(this.currentTarget);
     const toggleButton = event.currentTarget;
     const toggleButtonIcon = toggleButton.querySelector('[icon-arrow]');
     const toggleButtonContainer = toggleButton.closest('.faqaccordian_container');
