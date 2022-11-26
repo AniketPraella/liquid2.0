@@ -733,6 +733,22 @@
       "settings": {
         "sectiontitle": "FAQ 2"
       }
+    },
+    "419bf95e-f801-45f5-a10b-c105b6c3f2e2": {
+      "type": "global-blog-posts",
+      "settings": {
+        "fluid_layout": false,
+        "blog_handles": "test-blog",
+        "heading_txt": "News & Views",
+        "lead_txt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pulvinar ac tortor imperdiet commodo.",
+        "btn_txt": "aaa",
+        "btn_url": "shopify:\/\/pages\/contact",
+        "section_bg_color": "#FAFAF7",
+        "section_txt_color": "",
+        "btn_type": "outline",
+        "btn_variant": "primary",
+        "btn_size": ""
+      }
     }
   },
   "order": [
@@ -750,6 +766,7 @@
     "163403325190e9c2fd",
     "e58f3eac-0c40-42ac-ad07-7aa401811331",
     "0e051098-7285-43fe-84d8-d518b0f0987c",
-    "be271bc5-e96f-4898-9fa5-1683bab7210e"
+    "be271bc5-e96f-4898-9fa5-1683bab7210e",
+    "419bf95e-f801-45f5-a10b-c105b6c3f2e2"
   ]
 }
