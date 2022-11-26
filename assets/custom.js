@@ -99,12 +99,23 @@ class faqAccordian extends HTMLElement {
     const toggleButtonContainer = toggleButton.closest('.faqaccordian_container');
     const toggleButtonContainerContent = toggleButtonContainer.querySelector('.faqaccordian_toggle_content');
       if(toggleButtonContainerContent.classList.contains('d-none')){
+        this.toggleAccordionCloseAll();
         toggleButtonContainerContent.classList.remove('d-none');
         toggleButtonIcon.classList.replace('icon-arrow-down', 'icon-arrow-up');
       }else{
         toggleButtonContainerContent.classList.add('d-none');
         toggleButtonIcon.classList.replace('icon-arrow-up', 'icon-arrow-down');
       }
+  }
+  toggleAccordionCloseAll(){
+    const faqaccordian_toggle_content = this.querySelectorAll(.faqaccordian_toggle_content);
+    const icon_arrow = this.querySelectorAll([icon-arrow]);
+    faqaccordian_toggle_content.forEach( (item)=> {
+      item.classList.add('d-none');
+    })
+    icon_arrow.forEach( (item)=> {
+      item.classList.replace('icon-arrow-up', 'icon-arrow-down');
+    })
   }
 }
 customElements.define("faq-accordian", faqAccordian);
