@@ -93,6 +93,10 @@ class faqAccordian extends HTMLElement {
   }
   toggleAccordion(event){
     console.log(event.currentTarget);
+    const toggleButtonContainer = event.currentTarget;
+    const toggleButtonContainerButton = toggleButtonContainer.querySelector('.faqaccordian_toggle');
+    const toggleButtonContainerContent = toggleButtonContainer.querySelector('.faqaccordian_toggle_content');
+    toggleButtonContainerContent.classList.add('d-block');
   }
 }
 customElements.define("faq-accordian", faqAccordian);
