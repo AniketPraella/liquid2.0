@@ -700,38 +700,43 @@
         "sectiontitle": "FAQ 1"
       }
     },
-    "be271bc5-e96f-4898-9fa5-1683bab7210e": {
-      "type": "faq-accordian",
+    "53c737ea-651f-468c-bd7d-c3b7f3bc4b29": {
+      "type": "global-testimonial",
       "blocks": {
-        "380855ed-0324-4585-99b1-bdec7f4a7d0e": {
-          "type": "question",
+        "7dcd34a0-ca9a-4197-8b0d-0a47763a7d43": {
+          "type": "logowidthtext",
           "settings": {
-            "title": "<p>Abc1<\/p>",
-            "answer": "<p>Abc123<\/p>"
+            "quote_logo": "",
+            "title": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pulvinar ac tortor imperdiet commodo.<\/p>",
+            "author_name": "aaaaaaaa",
+            "alignment": "text-center"
           }
         },
-        "588b2d97-f534-41f5-aac7-056c98380da7": {
-          "type": "question",
+        "d76d05c1-950d-4537-a318-efbe2cb94673": {
+          "type": "logowidthtext",
           "settings": {
-            "title": "<p>Abc2<\/p>",
-            "answer": "<p>Abc1234<\/p>"
-          }
-        },
-        "32f04120-0b1d-4ee8-ac97-2656f7f76374": {
-          "type": "question",
-          "settings": {
-            "title": "<p>Abc3<\/p>",
-            "answer": "<p>Abc12345<\/p>"
+            "quote_logo": "",
+            "title": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pulvinar ac tortor imperdiet commodo.<\/p>",
+            "author_name": "",
+            "alignment": "text-center"
           }
         }
       },
       "block_order": [
-        "380855ed-0324-4585-99b1-bdec7f4a7d0e",
-        "588b2d97-f534-41f5-aac7-056c98380da7",
-        "32f04120-0b1d-4ee8-ac97-2656f7f76374"
+        "7dcd34a0-ca9a-4197-8b0d-0a47763a7d43",
+        "d76d05c1-950d-4537-a318-efbe2cb94673"
       ],
       "settings": {
-        "sectiontitle": "FAQ 2"
+        "fluid_layout": false,
+        "heading_txt": "",
+        "lead_txt": "",
+        "section_bg_color": "#FFFFFF",
+        "section_text_color": "#000000",
+        "enable": false,
+        "overlay_color": "#000",
+        "opacity": 0.5,
+        "nav_arrows": true,
+        "nav_dots": true
       }
     }
   },
@@ -750,6 +755,6 @@
     "163403325190e9c2fd",
     "e58f3eac-0c40-42ac-ad07-7aa401811331",
     "0e051098-7285-43fe-84d8-d518b0f0987c",
-    "be271bc5-e96f-4898-9fa5-1683bab7210e"
+    "53c737ea-651f-468c-bd7d-c3b7f3bc4b29"
   ]
 }
