@@ -94,12 +94,15 @@ class faqAccordian extends HTMLElement {
   toggleAccordion(event){
     console.log(event.currentTarget);
     const toggleButton = event.currentTarget;
+    const toggleButtonIcon = toggleButton.querySelector('[icon-arrow]');
     const toggleButtonContainer = toggleButton.closest('.faqaccordian_container');
     const toggleButtonContainerContent = toggleButtonContainer.querySelector('.faqaccordian_toggle_content');
       if(toggleButtonContainerContent.classList.contains('d-none')){
         toggleButtonContainerContent.classList.remove('d-none');
+        toggleButtonIcon.classList.replace('icon-arrow-down', 'icon-arrow-up');
       }else{
         toggleButtonContainerContent.classList.add('d-none');
+        toggleButtonIcon.classList.replace('icon-arrow-up', 'icon-arrow-down');
       }
   }
 }
