@@ -96,7 +96,7 @@ class faqAccordian extends HTMLElement {
     const toggleButton = event.currentTarget;
     const toggleButtonContainer = toggleButton.closest('.faqaccordian_container');
     const toggleButtonContainerContent = toggleButtonContainer.querySelector('.faqaccordian_toggle_content');
-    const toggleOpenCondition = toggleButtonContainerButton.querySelector('h5') || toggleButtonContainerButton.querySelector('span') || null;
+    const toggleOpenCondition = toggleButtonContainer.querySelector('h5') || toggleButtonContainer.querySelector('span') || null;
     console.log(toggleOpenCondition);
     if(toggleOpenCondition != null){
       if(toggleButtonContainerContent.classList.contains('d-none')){
