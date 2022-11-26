@@ -88,6 +88,11 @@ async function loadquickshopLayout2(handle){
 class faqAccordian extends HTMLElement {
   constructor() {
     super();
+    this.faqaccordian_container = this.querySelectorAll('.faqaccordian_container');
+    this.faqaccordian_container.forEach(button => button.addEventListener('click', this.toggleAccordion.bind(this)));
+  }
+  toggleAccordion(event){
+    console.log(event);
   }
 }
 customElements.define("faq-accordian", faqAccordian);
