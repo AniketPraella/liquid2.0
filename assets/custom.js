@@ -88,13 +88,13 @@ async function loadquickshopLayout2(handle){
 class faqAccordian extends HTMLElement {
   constructor() {
     super();
-    this.faqaccordian_container = this.querySelectorAll('.faqaccordian_container');
-    this.faqaccordian_container.forEach(button => button.addEventListener('click', this.toggleAccordion.bind(this)));
+    this.faqaccordian_toggle = this.querySelectorAll('.faqaccordian_toggle');
+    this.faqaccordian_toggle.forEach(button => button.addEventListener('click', this.toggleAccordion.bind(this)));
   }
   toggleAccordion(event){
     console.log(event.currentTarget);
-    const toggleButtonContainer = event.currentTarget;
-    const toggleButtonContainerButton = toggleButtonContainer.querySelector('.faqaccordian_toggle');
+    const toggleButton = event.currentTarget;
+    const toggleButtonContainer = toggleButton.closest('.faqaccordian_container');
     const toggleButtonContainerContent = toggleButtonContainer.querySelector('.faqaccordian_toggle_content');
     const toggleOpenCondition = toggleButtonContainerButton.querySelector('h5') || toggleButtonContainerButton.querySelector('span') || null;
     console.log(toggleOpenCondition);
