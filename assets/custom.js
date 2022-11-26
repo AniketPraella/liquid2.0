@@ -89,6 +89,7 @@ class faqAccordian extends HTMLElement {
   constructor() {
     super();
     this.faqaccordian_toggle = this.querySelectorAll('.faqaccordian_toggle');
+    console.log(this);
     this.faqaccordian_toggle.forEach(button => button.addEventListener('click', this.toggleAccordion.bind(this)));
   }
   toggleAccordion(event){
