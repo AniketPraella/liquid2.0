@@ -1,11 +1,63 @@
-<div>
-  
+<div id="accordian-{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title">
+          <h2>{{ section.settings.sectiontitle }}</h2>
+        </div>
+        <div class="section-content">
+          <faq-accordian id="faq-accordian-{{ section.id }}">
+            {% for block in section.blocks %}
+              {% if block.settings.title != blank %}
+                <div class="faqaccordian_container">
+                  <div class="faqaccordian_toggle"><h5>{{ block.settings.title }}</h5></div>
+                  <div class="faqaccordian_toggle_content">{{ block.settings.answer }}</div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </faq-accordian>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% schema %}
   {
-    "name": "Section name",
-    "settings": []
+    "name": "FAQ Accordian",
+    "class": "dynamic-faq-accordian",
+    "settings": [
+		{
+            "type": "text",
+            "id": "sectiontitle",
+            "label": "Section Title",
+            "default": "FAQ"
+        }
+	],
+    "blocks": [
+        {
+            "type": "question",
+            "name": "FAQ",
+            "settings": [
+                {
+                    "type": "richtext",
+                    "id": "title",
+                    "label": "Question"
+                },
+                {
+                    "type": "richtext",
+                    "id": "answer",
+                    "label": "Answer"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "FAQ Accordian",
+            "category": "Content"
+        }
+    ]
   }
 {% endschema %}
 
