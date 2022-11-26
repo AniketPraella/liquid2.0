@@ -639,34 +639,6 @@
         "show_text_below": true
       }
     },
-    "1648548602b2ca3bf9": {
-      "type": "global-video-with-text",
-      "settings": {
-        "fluid_layout": false,
-        "muted": true,
-        "controls": true,
-        "loop": true,
-        "title": "Awesome Heading",
-        "subtitle": "<p>Lipsum dolor sit amet, consectetur adipiscing elit. Aliquam pulvinar ac tortor imperdiet commodo.<\/p>",
-        "btn_txt": "",
-        "btn_link": "",
-        "btn_type": "",
-        "btn_variant": "primary",
-        "btn_size": "",
-        "poster_type": "",
-        "bg_video": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/aa72308259d0435488922d55c49c5398.mp4",
-        "mobile_bg_video": "",
-        "fluid_video_layout": true,
-        "video_type": "local",
-        "placement": "grid",
-        "video_id": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/aa72308259d0435488922d55c49c5398.mp4",
-        "mobile_video_id": "",
-        "section_bg_color": "#fafaf7",
-        "section_text_color": "#ffffff",
-        "alignment": "text-center",
-        "video_alignment": "justify-content-center"
-      }
-    },
     "e58f3eac-0c40-42ac-ad07-7aa401811331": {
       "type": "template-faq-block",
       "blocks": {
@@ -683,19 +655,11 @@
             "title": "<p>dddddwsw<\/p>",
             "answer": "<p>ddccx<\/p>"
           }
-        },
-        "b32b2078-ef56-4419-8070-c18def9faaa3": {
-          "type": "question",
-          "settings": {
-            "title": "",
-            "answer": ""
-          }
         }
       },
       "block_order": [
         "ddf4d1bb-1904-46fb-b941-226933e93953",
-        "ea4b6761-03a8-497b-830f-0e74bd22f1bc",
-        "b32b2078-ef56-4419-8070-c18def9faaa3"
+        "ea4b6761-03a8-497b-830f-0e74bd22f1bc"
       ],
       "settings": {
         "enable": true,
@@ -716,7 +680,6 @@
     "162943776301163939",
     "1627036040e9086143",
     "163403325190e9c2fd",
-    "1648548602b2ca3bf9",
     "e58f3eac-0c40-42ac-ad07-7aa401811331"
   ]
 }
