@@ -83,3 +83,11 @@ async function loadquickshopLayout2(handle){
     const quickShopDataLayout2 = await response.json();
     return quickShopDataLayout2['template-product-quickshop'];
 }
+
+
+class faqAccordian extends HTMLElement {
+  constructor() {
+    super();
+  }
+}
+customElements.define("faq-accordian", faqAccordian);
