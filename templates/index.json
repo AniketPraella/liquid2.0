@@ -639,33 +639,6 @@
         "show_text_below": true
       }
     },
-    "e58f3eac-0c40-42ac-ad07-7aa401811331": {
-      "type": "template-faq-block",
-      "blocks": {
-        "ddf4d1bb-1904-46fb-b941-226933e93953": {
-          "type": "question",
-          "settings": {
-            "title": "<p>aaaaaaaaaaaaa<\/p>",
-            "answer": "<p>dxcxcx<\/p>"
-          }
-        },
-        "ea4b6761-03a8-497b-830f-0e74bd22f1bc": {
-          "type": "question",
-          "settings": {
-            "title": "<p>dddddwsw<\/p>",
-            "answer": "<p>ddccx<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "ddf4d1bb-1904-46fb-b941-226933e93953",
-        "ea4b6761-03a8-497b-830f-0e74bd22f1bc"
-      ],
-      "settings": {
-        "enable": true,
-        "heading": "FAQ"
-      }
-    },
     "0e051098-7285-43fe-84d8-d518b0f0987c": {
       "type": "faq-accordian",
       "blocks": {
@@ -699,45 +672,6 @@
       "settings": {
         "sectiontitle": "FAQ 1"
       }
-    },
-    "53c737ea-651f-468c-bd7d-c3b7f3bc4b29": {
-      "type": "global-testimonial",
-      "blocks": {
-        "7dcd34a0-ca9a-4197-8b0d-0a47763a7d43": {
-          "type": "logowidthtext",
-          "settings": {
-            "quote_logo": "",
-            "title": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pulvinar ac tortor imperdiet commodo.<\/p>",
-            "author_name": "aaaaaaaa",
-            "alignment": "text-center"
-          }
-        },
-        "d76d05c1-950d-4537-a318-efbe2cb94673": {
-          "type": "logowidthtext",
-          "settings": {
-            "quote_logo": "",
-            "title": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pulvinar ac tortor imperdiet commodo.<\/p>",
-            "author_name": "",
-            "alignment": "text-center"
-          }
-        }
-      },
-      "block_order": [
-        "7dcd34a0-ca9a-4197-8b0d-0a47763a7d43",
-        "d76d05c1-950d-4537-a318-efbe2cb94673"
-      ],
-      "settings": {
-        "fluid_layout": false,
-        "heading_txt": "",
-        "lead_txt": "",
-        "section_bg_color": "#FFFFFF",
-        "section_text_color": "#000000",
-        "enable": false,
-        "overlay_color": "#000",
-        "opacity": 0.5,
-        "nav_arrows": true,
-        "nav_dots": true
-      }
     }
   },
   "order": [
@@ -753,8 +687,6 @@
     "162943776301163939",
     "1627036040e9086143",
     "163403325190e9c2fd",
-    "e58f3eac-0c40-42ac-ad07-7aa401811331",
-    "0e051098-7285-43fe-84d8-d518b0f0987c",
-    "53c737ea-651f-468c-bd7d-c3b7f3bc4b29"
+    "0e051098-7285-43fe-84d8-d518b0f0987c"
   ]
 }
