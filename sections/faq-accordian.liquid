@@ -9,7 +9,7 @@
           <faq-accordian id="faq-accordian-{{ section.id }}">
             {% for block in section.blocks %}
               {% if block.settings.title != blank %}
-                <div class="faqaccordian_container">
+                <div class="faqaccordian_container border-bottom">
                   <div class="faqaccordian_toggle"><h5>{{ block.settings.title }}</h5></div>
                   <div class="faqaccordian_toggle_content">{{ block.settings.answer }}</div>
                 </div>
