@@ -109,7 +109,7 @@ class faqAccordian extends HTMLElement {
   }
   toggleAccordionCloseAll(){
     const faqaccordian_toggle_content = this.querySelectorAll('.faqaccordian_toggle_content');
-    const icon_arrow = this.querySelectorAll([icon-arrow]);
+    const icon_arrow = this.querySelectorAll('[icon-arrow]');
     faqaccordian_toggle_content.forEach( (item)=> {
       item.classList.add('d-none');
     })
