@@ -50,6 +50,7 @@ document.getElementById('sort-by').addEventListener('change', async function(e) 
     console.log('collectionnewdataget ', collectionnewdataget);
     newtargetloadmore = collectionnewdataparsed.querySelector('#load-more-product').href;
     targetloadmore.setAttribute("href", newtargetloadmore);
+  targetloadmore.style.display = 'block';
     colproductdata_sec = document.querySelector('#collection-product-grid-2');
     colproductdata_sec.innerHTML = '';
     for(var i=0; i < collectionnewdataget.length; i++){
