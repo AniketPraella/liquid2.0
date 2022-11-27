@@ -55,9 +55,10 @@
           {%- if block.type == 'tags_group' -%}
             <div class="dropdown me-3">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-{{ block.id }}" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ block.id }}
+                {{ block.settings.title }}
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdown-{{ block.id }}">
+                abc
               </div>
             </div>
           {% endif %}
