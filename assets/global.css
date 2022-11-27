@@ -11886,6 +11886,7 @@ body.position-fixed{position:unset!important}
 .dropdown:hover .dropdown-menu{display:block;}
 .range-input{
   position: relative;
+  width:200px;
 }
 .range-input input{
   position: absolute;
