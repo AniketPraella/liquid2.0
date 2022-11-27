@@ -62,6 +62,18 @@
     },
     "93fd8012-7af9-42ff-98d7-46b87f594440": {
       "type": "template-collection-layout-2",
+      "blocks": {
+        "98bfdb48-a655-41d3-9b74-e086e5f27925": {
+          "type": "tags_group",
+          "settings": {
+            "title": "Filter By Tag",
+            "tag_list": "Men\nWomen\nBag"
+          }
+        }
+      },
+      "block_order": [
+        "98bfdb48-a655-41d3-9b74-e086e5f27925"
+      ],
       "settings": {
       }
     }
