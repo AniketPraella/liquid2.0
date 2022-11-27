@@ -13,7 +13,7 @@
   </div>
   <div class="row" id="colproductdata-sec">
 
-    <div class="col-12 mt-5 d-flex justify-content-between">
+    <div class="col-12 mt-5 d-flex justify-content-between align-items-center">
       <div class="d-flex">
         <span>Filter: </span>
         {%- for filter in collection.filters -%}
@@ -40,7 +40,7 @@
           </div>   
         {% endfor %}
       </div>
-      <select id="sort-by">
+      <select id="sort-by" class="p-3">
         {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
 
         {% for option in collection.sort_options %}
