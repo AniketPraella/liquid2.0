@@ -11928,3 +11928,8 @@ input[type="range"]::-moz-range-thumb{
   z-index:3;
   position:relative;
 }
+
+#sort-by option{
+    background: #fff;
+    color: #000;
+}
