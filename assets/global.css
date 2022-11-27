@@ -11892,7 +11892,7 @@ body.position-fixed{position:unset!important}
   position: absolute;
   width: 200px;
   height: 10px;
-  top: -5px;
+  bottom: 0;
   background: none;
   pointer-events: none;
   -webkit-appearance: none;
