@@ -14,6 +14,16 @@
   <div class="row" id="colproductdata-sec">
 
     <div class="col-12 mt-5 d-flex justify-content-end">
+      <select id="filter-availability">
+        {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+
+        {%- for filter in collection.filters -%}
+          {{ filter }}
+<!--           <option value="{{ option.value }}" {% if option.value == sort_by %}selected="selected"{% endif %}>
+            {{ option.name }}
+          </option> -->
+        {% endfor %}
+      </select>
       <select id="sort-by">
         {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
 

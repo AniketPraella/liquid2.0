@@ -71,6 +71,27 @@ document.getElementById('sort-by').addEventListener('change', async function(e) 
 **************************************/
 
 
+/****************************************
+ *********************  
+
+ Collection product Filter
+ 
+**********************
+**************************************/
+
+
+
+
+
+/****************************************
+ *********************  
+
+ Collection product Filter  END
+ 
+**********************
+**************************************/
+
+
 
 
 async function getcolprodata(getnewbuttonhref) {
