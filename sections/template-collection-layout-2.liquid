@@ -14,16 +14,28 @@
   <div class="row" id="colproductdata-sec">
 
     <div class="col-12 mt-5 d-flex justify-content-between">
-      <select id="filter-availability">
-        {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
-
-        {%- for filter in collection.filters -%}
-          {{ filter.label }}
-<!--           <option value="{{ option.value }}" {% if option.value == sort_by %}selected="selected"{% endif %}>
-            {{ option.name }}
-          </option> -->
+      <div>
+        <span>Filter: </span>
+      {%- for filter in collection.filters -%}
+        <span>{{ filter.label }}</span>
+        {%- for value in filter.values -%}
+        <div class="form-check">
+            <input type="checkbox"
+                class="form-check-input"
+                name="{{ value.param_name }}"
+                value="{{ value.value }}"
+                id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                data-handle="{{ value.value | handle }}"
+                {% if value.active %}checked{% endif %}
+                {% if value.count == 0 and value.active == false %}disabled{% endif %}
+            >
+            <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="form-check-label option-label filter-checkbox{% if value.count == 0 and value.active == false %} filter-checkbox--disabled{% endif %}" title="{{ value.label | escape }}">
+              {{ value.label | escape }} <span>{{ value.count }}</span>
+            </label>
+        </div>
         {% endfor %}
-      </select>
+      {% endfor %}
+      </div>
       <select id="sort-by">
         {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
 
