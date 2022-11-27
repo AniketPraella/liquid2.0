@@ -11882,5 +11882,5 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 }
 body.position-fixed{position:unset!important}
 
-.dropdown-menu{display:none;background: #fff;padding: 20px;}
+.dropdown-menu{display:none;background: #fff;padding: 20px;position:absolute;}
 .dropdown:hover .dropdown-menu{display:block;}
