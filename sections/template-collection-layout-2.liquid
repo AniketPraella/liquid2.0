@@ -21,7 +21,7 @@
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-{{ filter.label }}" data-bs-toggle="dropdown" aria-expanded="false">
               {{ filter.label }}
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdown-{{ filter.label }}">{{ filter.type }}
+            <div class="dropdown-menu" aria-labelledby="dropdown-{{ filter.label }}">
               {% if filter.type == 'list' %}
                 {%- for value in filter.values -%}
                   <div class="form-check">
