@@ -18,7 +18,7 @@
         {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
 
         {%- for filter in collection.filters -%}
-          {{ filter }}
+          {{ filter.label }}
 <!--           <option value="{{ option.value }}" {% if option.value == sort_by %}selected="selected"{% endif %}>
             {{ option.name }}
           </option> -->
