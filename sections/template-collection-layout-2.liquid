@@ -54,10 +54,10 @@
         {% for block in section.blocks %}
           {%- if block.type == 'tags_group' -%}
             <div class="dropdown me-3">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-{{ block.label }}" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ block.label }}
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-{{ block.id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ block.id }}
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdown-{{ block.label }}">
+              <div class="dropdown-menu" aria-labelledby="dropdown-{{ block.id }}">
               </div>
             </div>
           {% endif %}
