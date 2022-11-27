@@ -41,7 +41,7 @@
                 {% endfor %}
               {% elsif filter.type == 'price_range' %}
                 <div class="range-input">
-                  <div class="pb-4"><span class="price_range_min">$0</span> - <span class="price_range_max">{{ cart.currency.symbol }}{{ filter.range_max | money_without_currency | replace: ',', '' | plus: 0 | ceil }}</span></div>
+                  <div class="pb-4"><span class="price_range_min">{{ cart.currency.symbol }}0</span> - <span class="price_range_max">{{ cart.currency.symbol }}{{ filter.range_max | money_without_currency | replace: ',', '' | plus: 0 | ceil }}</span></div>
                   <input type="range" class="range-min" min="0" max="{{ filter.range_max | money_without_currency | replace: ',', '' | plus: 0 | ceil }}" value="0" step="10">
                   <input type="range" class="range-max" min="0" max="{{ filter.range_max | money_without_currency | replace: ',', '' | plus: 0 | ceil }}" value="{{ filter.range_max | money_without_currency | replace: ',', '' | plus: 0 | ceil }}" step="10">
                 </div>
