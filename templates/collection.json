@@ -39,11 +39,19 @@
             "btn_text": "",
             "link": "shopify:\/\/collections\/spring"
           }
+        },
+        "d9d08937-ddac-4630-948d-29608a79d70c": {
+          "type": "tags_group",
+          "settings": {
+            "title": "FIlter By Tag",
+            "tag_list": "Women\nMen\nBag"
+          }
         }
       },
       "block_order": [
         "76bc1f14-318b-4055-9732-31a3ebb49e78",
-        "849060e4-89ba-4703-877d-d55e26313a29"
+        "849060e4-89ba-4703-877d-d55e26313a29",
+        "d9d08937-ddac-4630-948d-29608a79d70c"
       ],
       "settings": {
         "products_per_page": 16,
