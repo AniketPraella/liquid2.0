@@ -50,6 +50,14 @@
             </div>
           </div>   
         {% endfor %}
+
+        {% for block in section.blocks %}
+          {%- if block.type == 'tags_group' -%}
+            
+          {% endif %}
+        {% endfor %}
+
+        
       </div>
       <select id="sort-by" class="p-2">
         {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
@@ -97,10 +105,31 @@
   {
     "name": "collection layout 2",
     "settings": [],
+    "blocks": [
+      {
+      "type": "tags_group",
+      "name": "Tag group",
+      "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Tag Group"
+          },
+          {
+            "type": "textarea",
+            "id": "tag_list",
+            "label": "Tag list (one per line)",
+            "default": "First tag \nSecond tag \nThird tag",
+            "info": "Tags are case sensitive and must match your product tag exactly"
+          }
+        ]
+      }
+    ],
     "presets": [
       {
         "name": "Product Grid 2",
-        "category": "Blog"
+        "category": "Collection"
       }
     ]
   }
