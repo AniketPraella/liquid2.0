@@ -41,8 +41,8 @@
                 {% endfor %}
               {% elsif filter.type == 'price_range' %}
                 <div class="range-input">
-                  <input type="range" class="range-min" min="0" max="10000" value="2500" step="100">
-                  <input type="range" class="range-max" min="0" max="10000" value="7500" step="100">
+                  <input type="range" class="range-min" min="{{ filter.min_value.value }}" max="{{ filter.max_value.value }}" value="{{ filter.min_value.value }}" step="10">
+                  <input type="range" class="range-max" min="{{ filter.min_value.value }}" max="{{ filter.max_value.value }}" value="{{ filter.max_value.value }}" step="10">
                 </div>
               {% endif %}
           
