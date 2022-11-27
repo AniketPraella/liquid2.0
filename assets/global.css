@@ -11881,3 +11881,6 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     padding: 5rem 0;
 }
 body.position-fixed{position:unset!important}
+
+.dropdown-menu{display:none;}
+.dropdown:focus .dropdown-menu{display:block;}
