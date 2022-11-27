@@ -11890,7 +11890,7 @@ body.position-fixed{position:unset!important}
 .range-input input{
   position: absolute;
   width: 200px;
-  height: 5px;
+  height: 10px;
   top: -5px;
   background: none;
   pointer-events: none;
