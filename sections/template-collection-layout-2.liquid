@@ -17,23 +17,27 @@
       <div class="d-flex">
         <span>Filter: </span>
         {%- for filter in collection.filters -%}
-          <span>{{ filter.label }}</span>
-          {%- for value in filter.values -%}
-          <div class="form-check">
-              <input type="checkbox"
-                  class="form-check-input"
-                  name="{{ value.param_name }}"
-                  value="{{ value.value }}"
-                  id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
-                  data-handle="{{ value.value | handle }}"
-                  {% if value.active %}checked{% endif %}
-                  {% if value.count == 0 and value.active == false %}disabled{% endif %}
-              >
-              <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="form-check-label option-label filter-checkbox{% if value.count == 0 and value.active == false %} filter-checkbox--disabled{% endif %}" title="{{ value.label | escape }}">
-                {{ value.label | escape }} <span>{{ value.count }}</span>
-              </label>
-          </div>
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-{{ filter.label }}" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ filter.label }}
+            </button>
+            {%- for value in filter.values -%}
+              <div class="form-check dropdown-menu" aria-labelledby="dropdown-{{ filter.label }}">
+                <input type="checkbox"
+                    class="form-check-input"
+                    name="{{ value.param_name }}"
+                    value="{{ value.value }}"
+                    id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                    data-handle="{{ value.value | handle }}"
+                    {% if value.active %}checked{% endif %}
+                    {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                >
+                <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="form-check-label option-label filter-checkbox{% if value.count == 0 and value.active == false %} filter-checkbox--disabled{% endif %}" title="{{ value.label | escape }}">
+                  {{ value.label | escape }} <span>{{ value.count }}</span>
+                </label>
+              </div>
           {% endfor %}
+          </div>   
         {% endfor %}
       </div>
       <select id="sort-by">
