@@ -17,6 +17,7 @@
       <div class="d-flex align-items-center">
         <span class="me-3 fw-bold">Filter : </span>
         {%- for filter in collection.filters -%}
+          {{ filter.type }}
           <div class="dropdown me-3">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-{{ filter.label }}" data-bs-toggle="dropdown" aria-expanded="false">
               {{ filter.label }}
