@@ -10,6 +10,7 @@ targetloadmore.addEventListener('click', async (event)=>{
     getnewbuttonhref = getnewbutton.href;
     console.log('getnewbuttonhref ', getnewbuttonhref)
     collectionprodata = await getcolprodata(getnewbuttonhref);
+  history.pushState({}, '', getnewbuttonhref);
     console.log('collectionprodata ', collectionprodata);
     collectionprodataparsed = document.createElement('div');
     collectionprodataparsed.innerHTML = collectionprodata['template-collection-layout-2']
@@ -43,6 +44,7 @@ targetloadmore.addEventListener('click', async (event)=>{
 document.getElementById('sort-by').addEventListener('change', async function(e) {
     e.preventDefault();
     option_value = await getcolprodata(`?sort_by=${e.target.value}`);
+  history.pushState({}, '', `?sort_by=${e.target.value}`);
     console.log('option_value ', option_value);
     collectionnewdataparsed = document.createElement('div');
     collectionnewdataparsed.innerHTML = option_value['template-collection-layout-2'];
@@ -76,8 +78,6 @@ async function getcolprodata(getnewbuttonhref) {
   
     if (result.status === 200) {
         return result.json();
-      history.pushState({}, '', getnewbuttonhref);
-      console.log('getnewbuttonhrefabc', getnewbuttonhref)
     }
   
     throw new Error(`Failed to get request, Shopify returned ${result.status} ${result.statusText}`);
