@@ -1,5 +1,6 @@
 {%- liquid 
   assign productExcludeTag = settings.product_exclude_tag_text
+  assign allTags = collection.tags | downcase
 -%}
 <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
   <div class="row mt-5 mb-5">
@@ -58,11 +59,26 @@
             -%}
             <div class="dropdown me-3">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-{{ block.id }}" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ block.settings.title }}
+                {{ block.settings.title }}{{ current_tags }}
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdown-{{ block.id }}">
                 {% for tag in tagsList %}
-                  {{ tag }}
+                  {% assign tagValue = tag | downcase %}
+                  {% if allTags contains tagValue %}
+                    <div class="form-check">
+                      <input type="checkbox"
+                          class="form-check-input"
+                          name="{{ tag | handleize }}"
+                          value="{{ tag | handleize }}"
+                          id="Filter-{{ tag | handleize }}-{{ forloop.index }}"
+                          {% if value.active %}checked{% endif %}
+                          {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                      >
+                      <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="form-check-label option-label filter-checkbox{% if value.count == 0 and value.active == false %} filter-checkbox--disabled{% endif %}" title="{{ value.label | escape }}">
+                        {{ value.label | escape }} <span>{{ value.count }}</span>
+                      </label>
+                    </div>
+                  {% endif %}
                 {% endfor %}
               </div>
             </div>
