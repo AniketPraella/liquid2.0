@@ -71,11 +71,11 @@
                           name="{{ tag | handleize }}"
                           value="{{ tag | handleize }}"
                           id="Filter-{{ tag | handleize }}-{{ forloop.index }}"
-                          {% if value.active %}checked{% endif %}
+                          {% if allTags contains tagValue %}checked{% endif %}
                           {% if value.count == 0 and value.active == false %}disabled{% endif %}
                       >
-                      <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="form-check-label option-label filter-checkbox{% if value.count == 0 and value.active == false %} filter-checkbox--disabled{% endif %}" title="{{ value.label | escape }}">
-                        {{ value.label | escape }} <span>{{ value.count }}</span>
+                      <label for="Filter-{{ tag | handleize }}-{{ forloop.index }}" class="form-check-label option-label filter-checkbox" title="{{ tag | handleize }}">
+                        {{ tag | escape }}
                       </label>
                     </div>
                   {% endif %}
