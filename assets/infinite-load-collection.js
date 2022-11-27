@@ -77,7 +77,7 @@ async function getcolprodata(getnewbuttonhref) {
     if (result.status === 200) {
         return result.json();
       history.pushState({}, '', getnewbuttonhref);
-      console.log('getnewbuttonhref', getnewbuttonhref)
+      console.log('getnewbuttonhrefabc', getnewbuttonhref)
     }
   
     throw new Error(`Failed to get request, Shopify returned ${result.status} ${result.statusText}`);
