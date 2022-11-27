@@ -53,12 +53,17 @@
 
         {% for block in section.blocks %}
           {%- if block.type == 'tags_group' -%}
+            {%- liquid 
+              assign tagsList = block.settings.tag_list | strip | newline_to_br | strip_newlines | split: "<br />"
+            -%}
             <div class="dropdown me-3">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-{{ block.id }}" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ block.settings.title }}
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdown-{{ block.id }}">
-                abc
+                {% for tag in tagsList %}
+                  {{ tag }}
+                {% endfor %}
               </div>
             </div>
           {% endif %}
