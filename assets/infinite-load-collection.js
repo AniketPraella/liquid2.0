@@ -93,6 +93,11 @@ class myProductFilter extends HTMLElement {
     console.log(name);
     const value = clickedInput.value;
     console.log(value);
+    history.pushState({}, '', '?search');
+    let currentUrl = window.location.href;
+    console.log(currentUrl);
+    let newUrl = `${currentUrl}&${name}=${value}`;
+    history.pushState({}, '', newUrl);
   }
 }
 customElements.define("myproduct-filter", myProductFilter);
