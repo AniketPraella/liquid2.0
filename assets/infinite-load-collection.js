@@ -107,6 +107,9 @@ class myProductFilter extends HTMLElement {
   }
   removeFilterProduct(name, value){
     console.log(name, value);
+    let currentUrl = window.location.href;
+    let updatedUrl = currentUrl.replace(`&${name}=${value}`, '')
+    history.pushState({}, '', updatedUrl);
   }
 }
 customElements.define("myproduct-filter", myProductFilter);
