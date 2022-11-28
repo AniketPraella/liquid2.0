@@ -107,6 +107,7 @@ class myProductFilter extends HTMLElement {
         for (const searchparam of searchparams) {
           console.log(searchparam)
           searchparamarray.push(...searchparam);
+          console.log(searchparamarray);
         }
         // let updatedUrl = newUrl.replace(`&${name}=${value}`, '');
         // history.pushState({}, '', updatedUrl);
