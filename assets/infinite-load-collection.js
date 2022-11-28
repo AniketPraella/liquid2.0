@@ -89,10 +89,10 @@ class myProductFilter extends HTMLElement {
   }
   filterProduct(event){
     const clickedInput = event.currentTarget;
+    const name = clickedInput.name;
+    const value = clickedInput.value;
     if (clickedInput.checked == true){
-      const name = clickedInput.name;
       console.log(name);
-      const value = clickedInput.value;
       console.log(value);
       if(window.location.href.includes('?') == false){
         history.pushState({}, '', `${window.location.href}?`);
@@ -102,7 +102,7 @@ class myProductFilter extends HTMLElement {
       let newUrl = `${currentUrl}&${name}=${value}`;
       history.pushState({}, '', newUrl);
     }else{
-      removeFilterProduct(name, value);
+      this.removeFilterProduct(name, value);
     }
   }
   removeFilterProduct(name, value){
