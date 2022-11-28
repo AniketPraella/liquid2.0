@@ -83,7 +83,12 @@ document.getElementById('sort-by').addEventListener('change', async function(e) 
 class myProductFilter extends HTMLElement {
   constructor() {
     super();
-    // this.
+    this.inputall = this.querySelectorAll('[input]');
+    console.log(this.inputall);
+    this.inputall.forEach(button => button.addEventListener('click', this.filterProduct.bind(this)));
+  }
+  filterProduct(event){
+    console.log(event.currentTarget);
   }
 }
 customElements.define("myproduct-filter", myProductFilter);
