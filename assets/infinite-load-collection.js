@@ -120,16 +120,16 @@ class myProductFilter extends HTMLElement {
       }
       if(window.location.search.includes(`&${minprice}=${searchparamarray[minpriceindex+1]}`)  || window.location.search.includes(`&${maxprice}=${searchparamarray[maxpriceindex+1]}`)){
         if(minpriceindex != -1){
-          let updatedUrl1 = window.location.href.replace(`&${minprice}=${searchparamarray[minpriceindex+1]}`, '');
+          let updatedUrl1 = window.location.href.replace(`&${minprice}=${searchparamarray[minpriceindex+1]}`, `&${name}=${value}`);
           console.log('updatedUrl1 ', updatedUrl1);
           console.log('searchparamarraymin ', searchparamarray[minpriceindex+1]);
-          // history.pushState({}, '', updatedUrl1);
+          history.pushState({}, '', updatedUrl1);
         }
         if(maxpriceindex != -1){
-          let updatedUrl2 = window.location.href.replace(`&${maxprice}=${searchparamarray[maxpriceindex+1]}`, '');
+          let updatedUrl2 = window.location.href.replace(`&${maxprice}=${searchparamarray[maxpriceindex+1]}`, `&${name}=${value}`);
           console.log('updatedUrl2 ', updatedUrl2);
           console.log('searchparamarraymax ', searchparamarray[maxpriceindex+1]);
-          // history.pushState({}, '', updatedUrl2);
+          history.pushState({}, '', updatedUrl2);
         }
       }
       this.getFilterProductData();
