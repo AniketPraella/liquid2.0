@@ -101,6 +101,7 @@ class myProductFilter extends HTMLElement {
       console.log(currentUrl);
       let newUrl = `${currentUrl}&${name}=${value}`;
       history.pushState({}, '', newUrl);
+      console.log('newUrl', newUrl)
 
       let searchparamarray = [];
       let minprice = 'filter.v.price.gte';
