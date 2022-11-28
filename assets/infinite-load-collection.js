@@ -118,7 +118,7 @@ class myProductFilter extends HTMLElement {
         console.log('minprice ', minpriceindex);
         console.log('maxprice ', maxpriceindex);
       }
-      if(window.location.search.includes(`&${minprice}=${searchparamarray[minpriceindex+1]}`) || window.location.search.includes(`&${maxprice}=${searchparamarray[maxpriceindex+1]}`)){
+      if(window.location.search.includes(`&${minprice}=${searchparamarray[minpriceindex+1]}`)  || window.location.search.includes(`&${maxprice}=${searchparamarray[maxpriceindex+1]}`)){
         if(minpriceindex != -1){
           let updatedUrl1 = window.location.href.replace(`&${minprice}=${searchparamarray[minpriceindex+1]}`, '');
           console.log('updatedUrl1 ', updatedUrl1);
