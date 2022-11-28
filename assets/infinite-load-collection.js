@@ -102,7 +102,7 @@ class myProductFilter extends HTMLElement {
       let newUrl = `${currentUrl}&${name}=${value}`;
       history.pushState({}, '', newUrl);
     }else{
-      this.removeFilterProduct(name, value);
+      removeFilterProduct(name, value);
     }
   }
   removeFilterProduct(name, value){
