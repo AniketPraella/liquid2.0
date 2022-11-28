@@ -80,7 +80,13 @@ document.getElementById('sort-by').addEventListener('change', async function(e) 
 **************************************/
 
 
-
+class myProductFilter extends HTMLElement {
+  constructor() {
+    super();
+    this.
+  }
+}
+customElements.define("myproduct-filter", myProductFilter);
 
 
 /****************************************
