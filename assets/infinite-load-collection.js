@@ -124,8 +124,11 @@ class myProductFilter extends HTMLElement {
     collectionnewdataparsed.innerHTML = filterProductData['template-collection-layout-2'];
     let collectionnewdataget = collectionnewdataparsed.querySelectorAll('#collection-product-grid-2 .col-12.col-lg-3.col-md-4.col-sm-6');
     console.log('collectionnewdataget ', collectionnewdataget);
-    let newtargetloadmore = collectionnewdataparsed.querySelector('#load-more-product').href || null;
-    targetloadmore.setAttribute("href", newtargetloadmore);
+    let newtargetloadmore = collectionnewdataparsed.querySelector('#load-more-product');
+    if(newtargetloadmore != null){
+      let newtargetloadmoreurl = newtargetloadmore.href;
+      targetloadmore.setAttribute("href", newtargetloadmoreurl);
+    }
     targetloadmore.style.display = '';
     let colproductdata_sec = document.querySelector('#collection-product-grid-2');
     colproductdata_sec.innerHTML = '';
