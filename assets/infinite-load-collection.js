@@ -117,13 +117,13 @@ class myProductFilter extends HTMLElement {
           console.log('minprice ', minpriceindex);
           console.log('maxprice ', maxpriceindex);
         }
-        if(minprice != -1){
+        if(minpriceindex != -1){
           let updatedUrl1 = window.location.href.replace(`&${minprice}=${searchparamarray[minpriceindex+1]}`, '');
           console.log('updatedUrl1 ', updatedUrl1);
           console.log('searchparamarraymin ', searchparamarray[minpriceindex+1]);
           history.pushState({}, '', updatedUrl1);
         }
-        if(maxprice != -1){
+        if(maxpriceindex != -1){
           let updatedUrl2 = window.location.href.replace(`&${maxprice}=${searchparamarray[maxpriceindex+1]}`, '');
           console.log('updatedUrl2 ', updatedUrl2);
           console.log('searchparamarraymax ', searchparamarray[maxpriceindex+1]);
