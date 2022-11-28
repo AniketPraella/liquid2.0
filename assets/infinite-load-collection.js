@@ -126,6 +126,7 @@ class myProductFilter extends HTMLElement {
         if(maxprice != -1){
           let updatedUrl2 = window.location.href.replace(`&${maxprice}=${searchparamarray[maxpriceindex+1]}`, '');
           console.log(updatedUrl2);
+          console.log(searchparamarray[maxpriceindex+1]);
           history.pushState({}, '', updatedUrl2);
         }
       }
