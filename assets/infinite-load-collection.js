@@ -100,8 +100,8 @@ class myProductFilter extends HTMLElement {
       let currentUrl = window.location.href;
       console.log(currentUrl);
       let newUrl = `${currentUrl}&${name}=${value}`;
-      history.pushState({}, '', newUrl);
-      console.log('newUrl', newUrl)
+      // history.pushState({}, '', newUrl);
+      // console.log('newUrl', newUrl);
 
       let searchparamarray = [];
       let minprice = 'filter.v.price.gte';
@@ -132,6 +132,8 @@ class myProductFilter extends HTMLElement {
           history.pushState({}, '', updatedUrl2);
         }
       }
+      history.pushState({}, '', newUrl);
+      console.log('newUrl', newUrl);
       this.getFilterProductData();
     }else{
       this.removeFilterProduct(name, value);
