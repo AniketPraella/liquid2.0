@@ -110,8 +110,8 @@ class myProductFilter extends HTMLElement {
           console.log(searchparam)
           searchparamarray.push({searchparam});
           console.log(searchparamarray);
-          console.log('minprice ', searchparamarray.indexOf(searchparam[minprice]));
-          console.log('maxprice ', searchparamarray.indexOf(searchparam[maxprice]));
+          console.log('minprice ', searchparamarray.indexOf('filter.v.price.gte'));
+          console.log('maxprice ', searchparamarray.indexOf('filter.v.price.lte'));
         }
         /*let updatedUrl1 = window.location.href.replace(`&${minprice}=${value}`, '');
         history.pushState({}, '', updatedUrl1);
