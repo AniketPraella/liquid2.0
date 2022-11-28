@@ -88,7 +88,12 @@ class myProductFilter extends HTMLElement {
     this.inputall.forEach(button => button.addEventListener('click', this.filterProduct.bind(this)));
   }
   filterProduct(event){
-    console.log(event.currentTarget);
+    const clickedInput = event.currentTarget;
+    console.log(clickedInput);
+    const name = clickedInput.name;
+    console.log(name);
+    const value = clickedInput.value;
+    console.log(value);
   }
 }
 customElements.define("myproduct-filter", myProductFilter);
