@@ -120,6 +120,7 @@ class myProductFilter extends HTMLElement {
         if(minprice != -1){
           let updatedUrl1 = window.location.href.replace(`&${minprice}=${searchparamarray[minpriceindex+1]}`, '');
           console.log(updatedUrl1);
+          console.log(searchparamarray[minpriceindex+1]);
           history.pushState({}, '', updatedUrl1);
         }
         if(maxprice != -1){
