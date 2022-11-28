@@ -101,6 +101,10 @@ class myProductFilter extends HTMLElement {
       console.log(currentUrl);
       let newUrl = `${currentUrl}&${name}=${value}`;
       history.pushState({}, '', newUrl);
+      if(window.location.href.includes('price') && name.includes('price')){
+        let updatedUrl = currentUrl.replace(`&${name}=${value}`, '');
+        history.pushState({}, '', updatedUrl);
+      }
       this.getFilterProductData();
     }else{
       this.removeFilterProduct(name, value);
@@ -109,7 +113,7 @@ class myProductFilter extends HTMLElement {
   removeFilterProduct(name, value){
     console.log(name, value);
     let currentUrl = window.location.href;
-    let updatedUrl = currentUrl.replace(`&${name}=${value}`, '')
+    let updatedUrl = currentUrl.replace(`&${name}=${value}`, '');
     history.pushState({}, '', updatedUrl);
     this.getFilterProductData();
   }
