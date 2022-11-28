@@ -91,7 +91,7 @@ class myProductFilter extends HTMLElement {
     const clickedInput = event.currentTarget;
     const name = clickedInput.name;
     const value = clickedInput.value;
-    if (clickedInput.checked == true || name.includes('price')){
+    if (clickedInput.checked == true){
       console.log(name);
       console.log(value);
       if(window.location.href.includes('?') == false){
@@ -100,9 +100,10 @@ class myProductFilter extends HTMLElement {
       let currentUrl = window.location.href;
       console.log(currentUrl);
       let newUrl = `${currentUrl}&${name}=${value}`;
-      // history.pushState({}, '', newUrl);
-      // console.log('newUrl', newUrl);
-
+      history.pushState({}, '', newUrl);
+      console.log('newUrl', newUrl);
+      this.getFilterProductData();
+    }else if(name.includes('price')){
       let searchparamarray = [];
       let minprice = 'filter.v.price.gte';
       let maxprice = 'filter.v.price.lte';
@@ -132,9 +133,6 @@ class myProductFilter extends HTMLElement {
           history.pushState({}, '', updatedUrl2);
         }
       }
-      history.pushState({}, '', newUrl);
-      console.log('newUrl', newUrl);
-      this.getFilterProductData();
     }else{
       this.removeFilterProduct(name, value);
     }
