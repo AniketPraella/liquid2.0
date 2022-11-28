@@ -89,7 +89,6 @@ class myProductFilter extends HTMLElement {
   }
   filterProduct(event){
     const clickedInput = event.currentTarget;
-    console.log(clickedInput);
     const name = clickedInput.name;
     console.log(name);
     const value = clickedInput.value;
