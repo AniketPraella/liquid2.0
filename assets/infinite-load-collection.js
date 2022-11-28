@@ -104,6 +104,15 @@ class myProductFilter extends HTMLElement {
       console.log('newUrl', newUrl);
       this.getFilterProductData();
     }else if(name.includes('price')){
+      if(window.location.href.includes('?') == false){
+        history.pushState({}, '', `${window.location.href}?`);
+      }
+      let currentUrl = window.location.href;
+      console.log(currentUrl);
+      let newUrl = `${currentUrl}&${name}=${value}`;
+      history.pushState({}, '', newUrl);
+      console.log('newUrl', newUrl);
+      this.getFilterProductData();
       let searchparamarray = [];
       let minprice = 'filter.v.price.gte';
       let maxprice = 'filter.v.price.lte';
