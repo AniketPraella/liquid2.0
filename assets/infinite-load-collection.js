@@ -101,7 +101,12 @@ class myProductFilter extends HTMLElement {
       console.log(currentUrl);
       let newUrl = `${currentUrl}&${name}=${value}`;
       history.pushState({}, '', newUrl);
+    }else{
+      this.removeFilterProduct(name, value);
     }
+  }
+  removeFilterProduct(name, value){
+    console.log(name, value);
   }
 }
 customElements.define("myproduct-filter", myProductFilter);
