@@ -101,6 +101,7 @@ class myProductFilter extends HTMLElement {
       console.log(currentUrl);
       let newUrl = `${currentUrl}&${name}=${value}`;
       history.pushState({}, '', newUrl);
+      this.getFilterProductData();
     }else{
       this.removeFilterProduct(name, value);
     }
@@ -110,6 +111,24 @@ class myProductFilter extends HTMLElement {
     let currentUrl = window.location.href;
     let updatedUrl = currentUrl.replace(`&${name}=${value}`, '')
     history.pushState({}, '', updatedUrl);
+    this.getFilterProductData();
+  }
+  async getFilterProductData(){
+    let filterProductData = await getcolprodata(window.location.href);
+    console.log('filterProductData ', filterProductData);
+    let collectionnewdataparsed = document.createElement('div');
+    collectionnewdataparsed.innerHTML = filterProductData['template-collection-layout-2'];
+    let collectionnewdataget = collectionnewdataparsed.querySelectorAll('#collection-product-grid-2 .col-12.col-lg-3.col-md-4.col-sm-6');
+    console.log('collectionnewdataget ', collectionnewdataget);
+    let newtargetloadmore = collectionnewdataparsed.querySelector('#load-more-product').href;
+    targetloadmore.setAttribute("href", newtargetloadmore);
+    targetloadmore.style.display = '';
+    let colproductdata_sec = document.querySelector('#collection-product-grid-2');
+    colproductdata_sec.innerHTML = '';
+    for(var i=0; i < collectionnewdataget.length; i++){
+        colproductdata_sec.append(collectionnewdataget[i]);
+        console.log(collectionnewdataget[i]);
+    }
   }
 }
 customElements.define("myproduct-filter", myProductFilter);
