@@ -93,7 +93,9 @@ class myProductFilter extends HTMLElement {
     console.log(name);
     const value = clickedInput.value;
     console.log(value);
-    history.pushState({}, '', `${window.location.href}`);
+    if(window.location.href.includes('?') == false){
+      history.pushState({}, '', `${window.location.href}?`);
+    }
     let currentUrl = window.location.href;
     console.log(currentUrl);
     let newUrl = `${currentUrl}&${name}=${value}`;
