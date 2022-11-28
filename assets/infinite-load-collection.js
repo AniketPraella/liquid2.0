@@ -102,8 +102,12 @@ class myProductFilter extends HTMLElement {
       let newUrl = `${currentUrl}&${name}=${value}`;
       history.pushState({}, '', newUrl);
       if(window.location.href.includes('price') && name.includes('price')){
-        let updatedUrl = newUrl.replace(`&${name}=${value}`, '');
-        history.pushState({}, '', updatedUrl);
+        let searchparams = new URLSearchParams(window.location.search)
+        for (const searchparam of searchparams) {
+          console.log(searchparam)
+        }
+        // let updatedUrl = newUrl.replace(`&${name}=${value}`, '');
+        // history.pushState({}, '', updatedUrl);
       }
       this.getFilterProductData();
     }else{
