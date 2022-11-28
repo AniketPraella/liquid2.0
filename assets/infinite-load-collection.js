@@ -105,18 +105,22 @@ class myProductFilter extends HTMLElement {
         let searchparamarray = [];
         let minprice = 'filter.v.price.gte';
         let maxprice = 'filter.v.price.lte';
+        let minpriceindex = null;
+        let maxpriceindex = null;
         let searchparams = new URLSearchParams(window.location.search);
         for (const searchparam of searchparams) {
           console.log(searchparam)
           searchparamarray.push(...searchparam);
           console.log(searchparamarray);
-          console.log('minprice ', searchparamarray.indexOf(minprice));
-          console.log('maxprice ', searchparamarray.indexOf(maxprice));
+          minpriceindex = searchparamarray.indexOf(minprice);
+          maxpriceindex = searchparamarray.indexOf(maxprice);
+          console.log('minprice ', minpriceindex);
+          console.log('maxprice ', maxpriceindex);
         }
-        /*let updatedUrl1 = window.location.href.replace(`&${minprice}=${value}`, '');
+        let updatedUrl1 = window.location.href.replace(`&${minprice}=${value}`, '');
         history.pushState({}, '', updatedUrl1);
         let updatedUrl2 = window.location.href.replace(`&${maxprice}=${value}`, '');
-        history.pushState({}, '', updatedUrl2);*/
+        history.pushState({}, '', updatedUrl2);
       }
       this.getFilterProductData();
     }else{
