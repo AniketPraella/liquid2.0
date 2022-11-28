@@ -89,17 +89,19 @@ class myProductFilter extends HTMLElement {
   }
   filterProduct(event){
     const clickedInput = event.currentTarget;
-    const name = clickedInput.name;
-    console.log(name);
-    const value = clickedInput.value;
-    console.log(value);
-    if(window.location.href.includes('?') == false){
-      history.pushState({}, '', `${window.location.href}?`);
+    if (clickedInput.checked == false){
+      const name = clickedInput.name;
+      console.log(name);
+      const value = clickedInput.value;
+      console.log(value);
+      if(window.location.href.includes('?') == false){
+        history.pushState({}, '', `${window.location.href}?`);
+      }
+      let currentUrl = window.location.href;
+      console.log(currentUrl);
+      let newUrl = `${currentUrl}&${name}=${value}`;
+      history.pushState({}, '', newUrl);
     }
-    let currentUrl = window.location.href;
-    console.log(currentUrl);
-    let newUrl = `${currentUrl}&${name}=${value}`;
-    history.pushState({}, '', newUrl);
   }
 }
 customElements.define("myproduct-filter", myProductFilter);
