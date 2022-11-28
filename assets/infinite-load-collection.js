@@ -101,22 +101,23 @@ class myProductFilter extends HTMLElement {
       console.log(currentUrl);
       let newUrl = `${currentUrl}&${name}=${value}`;
       history.pushState({}, '', newUrl);
-      if(window.location.href.includes('price') && name.includes('price')){
-        let searchparamarray = [];
-        let minprice = 'filter.v.price.gte';
-        let maxprice = 'filter.v.price.lte';
-        let minpriceindex = null;
-        let maxpriceindex = null;
-        let searchparams = new URLSearchParams(window.location.search);
-        for (const searchparam of searchparams) {
-          console.log(searchparam)
-          searchparamarray.push(...searchparam);
-          console.log(searchparamarray);
-          minpriceindex = searchparamarray.indexOf(minprice);
-          maxpriceindex = searchparamarray.indexOf(maxprice);
-          console.log('minprice ', minpriceindex);
-          console.log('maxprice ', maxpriceindex);
-        }
+
+      let searchparamarray = [];
+      let minprice = 'filter.v.price.gte';
+      let maxprice = 'filter.v.price.lte';
+      let minpriceindex = null;
+      let maxpriceindex = null;
+      let searchparams = new URLSearchParams(window.location.search);
+      for (const searchparam of searchparams) {
+        console.log(searchparam)
+        searchparamarray.push(...searchparam);
+        console.log(searchparamarray);
+        minpriceindex = searchparamarray.indexOf(minprice);
+        maxpriceindex = searchparamarray.indexOf(maxprice);
+        console.log('minprice ', minpriceindex);
+        console.log('maxprice ', maxpriceindex);
+      }
+      if(window.location.search.includes(`&${minprice}=${searchparamarray[minpriceindex+1]}`) || window.location.search.includes(`&${maxprice}=${searchparamarray[maxpriceindex+1]}`)){
         if(minpriceindex != -1){
           let updatedUrl1 = window.location.href.replace(`&${minprice}=${searchparamarray[minpriceindex+1]}`, '');
           console.log('updatedUrl1 ', updatedUrl1);
