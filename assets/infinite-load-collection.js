@@ -91,7 +91,7 @@ class myProductFilter extends HTMLElement {
     const clickedInput = event.currentTarget;
     const name = clickedInput.name;
     const value = clickedInput.value;
-    if (clickedInput.checked == true){
+    if (clickedInput.checked == true || name.includes('price')){
       console.log(name);
       console.log(value);
       if(window.location.href.includes('?') == false){
