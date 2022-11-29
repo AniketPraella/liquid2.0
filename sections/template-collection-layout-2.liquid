@@ -13,14 +13,14 @@
     {% endif %}
     </div> 
   </div>
-  <div class="row" id="colproductdata-sec">
+  <div class="row justify-content-center" id="colproductdata-sec">
 
-    <div class="col-12 mt-5 d-flex justify-content-between align-items-center">
+    <div class="col-12 mt-5 d-flex justify-content-between align-items-center flex-wrap">
       <myproduct-filter>
-        <div class="d-flex align-items-center">
-          <span class="me-3 fw-bold">Filter : </span>
+        <div class="d-flex align-items-center flex-wrap">
+          <span class="me-3 fw-bold">FILTER BY : </span>
           {%- for filter in collection.filters -%}
-            <div class="dropdown me-3">
+            <div class="dropdown me-2 mb-1">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-{{ filter.label }}" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ filter.label }}
               </button>
@@ -67,7 +67,7 @@
               {%- liquid 
                 assign tagsList = block.settings.tag_list | strip | newline_to_br | strip_newlines | split: "<br />"
               -%}
-              <div class="dropdown me-3">
+              <div class="dropdown me-2 mb-1">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-{{ block.id }}" data-bs-toggle="dropdown" aria-expanded="false">
                   {{ block.settings.title }}
                 </button>
