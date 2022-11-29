@@ -103,7 +103,7 @@ class myProductFilter extends HTMLElement {
     console.log(this.inputall);
     // this.printFilterLable();
     this.checkActiveFilters();
-    this.inputall.forEach(button => button.addEventListener('click', this.filterProduct.bind(this)));
+    this.inputall.forEach(button => button.addEventListener('change', this.filterProduct.bind(this)));
   }
   filterProduct(event){
     const clickedInput = event.currentTarget;
