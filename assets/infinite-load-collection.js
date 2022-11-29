@@ -1,8 +1,10 @@
 targetloadmore = document.getElementById('load-more-product');
 colproductdataSec = document.getElementById('collection-product-grid-2');
+if(targetloadmore != null){
     if(targetloadmore.href == window.location.href){
         targetloadmore.style.display = 'none';
     }
+  }
 targetloadmore.addEventListener('click', async (event)=>{
     event.preventDefault();
     getnewbutton = event.currentTarget;
@@ -43,8 +45,22 @@ targetloadmore.addEventListener('click', async (event)=>{
 
 document.getElementById('sort-by').addEventListener('change', async function(e) {
     e.preventDefault();
-    option_value = await getcolprodata(`?sort_by=${e.target.value}`);
-  history.pushState({}, '', `?sort_by=${e.target.value}`);
+    let searchparams = new URLSearchParams(window.location.search);
+    let searchparamsvalue = searchparams.get('sort_by');
+    if(window.location.href.includes('?') == false){
+      history.pushState({}, '', `${window.location.href}?`);
+    }
+    if(searchparamsvalue != null){
+      let currentUrl = window.location.href;
+      let updatedUrl = currentUrl.replace(`&sort_by=${searchparamsvalue}`, `&sort_by=${e.target.value}`);
+      history.pushState({}, '', updatedUrl);
+      console.log('updatedUrl', updatedUrl);
+    }else{
+      let currentUrl = window.location.href;
+      history.pushState({}, '', `${currentUrl}&sort_by=${e.target.value}`);
+    }
+    
+    option_value = await getcolprodata(`${window.location.href}`);
     console.log('option_value ', option_value);
     collectionnewdataparsed = document.createElement('div');
     collectionnewdataparsed.innerHTML = option_value['template-collection-layout-2'];
@@ -85,81 +101,144 @@ class myProductFilter extends HTMLElement {
     super();
     this.inputall = this.querySelectorAll('input');
     console.log(this.inputall);
+    // this.printFilterLable();
+    this.checkActiveFilters();
     this.inputall.forEach(button => button.addEventListener('click', this.filterProduct.bind(this)));
   }
   filterProduct(event){
     const clickedInput = event.currentTarget;
     const name = clickedInput.name;
     const value = clickedInput.value;
-    if (clickedInput.checked == true){
+    if(window.location.href.includes('?') == false){
+      history.pushState({}, '', `${window.location.href}?`);
+    }
+    if (clickedInput.checked == true && name.includes('availability')) {
       console.log(name);
       console.log(value);
-      if(window.location.href.includes('?') == false){
-        history.pushState({}, '', `${window.location.href}?`);
-      }
       let currentUrl = window.location.href;
       console.log(currentUrl);
       let newUrl = `${currentUrl}&${name}=${value}`;
       history.pushState({}, '', newUrl);
       console.log('newUrl', newUrl);
       this.getFilterProductData();
-    }else if(name.includes('price')){
-      if(window.location.href.includes('?') == false){
-        history.pushState({}, '', `${window.location.href}?`);
-      }
-      let currentUrl = window.location.href;
-      console.log(currentUrl);
-      let newUrl = `${currentUrl}&${name}=${value}`;
-      history.pushState({}, '', newUrl);
-      console.log('newUrl', newUrl);
-      this.getFilterProductData();
-      let searchparamarray = [];
-      let minprice = 'filter.v.price.gte';
-      let maxprice = 'filter.v.price.lte';
-      let minpriceindex = null;
-      let maxpriceindex = null;
+
+      // for tag filter
+    }else if(clickedInput.checked == true && name.includes('constraint')){
       let searchparams = new URLSearchParams(window.location.search);
-      for (const searchparam of searchparams) {
-        console.log(searchparam)
-        searchparamarray.push(...searchparam);
-        console.log(searchparamarray);
-        minpriceindex = searchparamarray.indexOf(minprice);
-        maxpriceindex = searchparamarray.indexOf(maxprice);
-        console.log('minprice ', minpriceindex);
-        console.log('maxprice ', maxpriceindex);
+      let searchparamsvalue = searchparams.get(name);
+      if(searchparamsvalue != null){
+        let currentUrl = window.location.href;
+        console.log(currentUrl);
+        let updatedUrl = currentUrl.replace(`&${name}=${searchparamsvalue}`, `&${name}=${searchparamsvalue}+${value}`);
+        history.pushState({}, '', updatedUrl);
+        console.log('updatedUrl', updatedUrl);
+      }else{
+        let currentUrl = window.location.href;
+        console.log(currentUrl);
+        let newUrl = `${currentUrl}&${name}=${value}`;
+        history.pushState({}, '', newUrl);
+        console.log('newUrl', newUrl);
       }
-      if(window.location.search.includes(`&${minprice}=${searchparamarray[minpriceindex+1]}`)  || window.location.search.includes(`&${maxprice}=${searchparamarray[maxpriceindex+1]}`)){
-        if(minpriceindex != -1){
-          let updatedUrl1 = window.location.href.replace(`&${minprice}=${searchparamarray[minpriceindex+1]}`, `&${name}=${value}`);
-          console.log('updatedUrl1 ', updatedUrl1);
-          console.log('searchparamarraymin ', searchparamarray[minpriceindex+1]);
-          history.pushState({}, '', updatedUrl1);
-        }
-        if(maxpriceindex != -1){
-          let updatedUrl2 = window.location.href.replace(`&${maxprice}=${searchparamarray[maxpriceindex+1]}`, `&${name}=${value}`);
-          console.log('updatedUrl2 ', updatedUrl2);
-          console.log('searchparamarraymax ', searchparamarray[maxpriceindex+1]);
-          history.pushState({}, '', updatedUrl2);
-        }
+      this.getFilterProductData();
+      
+      // for price filter
+    }else if(name.includes('price')){
+      let price_range_min_value = document.getElementById('price_range_min_value');
+      let price_range_max_value = document.getElementById('price_range_max_value');
+      let min_price_value = 'filter.v.price.gte';
+      let max_price_value = 'filter.v.price.lte';
+      let searchparams = new URLSearchParams(window.location.search);
+      let searchparamsvalue = searchparams.get(name);
+      if(searchparamsvalue != null){
+        let updatedUrl = window.location.href.replace(`&${name}=${searchparamsvalue}`, '');
+        history.pushState({}, '', updatedUrl);
       }
+
+      let currentUrl = window.location.href;
+      console.log(currentUrl);
+      let newUrl = `${currentUrl}&${name}=${value}`;
+      history.pushState({}, '', newUrl);
+      if(name == min_price_value){
+        price_range_min_value.innerHTML = value;
+      }
+      if(name == max_price_value){
+        price_range_max_value.innerHTML = value;
+      }
+      console.log('newUrl', newUrl);
+      this.getFilterProductData();
+
     }else{
       this.removeFilterProduct(name, value);
     }
   }
+
+  /*
+  printFilterLable(){
+    let printFilterLableDiv = document.getElementById('filtered-data');
+    printFilterLableDiv.innerHTML = '';
+    let searchparams = new URLSearchParams(window.location.search);
+    let searchparamsentries = searchparams.entries();
+    let searchparamsentriesobject = Object.fromEntries(searchparamsentries);
+    for (let x in searchparamsentriesobject) {
+      printFilterLableDiv.innerHTML += `<span>${searchparamsentriesobject[x]}</span>`;
+    };
+  }
+  */
+
+  checkActiveFilters(){
+    let printFilterLableDiv = document.getElementById('filtered-data');
+    let inputall = document.querySelectorAll('myproduct-filter input');
+    printFilterLableDiv.innerHTML = '';
+    console.log('checkActiveFilters ', inputall);
+    inputall.forEach((item)=>{
+      if(item.checked == true){
+        console.log('item.checked ', item.checked)
+        let itemValue = item.getAttribute('data-filter-label');
+        printFilterLableDiv.innerHTML += `<span>${itemValue}</span>`;
+      }
+    })
+    let searchparams = new URLSearchParams(window.location.search);
+    let min_price_value = 'filter.v.price.gte';
+    let max_price_value = 'filter.v.price.lte';
+    let searchparamsvaluemin = searchparams.get(min_price_value);
+    let searchparamsvaluemax = searchparams.get(max_price_value);
+    let maxvalue = document.querySelector('.range-max').getAttribute('max');
+    let minvalue = document.querySelector('.range-min').getAttribute('min');
+    let store_currency_symbol = document.querySelector('.range-min').getAttribute('store-currency-symbol');
+
+    if(searchparams != '' && window.location.search.includes('filter.v.price')){
+      if(searchparamsvaluemax == null && searchparamsvaluemin == null){
+        printFilterLableDiv.innerHTML += `<span>${store_currency_symbol}${minvalue} - ${store_currency_symbol}${maxvalue}</span>`;
+      }else if(searchparamsvaluemax == null){
+        printFilterLableDiv.innerHTML += `<span>${store_currency_symbol}${searchparamsvaluemin} - ${store_currency_symbol}${maxvalue}</span>`;
+      }else if(searchparamsvaluemin == null){
+        printFilterLableDiv.innerHTML += `<span>${store_currency_symbol}${minvalue} - ${store_currency_symbol}${searchparamsvaluemax}</span>`;
+      }else{
+        printFilterLableDiv.innerHTML += `<span>${store_currency_symbol}${searchparamsvaluemin} - ${store_currency_symbol}${searchparamsvaluemax}</span>`;
+      }
+    }
+  }
+
   removeFilterProduct(name, value){
     console.log(name, value);
     let currentUrl = window.location.href;
-    let updatedUrl = currentUrl.replace(`&${name}=${value}`, '');
-    history.pushState({}, '', updatedUrl);
+    if(currentUrl.includes(`${value}+`)){
+      let updatedUrl = currentUrl.replace(`${value}+`, '');
+      history.pushState({}, '', updatedUrl);
+    }else if(currentUrl.includes('+')){
+      let updatedUrl = currentUrl.replace(`+${value}`, '');
+      history.pushState({}, '', updatedUrl);
+    }else{
+      let updatedUrl = currentUrl.replace(`&${name}=${value}`, '');
+      history.pushState({}, '', updatedUrl);
+    }
     this.getFilterProductData();
   }
   async getFilterProductData(){
     let filterProductData = await getcolprodata(window.location.href);
-    console.log('filterProductData ', filterProductData);
     let collectionnewdataparsed = document.createElement('div');
     collectionnewdataparsed.innerHTML = filterProductData['template-collection-layout-2'];
     let collectionnewdataget = collectionnewdataparsed.querySelectorAll('#collection-product-grid-2 .col-12.col-lg-3.col-md-4.col-sm-6');
-    console.log('collectionnewdataget ', collectionnewdataget);
     let newtargetloadmore = collectionnewdataparsed.querySelector('#load-more-product');
     if(newtargetloadmore != null){
       let newtargetloadmoreurl = newtargetloadmore.href;
@@ -170,7 +249,6 @@ class myProductFilter extends HTMLElement {
     colproductdata_sec.innerHTML = '';
     for(var i=0; i < collectionnewdataget.length; i++){
         colproductdata_sec.append(collectionnewdataget[i]);
-        console.log(collectionnewdataget[i]);
     }
   }
 }

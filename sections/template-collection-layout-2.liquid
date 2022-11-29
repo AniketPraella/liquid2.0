@@ -2,6 +2,7 @@
   assign productExcludeTag = settings.product_exclude_tag_text
   assign allTags = collection.tags | downcase
 -%}
+
 <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
   <div class="row mt-5 mb-5">
     <div class="col-12">
@@ -10,7 +11,7 @@
           {{ collection.description }}
         </div>
     {% endif %}
-    </div>
+    </div> 
   </div>
   <div class="row" id="colproductdata-sec">
 
@@ -32,20 +33,28 @@
                           name="{{ value.param_name }}"
                           value="{{ value.value }}"
                           id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
-                          data-handle="{{ value.value | handle }}"
+                          data-handle="{{ value.value | handle }}" 
+                          data-filter-label = "{{ value.label | capitalize }}"
                           {% if value.active %}checked{% endif %}
                           {% if value.count == 0 and value.active == false %}disabled{% endif %}
                       >
                       <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="form-check-label option-label filter-checkbox{% if value.count == 0 and value.active == false %} filter-checkbox--disabled{% endif %}" title="{{ value.label | escape }}">
-                        {{ value.label | escape }} <span>{{ value.count }}</span>
+                        {{ value.label | escape }} 
                       </label>
                     </div>
                   {% endfor %}
                 {% elsif filter.type == 'price_range' %}
                   <div class="range-input">
-                    <div class="pb-4"><span class="price_range_min">{{ cart.currency.symbol }}0</span> - <span class="price_range_max">{{ cart.currency.symbol }}{{ filter.range_max | money_without_currency | replace: ',', '' | plus: 0 | ceil }}</span></div>
-                    <input type="range" class="range-min" name="{{ filter.min_value.param_name }}" min="0" max="{{ filter.range_max | money_without_currency | replace: ',', '' | plus: 0 | ceil }}" value="0" step="10">
-                    <input type="range" class="range-max" name="{{ filter.max_value.param_name }}" min="0" max="{{ filter.range_max | money_without_currency | replace: ',', '' | plus: 0 | ceil }}" value="{{ filter.range_max | money_without_currency | replace: ',', '' | plus: 0 | ceil }}" step="10">
+                    <div class="pb-4">
+                      <span class="price_range_min">{{ cart.currency.symbol }}
+                        <span id="price_range_min_value">{{ filter.min_value.value | money_without_currency | replace: ',', '' | plus: 0 | ceil }}</span>
+                      </span> - 
+                      <span class="price_range_max">{{ cart.currency.symbol }}
+                        <span id="price_range_max_value">{% if filter.max_value.value %}{{ filter.max_value.value | money_without_currency | replace: ',', '' | plus: 0 | ceil }}{% else %}{{ filter.range_max | money_without_currency | replace: ',', '' | plus: 0 | ceil }}{% endif %}</span>
+                      </span>
+                    </div>
+                    <input type="range" store-currency-symbol="{{ cart.currency.symbol }}" data-filter-label = "" class="range-min" name="{{ filter.min_value.param_name }}" min="0" max="{{ filter.range_max | money_without_currency | replace: ',', '' | plus: 0 | ceil }}" value="{{ filter.min_value.value | money_without_currency | replace: ',', '' | plus: 0 | ceil }}" step="10">
+                    <input type="range" store-currency-symbol="{{ cart.currency.symbol }}" data-filter-label = "" class="range-max" name="{{ filter.max_value.param_name }}" min="0" max="{{ filter.range_max | money_without_currency | replace: ',', '' | plus: 0 | ceil }}" value="{% if filter.max_value.value %}{{ filter.max_value.value | money_without_currency | replace: ',', '' | plus: 0 | ceil }}{% else %}{{ filter.range_max | money_without_currency | replace: ',', '' | plus: 0 | ceil }}{% endif %}" step="10">
                   </div>
                 {% endif %}
             
@@ -71,7 +80,9 @@
                             class="form-check-input"
                             name="constraint"
                             value="{{ tag | handleize }}"
-                            id="Filter-{{ tag | handleize }}-{{ forloop.index }}"
+                            id="Filter-{{ tag | handleize }}-{{ forloop.index }}" 
+                            data-filter-label = "{{ tag | capitalize }}" 
+                            {% if current_tags contains tagValue  %} checked{% endif %} 
                         >
                         <label for="Filter-{{ tag | handleize }}-{{ forloop.index }}" class="form-check-label option-label filter-checkbox" title="{{ tag | handleize }}">
                           {{ tag | escape }}
@@ -87,6 +98,7 @@
           
         </div>
       </myproduct-filter>
+      
       <select id="sort-by" class="btn btn-secondary text-start">
         {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
 
@@ -97,6 +109,17 @@
         {% endfor %}
       </select>
 
+    </div>
+    <div id="filtered-data" class="filtered-data col-12 my-3">
+      {%- for filter in collection.filters -%}
+          {%- for value in filter.active_values -%}
+              <a class="active-filter__button me-2 mb-1 px-2 py-1 bg-gray-200 font-size-sm filter-option-clear" href="{{ value.url_to_remove }}">
+              {{ value.label | escape }}
+              <span class="icon-close lh-1 ms-2 icon-size-12"></span>
+              </a>
+          
+          {%- endfor -%}
+        {%- endfor -%}
     </div>
 
     {% paginate collection.products by 4 %}

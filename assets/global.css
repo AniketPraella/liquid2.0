@@ -11933,3 +11933,13 @@ input[type="range"]::-moz-range-thumb{
     background: #fff;
     color: #000;
 }
+
+/* colllection layout2 css */
+
+.filtered-data span{
+    margin-right: 10px;
+    background-color: var(--bs-bg-hover-color-btn-secondary);
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 12px;
+}
