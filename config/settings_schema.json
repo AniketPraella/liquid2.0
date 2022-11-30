@@ -1284,6 +1284,37 @@
     ]
   },
   {
+    "name": "Free Shipping Bar By Aniket",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_free_shipping_bar",
+        "label": "Enable Free Shipping Bar?"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_thresold",
+        "label": "Free Shipping Thresold",
+        "default": "150.00",
+        "info": "Use value without Money format. Ex: 150.00 for $150"
+      },
+      {
+        "type": "textarea",
+        "id": "get_free_shipping_txt",
+        "label": "Free Shipping Text",
+        "default": "congratulation you are eligible for free Shipping.",
+        "info": "When Customer is Eligible for Free Shipping."
+      },
+      {
+        "type": "textarea",
+        "id": "free_shipping_away",
+        "label": "Free Shipping Away Text",
+        "default": "You are ${addMoreForFreeShipping} away from Free Shipping!",
+        "info": "Use ${addMoreForFreeShipping} in place of left value in text."
+      }
+    ]
+  },
+  {
     "name": "Login Helper",
     "settings": [
       {
