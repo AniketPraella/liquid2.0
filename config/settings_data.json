@@ -20,9 +20,10 @@
     "enable_newletter": false,
     "enable_custom_klaviyo": false,
     "enable_cart_notes": true,
-    "enable_shipping_bar": true,
+    "enable_shipping_bar": false,
     "free_shipping_txt": "Congratulations! You get free shipping.",
     "free_shipping_left": "You are ${addMoreForFreeShip} away from free shipping!",
+    "enable_free_shipping_bar": true,
     "enable_login_helper": false,
     "account_not_found": "Account not found.",
     "account_enable": "Account enabled.",
@@ -41,7 +42,6 @@
             "type": "megamenu",
             "settings": {
               "title": "Men",
-              "image": "shopify:\/\/shop_images\/1_0ae182fa-8c71-468e-850b-23fc81cb3bf4.jpg",
               "link_text": "Shop Now",
               "link_url": "shopify:\/\/collections\/men"
             }
@@ -50,7 +50,6 @@
             "type": "megamenu",
             "settings": {
               "title": "Women",
-              "image": "shopify:\/\/shop_images\/1_d8a840f3-d40e-4d28-8191-715f1a7874e4.jpg",
               "link_text": "Shop Now",
               "link_url": "shopify:\/\/collections\/women"
             }
@@ -91,7 +90,7 @@
           "col_2_heading": "Customer Care",
           "footer_linklist_col_2": "main-menu",
           "col_3_heading": "Info",
-          "footer_linklist_col_3": "learn",
+          "footer_linklist_col_3": "",
           "col_4_heading": "Footer menu",
           "footer_linklist_col_4": "footer",
           "col_5_heading": "STAY IN TOUCH",
@@ -99,6 +98,7 @@
           "show_newsletter": true,
           "show_social_links": true,
           "col_5_social_heading": "Connect with Us",
+          "bottom_footer_linklist": "",
           "social_icon_facebook": true,
           "social_icon_twitter": true,
           "social_icon_instagram": true,
@@ -141,7 +141,6 @@
         "type": "mobile-nav-drawer",
         "settings": {
           "logo_svg": "",
-          "logo": "shopify:\/\/shop_images\/logo-fluid_ac600564-01a4-4f9a-8f2a-47a0f47ff075.png",
           "logo_width": 100,
           "main_menu_linklist": "footer",
           "secondary_menu_linklist": "main-menu",
@@ -160,14 +159,6 @@
     },
     "content_for_index": [
 
-    ],
-    "blocks": {
-      "18218067344242134805": {
-        "type": "shopify:\/\/apps\/product-reviews-ugc-with-q-a\/blocks\/app\/34006358-52bd-4ec7-8c78-200fe58b77ba",
-        "disabled": true,
-        "settings": {
-        }
-      }
-    }
+    ]
   }
 }
