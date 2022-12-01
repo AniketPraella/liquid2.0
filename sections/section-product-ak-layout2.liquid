@@ -165,9 +165,15 @@
                   {% when 'addon-products' %}
 
                   {% for product in product.metafields.custom.addon_product.value %}
-                   {{product.title}}
-                   {{product.price}}
-                   {{product.compare_at_price}}
+                    <div>
+                      <input type="checkbox" id="addon-product-{{forloop.index}}" />
+                      <label for="addon-product-{{forloop.index}}">
+                        <img src="{{product.featured_image | img_url}}" />
+                        {{product.title}}
+                        {{product.price}}
+                        {{product.compare_at_price}}
+                      </label>
+                    </div>
                   {% endfor %}
 
                   {%- when 'product_form' -%}
