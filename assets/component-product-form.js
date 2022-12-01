@@ -88,6 +88,8 @@ class ProductForm extends HTMLElement {
 
     $qtyInput.value = finalQty;
   }
+
+
 }
 customElements.define('product-form', ProductForm);
 
@@ -327,3 +329,19 @@ class VariantSelects extends HTMLElement {
     }
   }
   customElements.define('variant-radios', VariantRadios);
+
+
+// datepicker
+/*
+let expected_delivery_date = document.querySelector('#expected-delivery-date');
+console.log('date ', expected_delivery_date);
+expected_delivery_date.addEventListener('load', expected_delivery_date_func());
+
+function expected_delivery_date_func(event){
+  console.log('running');
+  let currentDate = new Date();
+  let setAttributeDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
+  console.log('setAttributeDate ', setAttributeDate);
+  expected_delivery_date.setAttribute('min', setAttributeDate);
+}
+*/
