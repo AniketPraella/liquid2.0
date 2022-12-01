@@ -119,6 +119,7 @@
               {% render 'box-product-right' %}
             {% else %}
               <h1>{{ product.title }}</h1>
+
               {%- for block in section.blocks -%}
                 {%- case block.type -%}
                   {%- when '@app' -%}
@@ -160,6 +161,15 @@
                               render 'block-product-tabs'
                             endif
                           -%}
+                          
+                  {% when 'addon-products' %}
+
+                  {% for product in product.metafields.custom.addon_product.value %}
+                   {{product.title}}
+                   {{product.price}}
+                   {{product.compare_at_price}}
+                  {% endfor %}
+
                   {%- when 'product_form' -%}
                     {%- liquid 
                             unless product.tags contains productExcludeTag
@@ -412,6 +422,12 @@
             "default": "#343a40"
           }
         ]
+      },
+      {
+        "type": "addon-products",
+        "name": "Frequently Bought",
+        "limit": 1,
+        "settings": []
       }
     ],
     "settings": [
