@@ -93,6 +93,11 @@
           "settings": {
           }
         },
+        "0f1b1f27-3176-4cfa-bea0-1074d9b4c55f": {
+          "type": "addon-products",
+          "settings": {
+          }
+        },
         "0e4f7d3d-4e6d-48a9-88d0-de2d29f71335": {
           "type": "product_form",
           "settings": {
@@ -128,13 +133,14 @@
             "related_products_auto_play": 0,
             "related_products_heading_txt": "Related Products",
             "product_type": "product-recommendations",
-            "related_products_section_bg_color": "#FAFAF7",
+            "related_products_section_bg_color": "#fafaf7",
             "related_products_section_color": "#343a40"
           }
         }
       },
       "block_order": [
         "9af3d4bb-231b-42cc-845e-ffe47d6f3240",
+        "0f1b1f27-3176-4cfa-bea0-1074d9b4c55f",
         "0e4f7d3d-4e6d-48a9-88d0-de2d29f71335",
         "212489fa-8ed9-48c7-83f4-447dcf5d02ab",
         "7d6f6103-7f1d-4322-9aa8-11a4c2b4aeb4",
