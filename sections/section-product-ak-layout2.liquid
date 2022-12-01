@@ -163,7 +163,7 @@
                           -%}
                           
                   {% when 'addon-products' %}
-                  <h6 class="me-2 mb-0">{{ block.settings.title | t }}</h6>
+                  <h6 class="me-2 mb-0">{{ block.settings.title }}</h6>
                   {% for product in product.metafields.custom.addon_product.value %}
                     <div class="addon-product-sec mb-2">
                       <input type="checkbox" id="addon-product-{{forloop.index}}" class="d-none" value="{{ product.variants.first.id }}"/>
