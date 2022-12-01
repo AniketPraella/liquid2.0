@@ -408,12 +408,13 @@ class AjaxCart extends HTMLElement {
       let itemIndex = $qtyInput.dataset.index || 1;
       let currentQty = parseInt($qtyInput.value) || 1;
       let finalQty = 1;
+      let minQty = parseInt($qtyInput.min) || 1;
 
       let qtyitemboxremove = currentTarget.getAttribute('qty-itemupdaterandomno');
       console.log('qtyitemboxremove ', qtyitemboxremove);
       if(qtyitemboxremove != null){
         let lineItem = document.querySelectorAll('[data-cart-item]')[itemIndex-1];
-        if(action == 'decrease' && currentQty <= 1){
+        if(action == 'decrease' && currentQty <= minQty){
           return false;
         }else if(action == 'decrease'){
             finalQty = false; //remove 1 item
@@ -425,7 +426,7 @@ class AjaxCart extends HTMLElement {
             if(lineItem){ lineItem.classList.add('updating'); }
         }
       }else{
-        if(action == 'decrease' && currentQty <= 1){
+        if(action == 'decrease' && currentQty <= minQty){
             return false;
         }else if(action == 'decrease'){
             finalQty = currentQty - 1;
