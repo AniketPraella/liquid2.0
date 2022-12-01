@@ -11944,3 +11944,17 @@ input[type="range"]::-moz-range-thumb{
     padding: 5px 10px;
     font-size: 12px;
 }
+
+/* addon product css */
+.addon-product-sec label{
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--bs-bg-color-btn-secondary);
+    cursor: pointer;
+}
+.addon-product-sec label p{
+    margin: 0;
+}
+.addon-product-sec input:checked + label{
+    border: 2px solid var(--bs-bg-hover-color-btn-secondary);
+}

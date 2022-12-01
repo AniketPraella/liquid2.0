@@ -163,15 +163,14 @@
                           -%}
                           
                   {% when 'addon-products' %}
-
+                  <h6 class="me-2 mb-0">{{ block.settings.title | t }}</h6>
                   {% for product in product.metafields.custom.addon_product.value %}
-                    <div>
-                      <input type="checkbox" id="addon-product-{{forloop.index}}" />
+                    <div class="addon-product-sec mb-2">
+                      <input type="checkbox" id="addon-product-{{forloop.index}}" class="d-none" value="{{ product.variants.first.id }}"/>
                       <label for="addon-product-{{forloop.index}}">
                         <img src="{{product.featured_image | img_url}}" />
-                        {{product.title}}
-                        {{product.price}}
-                        {{product.compare_at_price}}
+                        <p class="addon-p-title">{{product.title}}</p>
+                        <p class="addon-p-price">{{product.price | money}}</p>
                       </label>
                     </div>
                   {% endfor %}
@@ -433,7 +432,14 @@
         "type": "addon-products",
         "name": "Frequently Bought",
         "limit": 1,
-        "settings": []
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Frequently Bought Together"
+          }
+        ]
       }
     ],
     "settings": [
