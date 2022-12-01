@@ -163,17 +163,22 @@
                           -%}
                           
                   {% when 'addon-products' %}
-                  <h6 class="me-2 mb-0">{{ block.settings.title }}</h6>
-                  {% for product in product.metafields.custom.addon_product.value %}
-                    <div class="addon-product-sec mb-2">
-                      <input type="checkbox" id="addon-product-{{forloop.index}}" class="d-none" value="{{ product.variants.first.id }}"/>
-                      <label for="addon-product-{{forloop.index}}">
-                        <img src="{{product.featured_image | img_url}}" />
-                        <p class="addon-p-title">{{product.title}}</p>
-                        <p class="addon-p-price">{{product.price | money}}</p>
-                      </label>
-                    </div>
-                  {% endfor %}
+                    {% if product.metafields.custom.addon_product %}
+                      <h6 class="mb-2 fw-medium">{{ block.settings.title }}</h6>
+                      {% for product in product.metafields.custom.addon_product.value %}
+                        <addons-form class="addon-product-sec mb-2 d-block">
+                          <input type="hidden" class="addon-product-quantity product-quantity" value="1"/>
+                          <input type="hidden" class="addon-variant-id variant--id" value="{{ product.variants.first.id }}"/>
+                          <input type="checkbox" id="addon-product-{{forloop.index}}" class="d-none" data-addon-selection/>
+                          <label for="addon-product-{{forloop.index}}">
+                            <img src="{{product.featured_image | img_url:'medium'}}" />
+                            <p class="addon-p-title ms-2 fw-medium">{{product.title}}
+                              <span class="addon-p-price d-block">{{product.price | money}}</span>
+                            </p>
+                          </label>
+                        </addons-form>
+                      {% endfor %}
+                    {% endif %}
 
                   {%- when 'product_form' -%}
                     {%- liquid 

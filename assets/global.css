@@ -11951,10 +11951,22 @@ input[type="range"]::-moz-range-thumb{
     align-items: center;
     border: 1px solid var(--bs-bg-color-btn-secondary);
     cursor: pointer;
+    border-radius:5px;
+    overflow: hidden;
 }
 .addon-product-sec label p{
     margin: 0;
 }
 .addon-product-sec input:checked + label{
-    border: 2px solid var(--bs-bg-hover-color-btn-secondary);
+    border-color: var(--bs-bg-hover-color-btn-secondary);
+}
+.addon-product-sec label img{
+    max-width: 100%;
+    width: 150px;
+}
+.addon-p-title{
+    font-size: 16px;
+}
+.addon-p-price{
+    font-size: 14px;
 }
