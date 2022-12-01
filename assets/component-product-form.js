@@ -77,8 +77,9 @@ class ProductForm extends HTMLElement {
     let $qtyInput = currentTarget.closest('[data-qty-container]').querySelector('[data-qty-input]');
     let currentQty = parseInt($qtyInput.value) || 1;
     let finalQty = 1;
+    let minQty = parseInt($qtyInput.min) || 1;
 
-    if(action == 'decrease' && currentQty <= 1){
+    if(action == 'decrease' && currentQty <= minQty){
         return false;
     }else if(action == 'decrease'){
         finalQty = currentQty - 1;
@@ -329,19 +330,3 @@ class VariantSelects extends HTMLElement {
     }
   }
   customElements.define('variant-radios', VariantRadios);
-
-
-// datepicker
-/*
-let expected_delivery_date = document.querySelector('#expected-delivery-date');
-console.log('date ', expected_delivery_date);
-expected_delivery_date.addEventListener('load', expected_delivery_date_func());
-
-function expected_delivery_date_func(event){
-  console.log('running');
-  let currentDate = new Date();
-  let setAttributeDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
-  console.log('setAttributeDate ', setAttributeDate);
-  expected_delivery_date.setAttribute('min', setAttributeDate);
-}
-*/
