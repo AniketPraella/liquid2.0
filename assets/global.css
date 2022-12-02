@@ -11953,6 +11953,7 @@ input[type="range"]::-moz-range-thumb{
     cursor: pointer;
     border-radius:5px;
     overflow: hidden;
+    position: relative;
 }
 .addon-product-sec label p{
     margin: 0;
@@ -11969,4 +11970,13 @@ input[type="range"]::-moz-range-thumb{
 }
 .addon-p-price{
     font-size: 14px;
+}
+.addon-qty-input-wrapper{
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+}
+.addon-qty-input-wrapper input{
+    width: 40px;
+    text-align: right;
 }

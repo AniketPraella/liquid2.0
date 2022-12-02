@@ -330,3 +330,29 @@ class VariantSelects extends HTMLElement {
     }
   }
   customElements.define('variant-radios', VariantRadios);
+
+  class addonFrm extends HTMLElement {
+    constructor(){
+      super();
+      this.addonQtySec = this.querySelectorAll('.addon-qty-input-wrapper') || null;
+      if(this.addonQtySec != null){
+        this.addonQtySec.forEach(qtyBtn => qtyBtn.addEventListener('click', this.manageQtyBtn.bind(this)))
+      }
+    }
+    manageQtyBtn(event) {
+      let addonProductQuantityBox = this.querySelector('.addon-product-quantity');
+      let addonProductQuantityMin = addonProductQuantityBox.min;
+      let addonProductQuantityValue = parseInt(addonProductQuantityBox.value);
+      if (event.target.innerHTML == '+'){
+        addonProductQuantityBox.value = addonProductQuantityValue + 1;
+      }
+      if (event.target.innerHTML == '-'){
+        if(addonProductQuantityValue <= addonProductQuantityMin){
+          return false;
+        }else{
+        addonProductQuantityBox.value = addonProductQuantityValue - 1;
+        }
+      }
+    }
+  }
+  customElements.define('addons-form', addonFrm);
