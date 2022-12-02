@@ -8,7 +8,7 @@
 
 <div class="col-12">
     <div class="px-md-3">
-        <p class="m-0 fw-500">
+        <p class="m-0 fw-500 text-capitalize">
             {% if thresold > carttotal %}
             {% assign progressbarwidth = carttotal | divided_by: settings.free_shipping_thresold | round %}
                 {{ leftamounttext }}
