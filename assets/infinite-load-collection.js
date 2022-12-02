@@ -27,10 +27,13 @@ targetloadmore.addEventListener('click', async (event)=>{
         colproductdataSec.append(collectionprodataget[i]);
         console.log(collectionprodataget[i]);
     }
-    targetloadmore.setAttribute("href", changetargetloadmore);
-    if(changetargetloadmore == window.location.href){
-        targetloadmore.style.display = 'none';
+    if(targetloadmore != null){
+      targetloadmore.setAttribute("href", changetargetloadmore);
+      if(changetargetloadmore == window.location.href){
+          targetloadmore.style.display = 'none';
+      }
     }
+    
 })
  }
 
@@ -67,8 +70,11 @@ document.getElementById('sort-by').addEventListener('change', async function(e) 
     collectionnewdataget = collectionnewdataparsed.querySelectorAll('#collection-product-grid-2 .col-12.col-lg-3.col-md-4.col-sm-6');
     console.log('collectionnewdataget ', collectionnewdataget);
     newtargetloadmore = collectionnewdataparsed.querySelector('#load-more-product').href;
-    targetloadmore.setAttribute("href", newtargetloadmore);
-  targetloadmore.style.display = '';
+    if(targetloadmore != null){
+      targetloadmore.setAttribute("href", newtargetloadmore);
+      targetloadmore.style.display = '';
+    }
+    
     colproductdata_sec = document.querySelector('#collection-product-grid-2');
     colproductdata_sec.innerHTML = '';
     for(var i=0; i < collectionnewdataget.length; i++){
@@ -194,7 +200,7 @@ class myProductFilter extends HTMLElement {
       if(item.checked == true){
         console.log('item.checked ', item.checked)
         let itemValue = item.getAttribute('data-filter-label');
-        printFilterLableDiv.innerHTML += `<span>${itemValue}</span>`;
+        printFilterLableDiv.innerHTML += `<span>${itemValue}<span class="icon-close"></span></span>`;
       }
     })
     let searchparams = new URLSearchParams(window.location.search);
@@ -208,13 +214,13 @@ class myProductFilter extends HTMLElement {
 
     if(searchparams != '' && window.location.search.includes('filter.v.price')){
       if(searchparamsvaluemax == null && searchparamsvaluemin == null){
-        printFilterLableDiv.innerHTML += `<span>${store_currency_symbol}${minvalue} - ${store_currency_symbol}${maxvalue}</span>`;
+        printFilterLableDiv.innerHTML += `<span>${store_currency_symbol}${minvalue} - ${store_currency_symbol}${maxvalue}<span class="icon-close"></span></span>`;
       }else if(searchparamsvaluemax == null){
-        printFilterLableDiv.innerHTML += `<span>${store_currency_symbol}${searchparamsvaluemin} - ${store_currency_symbol}${maxvalue}</span>`;
+        printFilterLableDiv.innerHTML += `<span>${store_currency_symbol}${searchparamsvaluemin} - ${store_currency_symbol}${maxvalue}<span class="icon-close"></span></span>`;
       }else if(searchparamsvaluemin == null){
-        printFilterLableDiv.innerHTML += `<span>${store_currency_symbol}${minvalue} - ${store_currency_symbol}${searchparamsvaluemax}</span>`;
+        printFilterLableDiv.innerHTML += `<span>${store_currency_symbol}${minvalue} - ${store_currency_symbol}${searchparamsvaluemax}<span class="icon-close"></span></span>`;
       }else{
-        printFilterLableDiv.innerHTML += `<span>${store_currency_symbol}${searchparamsvaluemin} - ${store_currency_symbol}${searchparamsvaluemax}</span>`;
+        printFilterLableDiv.innerHTML += `<span>${store_currency_symbol}${searchparamsvaluemin} - ${store_currency_symbol}${searchparamsvaluemax}<span class="icon-close"></span></span>`;
       }
     }
   }
@@ -242,9 +248,14 @@ class myProductFilter extends HTMLElement {
     let newtargetloadmore = collectionnewdataparsed.querySelector('#load-more-product');
     if(newtargetloadmore != null){
       let newtargetloadmoreurl = newtargetloadmore.href;
-      targetloadmore.setAttribute("href", newtargetloadmoreurl);
+      if(targetloadmore != null){
+        targetloadmore.setAttribute("href", newtargetloadmoreurl);
+      }
+      
     }
-    targetloadmore.style.display = '';
+    if(targetloadmore != null){
+      targetloadmore.style.display = '';
+    }
     let colproductdata_sec = document.querySelector('#collection-product-grid-2');
     colproductdata_sec.innerHTML = '';
     for(var i=0; i < collectionnewdataget.length; i++){

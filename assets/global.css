@@ -11942,7 +11942,14 @@ input[type="range"]::-moz-range-thumb{
     background-color: var(--bs-bg-hover-color-btn-secondary);
     color: #fff;
     padding: 5px 10px;
+    padding-right: 0;
     font-size: 12px;
+}
+.filtered-data span .icon-close{
+    font-size: 7px;
+    margin-left: 6px;
+    padding: 0;
+    cursor: pointer;
 }
 
 /* addon product css */
