@@ -4,7 +4,7 @@ if(targetloadmore != null){
     if(targetloadmore.href == window.location.href){
         targetloadmore.style.display = 'none';
     }
-  }
+ 
 targetloadmore.addEventListener('click', async (event)=>{
     event.preventDefault();
     getnewbutton = event.currentTarget;
@@ -32,7 +32,7 @@ targetloadmore.addEventListener('click', async (event)=>{
         targetloadmore.style.display = 'none';
     }
 })
-
+ }
 
 /****************************************
  *********************  
