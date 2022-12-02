@@ -24,6 +24,7 @@
     "free_shipping_txt": "Congratulations! You get free shipping.",
     "free_shipping_left": "You are ${addMoreForFreeShip} away from free shipping!",
     "enable_free_shipping_bar": true,
+    "free_shipping_thresold": "15",
     "enable_login_helper": false,
     "account_not_found": "Account not found.",
     "account_enable": "Account enabled.",
