@@ -97,6 +97,17 @@
   
           
         </div>
+        <div id="filtered-data" class="filtered-data col-12 my-3">
+          {%- for filter in collection.filters -%}
+              {%- for value in filter.active_values -%}
+                  <a class="active-filter__button me-2 mb-1 px-2 py-1 bg-gray-200 font-size-sm filter-option-clear" href="{{ value.url_to_remove }}">
+                  {{ value.label | escape }}
+                  <span class="icon-close lh-1 ms-2 icon-size-12"></span>
+                  </a>
+              
+              {%- endfor -%}
+            {%- endfor -%}
+        </div>
       </myproduct-filter>
       
       <select id="sort-by" class="btn btn-secondary text-start">
@@ -110,17 +121,7 @@
       </select>
 
     </div>
-    <div id="filtered-data" class="filtered-data col-12 my-3">
-      {%- for filter in collection.filters -%}
-          {%- for value in filter.active_values -%}
-              <a class="active-filter__button me-2 mb-1 px-2 py-1 bg-gray-200 font-size-sm filter-option-clear" href="{{ value.url_to_remove }}">
-              {{ value.label | escape }}
-              <span class="icon-close lh-1 ms-2 icon-size-12"></span>
-              </a>
-          
-          {%- endfor -%}
-        {%- endfor -%}
-    </div>
+
 
     {% paginate collection.products by 4 %}
       {% if collection.products.size == 0 %}
