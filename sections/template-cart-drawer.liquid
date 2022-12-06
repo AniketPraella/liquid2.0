@@ -20,6 +20,9 @@
                             {% if settings.enable_free_shipping_bar %}
                                 {% render 'free-shipping-bar-above-cart' %}
                             {% endif %}
+                            {% if settings.enable_free_gift %}
+                                {% render 'simple-gwp' %}
+                            {% endif %}
 
                             <div class="col-12">
                                 <div class="cart-header py-2 px-3 bg-gray-300">
@@ -185,7 +188,7 @@
                             </div>
                         {% endif %}
                     </form>
-
+                    
                     <div class="col-12 mt-5 cart-total px-5 {% unless cart.item_count > 0 %}d-none{% endunless %}" data-checkoutBtns>
                         <div class="row no-gutters">
                             <div class="col">
