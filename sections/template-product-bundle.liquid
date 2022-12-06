@@ -20,8 +20,46 @@
             {% if section.settings.template_type == 'classic-vertical' %}
               <div class="row">
               {% endif %}
+
               {% if product.metafields.custom.box_collection %}
-                {% render 'box-product' %}
+                {%- liquid
+                    assign box-collection-handle = product.metafields.custom.box_collection.value.handle
+                    assign productExcludeTag = settings.product_exclude_tag_text
+                    assign current_variant = product.selected_or_first_available_variant
+                -%}
+                <div class="row">
+                  {%- for product in collections[box-collection-handle].products -%}
+                    {% unless product.tags contains productExcludeTag %}
+                      {%- comment -%} {% render 'box-product-card' %} {%- endcomment -%}
+                      <div class="col-lg-3 col-md-4 col-6 my-3 mb-5 d-flex align-items-stretch justify-content-around">
+                          <div class="bundle-product" {% if product.selected_or_first_available_variant.available %}disabled="false"{% else %}disabled="true"{% endif %}>
+                              <div class="mb-4"><img src="{{ product.featured_image | img_url: 'medium' }}"></div>
+                              <div class="button-p-title-wrapper position-relative">
+                                  <div class="card-title m-0 h6 text-left pb-1">
+                                  <a class="product-link text-primary" role="product URL" href="javascript:void(0)">{{ product.title }}</a>
+                                  </div>
+                                  <bundle-form>
+                                    <div class="add-button-wrapper position-absolute w-100">
+                                      <form id="product-bundle-{{ forloop.index }}">
+                                          <input type="hidden" id="id-{{ forloop.index }}" name="id" value="{{ product.variants.first.id }}">
+                                          <input type="hidden" id="title-{{ forloop.index }}" name="title" value="{{ product.title }}">
+                                          <input type="hidden" id="pimage-{{ forloop.index }}" name="pimage" value="{{ product.featured_image | img_url: 'medium' }}">
+                                          <input min="1" type="hidden" id="quantity-{{ forloop.index }}" name="quantity" value="1"/>
+                                          {% if product.selected_or_first_available_variant.available %}
+                                          <button class="btn bg-primary text-white addboxbutton" onclick="addbundleproduct(event)">ADD TO BOX</button>
+                                          {%  else -%}
+                                          <button type="button" class="btn bg-primary text-white" disabled="true">{{ 'products.product.sold_out' | t }}</button>
+                                          {% endif %}
+                                      </form>
+                                    </div>
+                                  </bundle-form>
+                              </div>
+                          </div>
+                      </div>
+                    {% endunless %}
+                  {%- endfor -%}
+                </div>
+
               {% else %}
                 {% if featured_image != blank %}
                   <a class="skip-to-content-link button visually-hidden" href="#ProductInfo-{{ section.id }}">
@@ -115,9 +153,55 @@
 
         <div class="col-lg-4 {% if product.metafields.custom.box_collection and product.metafields.custom.no_of_box_items %} bundle-box-product-page-right-sec stickybox{% endif %}" id="ProductInfo-{{ section.id }}">
           <div class="product-details-wrapper mt-5 mt-lg-0" data-slider_type="{{ section.settings.slider_type }}">
+            
             {% if product.metafields.custom.box_collection and product.metafields.custom.no_of_box_items %}
-              {% render 'box-product-right' %}
+              <script>
+                productarray = [];
+                maxlength = {{ product.metafields.custom.no_of_box_items }};
+                initialbuttontext = `{{ product.metafields.custom.initial_button_text }}`;
+                finalbuttontext = `{{ product.metafields.custom.final_button_name }}`;
+                secondbuttontext = `{{ product.metafields.custom.second_button_text }}`;
+                thirdbuttontext = `{{ product.metafields.custom.third_button_text }}`;
+              </script>
+
+              <div class="mx-auto bundle-product-box-wrapper">
+                <h1>{{ product.title }}</h1>
+                <div class="price-wrapper mt-2">
+                  {%- if current_variant.compare_at_price > current_variant.price -%}
+                    <s class="h6 text-gray-600 mr-2 money">{{ product.selected_or_first_available_variant.compare_at_price | money }}</s>
+                  {%- endif -%}
+                  <span class="h5 actual-price money">{{ product.selected_or_first_available_variant.price | money }}</span>
+                </div>
+                <product-form>
+                  <form method="post" action="/cart/add" class="bundle-main-form">
+                  <input type="hidden" name="form_type" value="product">
+                    <div class="row no-gutter border-top border-start mb-5 bg-white bundle-product-wrapper">
+                      <div class="col-8 border-end border-bottom">
+                        <div class="ractangle-box position-relative">
+                          <span class="font-size-sm">What's In Your Box?</span>
+                        </div>
+                      </div>
+                      {%- for item in (1..product.metafields.custom.no_of_box_items) -%}
+                        <div class="col-4  border-end  border-bottom">
+                          <div id="square-box-{{ forloop.index }}" class="square-box">
+                            <span class="font-size-sm">{{item}}</span>
+                          </div>
+                        </div>
+                      {%- endfor -%}
+                    </div>
+                    <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                    <input min="1" type="hidden" name="quantity" value="1"/>
+                    <button type="submit" class="btn btn-white btn-block bundleaddtocart" disabled="true" onclick="addcartmultiproduct(event)">
+                      <span class="item-progress"></span>
+                      <span class="add-text btn-add-cart-text position-relative">{{ product.metafields.custom.initial_button_text }}</span>
+                      <span class="spinner"></span>
+                    </button>
+                  </form>
+                </product-form>
+              </div>
+
             {% else %}
+
               <h1>{{ product.title }}</h1>
 
               {%- for block in section.blocks -%}

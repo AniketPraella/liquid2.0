@@ -106,4 +106,8 @@
   <script src="{{ 'infinite-load-collection.js' | asset_url }}" defer></script>
 {%- endif -%}
 
+{%- if template.suffix == 'product-bundle' -%}
+  <script src="{{ 'box-product-2.js' | asset_url }}" defer></script>
+{%- endif -%}
+
 <script src="{{ 'custom.js' | asset_url }}" defer></script>

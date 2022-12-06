@@ -1,0 +1,25 @@
+/*
+class BundleForm extends HTMLElement {
+    constructor() {
+      super();
+      this.form = this.querySelectorAll('form');
+      this.productarray = [];
+      this.form.forEach(button => button.addEventListener('submit', this.onSubmitHandler.bind(this)));
+    }
+    onSubmitHandler(evt){
+        evt.preventDefault();
+        console.log('evt.currentTarget ', evt.currentTarget);
+        this.productarray.push(JSON.parse(serializeForm(evt.currentTarget)));
+        console.log('addItems', this.productarray)
+    }
+}
+customElements.define('bundle-form', BundleForm);
+*/
+
+function addbundleproduct(e){
+    e.preventDefault();
+    let targetForm = e.currentTarget.closest('form');
+    console.log(targetForm);
+    productarray.push(JSON.parse(serializeForm(targetForm)));
+    console.log(productarray);
+}
