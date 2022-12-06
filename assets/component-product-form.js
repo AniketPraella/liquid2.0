@@ -78,11 +78,14 @@ class ProductForm extends HTMLElement {
     let currentQty = parseInt($qtyInput.value) || 1;
     let finalQty = 1;
     let minQty = parseInt($qtyInput.min) || 1;
+    let maxQty = parseInt($qtyInput.max) || 100;
 
     if(action == 'decrease' && currentQty <= minQty){
         return false;
     }else if(action == 'decrease'){
         finalQty = currentQty - 1;
+    }else if(action == 'increase' && currentQty >= maxQty){
+        return false;
     }else{
         finalQty = currentQty + 1;
     }

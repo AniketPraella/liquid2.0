@@ -103,7 +103,7 @@
               <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
             </a>
           </div>
-          <input type="number" name="quantity" aria-label="{{ 'products.product.quantity.input_label' | t: product: product.title | escape }}" value="{% if product.metafields.custom.min_product_to_purchase %}{{ product.metafields.custom.min_product_to_purchase }}{% else %}1{% endif %}" step="1" min="{% if product.metafields.custom.min_product_to_purchase %}{{ product.metafields.custom.min_product_to_purchase }}{% else %}1{% endif %}" inputmode="numeric" data-qty-input class="quantity form-control text-center" readonly>
+          <input type="number" name="quantity" aria-label="{{ 'products.product.quantity.input_label' | t: product: product.title | escape }}" value="{% if product.metafields.custom.min_product_to_purchase %}{{ product.metafields.custom.min_product_to_purchase }}{% else %}1{% endif %}" step="1" min="{% if product.metafields.custom.min_product_to_purchase %}{{ product.metafields.custom.min_product_to_purchase }}{% else %}1{% endif %}"{% if product.metafields.custom.max_product_to_purchase%} max="{{product.metafields.custom.max_product_to_purchase}}"{% endif %} inputmode="numeric" data-qty-input class="quantity form-control text-center" readonly>
           <div class="input-group-append">
             <a href="#" class="input-group-text" rel="nofollow" aria-label="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}" title="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}" data-for="increase" data-qty-btn>
               <span class="btn-increase"><span class="icon-plus"></span></span>

@@ -409,6 +409,7 @@ class AjaxCart extends HTMLElement {
       let currentQty = parseInt($qtyInput.value) || 1;
       let finalQty = 1;
       let minQty = parseInt($qtyInput.min) || 1;
+      let maxQty = parseInt($qtyInput.max) || 100;
 
       let qtyitemboxremove = currentTarget.getAttribute('qty-itemupdaterandomno');
       console.log('qtyitemboxremove ', qtyitemboxremove);
@@ -430,6 +431,8 @@ class AjaxCart extends HTMLElement {
             return false;
         }else if(action == 'decrease'){
             finalQty = currentQty - 1;
+        }else if(action == 'increase' && currentQty >= maxQty){
+          return false;
         }else{
             finalQty = currentQty + 1;
         }
