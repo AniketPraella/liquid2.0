@@ -98,7 +98,7 @@
   Box/Bundle Product JS
 {%- endcomment -%}
 
-{%- if template.name == 'product' and product.metafields.custom.box_collection -%}
+{%- if template.name == 'product' and product.metafields.custom.box_collection and template.suffix != 'product-bundle' -%}
   <script src="{{ 'box-product.js' | asset_url }}" defer></script>
 {%- endif -%}
 

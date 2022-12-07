@@ -110,18 +110,20 @@
                                                                 {%- for property in item.properties -%}
                                                                     {%- assign property_first_char = property.first | slice: 0 -%}
                                                                     {%- if property.last != blank and property_first_char != '_' -%}
-                                                                        <li>
-                                                                            <span class="text-muted small text-capitalize">{{ property.first }}:</span>
-                                                                            <span class="text-muted small text-capitalize">
-                                                                                {%- if property.last contains '/uploads/' -%}
-                                                                                    <a href="{{ property.last }}" target="_blank">
-                                                                                        {{ property.last | split: '/' | last }}
-                                                                                    </a>
-                                                                                {%- else -%}
-                                                                                    {{ property.last }}
-                                                                                {%- endif -%}
-                                                                            </span>
-                                                                        </li>
+                                                                        {% unless property.first == 'randomnumber' or property.first == 'type' %}
+                                                                            <li>
+                                                                                <span class="text-muted small text-capitalize">{{ property.first }}:</span>
+                                                                                <span class="text-muted small text-capitalize">
+                                                                                    {%- if property.last contains '/uploads/' -%}
+                                                                                        <a href="{{ property.last }}" target="_blank">
+                                                                                            {{ property.last | split: '/' | last }}
+                                                                                        </a>
+                                                                                    {%- else -%}
+                                                                                        {{ property.last }}
+                                                                                    {%- endif -%}
+                                                                                </span>
+                                                                            </li>
+                                                                        {% endunless %}
                                                                     {%- endif -%}
                                                                 {%- endfor -%}
                                                                 </ul> 

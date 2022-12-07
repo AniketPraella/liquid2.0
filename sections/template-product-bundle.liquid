@@ -25,11 +25,17 @@
                 {%- liquid
                     assign box-collection-handle = product.metafields.custom.box_collection.value.handle
                     assign productExcludeTag = settings.product_exclude_tag_text
-                    assign current_variant = product.selected_or_first_available_variant
+                    assign current_variant = product.selected_or_first_available_variant 
                 -%}
                 <div class="row">
                   {%- for product in collections[box-collection-handle].products -%}
                     {% unless product.tags contains productExcludeTag %}
+                    {%- liquid 
+                      assign min = 100 
+                      assign max = 99999999 
+                      assign diff = max | minus: min 
+                      assign randomNumber = "now" | date: "%N" | modulo: diff | plus: min 
+                    -%}
                       {%- comment -%} {% render 'box-product-card' %} {%- endcomment -%}
                       <div class="col-lg-3 col-md-4 col-6 my-3 mb-5 d-flex align-items-stretch justify-content-around">
                           <div class="bundle-product" {% if product.selected_or_first_available_variant.available %}disabled="false"{% else %}disabled="true"{% endif %}>
@@ -41,6 +47,7 @@
                                   <bundle-form>
                                     <div class="add-button-wrapper position-absolute w-100">
                                       <form id="product-bundle-{{ forloop.index }}">
+                                          <input type="hidden" id="randno-{{ forloop.index }}" name="randomno" value="{{ randomNumber }}">
                                           <input type="hidden" id="id-{{ forloop.index }}" name="id" value="{{ product.variants.first.id }}">
                                           <input type="hidden" id="title-{{ forloop.index }}" name="title" value="{{ product.title }}">
                                           <input type="hidden" id="pimage-{{ forloop.index }}" name="pimage" value="{{ product.featured_image | img_url: 'medium' }}">
@@ -156,7 +163,6 @@
             
             {% if product.metafields.custom.box_collection and product.metafields.custom.no_of_box_items %}
               <script>
-                productarray = [];
                 maxlength = {{ product.metafields.custom.no_of_box_items }};
                 initialbuttontext = `{{ product.metafields.custom.initial_button_text }}`;
                 finalbuttontext = `{{ product.metafields.custom.final_button_name }}`;

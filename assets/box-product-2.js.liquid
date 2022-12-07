@@ -1,25 +1,208 @@
-/*
-class BundleForm extends HTMLElement {
-    constructor() {
-      super();
-      this.form = this.querySelectorAll('form');
-      this.productarray = [];
-      this.form.forEach(button => button.addEventListener('submit', this.onSubmitHandler.bind(this)));
-    }
-    onSubmitHandler(evt){
-        evt.preventDefault();
-        console.log('evt.currentTarget ', evt.currentTarget);
-        this.productarray.push(JSON.parse(serializeForm(evt.currentTarget)));
-        console.log('addItems', this.productarray)
-    }
-}
-customElements.define('bundle-form', BundleForm);
-*/
+productarray = [];
+addboxbutton = document.getElementsByClassName('addboxbutton');
+bundleaddtocart = document.getElementsByClassName('bundleaddtocart');
+bundleaddtocartfinal = document.getElementsByClassName('btn-add-cart-text');
+bundleprogress = document.getElementsByClassName('item-progress');
+cartElementx = document.querySelector('ajax-cart');
+// cartElementx.getCartData('open_drawer');
 
 function addbundleproduct(e){
     e.preventDefault();
     let targetForm = e.currentTarget.closest('form');
     console.log(targetForm);
-    productarray.push(JSON.parse(serializeForm(targetForm)));
+    if(productarray.length+0 < maxlength+0){
+        productarray.push(JSON.parse(serializeForm(targetForm)));
+    }
     console.log(productarray);
+    addproducttobundle();
+    updatebundleproduct();
+}
+
+function addproducttobundle(){
+        
+    productarraylength = productarray.length;
+
+    for (x = 0; x < productarray.length; x++) {
+        console.log('xval ' + (x+1));
+        document.querySelector('#square-box-' + (x+1) + ' span').innerHTML = `<img src="${productarray[x].pimage}"/>
+        <button type="button" class="icon-cross btn btn-secondary position-absolute right-0 top-0 p-1" onclick="removeproduct(${productarray[x].randomno}, ${x}, event)">X</button>
+        <input type="hidden" name="properties[Bundle${x+1}]" value="${productarray[x].title}"/>`;
+    }
+}
+
+var removeproduct = (randomnumber, arraylength, e) =>{
+    arrindex = productarray.map(function(evt) {
+                return evt.randomno;
+                });
+    console.log('arrindex ', arrindex);
+    arrindex = arrindex.indexOf(`${randomnumber}`);
+    console.log('arrindex ', arrindex);
+    productarray.splice(arrindex, 1);
+     console.log(productarray)
+     for (i = 0; i < addboxbutton.length; i++) {
+            console.log(productarraylength);
+            addboxbutton[i].removeAttribute("disabled"); 
+        }
+        bundleaddtocart[0].setAttribute("disabled", "true");
+
+    addproducttobundleempty();
+    addproducttobundle();
+    updatebundleproduct();
+    
+    
+}
+
+function addproducttobundleempty(){
+    console.log('abc');
+    noofitem = document.querySelectorAll('.square-box img').length;
+    for (y = 1; y < (noofitem+1); y++) {
+        console.log(y)
+        document.querySelector('#square-box-' + y + ' span').innerHTML = `${y}`;
+    }
+}
+
+function addproducttobundleempty(){
+    console.log('abc');
+    noofitem = document.querySelectorAll('.square-box img').length;
+    for (y = 1; y < (noofitem+1); y++) {
+        console.log(y)
+        document.querySelector('#square-box-' + y + ' span').innerHTML = `${y}`;
+    }
+}
+
+function updatebundleproduct(){
+    leftnoproduct = maxlength - productarray.length;
+    secondbuttontextnw = secondbuttontext.replace('{number}', leftnoproduct);
+    thirdbuttontextnw = thirdbuttontext.replace('{number}', leftnoproduct);
+    let pbarwidth = productarray.length/maxlength;
+    let newpbarwidth = pbarwidth*100;
+    let newpbarwidthx = Math.ceil(newpbarwidth);
+    console.log('newpbarwidth ', newpbarwidthx)
+    if (productarray.length==0) {
+        bundleprogress[0].style.width= `0%`;
+        bundleaddtocartfinal[0].innerHTML= `${initialbuttontext}`;
+    }
+    if (productarray.length>=1) {
+        bundleprogress[0].style.width= `${newpbarwidthx}%`;
+        bundleaddtocartfinal[0].innerHTML= `${secondbuttontextnw}`;
+    }
+    if (productarray.length>=(maxlength-3)) {
+        bundleprogress[0].style.width= `${newpbarwidthx}%`;
+        bundleaddtocartfinal[0].innerHTML= `${thirdbuttontextnw}`;
+    }
+    if (productarray.length==maxlength){
+    console.log(productarraylength);
+    for (i = 0; i < addboxbutton.length; i++) {
+        addboxbutton[i].setAttribute("disabled", "true"); 
+    }
+    bundleaddtocart[0].removeAttribute("disabled");
+    bundleprogress[0].style.width= `100%`;
+        bundleaddtocartfinal[0].innerHTML= `${finalbuttontext}`;
+
+    
+    }
+}
+
+function addcartmultiproduct(evt){
+    evt.preventDefault();
+    bundleaddtocart[0].classList.add('loading');
+    let bundlemainparray = [];
+    let finalparray = [];
+    let subproductarrtitles = [];
+    let targetForm = evt.currentTarget.closest('form');
+    let randomnumber = Math.floor((Math.random() * 999999) + 10000);
+    console.log(targetForm);
+    bundlemainparray.push(JSON.parse(serializeForm(targetForm)));
+    console.log(bundlemainparray);
+
+    //for main product
+    sprtitle_arr = productarray.map(function(evt) {
+        return evt.title;
+    });
+    var subprovtitle = null;
+    var subprovtitletimes = 0;
+    for (var i = 0; i < sprtitle_arr.length; i++) {
+        if (sprtitle_arr[i] != subprovtitle) {
+            if (subprovtitletimes > 0) {
+                subproductarrtitles.push(`${subprovtitle} x ${subprovtitletimes}`);
+            }
+            subprovtitle = sprtitle_arr[i];
+            subprovtitletimes = 1;
+        } else {
+            subprovtitletimes++;
+        }
+    }
+    if (subprovtitletimes > 0) {
+        subproductarrtitles.push(`${subprovtitle} x ${subprovtitletimes}`);
+    }
+
+    let newsubproductarrtitles = subproductarrtitles.splice(',').join(' || ');
+
+    finalparray.push({'id': bundlemainparray[0].id, "quantity": bundlemainparray[0].quantity,
+    properties: {
+        "randomnumber": randomnumber,
+        "product": newsubproductarrtitles,
+        "type": "main"
+        }
+    })
+    //for subproduct
+    let arrindex = productarray.map(function(evt) {
+        return evt.id;
+    });
+    var subprovid = null;
+    var subproqty = 0;
+    for (var i = 0; i < arrindex.length; i++) {
+        if (arrindex[i] != subprovid) {
+            if (subproqty > 0) {
+                finalparray.push({'id': subprovid, "quantity": subproqty,
+                properties: {
+                    "randomnumber": randomnumber,
+                    "type": "sub_product"
+                    }
+                })
+            }
+            subprovid = arrindex[i];
+            subproqty = 1;
+        } else {
+            subproqty++;
+        }
+    }
+    if (subproqty > 0) {
+        finalparray.push({'id': subprovid, "quantity": subproqty,
+            properties: {
+                "randomnumber": randomnumber,
+                "type": "sub_product"
+            }
+        })
+    }
+
+    var data = {
+        items: finalparray
+      }
+          
+    console.log('data',data,finalparray);
+    fetch('/cart/add.js', {
+    body: JSON.stringify(data),
+    credentials: 'same-origin',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With':'xmlhttprequest'
+    },
+    method: 'POST'
+    }).then((response) => {
+    return response.json();
+    }).then ((dataresponse) => {
+    cartElementx.getCartData('open_drawer');
+    bundleaddtocart[0].classList.remove('loading');
+    console.log('products', dataresponse);
+    }).catch((err) => {
+    console.error(err)
+    });
+
+    bundlemainparray = [];
+    finalparray = [];
+    productarray.splice(0, productarray.length);
+    updatebundleproduct();
+    addproducttobundleempty();
+    removeproduct();
 }
