@@ -1,0 +1,30 @@
+{
+  "sections": {
+    "main": {
+      "type": "template-page",
+      "settings": {
+      }
+    },
+    "acerill_appointment_booking": {
+      "type": "apps",
+      "blocks": {
+        "acerill_appointment_booking_block": {
+          "type": "shopify:\/\/apps\/acerill-appointment-booking\/blocks\/booking-form\/dccce24b-7a0f-4b47-bb37-4276d78e2bb5",
+          "settings": {
+            "bookingFormId": "6a1eef98-8852-4474-b0c6-2a6a1f8006ea",
+            "behavior": "standard"
+          }
+        }
+      },
+      "block_order": [
+        "acerill_appointment_booking_block"
+      ],
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main",
+    "acerill_appointment_booking"
+  ]
+}
