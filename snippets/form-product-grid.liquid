@@ -1,3 +1,23 @@
+{%- liquid
+  if product.metafields.custom.max_product_to_purchase 
+    assign maxProductPurchase = product.metafields.custom.max_product_to_purchase 
+    assign addBtnX = false 
+    for item in cart.items 
+      assign currentVarx = item.product.first_available_variant.id
+        for var in item.product.variants
+            if item.id == var.id 
+                assign currentVarx = var.id
+                break
+            endif
+        endfor 
+        if currentVarx == product.selected_or_first_available_variant.id 
+          if item.quantity == maxProductPurchase 
+            assign addBtnX = true 
+          endif 
+        endif 
+    endfor
+  endif 
+-%}
 <product-form class="product-form">
   {%- assign product_form_id = 'product-form-' | append: product.id -%}
   {% form 'product', product, data-productid: product.id, id: product_form_id, class: "mt-4", data-product-form: "", data-product-id: product.id, data-type: 'add-to-cart-form', data-format: 'grid' %}
@@ -55,7 +75,7 @@
               type="submit"
               name="add"
               aria-label="{{ 'products.product.add_to_cart' | t | escape }}"
-              {% unless current_variant.available %}disabled{% endunless %}>
+              {% unless current_variant.available %}disabled{% endunless %} {% if addBtnX == true %} disabled{% endif %}{% if maxProductPurchase %} maxProductPurchase="{{ maxProductPurchase }}" currentVariantid="{{current_variant.id}}"{% endif %}>
               <span class="add-text">{%- if current_variant.available -%}{{ 'products.product.add_to_cart' | t }}{%- else-%}{{ 'products.product.sold_out' | t }}{%- endif -%}</span>
               <span class="spinner"></span>
           </button>

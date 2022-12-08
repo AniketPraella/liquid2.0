@@ -70,7 +70,7 @@ class ProductForm extends HTMLElement {
    *
    * @param {event} Event instance
    */
-  manageQtyBtn(event) {
+  async manageQtyBtn(event) {
     event.preventDefault();
     let currentTarget = event.currentTarget;
     let action = currentTarget.dataset.for || 'increase';
@@ -79,6 +79,20 @@ class ProductForm extends HTMLElement {
     let finalQty = 1;
     let minQty = parseInt($qtyInput.min) || 1;
     let maxQty = parseInt($qtyInput.max) || 100;
+    let currentVariantid = $qtyInput.getAttribute('currentVariantid');
+    if(currentVariantid != null){
+      let cartData = await getCart();
+      let cartDataItems = cartData.items;
+      cartDataItems.forEach(item =>{
+        if(item.id == currentVariantid){
+          if(item.quantity <= maxQty){
+            maxQty = maxQty - item.quantity;
+            console.log(maxQty);
+            console.log(item.quantity);
+          }
+        }
+      })
+    }
 
     if(action == 'decrease' && currentQty <= minQty){
         return false;

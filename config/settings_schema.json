@@ -1315,6 +1315,16 @@
     ]
   },
   {
+    "name": "Max Cart Qty",
+    "settings": [
+      {
+        "type": "number",
+        "id": "max_cart_qty",
+        "label": "Max Cart Quantity"
+      }
+    ]
+  },
+  {
     "name": "Login Helper",
     "settings": [
       {

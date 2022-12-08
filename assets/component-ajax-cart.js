@@ -196,6 +196,10 @@ class AjaxCart extends HTMLElement {
       if(window.globalVariables.cart_drawer && action == 'open_drawer' && window.globalVariables.template != 'cart'){
           this.openCartDrawer();
       }
+      let maxproductpurchase = document.querySelector('[maxproductpurchase]');
+      if(maxproductpurchase != null){
+        this.maxproductpurchase(maxproductpurchase);
+      }
     }
 
     /**
@@ -549,6 +553,49 @@ class AjaxCart extends HTMLElement {
           Utility.fadeEffect(element, 'fadeOut');
       }, 3000);
     }
+
+    async maxproductpurchase(maxproductpurchase){
+      console.log('first run');
+      let maxproductpurchaseQty = maxproductpurchase.getAttribute('maxproductpurchase');
+      let maxproductpurchaseId = maxproductpurchase.getAttribute('currentvariantid');
+      let cartData = await getCart();
+      let cartDataItems = cartData.items;
+      cartDataItems.forEach(item =>{
+        if(item.id == maxproductpurchaseId){
+          console.log('second run');
+          if(item.quantity >= maxproductpurchaseQty){
+            console.log('third run');
+            maxproductpurchase.setAttribute('disabled', 'true');
+          }else{
+            console.log('four run');
+            maxproductpurchase.removeAttribute('disabled');
+          }
+          if(item.quantity > maxproductpurchaseQty){
+            fetch('/cart/change.js', {
+              body: JSON.stringify({
+                'id' :maxproductpurchaseId,
+                'quantity': maxproductpurchaseQty
+              }),
+              credentials: 'same-origin',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With':'xmlhttprequest'
+              },
+              method: 'POST'
+            }).then((response) => {
+              // this.getCartData();
+              return response.json();
+            }).then (async (dataresponse) => {
+              console.log('products', dataresponse);this.getCartData();
+            }).catch((err) => {
+              console.error(err)
+            });
+          }
+        }
+      })
+    }
+
+
 }
 customElements.define("ajax-cart", AjaxCart);
 
@@ -600,6 +647,7 @@ async function removeitemrandom(randno){
 
 }
 */
+
 
 async function getCart() {
   const result = await fetch("/cart.js");

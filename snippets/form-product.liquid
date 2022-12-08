@@ -2,6 +2,24 @@
 
 {% comment %}theme-check-disable UnusedAssign{% endcomment %}
 {%- liquid 
+  if product.metafields.custom.max_product_to_purchase 
+    assign maxProductPurchase = product.metafields.custom.max_product_to_purchase 
+    assign addBtnX = false 
+    for item in cart.items 
+      assign currentVarx = item.product.first_available_variant.id
+        for var in item.product.variants
+            if item.id == var.id 
+                assign currentVarx = var.id
+                break
+            endif
+        endfor 
+        if currentVarx == product.selected_or_first_available_variant.id 
+          if item.quantity == maxProductPurchase 
+            assign addBtnX = true 
+          endif 
+        endif 
+    endfor
+  endif  
   assign purchaseLimit = null
   if product.tags contains 'purchase-limit-'
     assign productTags = product.tags | join: ','
@@ -103,7 +121,7 @@
               <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
             </a>
           </div>
-          <input type="number" name="quantity" aria-label="{{ 'products.product.quantity.input_label' | t: product: product.title | escape }}" value="{% if product.metafields.custom.min_product_to_purchase %}{{ product.metafields.custom.min_product_to_purchase }}{% else %}1{% endif %}" step="1" min="{% if product.metafields.custom.min_product_to_purchase %}{{ product.metafields.custom.min_product_to_purchase }}{% else %}1{% endif %}"{% if product.metafields.custom.max_product_to_purchase%} max="{{product.metafields.custom.max_product_to_purchase}}"{% endif %} inputmode="numeric" data-qty-input class="quantity form-control text-center" readonly>
+          <input type="number" name="quantity" aria-label="{{ 'products.product.quantity.input_label' | t: product: product.title | escape }}" value="{% if product.metafields.custom.min_product_to_purchase %}{{ product.metafields.custom.min_product_to_purchase }}{% else %}1{% endif %}" step="1" min="{% if product.metafields.custom.min_product_to_purchase %}{{ product.metafields.custom.min_product_to_purchase }}{% else %}1{% endif %}"{% if product.metafields.custom.max_product_to_purchase%} max="{{product.metafields.custom.max_product_to_purchase}}" currentVariantid="{{current_variant.id}}"{% endif %} inputmode="numeric" data-qty-input class="quantity form-control text-center" readonly>
           <div class="input-group-append">
             <a href="#" class="input-group-text" rel="nofollow" aria-label="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}" title="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}" data-for="increase" data-qty-btn>
               <span class="btn-increase"><span class="icon-plus"></span></span>
@@ -133,14 +151,16 @@
       </div>
     </div>
   </noscript>
-
+{% if maxProductPurchase %}
+        <p>Max Limit {{maxProductPurchase}}</p>
+{% endif %}
 <div class="row">
     <div class="col-12 d-flex">
         <button class="btn btn-outline-dark btn-sm flex-grow-1"
             type="submit"
             name="add"
             aria-label="{{ 'products.product.add_to_cart' | t | escape }}"
-            {% unless current_variant.available %}disabled{% endunless %}>
+            {% unless current_variant.available %}disabled{% endunless %}{% if addBtnX == true %} disabled{% endif %}{% if maxProductPurchase %} maxProductPurchase="{{ maxProductPurchase }}" currentVariantid="{{current_variant.id}}"{% endif %}>
             <span class="add-text">{%- if current_variant.available -%}{{ 'products.product.add_to_cart' | t }}{%- else-%}{{ 'products.product.sold_out' | t }}{%- endif -%}</span>
             <span class="spinner"></span>
         </button>

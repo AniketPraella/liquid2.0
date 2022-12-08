@@ -11980,3 +11980,5 @@ input[type="range"]::-moz-range-thumb{
     width: 40px;
     text-align: right;
 }
+
+[disabled="true"],[disabled]{opacity: 0.5;}
