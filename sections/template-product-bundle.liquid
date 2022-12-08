@@ -46,20 +46,50 @@
                                   </div>
                                   <bundle-form>
                                     <div class="add-button-wrapper position-absolute w-100">
-                                      <form id="product-bundle-{{ forloop.index }}">
-                                          <input type="hidden" id="randno-{{ forloop.index }}" name="randomno" value="{{ randomNumber }}">
-                                          <input type="hidden" id="id-{{ forloop.index }}" name="id" value="{{ product.variants.first.id }}">
-                                          <input type="hidden" id="title-{{ forloop.index }}" name="title" value="{{ product.title }}">
-                                          <input type="hidden" id="pimage-{{ forloop.index }}" name="pimage" value="{{ product.featured_image | img_url: 'medium' }}">
-                                          <input min="1" type="hidden" id="quantity-{{ forloop.index }}" name="quantity" value="1"/>
-                                          {% if product.selected_or_first_available_variant.available %}
-                                          <button class="btn bg-primary text-white addboxbutton" onclick="addbundleproduct(event)">ADD TO BOX</button>
-                                          {%  else -%}
-                                          <button type="button" class="btn bg-primary text-white" disabled="true">{{ 'products.product.sold_out' | t }}</button>
-                                          {% endif %}
-                                      </form>
+                                      {% if product.has_only_default_variant %}
+                                        <form id="product-bundle-{{ forloop.index }}">
+                                            <input type="hidden" id="randno-{{ forloop.index }}" name="randomno" value="{{ randomNumber }}">
+                                            <input type="hidden" id="id-{{ forloop.index }}" name="id" value="{{ product.variants.first.id }}">
+                                            <input type="hidden" id="title-{{ forloop.index }}" name="title" value="{{ product.title }}">
+                                            <input type="hidden" id="pimage-{{ forloop.index }}" name="pimage" value="{{ product.featured_image | img_url: 'medium' }}">
+                                            <input min="1" type="hidden" id="quantity-{{ forloop.index }}" name="quantity" value="1"/>
+                                            {% if product.selected_or_first_available_variant.available %}
+                                            <button class="btn bg-primary text-white addboxbutton" onclick="addbundleproduct(event)">ADD TO BOX</button>
+                                            {%  else -%}
+                                            <button type="button" class="btn bg-primary text-white" disabled="true">{{ 'products.product.sold_out' | t }}</button>
+                                            {% endif %}
+                                        </form>
+                                      {%else%}
+                                        <button class="btn bg-primary text-white" onclick="openvarproduct(event)">CHOOSE {% for option in product.options_with_values %}{{option.name}}{% unless forloop.last %}/{% endunless -%}{% endfor %}</button>
+                                        
+                                      {% endif %}
                                     </div>
                                   </bundle-form>
+                                  {%- comment -%} popup {%- endcomment -%}
+                                        <div class="modal fade bundle-varient-sec" id="bundle-varient-sec-{{ forloop.index }}">
+                                          <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title">Choose Product {% for option in product.options_with_values %}{{option.name}}{% unless forloop.last %}/{% endunless -%}{% endfor %}</h5>
+                                                <a href="javascript:void(0)"><span class="icon-close text-gray-900" onclick="closevariantpopup(event)"></span></a>
+                                              </div>
+                                              <div class="modal-body">
+                                                {% for option in product.options_with_values %}
+                                                <p>{{ option.name }}</p>
+                                                  {% for value in option.values %}
+                                                  {%- capture swatchID -%}swatch-{{ product.id }}{% if format %}-{{ format }}{% endif %}-{{ option.name | handleize }}-{{ value | handleize }}{%- endcapture -%}
+                                                  
+                                                    <input type="radio" class="form-control" 
+                                                    name="{{ option.name }}" value="{{ value | escape }}"
+                                                    {% if option.selected_value == value %}checked{% endif %}
+                                                    data-handle="{{ value | handle }}">
+                                                    <label class="form-label swatch-label {{ value }}" for="{{ swatchID }}" title="{{ value }}"> {{ value }} </label>
+                                                  {% endfor %}
+                                                {% endfor %}
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
                               </div>
                           </div>
                       </div>

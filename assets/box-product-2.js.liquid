@@ -206,3 +206,15 @@ function addcartmultiproduct(evt){
     addproducttobundleempty();
     removeproduct();
 }
+
+function openvarproduct(e){
+    let targetVarientSec = e.currentTarget.closest('.button-p-title-wrapper').querySelector('.bundle-varient-sec');
+    targetVarientSec.style.display = 'block';
+    siteOverlay.prototype.showOverlay();
+}
+
+function closevariantpopup(e){
+    let targetVarientSec = e.currentTarget.closest('.button-p-title-wrapper').querySelector('.bundle-varient-sec');
+    targetVarientSec.style.display = '';
+    siteOverlay.prototype.hideOverlay();
+}
