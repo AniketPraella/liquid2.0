@@ -22,6 +22,8 @@ class AjaxCart extends HTMLElement {
       }
 
       if (navigator.platform === 'iPhone') document.documentElement.style.setProperty('--viewport-height', `${window.innerHeight}px`);
+
+      this.maxCartQty();
     }
   
     /**
@@ -200,6 +202,7 @@ class AjaxCart extends HTMLElement {
       if(maxproductpurchase != null){
         this.maxproductpurchase(maxproductpurchase);
       }
+      this.maxCartQty();
     }
 
     /**
@@ -593,6 +596,33 @@ class AjaxCart extends HTMLElement {
           }
         }
       })
+    }
+
+    async maxCartQty(){
+      let max_cart_qty = document.getElementById('max_cart_qty').value;
+      let addBtn = document.querySelectorAll('[name="add"]');
+      let qtyBtn = document.querySelectorAll('[data-for="increase"]');
+      let cartData = await getCart();
+      let cartDataItems = cartData.item_count;
+      if(max_cart_qty != null){
+        if(cartDataItems >= max_cart_qty){
+          addBtn.forEach(button =>{
+            button.classList.add('disabled');
+          })
+          qtyBtn.forEach(button =>{
+            button.classList.add('disabled');
+          })
+          console.log('nsc');
+        }else{
+          addBtn.forEach(button =>{
+            button.classList.remove('disabled');
+          })
+          qtyBtn.forEach(button =>{
+            button.classList.remove('disabled');
+          })
+          console.log('elnsc');
+        }
+      }
     }
 
 

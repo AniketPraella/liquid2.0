@@ -3,6 +3,7 @@ class quickShop extends HTMLElement {
     constructor() {
       super();
 
+      this.cartElement = document.querySelector('ajax-cart');
       this.closeBy = this.querySelector('.close-quickshop');
       this.bindEvents();
 
@@ -65,6 +66,7 @@ class quickShop extends HTMLElement {
         this.innerHTML = quickShopData;
         this.querySelector('.modal').classList.add('open');
         siteOverlay.prototype.showOverlay();
+        this.cartElement.maxCartQty();
 
         if(this.querySelector('.product-title')) Utility.forceFocus(this.querySelector('.product-title'));
         this.closeBy = this.querySelector('.close-quickshop');

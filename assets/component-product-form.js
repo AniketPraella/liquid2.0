@@ -80,6 +80,8 @@ class ProductForm extends HTMLElement {
     let minQty = parseInt($qtyInput.min) || 1;
     let maxQty = parseInt($qtyInput.max) || 100;
     let currentVariantid = $qtyInput.getAttribute('currentVariantid');
+    let max_cart_qty = document.getElementById('max_cart_qty');
+    
     if(currentVariantid != null){
       let cartData = await getCart();
       let cartDataItems = cartData.items;
@@ -92,6 +94,13 @@ class ProductForm extends HTMLElement {
           }
         }
       })
+    }else if(max_cart_qty != null){
+      if(cartData.item_count >= max_cart_qty.value){
+        if(max_cart_qty.value <= maxQty){
+          maxQty = max_cart_qty.value - cartData.item_count;
+          console.log('abcd');
+        }
+      }
     }
 
     if(action == 'decrease' && currentQty <= minQty){
