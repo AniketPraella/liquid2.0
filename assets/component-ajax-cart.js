@@ -589,6 +589,12 @@ class AjaxCart extends HTMLElement {
           
         }
         
+      }else{
+        cartItems.forEach((item)=>{
+          if(Math.ceil(item.id) == Math.ceil(freeGiftVidSec.value)){
+            this.removeFreeGift(freeGiftVidSec.value);
+          }
+        })
       }
     }
 

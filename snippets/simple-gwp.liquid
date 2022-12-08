@@ -1,5 +1,7 @@
 <div>
+    {% if settings.enable_free_gift %}
     <input type="hidden" value="{{ cart.total_price | money_without_currency }}" id="cart_total_amount">
     <input type="hidden" value="{{ settings.free_gift_thresold }}" id="free_gift_thresold">
+    {% endif %}
     <input type="hidden" value="{{ settings.get_free_product.variants.first.id }}" id="free_gift_vid">
 </div>
