@@ -1355,7 +1355,9 @@ function cartGWP(){
         }
       }else{
         if(product.product_type != 'Gift Card'){
-          cartTotal = cartTotal + product.final_line_price;
+          console.log(cartTotal);
+          cartTotal = cartTotal + cart.total_price;
+          console.log(product.final_line_price);
         }
       }
     });      
@@ -1435,7 +1437,7 @@ function cartGWP(){
           console.log(error);
         }); 
     }else if(eligibleThreshould != null && eligibleFreeProduct != null && GWPGift == false){
-      theme.cart.addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligibleFreeProductJSON);
+      addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligibleFreeProductJSON);
     }
   }).catch((e) => {
     console.error(e);

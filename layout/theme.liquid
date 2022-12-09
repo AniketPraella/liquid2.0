@@ -168,35 +168,6 @@
       </script>
     {% endif %}
 
-    {%- render 'json-structured-data' -%}
-    {%- render 'json-swatches-colorlist' -%}
-    {%- render 'script-tags' -%}
-
-    {% if template.name != 'product' and template.name != 'cart' %}
-    <script type="text/javascript" defer>
-        (function manageDynamicCheckoutJS() {
-          let checkoutBtn = document.querySelector('#additional-checkout-buttons');
-          if (checkoutBtn != null) {
-            const onIntersection = (entries) => {
-              for (const entry of entries) {
-                if (entry.isIntersecting) {
-                  let checkoutScript = document.createElement('script');
-                  let paymentTarget = document.querySelector('[data-source-attribution="shopify.dynamic-checkout"]');
-                  checkoutScript.integrity = paymentTarget.getAttribute('integrity');
-                  checkoutScript.setAttribute('data-source-attribution', "shopify.dynamic-checkout");
-                  checkoutScript.src = paymentTarget.getAttribute('src');
-                  checkoutScript.setAttribute('crossorigin', "anonymous");
-                  document.head.appendChild(checkoutScript);
-                  observer.disconnect();
-                }
-              }
-            };
-            const observer = new IntersectionObserver(onIntersection);
-            observer.observe(checkoutBtn);
-          }
-        })();
-    </script>
-    {% endif %}
     {%- comment -%} Multitier GWP {%- endcomment -%}
       {% assign gwp_prod1 = all_products[settings.gwp_product_thr1_1] %}
       {% assign gwp_prod2 = all_products[settings.gwp_product_thr2_1] %}
@@ -228,5 +199,36 @@
         }
       </script>
     {%- comment -%} Multitier GWP END {%- endcomment -%}
+
+    {%- render 'json-structured-data' -%}
+    {%- render 'json-swatches-colorlist' -%}
+    {%- render 'script-tags' -%}
+
+    {% if template.name != 'product' and template.name != 'cart' %}
+    <script type="text/javascript" defer>
+        (function manageDynamicCheckoutJS() {
+          let checkoutBtn = document.querySelector('#additional-checkout-buttons');
+          if (checkoutBtn != null) {
+            const onIntersection = (entries) => {
+              for (const entry of entries) {
+                if (entry.isIntersecting) {
+                  let checkoutScript = document.createElement('script');
+                  let paymentTarget = document.querySelector('[data-source-attribution="shopify.dynamic-checkout"]');
+                  checkoutScript.integrity = paymentTarget.getAttribute('integrity');
+                  checkoutScript.setAttribute('data-source-attribution', "shopify.dynamic-checkout");
+                  checkoutScript.src = paymentTarget.getAttribute('src');
+                  checkoutScript.setAttribute('crossorigin', "anonymous");
+                  document.head.appendChild(checkoutScript);
+                  observer.disconnect();
+                }
+              }
+            };
+            const observer = new IntersectionObserver(onIntersection);
+            observer.observe(checkoutBtn);
+          }
+        })();
+    </script>
+    {% endif %}
+    
   </body>
 </html>
