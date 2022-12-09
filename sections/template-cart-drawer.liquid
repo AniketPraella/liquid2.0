@@ -11,6 +11,9 @@
 
                 <div class="row">
                     <form data-cart-form action="{{ routes.cart_url }}" method="post">
+                        {% if settings.max_cart_qty %}
+                            <input type="hidden" id="max_cart_qty" value="{{ settings.max_cart_qty }}" >
+                    {% endif %}
                         {% if cart.item_count > 0 %}
                             {% if settings.enable_shipping_bar %}
                                 <div class="col-12">
@@ -20,9 +23,7 @@
                             {% if settings.enable_free_shipping_bar %}
                                 {% render 'free-shipping-bar-above-cart' %}
                             {% endif %}
-                            {% if settings.max_cart_qty %}
-                            <input type="hidden" id="max_cart_qty" value="{{ settings.max_cart_qty }}" >
-                            {% endif %}
+                            
 
                             <div class="col-12">
                                 <div class="cart-header py-2 px-3 bg-gray-300">

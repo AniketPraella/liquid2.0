@@ -10,6 +10,7 @@ class AjaxCart extends HTMLElement {
   
       this.openeBy = drawerSelectors.cartIcons;
       this.isOpen =  this.classList.contains('open--drawer');
+      this.notifElement = document.querySelector('custom-notification');
       this.bindEvents();
       this.cartNoteInput();
       this.querySelectorAll('.close-ajax--cart').forEach(button => button.addEventListener('click', this.closeCartDrawer.bind(this)));
@@ -156,7 +157,7 @@ class AjaxCart extends HTMLElement {
      */
     _updateCart(response, action){
       this.setAttribute('updating', true);
-
+      this.maxCartQty();
       // Convert the HTML string into a document object
       let cartHTML = '';
       if(window.globalVariables.template != 'cart') {
@@ -188,7 +189,6 @@ class AjaxCart extends HTMLElement {
           div.classList.remove('d-none');
         });
       }
-      this.setAttribute('updating', false);
 
       let headerHTML = new DOMParser().parseFromString(response['header'], 'text/html');
       let cartIcon = headerHTML.getElementById('cart-icon-desktop');
@@ -203,6 +203,7 @@ class AjaxCart extends HTMLElement {
         this.maxproductpurchase(maxproductpurchase);
       }
       this.maxCartQty();
+      this.setAttribute('updating', false);
     }
 
     /**
@@ -233,7 +234,7 @@ class AjaxCart extends HTMLElement {
      * @param {string} line Line Index value of cart Item (Starts from 1)
      * @param {integer} quantity Quantity to update
      */
-    updateItemQty(line, quantity){
+    async updateItemQty(line, quantity){
         let lineItem = document.querySelectorAll('[data-cart-item]')[line-1];
 
         if(lineItem){ lineItem.classList.add('updating'); }
@@ -407,7 +408,7 @@ class AjaxCart extends HTMLElement {
      *
      * @param {event} Event instance
      */
-    manageQtyBtn(event){
+    async manageQtyBtn(event){
       event.preventDefault();
       let currentTarget = event.currentTarget;
       let action = currentTarget.dataset.for || 'increase';
@@ -441,6 +442,17 @@ class AjaxCart extends HTMLElement {
         }else if(action == 'increase' && currentQty >= maxQty){
           return false;
         }else{
+          let max_cart_qty_sec = document.getElementById('max_cart_qty');
+          if (max_cart_qty_sec != null){
+            let max_cart_qty = max_cart_qty_sec.value;
+            let cartData = await getCart();
+            let cartDataItems = cartData.item_count;
+            if(cartDataItems >= max_cart_qty){
+              this.notifElement.updateNotification('Message', 'Cart Max Limit Reached', {'type':'warning','timeout':'4000'});
+              console.log('working!');
+              return false;
+            }
+          }
             finalQty = currentQty + 1;
         }
         this.updateItemQty(itemIndex, finalQty);
@@ -599,7 +611,12 @@ class AjaxCart extends HTMLElement {
     }
 
     async maxCartQty(){
-      let max_cart_qty = document.getElementById('max_cart_qty').value;
+      let max_cart_qty_sec = document.getElementById('max_cart_qty');
+      let max_cart_qty = null;
+      if(max_cart_qty_sec !=  null){
+        max_cart_qty = max_cart_qty_sec.value;
+        console.log(max_cart_qty);
+      }
       let addBtn = document.querySelectorAll('[name="add"]');
       let qtyBtn = document.querySelectorAll('[data-for="increase"]');
       let cartData = await getCart();
@@ -678,6 +695,18 @@ async function removeitemrandom(randno){
 }
 */
 
+async function handleMaxQtyCart(){
+  let max_cart_qty_sec = document.getElementById('max_cart_qty');
+  if (max_cart_qty_sec != null){
+    let max_cart_qty = max_cart_qty_sec.value;
+    let cartData = await getCart();
+    let cartDataItems = cartData.item_count;
+    if(cartDataItems >= max_cart_qty){
+      console.log('working!')
+      return false;
+    }
+  }
+}
 
 async function getCart() {
   const result = await fetch("/cart.js");

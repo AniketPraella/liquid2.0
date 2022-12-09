@@ -8,6 +8,7 @@ class ProductForm extends HTMLElement {
     this.form = this.querySelector('form');
     this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
     this.cartElement = document.querySelector('ajax-cart');
+    this.notifElement = document.querySelector('custom-notification');
 
     this.qtyBtns = this.querySelectorAll('[data-qty-btn]');
     this.qtyBtns.forEach(qtyBtn => qtyBtn.addEventListener('click', this.manageQtyBtn.bind(this)));
@@ -18,14 +19,27 @@ class ProductForm extends HTMLElement {
    *
    * @param {evt} Event instance
    */
-  onSubmitHandler(evt) {
+  async onSubmitHandler(evt) {
     evt.preventDefault();
     const addItems = [];
     const submitButton = this.querySelector('[type="submit"]');
     const qtyInput = this.querySelector('[data-qty-input]');
     const pdpContainer = this.closest('.product-details-wrapper');
-
+    
     submitButton.setAttribute('disabled', true);
+    let max_cart_qty_sec = document.getElementById('max_cart_qty');
+    if (max_cart_qty_sec != null){
+      let max_cart_qty = max_cart_qty_sec.value;
+      let cartData = await getCart();
+      let cartDataItems = cartData.item_count;
+      if(cartDataItems >= max_cart_qty){
+        this.cartElement.getCartData();
+        this.notifElement.updateNotification('Message', 'Cart Max Limit Reached', {'type':'warning','timeout':'4000'});
+        console.log('working!');
+        submitButton.removeAttribute('disabled', true);
+        return false;
+      }
+    }
     submitButton.classList.add('loading');
 
     addItems.push(JSON.parse(serializeForm(this.form)))
@@ -81,9 +95,9 @@ class ProductForm extends HTMLElement {
     let maxQty = parseInt($qtyInput.max) || 100;
     let currentVariantid = $qtyInput.getAttribute('currentVariantid');
     let max_cart_qty = document.getElementById('max_cart_qty');
+    let cartData = await getCart();
     
     if(currentVariantid != null){
-      let cartData = await getCart();
       let cartDataItems = cartData.items;
       cartDataItems.forEach(item =>{
         if(item.id == currentVariantid){
@@ -95,11 +109,11 @@ class ProductForm extends HTMLElement {
         }
       })
     }else if(max_cart_qty != null){
-      if(cartData.item_count >= max_cart_qty.value){
-        if(max_cart_qty.value <= maxQty){
+      if(cartData.item_count <= max_cart_qty.value){
           maxQty = max_cart_qty.value - cartData.item_count;
+          this.cartElement.maxCartQty();
+          this.cartElement.getCartData();
           console.log('abcd');
-        }
       }
     }
 
@@ -108,6 +122,7 @@ class ProductForm extends HTMLElement {
     }else if(action == 'decrease'){
         finalQty = currentQty - 1;
     }else if(action == 'increase' && currentQty >= maxQty){
+      this.notifElement.updateNotification('Message', 'Cart Max Limit Reached', {'type':'warning','timeout':'4000'});
         return false;
     }else{
         finalQty = currentQty + 1;

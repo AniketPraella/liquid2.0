@@ -27,6 +27,9 @@
             </div>
 
             <div class="row">
+                {% if settings.max_cart_qty %}
+                            <input type="hidden" id="max_cart_qty" value="{{ settings.max_cart_qty }}" >
+                {% endif %}
                 <form data-cart-form action="{{ routes.cart_url }}" method="post">
                     {% if cart.item_count > 0 %}
                         {% if settings.enable_shipping_bar %}
