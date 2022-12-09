@@ -199,7 +199,7 @@ class AjaxCart extends HTMLElement {
           this.openCartDrawer();
       }
       this.addFreeGiftfunc();
-
+      cartGWP();
     }
 
     /**
