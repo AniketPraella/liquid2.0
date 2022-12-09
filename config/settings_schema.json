@@ -1338,6 +1338,84 @@
     ]
   },
   {
+    "name": "MultiTier Gift With Purchase",
+    "settings": [
+        {
+            "type": "header",
+            "content": "General Details"
+        },
+        {
+            "type": "checkbox",
+            "id": "is_gwp_enabled",
+            "label": "Enable?",
+            "default": false
+        },
+        {
+            "type": "header",
+            "content": "Upsell Tier 1"
+        },
+        {
+            "type": "checkbox",
+            "id": "is_gwp_1_enabled",
+            "label": "Enable?",
+            "default": true
+        },
+        {
+            "type": "text",
+            "id": "gwp_qualifier_minimum_cart_amount_1",
+            "label": "Tier 1 - Set Min. Cart Amount",
+            "info": "E.g. 100.00"
+        },
+        {
+            "type": "product",
+            "id": "gwp_product_thr1_1",
+            "label": "Select Gift product"
+        },
+        {
+            "type": "header",
+            "content": "Upsell Tier 2"
+        },
+        {
+            "type": "checkbox",
+            "id": "is_gwp_2_enabled",
+            "label": "Enable?",
+            "default": false
+        },
+        {
+            "type": "text",
+            "id": "gwp_qualifier_minimum_cart_amount_2",
+            "label": "Tier 2 - Set Min. Cart Amount",
+            "info": "E.g. 150.00"
+        },
+        {
+            "type": "product",
+            "id": "gwp_product_thr2_1",
+            "label": "Select Gift product"
+        },
+        {
+            "type": "header",
+            "content": "Upsell Tier 3"
+        },
+        {
+            "type": "checkbox",
+            "id": "is_gwp_3_enabled",
+            "label": "Enable?",
+            "default": false
+        },
+        {
+            "type": "text",
+            "id": "gwp_qualifier_minimum_cart_amount_3",
+            "label": "Tier 3 - Set Min. Cart Amount",
+            "info": "E.g. 250.00"
+        },
+        {
+            "type": "product",
+            "id": "gwp_product_thr3_1",
+            "label": "Select Gift product"
+        }
+    ]
+  },
+  {
     "name": "Login Helper",
     "settings": [
       {
