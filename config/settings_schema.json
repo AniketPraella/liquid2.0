@@ -1315,6 +1315,45 @@
     ]
   },
   {
+    "name": "Gift With Purchase",
+    "settings": [
+      {
+        "type": "header",
+        "content": "General Details"
+      },
+      {
+        "type": "checkbox",
+        "id": "is_gwp_enabled",
+        "label": "Enable?",
+        "default": false
+      },
+      {
+        "type": "paragraph",
+        "content": "Qualifier Settings"
+      },
+      {
+        "type": "collection",
+        "id": "gwp_collection1",
+        "label": "Select Collection"
+      },
+      {
+        "type": "collection",
+        "id": "gwp_collection2",
+        "label": "Select Collection"
+      },
+      {
+        "type": "collection",
+        "id": "gwp_collection3",
+        "label": "Select Collection"
+      },
+      {
+        "type": "product",
+        "id": "gwp_gift",
+        "label": "Select Gift product"
+      }
+    ]
+  },
+  {
     "name": "Login Helper",
     "settings": [
       {
