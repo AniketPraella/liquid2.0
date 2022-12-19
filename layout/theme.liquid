@@ -177,8 +177,8 @@
             "enable": "{{ settings.is_gwp_enabled | json }}",           
             "threashould_1": {
                 "enable": {{ settings.is_gwp_1_enabled | json }},
-                "amount": {{ settings.gwp_qualifier_minimum_cart_amount_1 | times: 100 }},
-                "original_amount": {{  settings.gwp_qualifier_minimum_cart_amount_1 | plus: 0 | json }},
+                "amount": {{ settings.gwp_qualifier_minimum_cart_amount_1 | plus: 0 | times: 100 | round }},
+                "original_amount": {{  settings.gwp_qualifier_minimum_cart_amount_1 | plus: 0 | round | json }},
                 "gwp_pro": {% if gwp_prod1 %}{{ gwp_prod1.selected_or_first_available_variant.id | json }}{% else %}''{% endif %},
                 "gwp_pro_JSON": {% if gwp_prod1 %}{{ gwp_prod1 | json }}{% else %}''{% endif %}
             },
