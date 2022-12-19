@@ -11987,3 +11987,5 @@ input[type="range"]::-moz-range-thumb{
     width: 40px;
     text-align: right;
 }
+
+.mw-300{max-width:300px;}
