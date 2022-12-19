@@ -1286,7 +1286,7 @@ function addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligi
   document.querySelector('[data-freeGift]').style.display = 'block';
   document.querySelector('[data-addFreeItem]').addEventListener('click', function(event){
     event.preventDefault();
-    let varID = document.querySelector(this).getAttribute('data-addid');
+    let varID = event.currentTarget.getAttribute('data-addid');
     let properties = {
       product_type: 'GWP Gift',
       spend_over: originalThreshouldAmount
