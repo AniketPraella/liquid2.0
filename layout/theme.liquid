@@ -184,15 +184,15 @@
             },
             "threashould_2": {
                 "enable": {{ settings.is_gwp_2_enabled | json }},
-                "amount": {{ settings.gwp_qualifier_minimum_cart_amount_2 | plus: 0 | times: 100 }},
-                "original_amount": {{  settings.gwp_qualifier_minimum_cart_amount_2 | plus: 0 | json }},
+                "amount": {{ settings.gwp_qualifier_minimum_cart_amount_2 | plus: 0 | times: 100 | round }},
+                "original_amount": {{  settings.gwp_qualifier_minimum_cart_amount_2 | plus: 0 | round | json }},
                 "gwp_pro": {% if gwp_prod2 %}{{ gwp_prod2.selected_or_first_available_variant.id | json }}{% else %}''{% endif %},
                 "gwp_pro_JSON": {% if gwp_prod2 %}{{ gwp_prod2 | json }}{% else %}''{% endif %}
             },
             "threashould_3": {
                 "enable": {{ settings.is_gwp_3_enabled | json }},
-                "amount": {{ settings.gwp_qualifier_minimum_cart_amount_3 | plus: 0 | times: 100 }},
-                "original_amount": {{  settings.gwp_qualifier_minimum_cart_amount_3 | plus: 0 | json }},
+                "amount": {{ settings.gwp_qualifier_minimum_cart_amount_3 | plus: 0 | times: 100 | round }},
+                "original_amount": {{  settings.gwp_qualifier_minimum_cart_amount_3 | plus: 0 | round | json }},
                 "gwp_pro": {% if gwp_prod3 %}{{ gwp_prod3.selected_or_first_available_variant.id | json }}{% else %}''{% endif %},
                 "gwp_pro_JSON": {% if gwp_prod3 %}{{ gwp_prod3 | json }}{% else %}''{% endif %}
             }
