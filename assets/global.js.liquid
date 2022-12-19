@@ -1360,19 +1360,19 @@ function cartGWP(){
   
     //Check for Eligible offer for Cart
     if(GWP.enable == 'true'){
-      if(GWP.threashould_3['enable'] == true && cartTotal >= GWP.threashould_3['amount']){
+      if(GWP.threashould_3['enable'] == true && Math.ceil(cartTotal) >= Math.ceil(GWP.threashould_3['amount'])){
         eligibleThreshould = 3;
         eligibleFreeProduct = GWP.threashould_3['gwp_pro'];
         finalThreshouldAmount = GWP.threashould_3['amount'];            
         eligibleFreeProductJSON = GWP.threashould_3['gwp_pro_JSON']; 
         originalThreshouldAmount = GWP.threashould_3['original_amount'];
-      }else if(GWP.threashould_2['enable'] == true && cartTotal >= GWP.threashould_2['amount']){
+      }else if(GWP.threashould_2['enable'] == true && Math.ceil(cartTotal) >= Math.ceil(GWP.threashould_2['amount'])){
         eligibleThreshould = 2;
         eligibleFreeProduct = GWP.threashould_2['gwp_pro'];
         finalThreshouldAmount = GWP.threashould_2['amount'];            
         eligibleFreeProductJSON = GWP.threashould_2['gwp_pro_JSON'];    
         originalThreshouldAmount = GWP.threashould_2['original_amount'];
-      }else if(GWP.threashould_1['enable'] == true && cartTotal >= GWP.threashould_1['amount']){
+      }else if(GWP.threashould_1['enable'] == true && Math.ceil(cartTotal) >= Math.ceil(GWP.threashould_1['amount'])){
         eligibleThreshould = 1;
         eligibleFreeProduct = GWP.threashould_1['gwp_pro'];
         finalThreshouldAmount = GWP.threashould_1['amount'];            
