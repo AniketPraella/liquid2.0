@@ -1388,7 +1388,7 @@ function cartGWP(){
             return data.text();
         })
         .then((_state) => {
-          document.querySelector('body').dispatchEvent(new Event('update.cartHTML'));
+          document.querySelector('ajax-cart').getCartData();
         }).catch((error) => {
           console.log(error);
         });
@@ -1398,7 +1398,7 @@ function cartGWP(){
             return data.text();
         })
         .then((_state) => {
-          document.querySelector('body').dispatchEvent(new Event('update.cartHTML'));
+          document.querySelector('ajax-cart').getCartData();
           setTimeout(function(){
             addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligibleFreeProductJSON);
           }, 1000); 
@@ -1411,7 +1411,7 @@ function cartGWP(){
             return data.text();
         })
         .then((_state) => {
-          document.querySelector('body').dispatchEvent(new Event('update.cartHTML'));
+          document.querySelector('ajax-cart').getCartData();
           setTimeout(function(){
             addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligibleFreeProductJSON);
           }, 1000); 
@@ -1425,7 +1425,7 @@ function cartGWP(){
             return data.text();
         })
         .then((_state) => {
-          document.querySelector('body').dispatchEvent(new Event('update.cartHTML'));
+          document.querySelector('ajax-cart').getCartData();
           setTimeout(function(){
             addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligibleFreeProductJSON);
           }, 1000); 
