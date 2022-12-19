@@ -1298,7 +1298,7 @@ function addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligi
       properties: properties
     }
 
-    fetch(`${routes.cart_add_url}`, { ...fetchConfig(), data })
+    fetch(`${routes.cart_add_url}`, { ...fetchConfig(), body: JSON.stringify(data) })
       .then((response) => response.json())
       .then(() => {
         if(document.querySelector('body').getAttribute('data-template') == 'cart'){
