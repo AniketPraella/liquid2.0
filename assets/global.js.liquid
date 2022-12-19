@@ -1304,7 +1304,7 @@ function addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligi
         if(document.querySelector('body').getAttribute('data-template') == 'cart'){
           location.href = '/cart';
         }else{
-          document.querySelector('body').dispatchEvent(new Event('update.cartHTML'));
+          document.querySelector('ajax-cart').getCartData('open_drawer');
         }
       })
       .catch((e) => {
