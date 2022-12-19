@@ -1387,7 +1387,7 @@ function cartGWP(){
   
     var removeProduct = 'line='+ existedFreeProductLine + '&quantity=0';        
     if((GWP == undefined || eligibleThreshould == null) && GWPGift == true) {
-      fetch(`${routes.cart_change_url}`, { ...fetchConfig(), ...{ removeProduct }})
+      fetch(`${routes.cart_change_url}`, { ...fetchConfig(), body: JSON.stringify(removeProduct)})
         .then((data) => {
             return data.text();
         })
@@ -1397,7 +1397,7 @@ function cartGWP(){
           console.log(error);
         });
     }else if(threashouldValue != null && threashouldValue != eligibleThreshould && eligibleFreeProduct != null){
-      fetch(`${routes.cart_change_url}`, { ...fetchConfig(), ...{ removeProduct }})
+      fetch(`${routes.cart_change_url}`, { ...fetchConfig(), body: JSON.stringify(removeProduct)})
         .then((data) => {
             return data.text();
         })
@@ -1410,7 +1410,7 @@ function cartGWP(){
           console.log(error);
         });          
     }else if(existedFreeProduct != null && existedFreeProduct != eligibleFreeProduct){
-      fetch(`${routes.cart_change_url}`, { ...fetchConfig(), ...{ removeProduct }})
+      fetch(`${routes.cart_change_url}`, { ...fetchConfig(), body: JSON.stringify(removeProduct)})
         .then((data) => {
             return data.text();
         })
@@ -1424,7 +1424,7 @@ function cartGWP(){
         }); 
     }else if(updateQty == true){
       var updateProduct = 'line='+ existedFreeProductLine + '&quantity=1';
-      fetch(`${routes.cart_change_url}`, { ...fetchConfig(), ...{ updateProduct }})
+      fetch(`${routes.cart_change_url}`, { ...fetchConfig(), body: JSON.stringify(updateProduct)})
         .then((data) => {
             return data.text();
         })
