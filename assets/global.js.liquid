@@ -1301,11 +1301,7 @@ function addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligi
     fetch(`${routes.cart_add_url}`, { ...fetchConfig(), body: JSON.stringify(data) })
       .then((response) => response.json())
       .then(() => {
-        if(document.querySelector('body').getAttribute('data-template') == 'cart'){
-          location.href = '/cart';
-        }else{
-          document.querySelector('ajax-cart').getCartData('open_drawer');
-        }
+          document.querySelector('ajax-cart').getCartData();
       })
       .catch((e) => {
         console.error(e);
