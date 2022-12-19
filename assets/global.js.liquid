@@ -1273,7 +1273,7 @@ function addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligi
   }
   let freeProductHTML = '';
   freeProductHTML += '<div class="gift_prod_heading">'
-            + '<div class="general-text">You are eligible for Free Gift for spent over '+finalThreshouldAmount+'</div>'
+            + '<div class="general-text">You are eligible for Free Gift for spent over '+window.globalVariables.money_format+finalThreshouldAmount+'</div>'
           + '</div>'
           + '<div class="gift_prod_details grid"><div class="gift_prod_img grid__item one-third"><a href="/products/'+eligibleFreeProductJSON.handle+'" class="gift_prod_imgwrapper ajaxcart__product-image">'
                   + '<img class="gift_img" src="'+eligibleFreeProductJSON.featured_image+'" /></a> </div>'
