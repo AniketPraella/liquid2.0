@@ -1273,12 +1273,12 @@ function addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligi
   }
   let freeProductHTML = '';
   freeProductHTML += '<div class="gift_prod_heading">'
-            + '<div class="general-text">You are eligible for Free Gift for spent over '+Shopify.formatMoney(finalThreshouldAmount, theme.settings.moneyFormat)+'</div>'
+            + '<div class="general-text">You are eligible for Free Gift for spent over '+Shopify.formatMoney(finalThreshouldAmount, '$')+'</div>'
           + '</div>'
           + '<div class="gift_prod_details grid"><div class="gift_prod_img grid__item one-third"><a href="/products/'+eligibleFreeProductJSON.handle+'" class="gift_prod_imgwrapper ajaxcart__product-image">'
                   + '<img class="gift_img" src="'+eligibleFreeProductJSON.featured_image+'" /></a> </div>'
                   + '<div class="gift_prod_content grid__item two-thirds"><a href="/products/'+eligibleFreeProductJSON.handle+'" class="ajaxcart__product-name">'+eligibleFreeProductJSON.title+'</a>'
-          + '<p class="gift_prod_price"><span class="orgi_price ajaxcart__price">$0 | <del>'+Shopify.formatMoney(eligibleFreeProductJSON.price, theme.settings.moneyFormat)+'</del></span>'
+          + '<p class="gift_prod_price"><span class="orgi_price ajaxcart__price">$0 | <del>'+Shopify.formatMoney(eligibleFreeProductJSON.price, '$')+'</del></span>'
                   + '<button type="button" name="add" class="btn add-to-cart" data-addID="'+eligibleFreeProductJSON.variants[0].id+'" data-addFreeItem><span>Add to cart</span></button>'
           + '</p></div></div>';
 
