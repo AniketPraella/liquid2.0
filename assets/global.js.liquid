@@ -1404,7 +1404,7 @@ function cartGWP(){
         .then((_state) => {
           document.querySelector('body').dispatchEvent(new Event('update.cartHTML'));
           setTimeout(function(){
-            theme.cart.addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligibleFreeProductJSON);
+            addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligibleFreeProductJSON);
           }, 1000); 
         }).catch((error) => {
           console.log(error);
@@ -1417,7 +1417,7 @@ function cartGWP(){
         .then((_state) => {
           document.querySelector('body').dispatchEvent(new Event('update.cartHTML'));
           setTimeout(function(){
-            theme.cart.addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligibleFreeProductJSON);
+            addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligibleFreeProductJSON);
           }, 1000); 
         }).catch((error) => {
           console.log(error);
@@ -1431,7 +1431,7 @@ function cartGWP(){
         .then((_state) => {
           document.querySelector('body').dispatchEvent(new Event('update.cartHTML'));
           setTimeout(function(){
-            theme.cart.addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligibleFreeProductJSON);
+            addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligibleFreeProductJSON);
           }, 1000); 
         }).catch((error) => {
           console.log(error);
