@@ -1265,12 +1265,13 @@ customElements.define("custom-countdown", Countdown);
         fetch('/cart?view=extra').then(response => {
             return response.json();
           }).then(response => {
+            finalResponse = JSON.parse(response.json());
           }).catch((e) => {
               console.error(e);
           }).finally(() => {
               // Cart HTML fetch done
           });
-      return response.json();
+      return finalResponse;
     }
 
     // 2) Gift Add/Remove function
