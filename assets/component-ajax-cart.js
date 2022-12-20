@@ -615,7 +615,7 @@ async function getCart() {
       const result = await fetch("/cart?view=extra");
 
       if (result.status === 200) {
-        finalResponse = result.json;
+        finalResponse = JSON.parse(result.json());
           return finalResponse;
       }
     
