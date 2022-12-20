@@ -1266,6 +1266,7 @@ customElements.define("custom-countdown", Countdown);
             return response.json();
           }).then(response => {
             finalResponse = JSON.parse(response);
+          console.log('finalResponse', finalResponse)
           }).catch((e) => {
               console.error(e);
           }).finally(() => {
