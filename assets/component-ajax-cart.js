@@ -637,7 +637,7 @@ async function getCart() {
             console.error(e);
           })
         }else{
-          fetch(`${routes.cart_change_url}`, { ...fetchConfig(), body: JSON.stringify(data)})
+          fetch(`${routes.cart_change_url}`, { ...fetchConfig(), body: JSON.stringify(items)})
           .then((data) => {
               return data.text();
           })
