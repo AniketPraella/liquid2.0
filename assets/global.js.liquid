@@ -1262,23 +1262,19 @@ customElements.define("custom-countdown", Countdown);
 // 1) Get calculated data from alternative cart template
     function cartJSON() {
         let finalResponse;
-            $.ajax({
-                url: '/cart?view=extra',
-                type: "GET",
-                async: false,
-                success: function(response) {
-                if(response.indexOf('<!-- BEGIN template -->') > -1){
+        fetch('/cart?view=extra').then(response => {
+            return response.json();
+          }).then(response => {
+              if(response.indexOf('<!-- BEGIN template -->') > -1){
                     finalResponse = {};
                 }else{
                     finalResponse = JSON.parse(response);
                 }
-            },
-            error: function(jqxhr, textStatus, error) {
-                var err;
-                err = textStatus + ', ' + error;
-                console.log('search.json Request Failed: ' + err);
-            }
-        });
+          }).catch((e) => {
+              console.error(e);
+          }).finally(() => {
+              // Cart HTML fetch done
+          });
       
         return finalResponse;
     }
