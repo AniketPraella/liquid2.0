@@ -1,0 +1,39 @@
+    {% layout none %}
+    {%- assign cartEligibleQty = 0 -%}
+    {%- assign freeGift = all_products[settings.gwp_gift] -%}
+    {%- assign freeGiftFound = null -%}
+    {%- assign existedFreeGift = null -%}
+    {%- assign updateFreeItem = false -%}
+    {%- assign collection1 = collections[settings.gwp_collection1].id -%}
+    {%- assign collection2 = collections[settings.gwp_collection2].id -%}
+    {%- assign collection3 = collections[settings.gwp_collection3].id -%}
+    {%- for item in cart.items -%}
+        {% assign foundMactch = false %}
+        {%- if item.properties and item.properties['product_type'] == 'GWP Gift' -%}
+            {%- assign freeGiftFound = forloop.index -%}
+            {%- assign existedFreeGift = item -%}
+        {% endif %}
+        {%- for collection in item.product.collections -%}
+            {% unless item.properties['product_type'] == 'GWP Gift' %}
+            {%- if foundMactch == false and collection.id == collection1 or collection.id == collection2 or collection.id == collection3 %}
+                {%- assign cartEligibleQty  = cartEligibleQty | plus: item.quantity -%}
+                {% assign foundMactch = true %}
+            {%- endif -%}
+            {% endunless %}
+        {%- endfor -%}
+    {% endfor %}
+    {%- assign modulo = cartEligibleQty | divided_by: 3 -%}
+    {%- if freeGiftFound != null and existedFreeGift.quantity != modulo -%}
+        {%- assign updateFreeItem = true -%}
+    {%- endif -%}
+    { 
+        "enable_gwp": {{ settings.is_gwp_enabled | json }},
+        "original_total_price": {{ cart.original_total_price | json }},
+        "total_price": {{ cart.total_price | json }},
+        "items_subtotal_price": {{ cart.items_subtotal_price | json }},
+        "cartEligibleQty": {{ cartEligibleQty | json }},
+        "freeGift": {{ freeGift | json }},
+        "freeGiftFound": {{ freeGiftFound | json }},
+        "freeGiftEligibleQty": {{ modulo | json }},
+        "updateFreeItem" : {{ updateFreeItem | json }}
+    }

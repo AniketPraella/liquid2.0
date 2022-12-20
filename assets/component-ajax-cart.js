@@ -12,6 +12,7 @@ class AjaxCart extends HTMLElement {
       this.isOpen =  this.classList.contains('open--drawer');
       this.bindEvents();
       this.cartNoteInput();
+      calculateFreeGift();
       this.querySelectorAll('.close-ajax--cart').forEach(button => button.addEventListener('click', this.closeCartDrawer.bind(this)));
       
       if(window.globalVariables.template != 'cart'){
@@ -196,6 +197,7 @@ class AjaxCart extends HTMLElement {
       if(window.globalVariables.cart_drawer && action == 'open_drawer' && window.globalVariables.template != 'cart'){
           this.openCartDrawer();
       }
+      calculateFreeGift();
     }
 
     /**
@@ -606,3 +608,78 @@ async function getCart() {
 
   throw new Error(`Failed to get request, Shopify returned ${result.status} ${result.statusText}`);
 }
+
+// 1) Get calculated data from alternative cart template
+    async function cartJson() {
+        let finalResponse;
+      const result = await fetch("/cart?view=extra");
+
+      if (result.status === 200) {
+        finalResponse = result.json();
+          return finalResponse;
+      }
+    
+      throw new Error(`Failed to get request, Shopify returned ${result.status} ${result.statusText}`);
+    }
+
+    // 2) Gift Add/Remove function
+    function manageCartAction(action, items) {
+      var data = {
+          items: items
+        }
+        if(action == 'add'){
+          fetch(`${routes.cart_add_url}`, { ...fetchConfig(), body: JSON.stringify(data) })
+          .then((response) => response.json())
+          .then(() => {
+              document.querySelector('ajax-cart').getCartData();
+          })
+          .catch((e) => {
+            console.error(e);
+          })
+        }else{
+          fetch(`${routes.cart_change_url}`, { ...fetchConfig(), body: JSON.stringify(items)})
+          .then((data) => {
+              return data.text();
+          })
+          .then((_state) => {
+            document.querySelector('ajax-cart').getCartData();
+          }).catch((error) => {
+            console.log(error);
+          });
+        }
+    }
+
+    // 3) Final Calculative Function
+    // Run this function on page load and Cart Update
+    async function calculateFreeGift() {
+        let cartJSON = await cartJson();
+            if(cartJSON == undefined){
+                cartJSON = {};
+            }
+            let addProductsArray = [];
+            let updateGiftFound = false;
+            let GWPaddPropertie = {
+                "product_type": "GWP Gift"
+            }
+            if((cartJSON.enable_gwp == false || cartJSON.freeGiftEligibleQty <= 0 || cartJSON.total_price <= 0) && cartJSON.freeGiftFound != null){
+            let removeData = {
+                line: cartJSON.freeGiftFound,
+                quantity: 0
+            }
+            manageCartAction('update', removeData);
+            }else if(cartJSON.enable_gwp == true && cartJSON.updateFreeItem == true){
+            let updateData = {
+                line: cartJSON.freeGiftFound,
+                quantity: cartJSON.freeGiftEligibleQty
+            }
+            manageCartAction('update', updateData);
+            }else if(cartJSON.enable_gwp == true && cartJSON.freeGift && cartJSON.freeGiftFound == null && cartJSON.freeGiftEligibleQty > 0 && cartJSON.freeGift.available == true){
+            let addProObject = {
+                quantity: cartJSON.freeGiftEligibleQty,
+                id: cartJSON.freeGift.variants[0].id,
+                properties: GWPaddPropertie
+            }
+            addProductsArray.push(addProObject);
+            manageCartAction('add', addProductsArray);
+        }
+    }
