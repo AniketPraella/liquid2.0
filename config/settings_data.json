@@ -24,6 +24,8 @@
     "free_shipping_txt": "Congratulations! You get free shipping.",
     "free_shipping_left": "You are ${addMoreForFreeShip} away from free shipping!",
     "enable_free_shipping_bar": false,
+    "is_gwp_enabled": true,
+    "gwp_gift": "ocean-blue-shirt",
     "enable_login_helper": false,
     "account_not_found": "Account not found.",
     "account_enable": "Account enabled.",
