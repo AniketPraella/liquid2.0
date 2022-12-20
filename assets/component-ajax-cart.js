@@ -624,8 +624,11 @@ async function getCart() {
 
     // 2) Gift Add/Remove function
     function manageCartAction(action, items) {
+      var data = {
+          items: items
+        }
         if(action == 'add'){
-          fetch(`${routes.cart_add_url}`, { ...fetchConfig(), body: JSON.stringify('items':items) })
+          fetch(`${routes.cart_add_url}`, { ...fetchConfig(), body: JSON.stringify(data) })
           .then((response) => response.json())
           .then(() => {
               document.querySelector('ajax-cart').getCartData();
@@ -634,7 +637,7 @@ async function getCart() {
             console.error(e);
           })
         }else{
-          fetch(`${routes.cart_change_url}`, { ...fetchConfig(), body: JSON.stringify(items)})
+          fetch(`${routes.cart_change_url}`, { ...fetchConfig(), body: JSON.stringify(data)})
           .then((data) => {
               return data.text();
           })
