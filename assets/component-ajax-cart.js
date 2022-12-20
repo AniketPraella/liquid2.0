@@ -153,7 +153,7 @@ class AjaxCart extends HTMLElement {
      * @param {string} cartHTML String formatted response from fetch cart.js call
      * @param {string} action Open Drawer as value if need to Open Cart drawer
      */
-    async _updateCart(response, action){
+    _updateCart(response, action){
       this.setAttribute('updating', true);
 
       // Convert the HTML string into a document object
@@ -197,7 +197,7 @@ class AjaxCart extends HTMLElement {
       if(window.globalVariables.cart_drawer && action == 'open_drawer' && window.globalVariables.template != 'cart'){
           this.openCartDrawer();
       }
-      await calculateFreeGift();
+      async function(){await calculateFreeGift();}
     }
 
     /**
