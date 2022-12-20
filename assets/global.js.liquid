@@ -1263,7 +1263,7 @@ customElements.define("custom-countdown", Countdown);
     function cartJSON() {
         let finalResponse;
         fetch('/cart?view=extra').then(response => {
-            return JSON.parse(response);
+            return response.json();
           }).then(response => {
               if(response.indexOf('<!-- BEGIN template -->') > -1){
                     finalResponse = {};
