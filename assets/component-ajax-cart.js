@@ -12,7 +12,7 @@ class AjaxCart extends HTMLElement {
       this.isOpen =  this.classList.contains('open--drawer');
       this.bindEvents();
       this.cartNoteInput();
-      await calculateFreeGift();
+      async ()=>{await calculateFreeGift();}
       this.querySelectorAll('.close-ajax--cart').forEach(button => button.addEventListener('click', this.closeCartDrawer.bind(this)));
       
       if(window.globalVariables.template != 'cart'){
