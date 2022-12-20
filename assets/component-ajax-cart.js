@@ -625,7 +625,7 @@ async function getCart() {
     // 2) Gift Add/Remove function
     function manageCartAction(action, items) {
         if(action == 'add'){
-          fetch(`${routes.cart_add_url}`, { ...fetchConfig(), body: JSON.stringify(items) })
+          fetch(`${routes.cart_add_url}`, { ...fetchConfig(), body: JSON.stringify('items':items) })
           .then((response) => response.json())
           .then(() => {
               document.querySelector('ajax-cart').getCartData();
