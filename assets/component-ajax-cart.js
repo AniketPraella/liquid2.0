@@ -649,7 +649,7 @@ async function getCart() {
     // 3) Final Calculative Function
     // Run this function on page load and Cart Update
     async function calculateFreeGift() {
-        let cartJSON = await getCart();
+        let cartJSON = await cartJSON();
             if(cartJSON == undefined){
                 cartJSON = {};
             }
