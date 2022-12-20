@@ -610,7 +610,7 @@ async function getCart() {
 }
 
 // 1) Get calculated data from alternative cart template
-    async function cartJSON() {
+    async function cartJson() {
         let finalResponse;
       const result = await fetch("/cart?view=extra");
 
@@ -649,7 +649,7 @@ async function getCart() {
     // 3) Final Calculative Function
     // Run this function on page load and Cart Update
     async function calculateFreeGift() {
-        let cartJSON = await cartJSON();
+        let cartJSON = await cartJson();
             if(cartJSON == undefined){
                 cartJSON = {};
             }
