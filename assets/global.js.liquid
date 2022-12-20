@@ -1265,10 +1265,10 @@ customElements.define("custom-countdown", Countdown);
         fetch('/cart?view=extra').then(response => {
             return response.json();
           }).then(response => {
-              if(response.indexOf('<!-- BEGIN template -->') > -1){
+              if(response.json.indexOf('<!-- BEGIN template -->') > -1){
                     finalResponse = {};
                 }else{
-                    finalResponse = JSON.parse(response);
+                    finalResponse = JSON.parse(response.json);
                 }
           }).catch((e) => {
               console.error(e);
