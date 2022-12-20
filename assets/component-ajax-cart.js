@@ -610,19 +610,16 @@ async function getCart() {
 }
 
 // 1) Get calculated data from alternative cart template
-    function cartJSON() {
+    async function cartJSON() {
         let finalResponse;
-        fetch('/cart?view=extra').then(response => {
-            return response.json();
-          }).then(response => {
-            finalResponse = response;
-          console.log('finalResponse', finalResponse)
-          }).catch((e) => {
-              console.error(e);
-          }).finally(() => {
-              // Cart HTML fetch done
-          });
-      return finalResponse;
+      const result = await fetch("/cart?view=extra");
+
+      if (result.status === 200) {
+        finalResponse = JSON.parse(result.json());
+          return finalResponse;
+      }
+    
+      throw new Error(`Failed to get request, Shopify returned ${result.status} ${result.statusText}`);
     }
 
     // 2) Gift Add/Remove function
