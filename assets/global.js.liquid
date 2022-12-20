@@ -1305,8 +1305,8 @@ customElements.define("custom-countdown", Countdown);
 
     // 3) Final Calculative Function
     // Run this function on page load and Cart Update
-    function calculateFreeGift() {
-        let cartJSON = cartJSON();
+    async function calculateFreeGift() {
+        let cartJSON = await cartJSON();
             if(cartJSON == undefined){
                 cartJSON = {};
             }
