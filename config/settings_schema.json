@@ -1315,6 +1315,29 @@
     ]
   },
   {
+    "name": "Free Gift",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_free_gift",
+        "label": "Enable Free Gift"
+      },
+      {
+        "type": "text",
+        "id": "free_gift_thresold",
+        "label": "Free Gift Thresold",
+        "default": "150.00",
+        "info": "Use value without Money format. Ex: 150.00 for $150"
+      },
+      {
+        "type": "product",
+        "id": "get_free_product",
+        "label": "Free Product",
+        "info": "When Customer is Eligible for Free Gift, Product Automaticallty Added to Cart."
+      }
+    ]
+  },
+  {
     "name": "Login Helper",
     "settings": [
       {

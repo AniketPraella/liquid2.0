@@ -54,7 +54,7 @@ class ProductForm extends HTMLElement {
           document.querySelector('#PopupModal-quickshop .close-quickshop').dispatchEvent(new Event('click'))
         }
         this.cartElement.getCartData('open_drawer');
-        if(qtyInput) qtyInput.value = 1;
+        if(qtyInput) qtyInput.value = qtyInput.min || 1;
       })
       .catch((e) => {
         console.error(e);
@@ -77,8 +77,9 @@ class ProductForm extends HTMLElement {
     let $qtyInput = currentTarget.closest('[data-qty-container]').querySelector('[data-qty-input]');
     let currentQty = parseInt($qtyInput.value) || 1;
     let finalQty = 1;
+    let minQty = parseInt($qtyInput.min) || 1;
 
-    if(action == 'decrease' && currentQty <= 1){
+    if(action == 'decrease' && currentQty <= minQty){
         return false;
     }else if(action == 'decrease'){
         finalQty = currentQty - 1;
@@ -88,6 +89,8 @@ class ProductForm extends HTMLElement {
 
     $qtyInput.value = finalQty;
   }
+
+
 }
 customElements.define('product-form', ProductForm);
 
@@ -327,3 +330,29 @@ class VariantSelects extends HTMLElement {
     }
   }
   customElements.define('variant-radios', VariantRadios);
+
+  class addonFrm extends HTMLElement {
+    constructor(){
+      super();
+      this.addonQtySec = this.querySelectorAll('.addon-qty-input-wrapper') || null;
+      if(this.addonQtySec != null){
+        this.addonQtySec.forEach(qtyBtn => qtyBtn.addEventListener('click', this.manageQtyBtn.bind(this)))
+      }
+    }
+    manageQtyBtn(event) {
+      let addonProductQuantityBox = this.querySelector('.addon-product-quantity');
+      let addonProductQuantityMin = addonProductQuantityBox.min;
+      let addonProductQuantityValue = parseInt(addonProductQuantityBox.value);
+      if (event.target.innerHTML == '+'){
+        addonProductQuantityBox.value = addonProductQuantityValue + 1;
+      }
+      if (event.target.innerHTML == '-'){
+        if(addonProductQuantityValue <= addonProductQuantityMin){
+          return false;
+        }else{
+        addonProductQuantityBox.value = addonProductQuantityValue - 1;
+        }
+      }
+    }
+  }
+  customElements.define('addons-form', addonFrm);

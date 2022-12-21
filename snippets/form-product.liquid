@@ -61,6 +61,39 @@
         {%- endif -%}
       {% endunless %}
 
+      {% if product.metafields.custom.enable_gender %}
+        <div class="custom-gender-wrapper">
+          <h6>Gender:</h6>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="properties[Gender]" value="Male" id="male">
+            <label class="form-check-label" for="male">
+              Male
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="properties[Gender]" value="Female" id="female">
+            <label class="form-check-label" for="female">
+              Female
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="properties[Gender]" value="Others" id="others">
+            <label class="form-check-label" for="others">
+              Others
+            </label>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if product.metafields.custom.enable_shipping_expected_delivery_date %}
+        <div class="custom-shipping-date-wrapper">
+          <h6 class="my-2">Expected Delivery Date:</h6>
+          <div class="mb-3">
+            <input type="date" min="{{ "now" | date: "%Y-%m-%d" }}" class="form-control" name="properties[Expected Delivery Date]" id="expected-delivery-date">
+          </div>
+        </div>
+      {% endif %}
+
       <div class="quantity-wrapper mb-4" data-qty-container>
         <label for="Quantity" class="fw-medium text-uppercase font-size-sm mb-2" title="{{ 'products.product.quantity.label' | t }}">{{ 'products.product.quantity.label' | t }}</label>
         <div class="input-group input-group-sm">
@@ -70,7 +103,7 @@
               <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
             </a>
           </div>
-          <input type="number" name="quantity" aria-label="{{ 'products.product.quantity.input_label' | t: product: product.title | escape }}" value="1" step="1" min="1" inputmode="numeric" data-qty-input class="quantity form-control text-center" readonly>
+          <input type="number" name="quantity" aria-label="{{ 'products.product.quantity.input_label' | t: product: product.title | escape }}" value="{% if product.metafields.custom.min_product_to_purchase %}{{ product.metafields.custom.min_product_to_purchase }}{% else %}1{% endif %}" step="1" min="{% if product.metafields.custom.min_product_to_purchase %}{{ product.metafields.custom.min_product_to_purchase }}{% else %}1{% endif %}" inputmode="numeric" data-qty-input class="quantity form-control text-center" readonly>
           <div class="input-group-append">
             <a href="#" class="input-group-text" rel="nofollow" aria-label="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}" title="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}" data-for="increase" data-qty-btn>
               <span class="btn-increase"><span class="icon-plus"></span></span>

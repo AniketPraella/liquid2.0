@@ -1,3 +1,4 @@
+
 // Ajax cart JS for Drawer and Cart Page
 const drawerSelectors = {
   cartIcons: document.querySelectorAll('.header__icon--cart'),
@@ -7,7 +8,7 @@ const drawerSelectors = {
 class AjaxCart extends HTMLElement {
     constructor() {
       super();
-  
+      
       this.openeBy = drawerSelectors.cartIcons;
       this.isOpen =  this.classList.contains('open--drawer');
       this.bindEvents();
@@ -22,6 +23,7 @@ class AjaxCart extends HTMLElement {
       }
 
       if (navigator.platform === 'iPhone') document.documentElement.style.setProperty('--viewport-height', `${window.innerHeight}px`);
+      this.addFreeGiftfunc();
     }
   
     /**
@@ -196,6 +198,8 @@ class AjaxCart extends HTMLElement {
       if(window.globalVariables.cart_drawer && action == 'open_drawer' && window.globalVariables.template != 'cart'){
           this.openCartDrawer();
       }
+      this.addFreeGiftfunc();
+
     }
 
     /**
@@ -218,6 +222,7 @@ class AjaxCart extends HTMLElement {
         }).finally(() => {
             // Cart HTML fetch done
         });
+
     }
   
      /**
@@ -408,12 +413,13 @@ class AjaxCart extends HTMLElement {
       let itemIndex = $qtyInput.dataset.index || 1;
       let currentQty = parseInt($qtyInput.value) || 1;
       let finalQty = 1;
+      let minQty = parseInt($qtyInput.min) || 1;
 
       let qtyitemboxremove = currentTarget.getAttribute('qty-itemupdaterandomno');
       console.log('qtyitemboxremove ', qtyitemboxremove);
       if(qtyitemboxremove != null){
         let lineItem = document.querySelectorAll('[data-cart-item]')[itemIndex-1];
-        if(action == 'decrease' && currentQty <= 1){
+        if(action == 'decrease' && currentQty <= minQty){
           return false;
         }else if(action == 'decrease'){
             finalQty = false; //remove 1 item
@@ -425,7 +431,7 @@ class AjaxCart extends HTMLElement {
             if(lineItem){ lineItem.classList.add('updating'); }
         }
       }else{
-        if(action == 'decrease' && currentQty <= 1){
+        if(action == 'decrease' && currentQty <= minQty){
             return false;
         }else if(action == 'decrease'){
             finalQty = currentQty - 1;
@@ -545,57 +551,132 @@ class AjaxCart extends HTMLElement {
           Utility.fadeEffect(element, 'fadeOut');
       }, 3000);
     }
+
+    async addFreeGiftfunc(){
+      let freeGiftCtSec = this.querySelector('#cart_total_amount') || null;
+      let freeGiftThresoldSec = this.querySelector('#free_gift_thresold') || null;
+      let freeGiftVidSec = this.querySelector('#free_gift_vid') || null;
+      // let randomNumber = Math.floor((Math.random() * 999999) + 10000);
+      let cartdata = await getCart();
+      let cartItems = cartdata.items;
+      var addItemf = false;
+      if(freeGiftCtSec != null && freeGiftThresoldSec !=null && freeGiftVidSec != null){
+        this.checkFreeProduct(freeGiftVidSec.value);
+        cartItems.forEach((item)=>{
+          console.log(item.id);
+          if(Math.ceil(item.id) == Math.ceil(freeGiftVidSec.value)){
+            addItemf = true;
+            console.log(addItemf);
+            console.log('item.id ', item.id);
+            console.log('freeGiftVidSec ', freeGiftVidSec.value);
+          }
+          if(Math.ceil(item.id) == Math.ceil(freeGiftVidSec.value) && addItemf == true && Math.ceil(freeGiftThresoldSec.value) > Math.ceil(freeGiftCtSec.value)){
+            console.log(addItemf);
+            console.log('freeGiftVidSec ', freeGiftVidSec.value);
+            this.removeFreeGift(freeGiftVidSec.value);            
+          }
+          
+        })
+        
+        if(addItemf == false){
+          console.log('addItemf ', addItemf)
+          
+            console.log('v1 ', Math.ceil(freeGiftThresoldSec.value));
+            console.log('v2 ', Math.ceil(freeGiftCtSec.value));
+            if(Math.ceil(freeGiftThresoldSec.value) <= Math.ceil(freeGiftCtSec.value)){
+              this.addFreeGift(freeGiftVidSec.value);
+            }
+          
+        }
+        
+      }else{
+        cartItems.forEach((item)=>{
+          if(Math.ceil(item.id) == Math.ceil(freeGiftVidSec.value)){
+            this.removeFreeGift(freeGiftVidSec.value);
+          }
+        })
+      }
+    }
+
+    addFreeGift(vid){
+      fetch('/cart/add.js', {
+        body: JSON.stringify({
+          items:[{'id': vid, "quantity": 1,
+            properties: {
+                "type": "freegift"
+                }
+            }]
+        }),
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With':'xmlhttprequest'
+        },
+        method: 'POST'
+      }).then((response) => {
+        return response.json();
+      }).then (async (dataresponse) => {
+        console.log('products', dataresponse);this.getCartData();
+      }).catch((err) => {
+        console.error(err)
+      });
+    }
+
+    removeFreeGift(vid){
+      fetch('/cart/change.js', {
+        body: JSON.stringify({
+          'id' :vid,
+          'quantity': 0
+        }),
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With':'xmlhttprequest'
+        },
+        method: 'POST'
+      }).then((response) => {
+        // this.getCartData();
+        return response.json();
+      }).then (async (dataresponse) => {
+        console.log('products', dataresponse);this.getCartData();
+      }).catch((err) => {
+        console.error(err)
+      });
+    }
+
+    async checkFreeProduct(vid){
+      let gcart = await getCart();
+      let cartItems = gcart.items;
+      cartItems.forEach((item)=>{
+        if(item.id == vid){
+          if(item.quantity > 1){
+            fetch('/cart/change.js', {
+              body: JSON.stringify({
+                'id' :vid,
+                'quantity': 1
+              }),
+              credentials: 'same-origin',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With':'xmlhttprequest'
+              },
+              method: 'POST'
+            }).then((response) => {
+              // this.getCartData();
+              return response.json();
+            }).then (async (dataresponse) => {
+              console.log('products', dataresponse);this.getCartData();
+            }).catch((err) => {
+              console.error(err)
+            });
+          }
+        }
+      })
+    }
+
 }
 customElements.define("ajax-cart", AjaxCart);
 
-
-/*
-removeitemarray = [];
-removeitemdatavalue = [];
-
-async function removeitemrandom(randno){
-  removeitemdata = document.querySelectorAll(`[data-itemremoverandomno="${randno}"]`);
-  console.log('removeitemdata ', removeitemdata)
-  itemcartdata = await getCart();
-  itemcartdataitems = itemcartdata.items;
-  console.log('itemcartdataitems ', itemcartdataitems)
-  for (x = 0; x < itemcartdataitems.length; x++) {
-    itemquantity = itemcartdataitems[x].quantity;
-    console.log('itemquantity ', itemquantity);
-    itemrandomno = itemcartdataitems[x].properties.randomnumber;
-    console.log('itemrandomno ', itemrandomno);
-    getrandno = randno;
-    console.log('getrandno ', getrandno);
-    if(itemrandomno == getrandno){
-      removeitemdatavalue.push(0);
-    }else{
-      removeitemdatavalue.push(itemquantity);
-    }
-    console.log('removeitemdatavalue ', removeitemdatavalue);
-  }
-  
- 
-  updatedata = {
-    updates: removeitemdatavalue
-  }
-  await fetch('/cart/update.js', {
-    body: JSON.stringify({updates: removeitemdatavalue }),
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Requested-With':'xmlhttprequest'
-    },
-    method: 'POST'
-    }).then((response) => {console.log(updatedata);
-      return response.json();
-    }).then (async (dataresponse) => {
-      console.log('products', dataresponse);
-    }).catch((err) => {
-      console.error(err)
-    });
-
-}
-*/
 
 async function getCart() {
   const result = await fetch("/cart.js");

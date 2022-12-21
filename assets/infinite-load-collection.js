@@ -4,7 +4,7 @@ if(targetloadmore != null){
     if(targetloadmore.href == window.location.href){
         targetloadmore.style.display = 'none';
     }
-  }
+ 
 targetloadmore.addEventListener('click', async (event)=>{
     event.preventDefault();
     getnewbutton = event.currentTarget;
@@ -27,12 +27,15 @@ targetloadmore.addEventListener('click', async (event)=>{
         colproductdataSec.append(collectionprodataget[i]);
         console.log(collectionprodataget[i]);
     }
-    targetloadmore.setAttribute("href", changetargetloadmore);
-    if(changetargetloadmore == window.location.href){
-        targetloadmore.style.display = 'none';
+    if(targetloadmore != null){
+      targetloadmore.setAttribute("href", changetargetloadmore);
+      if(changetargetloadmore == window.location.href){
+          targetloadmore.style.display = 'none';
+      }
     }
+    
 })
-
+ }
 
 /****************************************
  *********************  
@@ -67,8 +70,11 @@ document.getElementById('sort-by').addEventListener('change', async function(e) 
     collectionnewdataget = collectionnewdataparsed.querySelectorAll('#collection-product-grid-2 .col-12.col-lg-3.col-md-4.col-sm-6');
     console.log('collectionnewdataget ', collectionnewdataget);
     newtargetloadmore = collectionnewdataparsed.querySelector('#load-more-product').href;
-    targetloadmore.setAttribute("href", newtargetloadmore);
-  targetloadmore.style.display = '';
+    if(targetloadmore != null){
+      targetloadmore.setAttribute("href", newtargetloadmore);
+      targetloadmore.style.display = '';
+    }
+    
     colproductdata_sec = document.querySelector('#collection-product-grid-2');
     colproductdata_sec.innerHTML = '';
     for(var i=0; i < collectionnewdataget.length; i++){
@@ -101,8 +107,13 @@ class myProductFilter extends HTMLElement {
     super();
     this.inputall = this.querySelectorAll('input');
     console.log(this.inputall);
-    // this.printFilterLable();
     this.checkActiveFilters();
+    this.filteredData = this.querySelector('.filtered-data') || null;
+    if(this.filteredData != null){
+      this.filteredData.addEventListener('click', this.iconClose.bind(this));
+    }
+    // this.printFilterLable();
+    
     this.inputall.forEach(button => button.addEventListener('change', this.filterProduct.bind(this)));
   }
   filterProduct(event){
@@ -192,9 +203,11 @@ class myProductFilter extends HTMLElement {
     console.log('checkActiveFilters ', inputall);
     inputall.forEach((item)=>{
       if(item.checked == true){
-        console.log('item.checked ', item.checked)
+        console.log('item.checked ', item.checked);
         let itemValue = item.getAttribute('data-filter-label');
-        printFilterLableDiv.innerHTML += `<span>${itemValue}</span>`;
+        let dataValue = item.value;
+        let dataName = item.name;
+        printFilterLableDiv.innerHTML += `<span class="filter-item" data-name="${dataName}" data-value="${dataValue}">${itemValue}<span class="icon-close"></span></span>`;
       }
     })
     let searchparams = new URLSearchParams(window.location.search);
@@ -208,13 +221,13 @@ class myProductFilter extends HTMLElement {
 
     if(searchparams != '' && window.location.search.includes('filter.v.price')){
       if(searchparamsvaluemax == null && searchparamsvaluemin == null){
-        printFilterLableDiv.innerHTML += `<span>${store_currency_symbol}${minvalue} - ${store_currency_symbol}${maxvalue}</span>`;
+        printFilterLableDiv.innerHTML += `<span class="filter-item" data-name-min="${min_price_value}" data-value-min="${minvalue}" data-name-max="${max_price_value}" data-value-max="${maxvalue}">${store_currency_symbol}${minvalue} - ${store_currency_symbol}${maxvalue}<span class="icon-close"></span></span>`;
       }else if(searchparamsvaluemax == null){
-        printFilterLableDiv.innerHTML += `<span>${store_currency_symbol}${searchparamsvaluemin} - ${store_currency_symbol}${maxvalue}</span>`;
+        printFilterLableDiv.innerHTML += `<span class="filter-item" data-name-min="${min_price_value}" data-value-min="${searchparamsvaluemin}" data-name-max="${max_price_value}" data-value-max="${maxvalue}">${store_currency_symbol}${searchparamsvaluemin} - ${store_currency_symbol}${maxvalue}<span class="icon-close"></span></span>`;
       }else if(searchparamsvaluemin == null){
-        printFilterLableDiv.innerHTML += `<span>${store_currency_symbol}${minvalue} - ${store_currency_symbol}${searchparamsvaluemax}</span>`;
+        printFilterLableDiv.innerHTML += `<span class="filter-item" data-name-min="${min_price_value}" data-value-min="${minvalue}" data-name-max="${max_price_value}" data-value-max="${searchparamsvaluemax}">${store_currency_symbol}${minvalue} - ${store_currency_symbol}${searchparamsvaluemax}<span class="icon-close"></span></span>`;
       }else{
-        printFilterLableDiv.innerHTML += `<span>${store_currency_symbol}${searchparamsvaluemin} - ${store_currency_symbol}${searchparamsvaluemax}</span>`;
+        printFilterLableDiv.innerHTML += `<span class="filter-item" data-name-min="${min_price_value}" data-value-min="${searchparamsvaluemin}" data-name-max="${max_price_value}" data-value-max="${searchparamsvaluemax}">${store_currency_symbol}${searchparamsvaluemin} - ${store_currency_symbol}${searchparamsvaluemax}<span class="icon-close"></span></span>`;
       }
     }
   }
@@ -234,6 +247,46 @@ class myProductFilter extends HTMLElement {
     }
     this.getFilterProductData();
   }
+
+  iconClose(event){
+    let filter_item = event.currentTarget.querySelectorAll('.filter-item') || null;
+    if(filter_item != null){
+      filter_item.forEach((item)=>{
+        let icon_close = item.querySelector('.icon-close');
+        let item_value = item.getAttribute('data-value');
+        let item_name = item.getAttribute('data-name');
+        let price_range_min_name = item.getAttribute('data-name-min');
+        let price_range_max_name = item.getAttribute('data-name-max');
+        let price_range_min_valuee = item.getAttribute('data-value-min');
+        let price_range_max_valuee = item.getAttribute('data-value-max');
+        
+        if(event.target == icon_close){
+          console.log('close clicked');
+          if(price_range_min_name != null){
+            console.log('priceeeeeee');
+            let price_range_min_value = document.getElementById('price_range_min_value');
+            let price_range_max_value = document.getElementById('price_range_max_value');
+            document.querySelector('[name="filter.v.price.gte"]').value = document.querySelector('[name="filter.v.price.gte"]').min;
+            document.querySelector('[name="filter.v.price.lte"]').value = document.querySelector('[name="filter.v.price.lte"]').max;
+            price_range_min_value.innerHTML = document.querySelector('[name="filter.v.price.gte"]').min;
+            price_range_max_value.innerHTML = document.querySelector('[name="filter.v.price.lte"]').max;
+            let updatedUrl = window.location.href.replace(`&${price_range_min_name}=${price_range_min_valuee}`, '');
+            history.pushState({}, '', updatedUrl);
+            updatedUrl = window.location.href.replace(`&${price_range_max_name}=${price_range_max_valuee}`, '');
+            history.pushState({}, '', updatedUrl);
+            this.getFilterProductData();
+        
+          }else{
+            document.querySelector(`[value="${item_value}"]`).checked = false;
+            this.checkActiveFilters();
+            this.removeFilterProduct(item_name , item_value);
+          }
+        }
+      })
+   }
+    
+  }
+
   async getFilterProductData(){
     let filterProductData = await getcolprodata(window.location.href);
     let collectionnewdataparsed = document.createElement('div');
@@ -242,9 +295,14 @@ class myProductFilter extends HTMLElement {
     let newtargetloadmore = collectionnewdataparsed.querySelector('#load-more-product');
     if(newtargetloadmore != null){
       let newtargetloadmoreurl = newtargetloadmore.href;
-      targetloadmore.setAttribute("href", newtargetloadmoreurl);
+      if(targetloadmore != null){
+        targetloadmore.setAttribute("href", newtargetloadmoreurl);
+      }
+      
     }
-    targetloadmore.style.display = '';
+    if(targetloadmore != null){
+      targetloadmore.style.display = '';
+    }
     let colproductdata_sec = document.querySelector('#collection-product-grid-2');
     colproductdata_sec.innerHTML = '';
     for(var i=0; i < collectionnewdataget.length; i++){
@@ -253,6 +311,7 @@ class myProductFilter extends HTMLElement {
   }
 }
 customElements.define("myproduct-filter", myProductFilter);
+
 
 
 /****************************************
