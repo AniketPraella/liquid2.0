@@ -1,7 +1,24 @@
 {%- liquid
-     assign variable = value 
+     assign thresold = settings.free_shipping_thresold | times:100 | round
+     assign carttotal = cart.total_price 
+     assign leftamount = thresold | minus: carttotal | money 
+     assign leftamounttext = settings.free_shipping_away | replace: '${addMoreForFreeShipping}', leftamount 
+     assign progressbarwidth = 100 
 %}
 
-<div class="col-12">abc
-    {{settings.free_shipping_thresold}}
+<div class="col-12">
+    <div class="px-md-3">
+        <p class="m-0 fw-500 text-capitalize">
+            {% if thresold > carttotal %}
+            {% assign progressbarwidth = carttotal | divided_by: settings.free_shipping_thresold | round %}
+                {{ leftamounttext }}
+            {% endif %}
+            {% if thresold <= carttotal %}
+                {{ settings.get_free_shipping_txt}}
+            {% endif %}
+        </p>
+    </div>
+    <div class="progress m-3" style="border:1px solid var(--bs-bg-hover-color-btn-secondary);padding:1px;">
+        <div class="progress-bar d-block" style="width:{{ progressbarwidth }}%;" role="progressbar"></div>
+    </div>
 </div>

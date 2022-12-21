@@ -11934,6 +11934,7 @@ input[type="range"]::-moz-range-thumb{
     color: #000;
 }
 
+.fw-500{font-weight:500;}
 /* colllection layout2 css */
 
 .filtered-data span{
