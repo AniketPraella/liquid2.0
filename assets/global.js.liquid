@@ -1312,6 +1312,7 @@ function addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligi
 
 function cartGWP(){
   fetch('/cart.js').then(cart => {
+    console.log(cart.json());
     return cart.json();
   }).then(cart => {
     var GWPGift = false;
