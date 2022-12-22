@@ -1310,8 +1310,8 @@ function addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligi
   });
 }
 
-function cartGWP(){
-  fetch('/cart.js').then(cart => {
+async function cartGWP(){
+  await fetch('/cart.js').then(cart => {
     console.log(cart.json());
     return cart.json();
   }).then(cart => {
