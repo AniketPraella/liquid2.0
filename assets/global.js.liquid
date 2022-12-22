@@ -1331,7 +1331,9 @@ function cartGWP(){
     let cartTotal = 0;
   
     //Check for Free Gift in Cart Items
-    cart.items.forEach(function(index, product) {  
+    cart.items.forEach(function(index, product) {
+      console.log("product ",product);
+      console.log("index ",index);
       if(product.properties == 'product_type'){        
         if(product.properties['product_type'] == 'GWP Gift'){
           GWPGift = true;
