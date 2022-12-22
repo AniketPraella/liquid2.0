@@ -1335,7 +1335,7 @@ function cartGWP(){
       console.log("product ",product);
       console.log("index ",index);
       console.log(product.properties);
-      if(product.properties == 'product_type'){
+      if(product.properties['product_type']){
         console.log('run');
         if(product.properties['product_type'] == 'GWP Gift'){
           GWPGift = true;
