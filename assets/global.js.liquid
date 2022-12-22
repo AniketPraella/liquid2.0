@@ -1357,8 +1357,9 @@ function cartGWP(){
         }
       }else{
         if(product.product_type != 'Gift Card'){
-          console.log(cartTotal);
+          console.log("cartTotal1 ",cartTotal);
           cartTotal = cartTotal + cart.total_price;
+          console.log("cartTotal2 ",cartTotal);
           console.log(product.final_line_price);
         }
       }
