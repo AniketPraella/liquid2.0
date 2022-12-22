@@ -1342,6 +1342,7 @@ function cartGWP(){
         
           if(product.quantity > 1){
             updateQty = true;
+            console.log(updateQty);
           }
         
           if(product.variant_id == GWP.threashould_1['gwp_pro']){
@@ -1423,6 +1424,7 @@ function cartGWP(){
         }); 
     }else if(updateQty == true){
       var updateProduct = 'line='+ existedFreeProductLine + '&quantity=1';
+      console.log("updateProduct ", updateProduct);
       fetch(`${routes.cart_change_url}`, { ...fetchConfig(), body: JSON.stringify(updateProduct)})
         .then((data) => {
             return data.text();
