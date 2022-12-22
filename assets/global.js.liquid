@@ -1311,7 +1311,7 @@ function addFreeProToCart(originalThreshouldAmount, finalThreshouldAmount, eligi
 }
 
 async function cartGWP(){
-  await fetch('/cart.js').then(cart => {
+  fetch('/cart.js').then(await cart => {
     console.log(cart.json());
     return cart.json();
   }).then(cart => {
