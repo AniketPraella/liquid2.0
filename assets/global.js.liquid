@@ -1387,7 +1387,7 @@ function cartGWP(){
       }
     }
   
-    var removeProduct = 'line='+ existedFreeProductLine + '&quantity=0';        
+    var removeProduct = {'line': existedFreeProductLine, 'quantity':0};        
     if((GWP == undefined || eligibleThreshould == null) && GWPGift == true) {
       fetch(`${routes.cart_change_url}`, { ...fetchConfig(), body: JSON.stringify(removeProduct)})
         .then((data) => {
