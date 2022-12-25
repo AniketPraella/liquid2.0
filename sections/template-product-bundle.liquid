@@ -80,7 +80,7 @@
                                                 {%- liquid 
                                                    assign current_variantx = product.selected_or_first_available_variant
                                                   unless product.tags contains productExcludeTag
-                                                    render 'form-product-box', product: product, current_variant: current_variantx, format: 'product-page'
+                                                    render 'form-product-box', product: product, current_variant: current_variantx, randomNumber: randomNumber, format: 'product-page'
                                                   endunless
                                                 -%}
                                               </div>
