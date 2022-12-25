@@ -80,7 +80,7 @@
                                                   {% for value in option.values %}
                                                   {%- capture swatchID -%}swatch-{{ product.id }}{% if format %}-{{ format }}{% endif %}-{{ option.name | handleize }}-{{ value | handleize }}{%- endcapture -%}
                                                   
-                                                    <input type="radio" id="{{ swatchID }}" class="form-control" 
+                                                    <input type="radio" id="{{ swatchID }}" class="" 
                                                     name="{{ option.name }}" value="{{ value | escape }}"
                                                     {% if option.selected_value == value %}checked{% endif %}
                                                     data-handle="{{ value | handle }}">
