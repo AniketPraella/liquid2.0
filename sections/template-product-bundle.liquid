@@ -77,25 +77,10 @@
 
                                                 {%- liquid 
                                                    assign current_variantx = product.selected_or_first_available_variant
-                            unless product.tags contains productExcludeTag
-                              render 'form-product-box', product: product, current_variant: current_variantx, format: 'product-page'
-                            endunless
-                          -%}
-
-                      
-                                                <p class="vid" did="{{ product.selected_or_first_available_variant.id }}">{{ product.selected_or_first_available_variant.id }}</p>
-                                                {% for option in product.options_with_values %}
-                                                <p>{{ option.name }}</p>
-                                                  {% for value in option.values %}
-                                                  {%- capture swatchID -%}swatch-{{ product.id }}{% if format %}-{{ format }}{% endif %}-{{ option.name | handleize }}-{{ value | handleize }}{%- endcapture -%}
-                                                  
-                                                    <input type="radio" id="{{ swatchID }}" class="" 
-                                                    name="{{ option.name }}" value="{{ value | escape }}"
-                                                    {% if option.selected_value == value %}checked{% endif %}
-                                                    data-handle="{{ value | handle }}">
-                                                    <label class="form-label swatch-label {{ value }}" for="{{ swatchID }}" title="{{ value }}"> {{ value }} </label>
-                                                  {% endfor %}
-                                                {% endfor %}
+                                                  unless product.tags contains productExcludeTag
+                                                    render 'form-product-box', product: product, current_variant: current_variantx, format: 'product-page'
+                                                  endunless
+                                                -%}
                                               </div>
                                             </div>
                                           </div>
