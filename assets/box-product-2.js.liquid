@@ -16,6 +16,7 @@ function addbundleproduct(e){
     console.log(productarray);
     addproducttobundle();
     updatebundleproduct();
+  closevariantpopup(event);
 }
 
 function addproducttobundle(){
@@ -28,7 +29,7 @@ function addproducttobundle(){
         <button type="button" class="icon-cross btn btn-secondary position-absolute right-0 top-0 p-1" onclick="removeproduct(${productarray[x].randomno}, ${x}, event)">X</button>
         <input type="hidden" name="properties[Bundle${x+1}]" value="${productarray[x].title}"/>`;
     }
-  // closevariantpopup(event);
+  
 }
 
 var removeproduct = (randomnumber, arraylength, e) =>{
