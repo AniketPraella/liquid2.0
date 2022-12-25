@@ -74,7 +74,9 @@
                                                 <a href="javascript:void(0)"><span class="icon-close text-gray-900" onclick="closevariantpopup(event)"></span></a>
                                               </div>
                                               <div class="modal-body">
-
+                                                <div>
+                                                  <img src="{{ product.featured_image | img_url: 'medium' }}">
+                                                </div>
                                                 {%- liquid 
                                                    assign current_variantx = product.selected_or_first_available_variant
                                                   unless product.tags contains productExcludeTag
