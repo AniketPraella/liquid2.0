@@ -74,7 +74,7 @@
                                                 <a href="javascript:void(0)"><span class="icon-close text-gray-900" onclick="closevariantpopup(event)"></span></a>
                                               </div>
                                               <div class="modal-body">
-                                                <p class="vid">{{ product.selected_or_first_available_variant.id }}</p>
+                                                <p class="vid" did="{{ product.selected_or_first_available_variant.id }}">{{ product.selected_or_first_available_variant.id }}</p>
                                                 {% for option in product.options_with_values %}
                                                 <p>{{ option.name }}</p>
                                                   {% for value in option.values %}
