@@ -1,0 +1,74 @@
+<product-form class="product-form">
+  {%- assign product_form_id = 'product-form-' | append: product.id -%}
+  {% form 'product', product, data-productid: product.id, id: product_form_id, class: "mt-4", data-product-form: "", data-product-id: product.id, data-type: 'add-to-cart-form', data-format: 'grid' %}
+
+    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+    <div class="row">
+      <div class="col-12 d-flex justify-content-between flex-column">
+        {% unless product.has_only_default_variant %}
+          <variant-radios class="no-js-hidden" data-section="{{ section.id }}" data-url="{{ product.url | within: collection }}" data-type="variant-radios">
+            {%- for option in product.options_with_values -%}
+                <fieldset class="js product-form__input mb-4 {% if option.name == 'Color' or option.name == 'color' %}color-swatch{% endif %}" data-optionindex="{{ forloop.index }}">
+                    <legend class="form__label fw-medium text-uppercase font-size-sm mb-2">{{ option.name }}: <span class="selected-option">{{ option.selected_value }}</span></legend>
+                    <ul class="list-unstyled d-flex my-0 py-0">
+                        {%- for value in option.values -%}
+                            {%- capture swatchID -%}swatch-{{ product.id }}-grid-{{ option.name | handleize }}-{{ value | handleize }}{%- endcapture -%}
+                            <li class="me-2">
+                                <div class="swatch {% if option.name == 'Color' or option.name == 'color' %}color-swatch{% endif %}">
+                                    <input type="radio" class="form-control" id="{{ swatchID }}"
+                                        name="{{ option.name }}" value="{{ value | escape }}"
+                                        {% if current_variant == false %}{% if forloop.first %}checked{% endif %}{% else %}{% if option.selected_value == value %}checked{% endif %}{% endif %} 
+                                        data-handle="{{ value | handle }}">
+                                    <label class="form-label swatch-label {{ value }}" for="{{ swatchID }}" title="{{ value }}"> {% unless option.name == 'Color' or option.name == 'color' %} {{ value }} {% endunless %}  </label>
+                                </div>
+                            </li>
+                        {%- endfor -%}
+                        </ul>
+                </fieldset>
+            {%- endfor -%}
+          </variant-radios>
+        {% endunless %}
+
+        <input type="hidden" name="quantity" value="1" />
+      </div>
+    </div>
+    {% comment %} DEFAULT HIDDEN OPTIONS SELECT {% endcomment %}
+    {% comment %} DO NOT REMOVE THIS {% endcomment %}
+    <noscript>
+      <div class="row {% if product.has_only_default_variant %}d-none{% endif %}">
+        <div class="col">
+            <select name="id" data-productid="{{ product.id }}">
+              {% for variant in product.variants %}
+                  <option
+                    data-sku="{{ variant.sku }}" data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}"
+                    value="{{ variant.id }}" {% if variant.available == false %}disabled{% endif %}>
+                    {{ variant.title }}{%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %} - {{ variant.price | money_with_currency }}
+                  </option>
+              {% endfor %}
+            </select>
+        </div>
+      </div>
+    </noscript>
+    <div class="row">
+      <div class="col-12 d-flex">
+          <button class="btn btn-outline-dark btn-sm flex-grow-1"
+              type="submit"
+              name="add"
+              aria-label="{{ 'products.product.add_to_cart' | t | escape }}"
+              {% unless current_variant.available %}disabled{% endunless %}>
+              <span class="add-text">{%- if current_variant.available -%}{{ 'products.product.add_to_cart' | t }}{%- else-%}{{ 'products.product.sold_out' | t }}{%- endif -%}</span>
+              <span class="spinner"></span>
+          </button>
+
+          {%- if settings.enable_quickshop -%}
+              <a href="#" rel="nofollow" class="btn btn-dark btn-sm ms-2 quickshop--button" data-handle="{{ product.handle }}" title="{{ 'products.product.quickshop' | t | escape }}" aria-label="{{ 'products.product.quickshop' | t | escape }}" data-toggle="tooltip" data-trigger="hover" data-placement="top">
+                  <span class="icon-quickview font-size-lg"></span>
+              </a>
+          {%- endif -%}
+      </div>
+    </div>
+    <script class="variantsJSON-{{ product.id }}" data-variantJSON type="application/json">
+      {{ product.variants | json }}
+    </script>
+  {% endform %}
+</product-form>
