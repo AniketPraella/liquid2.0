@@ -93,25 +93,6 @@
           </div>
         </div>
       {% endif %}
-
-      <div class="quantity-wrapper mb-4" data-qty-container>
-        <label for="Quantity" class="fw-medium text-uppercase font-size-sm mb-2" title="{{ 'products.product.quantity.label' | t }}">{{ 'products.product.quantity.label' | t }}</label>
-        <div class="input-group input-group-sm">
-          <div class="input-group-prepend">
-            <a href="#" class="input-group-text" rel="nofollow" aria-label="{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}" title="{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}" data-for="decrease" data-qty-btn>
-              <span class="btn-decrease"><span class="icon-minus"></span></span>
-              <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
-            </a>
-          </div>
-          <input type="number" name="quantity" aria-label="{{ 'products.product.quantity.input_label' | t: product: product.title | escape }}" value="{% if product.metafields.custom.min_product_to_purchase %}{{ product.metafields.custom.min_product_to_purchase }}{% else %}1{% endif %}" step="1" min="{% if product.metafields.custom.min_product_to_purchase %}{{ product.metafields.custom.min_product_to_purchase }}{% else %}1{% endif %}" inputmode="numeric" data-qty-input class="quantity form-control text-center" readonly>
-          <div class="input-group-append">
-            <a href="#" class="input-group-text" rel="nofollow" aria-label="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}" title="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}" data-for="increase" data-qty-btn>
-              <span class="btn-increase"><span class="icon-plus"></span></span>
-              <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: product.title | escape }}</span>
-            </a>
-          </div>
-        </div>
-      </div>
     </div>
 
   </div>
@@ -133,24 +114,6 @@
       </div>
     </div>
   </noscript>
-
-<div class="row">
-    <div class="col-12 d-flex">
-        <button class="btn btn-outline-dark btn-sm flex-grow-1"
-            type="submit"
-            name="add"
-            aria-label="{{ 'products.product.add_to_cart' | t | escape }}"
-            {% unless current_variant.available %}disabled{% endunless %}>
-            <span class="add-text">{%- if current_variant.available -%}{{ 'products.product.add_to_cart' | t }}{%- else-%}{{ 'products.product.sold_out' | t }}{%- endif -%}</span>
-            <span class="spinner"></span>
-        </button>
-
-        {% comment %} Dynamic Checkout Button {% endcomment %}
-        {% if section.settings.enable_dynamic_checkout %}
-            <div class="mt-2">{{ form | payment_button }}</div>
-        {% endif %}
-    </div>
-</div>
 
   <script class="variantsJSON-{{ product.id }}" data-variantJSON type="application/json">
     {{ product.variants | json }}
