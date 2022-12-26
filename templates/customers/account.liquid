@@ -37,6 +37,12 @@
                         <p class="m-0 font-family-heading text-uppercase text-white position-absolute fw-bold">{{ customer.first_name | slice: 0 }}{{ customer.last_name | slice: 0 }}</p>
                     </div>
                     <h5 class="text-uppercase profile-text font-family-heading m-0">{{ customer.name }}</h5>
+<!-- Begin ReCharge code -->
+<p id="rc_link_container">
+    <a href="/tools/recurring/login">Manage Subscriptions</a>
+</p>
+<!-- End ReCharge code -->
+
                 </div>
                 <div>
                     <p class="mb-2">{{ customer.email }}</p>

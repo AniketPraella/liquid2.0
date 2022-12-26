@@ -7,7 +7,7 @@
     <span class="h5 actual-price money">{{ product.selected_or_first_available_variant.price | money }}</span>
   </div>
 <product-form>
-  <form method="post" action="/cart/add" class="bundle-main-form">
+  <form method="post" action="/cart/add" data-productid="{{ product.id }}" class="bundle-main-form">
   <input type="hidden" name="form_type" value="product">
     <div class="row no-gutter border-top border-start mb-5 bg-white bundle-product-wrapper">
       <div class="col-8 border-end border-bottom">
@@ -23,7 +23,7 @@
         </div>
       {%- endfor -%}
     </div>
-    <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+    <input type="hidden" name="id" data-productid="{{ product.id }}" value="{{ product.variants.first.id }}">
     <input min="1" type="hidden" name="quantity" value="1"/>
     <button type="submit" class="btn btn-white btn-block bundleaddtocart" disabled="true" onclick="addcartmultiproduct(event)">
       <span class="item-progress"></span>

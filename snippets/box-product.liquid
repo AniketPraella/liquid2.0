@@ -17,7 +17,7 @@
                 </div>
                 <div class="add-button-wrapper position-absolute w-100">
                 <form id="product-bundle-{{ forloop.index }}">
-                    <input type="hidden" id="id-{{ forloop.index }}" name="id" value="{{ product.variants.first.id }}">
+                    <input type="hidden" id="id-{{ forloop.index }}" name="id" data-productid="{{ product.id }}" value="{{ product.variants.first.id }}">
                     <input type="hidden" id="title-{{ forloop.index }}" name="title" value="{{ product.title }}">
                     <input type="hidden" id="pimage-{{ forloop.index }}" name="pimage" value="{{ product.featured_image | img_url: 'medium' }}">
                     <input min="1" type="hidden" id="quantity-{{ forloop.index }}" name="quantity" value="1"/>
