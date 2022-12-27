@@ -1,0 +1,63 @@
+{% comment %} Choose a plan started {% endcomment %}
+<summary>
+   <div class="d-none" data-selector="5" data-step-name="summary">
+   {% if block.settings.heading != '' %}
+   <h2 class="text-center text-uppercase my-auto">
+      {{ block.settings.heading }}
+   </h2>
+   {% endif %}
+   <div class="row" data-Summary>
+         <div class="col-xl-10 bg-white pt-lg-7 pe-lg-7 mx-auto">
+            <div class="row no-gutter product-wrapper pb-lg-5">
+               <div class="col-lg-8">
+                  <div class="row">
+                     <div class="col-lg-6 mt-lg-0 mt-4">
+                        <div class="product-img-wrapper mx-auto" data-selectedProductImg>
+               
+                        </div>
+                     </div>
+                     <div class="col-lg-6 ps-lg-0 px-4 pt-lg-0 pt-5">
+                        <div class="product-description d-flex align-items-start justify-content-between border-bottom border-gray-200">
+                           <div>
+                              <h6 class="ls-1 lh-sm text-uppercase mb-0">Type:</h6>
+                                 <ul class="list-unstyled mb-0 list-items d-flex align-items-center flex-wrap text-capitalize " data-selectedVarinat=""></ul>
+                           </div>
+                           <a href="javascript:void(0);" class="btn btn-link" data-nav_step="2">edit</a>
+                        </div>
+                        <div class="product-description d-flex align-items-start justify-content-between border-bottom border-gray-200">
+                           <div>
+                              <h6 class="ls-1 lh-sm text-uppercase mb-0">Amount:</h6>
+                                 <ul class="list-unstyled mb-0 list-items d-flex align-items-center flex-wrap text-capitalize " data-selectedQty=""></ul>
+                           </div>
+                           <a href="javascript:void(0);" class="btn btn-link" data-nav_step="3">edit</a>
+                        </div>
+                        <div class="product-description d-flex align-items-start justify-content-between border-bottom border-gray-200">
+                           <div>
+                              <h6 class="ls-1 lh-sm text-uppercase mb-0">Frequency:</h6>
+                                 <ul class="list-unstyled mb-0 list-items d-flex align-items-center flex-wrap text-capitalize " data-selectedFreq=""></ul>
+                           </div>
+                           <a href="javascript:void(0);" class="btn btn-link" data-nav_step="4">edit</a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-4">
+                  <div class="product-description d-flex align-items-start justify-content-between border-bottom border-gray-200">
+                     <p class="">
+                        Total
+                     </p>
+                     <p data-selectedPrice>
+                     </p>
+                  </div>
+                  <div class="text-end pt-3 pt-lg-4">
+                     <a href="#" class="btn btn-primary" data-add_to_cart>
+                        <span class="add-text">add to cart</span>
+                        <span class="spinner"></span>
+                     </a>
+                  </div>
+            </div>
+         </div>  
+   </div>
+   </div>
+</summary>
+{% comment %} Choose a plan end {% endcomment %}
