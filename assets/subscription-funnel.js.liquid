@@ -1,0 +1,292 @@
+var selectedProduct = [];
+var currentVariant;
+var quantity;
+var sellingId;
+var sellingFreq;
+var finalItems;
+class subscriptionFunnel2 extends HTMLElement {
+    constructor() {
+      super();
+      this.funnel=document.querySelector('subscription-funnel-2');
+      this.domEvents();
+    }
+    
+    /**
+     * Bind Events On page load
+    */
+    domEvents = () => {
+        this.startSubscription = this.querySelectorAll('[data-productSelection]');
+        this.startSubscription.forEach(button => button.addEventListener('click', this.chooseProduct.bind(this)));
+        this.nav_steps = this.querySelectorAll(`[data-nav_step]`);
+        this.nav_steps.forEach(button => button.addEventListener('click', this._hideShowSteps.bind(this)));
+        this.radio_selector = this.querySelectorAll(`[data-variantsWrapper] input[type="radio"]`);
+        this.radio_selector.forEach(button => button.addEventListener('change', this.getVariantData.bind(this)));
+        this.continue = this.querySelectorAll(`[data-continue]`);
+        this.continue.forEach(button => button.addEventListener('click', this.continueToNext.bind(this)));
+        this.qtySelector = this.querySelectorAll('[data-qty-size]');
+        this.qtySelector.forEach(button => button.addEventListener('click', this.continueToNext.bind(this)));
+        this.freqSelector = this.querySelectorAll('[data-frequency]');
+        this.freqSelector.forEach(button => button.addEventListener('click', this.continueToNext.bind(this)));
+        this.add_to_cart=this.querySelector('[data-add_to_cart]');
+        this.add_to_cart.addEventListener('click',this.addToCart.bind(this));   
+    }
+    /**
+    * choose Product - step 1 
+    * @param {*} event 
+    */
+    chooseProduct = (event) => {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        let productJson ;
+        
+        let proId = event.target.closest('[data-productId]').getAttribute('data-productId');
+        productJson =  this.querySelector(`[data-ProductJson="${proId}"]`).innerHTML;
+        selectedProduct = JSON.parse(productJson);
+        let nextStep = this._findNextStep(event);
+        this.displayStep(nextStep);
+        this._manageSelection(event,nextStep-1);
+        this.manageBreadcrumbs(nextStep)
+    }
+    /** Step 2 start */
+    /**
+     * display variant selection options 
+     */
+    variantSelection = () => {
+        var options = [];
+        selectedProduct.options.forEach(option => {
+            options.push(option)
+        });
+        let finalOptions=[];
+        
+        options.forEach((option_name,i) => {
+            let obj={};
+            obj['name']=option_name;
+            obj['values']=[];
+            selectedProduct.variants.forEach(variant => {
+                obj['values'].push(variant.options[i])
+            });   
+            obj['values']=[...new Set(obj['values'])]
+            finalOptions.push(obj)
+        });
+        let html="";
+        finalOptions.forEach(option => {
+            let option_html=`<div class="pt-3 pt-lg-4" data-variantsWrapper>
+            <div class="text-uppercase h5 text-center" data-optionName> ${option.name}: </div><div class="d-flex justify-content-center">
+            ${this._createOptionHtml(option)}
+            </div></div>
+            `;
+            html+=option_html
+        });
+        this.querySelector('[data-options]').innerHTML=html;
+        this.domEvents();
+    }
+    /**
+     * Creating Product Options HTML
+     * @param {*} option 
+     * @returns {HTML} product options html
+     */
+    _createOptionHtml(option){
+        let optionsHtml=""
+        option.values.forEach((value , index ) => {
+            let tempHtml=` <div class="col-md-2 pe-2 options" data-options>
+                    <label class="border p-4 text-center text-uppercase w-100 variant-selection ${ index == 0 ? 'selected' :'' }" data-selectedVariant="${selectedProduct.id}">
+                    <input type="radio" id="${option.name}-${value}" name="${option.name}" value="${value}" ${ index == 0 ? 'checked' : ''}/>
+                        ${value}
+                    </label>
+            </div>`
+            optionsHtml=optionsHtml+tempHtml
+        });
+        return optionsHtml;
+    }
+    /**
+     * get variant data from the variant selection
+     * @param {event} event 
+    */ 
+    getVariantData = (event) => {
+        this.querySelectorAll('[data-options] input[type="radio"]').forEach( item => {
+        if(item.checked){
+            item.closest('label').classList.add('selected');
+        }
+        else{
+            item.closest('label').classList.remove('selected');
+        }
+        })
+        let options = [] ;
+        this.querySelectorAll('input[type="radio"]:checked').forEach( item => {
+            options.push(item.value)
+        })
+        selectedProduct.variants.find( variant => {
+            let mappedValues = variant.options.map((option, index) => {
+                return options[index] === option;
+            });
+            if(!mappedValues.includes(false)){
+                currentVariant = variant;
+            }
+       })
+    }
+    /** Step 2 END */
+    /** Step 3 Start */
+    /**
+     * frequency selection
+     * @param {event} event 
+    */
+     frequencySelection = (event) => {
+        this.querySelector('[data-freqWrapper]').innerHTML = '';
+        selectedProduct['selling_plan_groups'].forEach( selling_plan_grp  => {
+        selling_plan_grp['selling_plans'].forEach( plan => {
+             this.querySelector('[data-freqWrapper]').innerHTML += ` <div class="col-12 mb-3 mb-lg-0 col-lg-4" data-frequency="${plan.name}" data-sellingPlanId="${plan.id}" >
+             <p class="border fw-bold p-5 text-center text-uppercase h-100 frequency-wrapper" data-selection-box>
+             ${plan.name}
+             </p>
+             </div>`;
+          })
+      })
+      this.domEvents();
+    }
+    /** Step 3 END */
+    /** Step 4 Start */
+    /**
+     * 
+     * Order summary
+    */
+    orderSummary = () => {
+        let sumarrywrap = this.querySelector('[data-Summary]');
+        sumarrywrap.querySelector('[data-selectedProductImg]').innerHTML = `<img  src="${selectedProduct.featured_image}" alt="${selectedProduct.title}">
+        <h5 class="mb-2 mt-3" data-seleted_product_title>${selectedProduct.title}</h5>`
+        sumarrywrap.querySelector('[data-selectedVarinat]').innerHTML="";
+        currentVariant.options.forEach( (item,index) => {
+            sumarrywrap.querySelector('[data-selectedVarinat]').innerHTML += `<li class="me-2">${item} ${(index == (currentVariant.options.length - 1 )) ? '' : '|'}</li>`
+        })
+        if (sumarrywrap.querySelector('[data-selectedQty]') != null) {
+            sumarrywrap.querySelector('[data-selectedQty]').innerHTML = `<p>${quantity}</p>`
+        }
+        if (sumarrywrap.querySelector('[data-selectedFreq]') != null) {
+            sumarrywrap.querySelector('[data-selectedFreq]').innerHTML = `<p>${sellingFreq}</p>`
+        }
+        if (sumarrywrap.querySelector('[data-selectedPrice]') != null) {
+            sumarrywrap.querySelector('[data-selectedPrice]').innerHTML = `${Shopify.formatMoney(selectedProduct.price, window.globalVariables.money_format)}`
+        }
+    }
+    /** Step 4 END */
+    /** General Methods */
+    /**
+     * 
+     * @param {index} - step index to be displayed 
+    */    
+    displayStep = (index) => {
+        this.querySelectorAll('[data-selector]').forEach ( ele => {
+            ele.classList.add('d-none');
+        }) 
+        this.querySelector(`[data-selector="${index}"]`).classList.remove('d-none');
+        if(index == '2'){
+            this.variantSelection();
+        }
+    }
+    /**
+     * Manage a breadcrumbs based on selected steps
+     * @param {active_ste} = Active step index 
+     */
+    manageBreadcrumbs = (active_step) => {
+        this.querySelectorAll(`.breadcrumbs-funnel [data-nav_step]`).forEach(ele => {
+            let step=parseInt(ele.getAttribute('data-nav_step'))
+            active_step=parseInt(active_step)
+            if (step+1 > active_step){
+              ele.classList.remove('active-step');
+            }
+        })
+        this.querySelector(`[data-nav_step="${active_step}"]`).classList.add('active-step');
+    }
+    /**
+     * Go back to previous step
+     * @param {*} event 
+    */
+    _hideShowSteps = (event) => {
+        event.stopImmediatePropagation()
+        let findSteptoDisplay = event.target.closest('[data-nav_step]').getAttribute('data-nav_step');
+        this.displayStep(findSteptoDisplay);
+    }
+    /**
+     * Continue to next step
+     * @param {event} event 
+    */
+    continueToNext = (event) => {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        let next = this._findNextStep(event);
+        let stepName = event.target.closest('[data-step-name]').getAttribute('data-step-name');
+        this.displayStep(next);
+        this.manageBreadcrumbs(next);
+        if(stepName == 'select-variant'){
+            this.getVariantData();
+        }
+        if(stepName == 'select-quantity'){
+            quantity = parseInt(event.target.closest('[data-qty-size]').getAttribute('data-qty-size'));
+            let nextStep = this._findNextStep(event);
+            this._manageSelection(event,nextStep-1)
+            this.frequencySelection(event);
+        }
+        if(stepName == 'select-frequency'){
+            sellingId = parseInt(event.target.closest('[data-sellingPlanId]').getAttribute('data-sellingPlanId'));
+            sellingFreq = event.target.closest('[data-frequency]').getAttribute('data-frequency');
+            let nextStep = this._findNextStep(event);
+            this._manageSelection(event,nextStep-1)
+            this.orderSummary();
+        }
+    }
+    /**
+      * add selected product to the cart
+      * @param {Event} event 
+    */
+    addToCart = async (event) => {
+        event.stopImmediatePropagation();
+        event.target.closest('.btn').classList.add('loading')
+        finalItems=[];
+        
+        let obj = {
+            quantity:quantity,
+            id: currentVariant.id,
+            selling_plan:sellingId
+        }
+        finalItems.push(obj);
+        let formData = {
+        'items':finalItems
+        };
+        const response = await fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        const data = await response.json(); 
+        console.log(data,'data',response)
+        if (response.ok) {
+            window.location.href = '/cart'
+        }else{
+            event.target.closest('.btn').classList.remove('loading');
+            this.snotify('error',data.message,data.description);
+        }
+    }
+    snotify = (type,title,body) => {
+        window.notificationEle.updateNotification(title, body, {
+          type: type,
+          timeout: 1000
+          });
+    }
+    _findNextStep(event){
+        return parseInt(event.target.closest('[data-selector]').querySelector('[data-next_selector]').getAttribute('data-next_selector'))
+    }
+    /**
+     * Add Selected class on the user selection
+     * @param {event} event 
+     * @param {number} currentStep 
+    */
+    _manageSelection(event,currentStep){
+        this.querySelectorAll(`[data-selector="${currentStep}"] .selected`).forEach(ele => {
+            ele.classList.remove('selected')
+        });
+        event.target.closest('[data-selection-box]').classList.add('selected');
+    }
+    /** END GENERAL METHODS */
+}
+customElements.define("subscription-funnel-2", subscriptionFunnel2);
