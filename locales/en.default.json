@@ -9,7 +9,7 @@
       "login_form_submit": "Enter",
       "modal": "Password modal",
       "signup_form_success": "We will send you an email right before we open!",
-      "admin_link_html": "Are you the store owner? <a href=\"/admin\" class=\"link underlined-link\">Log in here</a>",
+      "admin_link_html": "Are you the store owner? <a href=\"\/admin\" class=\"link underlined-link\">Log in here<\/a>",
       "powered_by_shopify_html": "This shop will be powered by {{ shopify }}"
     },
     "social": {
@@ -296,9 +296,9 @@
       "address1": "Address 1",
       "address2": "Address 2",
       "city": "City",
-      "country": "Country/region",
+      "country": "Country\/region",
       "province": "Province",
-      "zip": "Postal/ZIP code",
+      "zip": "Postal\/ZIP code",
       "phone": "Phone",
       "set_default": "Set as default address",
       "add": "Add address",
@@ -403,5 +403,12 @@
     "general": {
       "link_title": "TODO"
     }
+  },
+  "subscription_funnel2": {
+    "nav_step1": "select Product",
+    "nav_step2": "Select variant",
+    "nav_step3": "Amount",
+    "nav_step4": "Frequency",
+    "nav_step5": "Summary"
   }
 }
