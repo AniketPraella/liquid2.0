@@ -1,0 +1,30 @@
+{% comment %} Choose a plan started {% endcomment %}
+<select-quantity>
+    <div class="d-none" data-selector="3" data-step-name="select-quantity">
+      {% if block.settings.heading != '' %}
+      <h2 class="text-center text-uppercase pb-5 pb-lg-7">
+         {{ block.settings.heading }}
+      </h2>
+      {% endif %}
+      <div class="row" data-next_selector="4">
+        {% for i in (1..3) %}
+          {% assign amt = 'amount' | append: i %}
+          {% assign qty = block.settings[amt] %}
+          <div class="col-12 mb-3 mb-lg-0 col-lg-4" data-qty-size="{{ qty }}">
+            <div class="border p-5 p-lg-7 qty-sizes" data-selection-box>
+                <div class=text-center>
+                  <h3>
+                    {% if qty == "1" %}
+                        {{ qty }} bag
+                      {% else %}
+                    {{ qty }} bags 
+                    {% endif %}
+                  </h3>
+                </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+</select-quantity>
+{% comment %} Choose a plan end {% endcomment %}
