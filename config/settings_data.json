@@ -24,9 +24,9 @@
     "free_shipping_txt": "Congratulations! You get free shipping.",
     "free_shipping_left": "You are ${addMoreForFreeShip} away from free shipping!",
     "enable_free_shipping_bar": true,
+    "free_shipping_thresold": "150",
     "enable_free_gift": true,
     "get_free_product": "chequered-red-shirt",
-    "free_shipping_thresold": "150",
     "enable_login_helper": false,
     "account_not_found": "Account not found.",
     "account_enable": "Account enabled.",
@@ -156,9 +156,12 @@
       },
       "search-layer": {
         "type": "search-layer",
-        "settings": {}
+        "settings": {
+        }
       }
     },
-    "content_for_index": []
+    "content_for_index": [
+
+    ]
   }
 }

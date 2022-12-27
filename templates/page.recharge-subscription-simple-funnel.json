@@ -2,7 +2,53 @@
   "sections": {
     "main": {
       "type": "recharge-subscription-simple-funnel",
+      "blocks": {
+        "51d60e7b-e4d2-4ac4-acf7-898ef45fa72c": {
+          "type": "step-1",
+          "settings": {
+            "heading": "Chose Product",
+            "product1": "{{ page.metafields.custom.product_1_for_subscription.value }}",
+            "product2": "{{ page.metafields.custom.product_2_for_subscription.value }}",
+            "product3": "{{ page.metafields.custom.product_3_for_subscription.value }}"
+          }
+        },
+        "042e6117-d83a-49f1-b64c-570c2f59fe4c": {
+          "type": "step-2",
+          "settings": {
+            "heading": ""
+          }
+        },
+        "1b39b00f-92f6-451b-ba9c-30aeb9a19474": {
+          "type": "step-3",
+          "settings": {
+            "heading": "",
+            "amount1": "",
+            "amount2": "",
+            "amount3": ""
+          }
+        },
+        "cc48da24-807e-4946-83e8-3f6b84d95dca": {
+          "type": "step-4",
+          "settings": {
+            "heading": ""
+          }
+        },
+        "ba398eca-0905-4b41-a4af-188b8b0283d7": {
+          "type": "step-5",
+          "settings": {
+            "heading": ""
+          }
+        }
+      },
+      "block_order": [
+        "51d60e7b-e4d2-4ac4-acf7-898ef45fa72c",
+        "042e6117-d83a-49f1-b64c-570c2f59fe4c",
+        "1b39b00f-92f6-451b-ba9c-30aeb9a19474",
+        "cc48da24-807e-4946-83e8-3f6b84d95dca",
+        "ba398eca-0905-4b41-a4af-188b8b0283d7"
+      ],
       "settings": {
+        "fluid_layout": false
       }
     }
   },
