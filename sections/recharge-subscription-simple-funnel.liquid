@@ -1,12 +1,137 @@
+<section class="section-content subscription-funnel" data-section-id="{{ section.id }}" >
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+      <subscription-funnel>
+        <div class="shadow p-5 p-lg-7 subscription-funnel-2">
+          <div class="text-center pt-2 pb-4 pb-lg-5 " data-nav-subscription_breadcrumbs>
+            {% render 'funnel-breadcrumbs-2' %}
+          </div>
+            <div class="funnel-steps my-auto">
+              {% comment %} funnel steps start {% endcomment %}
+              {% for block in section.blocks %}
+                   {% if block.type == 'step-1' %}
+                     {% render 'subscription2-funnel-step1' , block: block %}
+                   {% endif %}
+                   {% if block.type == 'step-2' %}
+                     {% render 'subscription2-funnel-step2' , block: block %}
+                   {% endif %}
+                   {% if block.type == 'step-3' %}
+                     {% render 'subscription2-funnel-step3' , block: block %}
+                   {% endif %}
+                   {% if block.type == 'step-4' %}
+                     {% render 'subscription2-funnel-step4' , block: block %}
+                   {% endif %}
+                   {% if block.type == 'step-5' %}
+                     {% render 'subscription2-funnel-step5' , block: block %}
+                   {% endif %}
+             {% endfor %}
+             {% comment %} funnel steps end {% endcomment %}
+            </div>
+        </div>
+      </subscription-funnel>
+    </div>
+</section>
+
 {% schema %}
   {
-    "name": "Section name",
-    "settings": []
+    "name": "Funnel",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "checkbox",
+            "id": "fluid_layout",
+            "label": "Full Width Layout?",
+            "default": false
+          }
+    ],
+    "blocks": [
+        {
+          "name": "Choose Product",
+          "type": "step-1",
+          "settings": [
+            {
+              "type": "text",
+              "id": "heading",
+              "label": "Add Heading"
+            },
+            {
+              "type": "product",
+              "id": "product1",
+              "label": "Select Product 1"
+            },
+            {
+              "type": "product",
+              "id": "product2",
+              "label": "Select Product 2"
+            },
+            {
+              "type": "product",
+              "id": "product3",
+              "label": "Select Product 3"
+            }
+          ]
+        },
+        {
+          "name": "Choose Variant",
+          "type": "step-2",
+          "settings": [
+            {
+              "type": "text",
+              "id": "heading",
+              "label": "Add Heading"
+            }
+          ]
+        },
+        {
+          "name": "Choose Amount",
+          "type": "step-3",
+          "settings": [
+            {
+              "type": "text",
+              "id": "heading",
+              "label": "Add Heading"
+            },
+            {
+              "type": "text",
+              "id": "amount1",
+              "label": "Add quantity numbers"
+            },
+            {
+              "type": "text",
+              "id": "amount2",
+              "label": "Add quantity numbers"
+            },
+            {
+              "type": "text",
+              "id": "amount3",
+              "label": "Add quantity numbers"
+            }
+          ]
+        },
+        {
+          "name": "Choose Frequency",
+          "type": "step-4",
+          "settings": [
+            {
+              "type": "text",
+              "id": "heading",
+              "label": "Add Heading"
+            }
+          ]
+        },
+        {
+          "name": "Summary",
+          "type": "step-5",
+          "settings": [
+            {
+              "type": "text",
+              "id": "heading",
+              "label": "Add Heading"
+            }
+          ]
+        }
+    ]
   }
 {% endschema %}
-
-{% stylesheet %}
-{% endstylesheet %}
-
-{% javascript %}
-{% endjavascript %}
