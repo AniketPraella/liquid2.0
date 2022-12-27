@@ -21,10 +21,10 @@
         "1b39b00f-92f6-451b-ba9c-30aeb9a19474": {
           "type": "step-3",
           "settings": {
-            "heading": "",
-            "amount1": "",
-            "amount2": "",
-            "amount3": ""
+            "heading": "abcd",
+            "amount1": "1",
+            "amount2": "2",
+            "amount3": "3"
           }
         },
         "cc48da24-807e-4946-83e8-3f6b84d95dca": {
