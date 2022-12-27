@@ -1,0 +1,23 @@
+{% comment %} Choose a plan started {% endcomment %}
+<select-variant>
+    <div class="d-none" data-selector="2" data-step-name="select-variant">
+      {% if block.settings.heading != '' %}
+      <h2 class="text-center text-uppercase pb-2 pb-lg-4">
+         {{ block.settings.heading }}
+      </h2>
+      {% endif %}
+      <div class="row" data-options>
+         <div data-variantsWrapper>
+            <div data-optionValues>
+            </div>
+            <div class="row align-items-center" data-sizeSelector>
+               
+            </div>
+         </div>
+      </div>
+      <div class="text-center">
+         <a href="#" class="btn btn-primary mt-4 mt-lg-5" data-continue data-next_selector="3">Continue</a>
+      </div>
+   </div>
+</select-variant>
+{% comment %} Choose a plan end {% endcomment %}
