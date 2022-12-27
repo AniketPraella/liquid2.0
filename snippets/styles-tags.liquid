@@ -97,3 +97,7 @@
 {%- if template.name == 'product' and product.metafields.custom.box_collection -%}
   <link href="{{ 'box-product.css' | asset_url }}" rel="stylesheet" type="text/css">
 {%- endif -%}
+
+{%- if template.suffix == 'recharge-subscription-simple-funnel' -%}
+  <link href="{{ 'subscription-funnel.css' | asset_url }}" rel="stylesheet" type="text/css">
+{%- endif -%}
