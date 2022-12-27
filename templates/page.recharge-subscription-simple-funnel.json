@@ -1,7 +1,7 @@
 {
   "sections": {
     "main": {
-      "type": "template-page",
+      "type": "recharge-subscription-simple-funnel",
       "settings": {
       }
     }
