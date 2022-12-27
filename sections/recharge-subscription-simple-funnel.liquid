@@ -9,19 +9,19 @@
               {% comment %} funnel steps start {% endcomment %}
               {% for block in section.blocks %}
                    {% if block.type == 'step-1' %}
-                     {% render 'subscription2-funnel-step1' , block: block %}
+                     {% render 'subscription-funnel-step1' , block: block %}
                    {% endif %}
                    {% if block.type == 'step-2' %}
-                     {% render 'subscription2-funnel-step2' , block: block %}
+                     {% render 'subscription-funnel-step2' , block: block %}
                    {% endif %}
                    {% if block.type == 'step-3' %}
-                     {% render 'subscription2-funnel-step3' , block: block %}
+                     {% render 'subscription-funnel-step3' , block: block %}
                    {% endif %}
                    {% if block.type == 'step-4' %}
-                     {% render 'subscription2-funnel-step4' , block: block %}
+                     {% render 'subscription-funnel-step4' , block: block %}
                    {% endif %}
                    {% if block.type == 'step-5' %}
-                     {% render 'subscription2-funnel-step5' , block: block %}
+                     {% render 'subscription-funnel-step5' , block: block %}
                    {% endif %}
              {% endfor %}
              {% comment %} funnel steps end {% endcomment %}
