@@ -283,11 +283,32 @@ class subscriptionFunnel2 extends HTMLElement {
       let currentqtysec = addonAddSec.querySelector('[add-data-qty-value]');
       let data_increase_decrease = event.target.getAttribute('data-increase-decrease');
       let targetForm = event.currentTarget.closest('form');
+      let addonProducts = [];
+      let addonProductsfinal = [];
       if(data_increase_decrease != null){
         if(data_increase_decrease == 'increase'){         
           currentqtysec.value = Math.ceil(currentqtysec.value) + 1;
           console.log("currentqtysec.value", currentqtysec.value);
-          selectedAddonProduct.push(JSON.parse(serializeForm(targetForm)));
+          addonProducts.push(JSON.parse(serializeForm(targetForm)));
+          // check vid
+          let arrindex = addonProducts.map(function(evt) {
+            return evt.id;
+          });
+          var subprovid = null;
+          var subproqty = 0;
+          for (var i = 0; i < arrindex.length; i++) {
+              if (arrindex[i] != subprovid) {
+                  if (subproqty > 0) {
+                      addonProductsfinal.push({'id': subprovid, "quantity": subproqty
+                      })
+                  }
+                  subprovid = arrindex[i];
+                  subproqty = 1;
+              } else {
+                  subproqty++;
+              }
+          }
+          // check vid END
           console.log(selectedAddonProduct);
         }else if(data_increase_decrease == 'decrease' && Math.ceil(currentqtysec.value) == 0){
           return false;
