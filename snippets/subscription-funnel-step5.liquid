@@ -3,7 +3,22 @@
     <div class="row" id="addon-collection-product-grid">
       {% for product in block.settings.addoncollection.products %}
         <div class="col-12 col-lg-3 col-md-4 col-sm-6 mt-2 mb-2 d-flex align-items-stretch justify-content-around">
-          {% render 'card-product-style-generic', product: product %}
+          <div>
+            <div class="addon-card-img">
+              <img src="{{ product.featured_image | image_url: width: 360 }}"/>
+            </div>
+            <div class="addon-card-title">
+              <h3>{{ product.title }}</h3>
+            </div>
+            <div class="addon-card-price">
+              <p>{{ product.price }}</p>
+            </div>
+            <div class="addon-card-add">
+              <button>-</button>
+              <input type="number" readonly value="0" add-data-qty>
+              <button>+</button>
+            </div>
+          </div>
         </div>
       {% endfor %}
     </div>
