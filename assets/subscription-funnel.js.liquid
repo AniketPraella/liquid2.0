@@ -9,6 +9,8 @@ class subscriptionFunnel2 extends HTMLElement {
       super();
       this.funnel=document.querySelector('subscription-funnel');
       this.domEvents();
+      this.addon_add = this.querySelector('[add-data-qty-sec]');
+      this.addon_add.addEventListener('click',this.addonAdd.bind(this));
     }
     
     /**
@@ -29,8 +31,8 @@ class subscriptionFunnel2 extends HTMLElement {
         this.freqSelector.forEach(button => button.addEventListener('click', this.continueToNext.bind(this)));
         this.add_to_cart=this.querySelector('[data-add_to_cart]');
         this.add_to_cart.addEventListener('click',this.addToCart.bind(this));
-        this.addon_add = this.querySelector('[add-data-qty-sec]');
-        this.addon_add.addEventListener('click',this.addonAdd.bind(this));
+        // this.addon_add = this.querySelector('[add-data-qty-sec]');
+        // this.addon_add.addEventListener('click',this.addonAdd.bind(this));
     }
     /**
     * choose Product - step 1 
