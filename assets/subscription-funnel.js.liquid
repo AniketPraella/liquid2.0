@@ -28,7 +28,9 @@ class subscriptionFunnel2 extends HTMLElement {
         this.freqSelector = this.querySelectorAll('[data-frequency]');
         this.freqSelector.forEach(button => button.addEventListener('click', this.continueToNext.bind(this)));
         this.add_to_cart=this.querySelector('[data-add_to_cart]');
-        this.add_to_cart.addEventListener('click',this.addToCart.bind(this));   
+        this.add_to_cart.addEventListener('click',this.addToCart.bind(this));
+        this.addon_add = this.querySelector('[add-data-qty-sec]');
+        this.addon_add.addEventListener('click',this.addonAdd.bind(this));
     }
     /**
     * choose Product - step 1 
