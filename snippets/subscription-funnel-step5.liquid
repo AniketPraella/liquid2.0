@@ -1,6 +1,6 @@
 <addon>
   <div class="d-none" data-selector="5" data-step-name="addon">
-    {% for product in block.settings.addoncollection %}
+    {% for product in block.settings.addoncollection.products %}
       {{ product }}
     {% endfor %}
     <div class="text-center">
