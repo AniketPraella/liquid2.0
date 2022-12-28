@@ -271,6 +271,9 @@ class subscriptionFunnel2 extends HTMLElement {
             this.snotify('error',data.message,data.description);
         }
     }
+  /* 
+    Addon sec start
+  */
     addonAdd(event){
       let addonAddSec = event.currentTarget;
       let currentqtysec = addonAddSec.querySelector('[add-data-qty-value]');
@@ -290,6 +293,9 @@ class subscriptionFunnel2 extends HTMLElement {
         }
       }
     }
+  /* 
+    Addon sec END
+  */
     snotify = (type,title,body) => {
         window.notificationEle.updateNotification(title, body, {
           type: type,
