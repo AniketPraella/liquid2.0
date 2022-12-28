@@ -272,9 +272,17 @@ class subscriptionFunnel2 extends HTMLElement {
     addonAdd(event){
       let addonAddSec = event.currentTarget;
       let currentqtysec = addonAddSec.querySelector('[add-data-qty-value]');
-      currentqtysec.value = currentqtysec.value + 1;
-      console.log("currentqty", currentqty);
-      console.log("addonAddSect", event.target);
+      let data_increase_decrease_sec = event.target.querySelector('[data-increase-decrease]');
+      if(data_increase_decrease_sec != null){  
+        let data_increase_decrease = data_increase_decrease_sec.getAttribute('data-increase-decrease');
+        if(data_increase_decrease == 'increase'){         
+          currentqtysec.value = Math.ceil(currentqtysec.value) + 1;
+        }else if(data_increase_decrease == 'decrease' && Math.ceil(currentqtysec.value) == 0){
+          return false;
+        }else if(data_increase_decrease == 'decrease'){
+          currentqtysec.value = Math.ceil(currentqtysec.value) - 1;
+        }
+      }
     }
     snotify = (type,title,body) => {
         window.notificationEle.updateNotification(title, body, {
