@@ -13,10 +13,10 @@
             <div class="addon-card-price">
               <p>{{ product.price | money }}</p>
             </div>
-            <div class="addon-card-add">
-              <button>-</button>
-              <input type="number" readonly value="0" add-data-qty>
-              <button>+</button>
+            <div class="addon-card-add" add-data-qty-sec>
+              <button data-increase-decrease="decrease">-</button>
+              <input type="number" readonly value="0" add-data-qty-value>
+              <button data-increase-decrease="increase">+</button>
             </div>
           </div>
         </div>
