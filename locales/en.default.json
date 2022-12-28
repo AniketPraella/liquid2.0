@@ -409,6 +409,7 @@
     "nav_step2": "Select variant",
     "nav_step3": "Amount",
     "nav_step4": "Frequency",
-    "nav_step5": "Summary"
+    "nav_step5": "Add-On",
+    "nav_step6": "Summary"
   }
 }
