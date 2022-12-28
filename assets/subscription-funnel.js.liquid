@@ -269,6 +269,11 @@ class subscriptionFunnel2 extends HTMLElement {
             this.snotify('error',data.message,data.description);
         }
     }
+    addonAdd(event){
+      addonAddSec = event.currentTarget();
+      console.log("addonAddSec", addonAddSec);
+      console.log("addonAddSect", event.target());
+    }
     snotify = (type,title,body) => {
         window.notificationEle.updateNotification(title, body, {
           type: type,
