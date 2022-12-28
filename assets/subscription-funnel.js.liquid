@@ -253,8 +253,8 @@ class subscriptionFunnel2 extends HTMLElement {
             selling_plan:sellingId
         }
         finalItems.push(obj);
-
-      
+        finalItems.push(...selectedAddonProduct);
+      console.log(finalItems);
         let formData = {
         'items':finalItems
         };
