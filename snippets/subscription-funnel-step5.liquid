@@ -11,7 +11,7 @@
               <h3>{{ product.title }}</h3>
             </div>
             <div class="addon-card-price">
-              <p>{{ product.price }}</p>
+              <p>{{ product.price | money_with_currency }}</p>
             </div>
             <div class="addon-card-add">
               <button>-</button>
