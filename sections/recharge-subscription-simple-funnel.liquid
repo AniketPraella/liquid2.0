@@ -23,6 +23,9 @@
                    {% if block.type == 'step-5' %}
                      {% render 'subscription-funnel-step5' , block: block %}
                    {% endif %}
+                   {% if block.type == 'step-6' %}
+                     {% render 'subscription-funnel-step6' , block: block %}
+                   {% endif %}
              {% endfor %}
              {% comment %} funnel steps end {% endcomment %}
             </div>
