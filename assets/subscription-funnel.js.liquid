@@ -278,10 +278,7 @@ class subscriptionFunnel2 extends HTMLElement {
       let addonAddSec = event.currentTarget;
       let currentqtysec = addonAddSec.querySelector('[add-data-qty-value]');
       let data_increase_decrease = event.target.getAttribute('data-increase-decrease');
-      console.log("data_increase_decrease_sec", data_increase_decrease);
-      if(data_increase_decrease != null){  
-        // let data_increase_decrease = data_increase_decrease_sec.getAttribute('data-increase-decrease');
-        console.log("data_increase_decrease", data_increase_decrease);
+      if(data_increase_decrease != null){
         if(data_increase_decrease == 'increase'){         
           currentqtysec.value = Math.ceil(currentqtysec.value) + 1;
           console.log("currentqtysec.value", currentqtysec.value);
