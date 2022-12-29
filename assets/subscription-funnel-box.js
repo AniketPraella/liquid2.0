@@ -220,7 +220,7 @@
         let $qtyInput = currentTarget.closest('[data-qty-container]').querySelector('[data-qty-input]');
         let currentQty = parseInt($qtyInput.value) || 0;
         let finalQty =  $qtyInput.value;
-&ZeroWidthSpace;
+
         if(action == 'decrease' && currentQty < 1){
           return false;
         }else if(action == 'decrease'){
