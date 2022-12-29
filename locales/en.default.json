@@ -416,6 +416,9 @@
     "nav_step1": "1. Welcome",
     "nav_step2": "2. Plan",
     "nav_step3": "3. Addons",
-    "nav_step4": "4. Summary"
+    "nav_step4": "4. Summary",
+    "next": "Next",
+    "more_products": "More Products",
+    "select": "Select"
   }
 }
