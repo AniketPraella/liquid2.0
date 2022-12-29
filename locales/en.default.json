@@ -419,6 +419,9 @@
     "nav_step4": "4. Summary",
     "next": "Next",
     "more_products": "More Products",
-    "select": "Select"
+    "select": "Select",
+    "checkout": "Checkout",
+    "subtotal": "Subtotal",
+    "edit": "Edit"
   }
 }
