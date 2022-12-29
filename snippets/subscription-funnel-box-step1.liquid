@@ -1,0 +1,54 @@
+{% comment %} Choose a plan started {% endcomment %}
+<select-plan>
+    <div class="mt-8 mt-lg-12" data-selector="1">
+      {% if block.settings.heading != '' %}
+      <h2 class="text-center">
+          {{ block.settings.heading }}
+      </h2>
+      {% endif %}
+      <div class="row">
+        {% for i in (1..3) %}
+          {% assign plan = 'product' | append: i %}
+          {% assign boxProduct = block.settings[plan] %}
+          <div class="col-12 mb-3 mb-lg-0 col-lg-4" data-selection-box>
+            <div class="shadow-lg p-5 p-lg-7">
+                <div class=text-center>
+                  <h3>
+                  {{ boxProduct.title }} 
+                  </h3>
+                  <span>
+                        {% for selling_plan in boxProduct.selling_plan_groups[0].selling_plans %}
+                          {% assign sellingPlanId = selling_plan.id %}
+                          {% for option in selling_plan.options %}
+                                Per {{ option.name }}
+                          {% endfor %}
+                        {% endfor %}
+                    </span>
+                  <p>
+                    {{ boxProduct.price | money }}  
+                  </p>
+                  <p>
+                    {% for tag in boxProduct.tags  %}
+                        {% if tag contains 'plans-' %}
+                            {% assign plan_size = tag | split: 'plans-'  %}
+                            {% assign plan_size = plan_size.last | plus: 0  %}
+                            {% assign price_per_plan = boxProduct.price | divided_by: plan_size %}
+                            {{ price_per_plan | money  }} Per plan
+                        {% endif %}
+                    {% endfor %} 
+                  </p>
+                  <div>
+                    <a href="#" class="btn btn-primary"  data-sellingPlanId="{{ sellingPlanId }}"  data-planProId="{{ boxProduct.id }}"  data-planSize= "{{ plan_size }}"  data-selectedPlan = "{{ boxProduct.handle }}"  data-next_selector="2"    data-choosePlan>get started</a>
+                  </div>
+                  <script data-selected_planId="{{ boxProduct.id }}" type="application/json" data-selectPlanJson>
+                    {% assign boxProductJson = all_products[boxProduct.handle] %}
+                    {{ boxProductJson | json }}
+                  </script>
+                </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+</select-plan>
+{% comment %} Choose a plan end {% endcomment %}
