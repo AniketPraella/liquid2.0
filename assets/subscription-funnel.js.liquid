@@ -243,17 +243,19 @@ class subscriptionFunnel2 extends HTMLElement {
         }
         if(stepName == 'select-addon'){
           selectedAddon = [];
+          selectedAddonProduct = [];
           let qtyvaluetarget = event.target.closest('addon').querySelectorAll('[add-data-qty-value]');
           console.log(qtyvaluetarget);
           qtyvaluetarget.forEach((button) => {
             console.log(button);
             let buttonvalue = Math.ceil(button.value);
             let targetForm = button.closest('form');
-            console.log(buttonvalue);
+            console.log(buttonvalue); 
             if(buttonvalue > 0){
               let ptitle = button.closest(".card-product-addon").querySelector('.addon-card-title h3').innerHTML;
               selectedAddon.push(ptitle);
-              
+              selectedAddonProduct.push(JSON.parse(serializeForm(targetForm)));
+              console.log(selectedAddonProduct);
             }
             this.orderSummary();
           })   
@@ -309,15 +311,15 @@ class subscriptionFunnel2 extends HTMLElement {
         if(data_increase_decrease == 'increase'){         
           currentqtysec.value = Math.ceil(currentqtysec.value) + 1;
           console.log("currentqtysec.value", currentqtysec.value);
-          selectedAddonProduct.push(JSON.parse(serializeForm(targetForm)));
-          console.log(selectedAddonProduct);
+          // selectedAddonProduct.push(JSON.parse(serializeForm(targetForm)));
+          // console.log(selectedAddonProduct);
         }else if(data_increase_decrease == 'decrease' && Math.ceil(currentqtysec.value) == 0){
           return false;
         }else if(data_increase_decrease == 'decrease'){
           currentqtysec.value = Math.ceil(currentqtysec.value) - 1;
           console.log("currentqtysec.value", currentqtysec.value);
-          selectedAddonProduct.push(JSON.parse(serializeForm(targetForm)));
-          console.log(selectedAddonProduct);
+          // selectedAddonProduct.push(JSON.parse(serializeForm(targetForm)));
+          // console.log(selectedAddonProduct);
         }
       }
     }
