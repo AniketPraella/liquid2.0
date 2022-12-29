@@ -19,7 +19,7 @@
                     {% for product in collection.products %}
                         <div class="col-lg-3">
                             {% if product.available %}
-                                {% render 'addon-card-funnel', product: product %}
+                                {% render 'addon-card-funnel-box', product: product %}
                             {% endif %}
                         </div>
                     {% endfor %}
