@@ -411,5 +411,11 @@
     "nav_step4": "Frequency",
     "nav_step5": "Add-On",
     "nav_step6": "Summary"
+  },
+  "subscription_funnel_box": {
+    "nav_step1": "1. Welcome",
+    "nav_step2": "2. Plan",
+    "nav_step3": "3. Addons",
+    "nav_step4": "4. Summary"
   }
 }
