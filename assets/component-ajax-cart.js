@@ -607,27 +607,31 @@ class AjaxCart extends HTMLElement {
     }
 
     addFreeGift(vid){
-      fetch('/cart/add.js', {
-        body: JSON.stringify({
-          items:[{'id': vid, "quantity": 1,
-            properties: {
-                "type": "freegift"
-                }
-            }]
-        }),
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Requested-With':'xmlhttprequest'
-        },
-        method: 'POST'
-      }).then((response) => {
-        return response.json();
-      }).then (async (dataresponse) => {
-        console.log('products', dataresponse);this.getCartData();
-      }).catch((err) => {
-        console.error(err)
-      });
+      if(vid != null){
+        fetch('/cart/add.js', {
+          body: JSON.stringify({
+            items:[{'id': vid, "quantity": 1,
+              properties: {
+                  "type": "freegift"
+                  }
+              }]
+          }),
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With':'xmlhttprequest'
+          },
+          method: 'POST'
+        }).then((response) => {
+          return response.json();
+        }).then (async (dataresponse) => {
+          console.log('products', dataresponse);this.getCartData();
+        }).catch((err) => {
+          console.error(err)
+        });
+      }else{
+        return false;
+      }
     }
 
     removeFreeGift(vid){
