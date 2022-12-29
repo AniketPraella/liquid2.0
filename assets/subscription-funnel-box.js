@@ -406,4 +406,3 @@
       }
   }
   customElements.define("subscription-funnel", subscriptionFunnel);
-&ZeroWidthSpace;
