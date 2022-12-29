@@ -5,6 +5,7 @@ var quantity;
 var sellingId;
 var sellingFreq;
 var finalItems;
+var selectedAddon = [];
 class subscriptionFunnel2 extends HTMLElement {
     constructor() {
       super();
@@ -237,7 +238,16 @@ class subscriptionFunnel2 extends HTMLElement {
             this._manageSelection(event,nextStep-1)
             this.orderSummary();
         }
-      console.log("stepName ", stepName);
+        if(stepName == 'select-addon'){
+          let qtyvaluetarget = event.target.closest('addon').querySelectorAll('add-data-qty-value');
+          qtyvaluetarget.forEach((button) => {
+            buttonvalue = Math.ceil(button.value);
+            if(buttonvalue > 0){
+              let ptitle = button.closest(".card-product-addon").querySelector('.addon-card-title h3').innerHTML;
+              selectedAddon.push(ptitle);
+            }
+          })         
+        }
     }
     /**
       * add selected product to the cart
