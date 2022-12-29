@@ -12,7 +12,7 @@ class subscriptionFunnel2 extends HTMLElement {
       this.funnel=document.querySelector('subscription-funnel');
       this.domEvents();
       this.addon_add = this.querySelectorAll('[add-data-qty-sec]');
-      // this.addon_add.forEach(button => button.addEventListener('click', this.addonAdd.bind(this)));
+      this.addon_add.forEach(button => button.addEventListener('click', this.addonAdd.bind(this)));
     }
     
     /**
@@ -248,10 +248,12 @@ class subscriptionFunnel2 extends HTMLElement {
           qtyvaluetarget.forEach((button) => {
             console.log(button);
             let buttonvalue = Math.ceil(button.value);
+            let targetForm = button.closest('form');
             console.log(buttonvalue);
             if(buttonvalue > 0){
               let ptitle = button.closest(".card-product-addon").querySelector('.addon-card-title h3').innerHTML;
               selectedAddon.push(ptitle);
+              
             }
             this.orderSummary();
           })   
