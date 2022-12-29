@@ -110,4 +110,9 @@
   <script src="{{ 'subscription-funnel.js' | asset_url }}" defer></script>
 {%- endif -%}
 
+{%- if template.suffix == 'recharge-subscription-box-funnel' -%}
+  <script src="{{ 'subscription-funnel-box.js' | asset_url }}" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script>
+{%- endif -%}
+
 <script src="{{ 'custom.js' | asset_url }}" defer></script>
