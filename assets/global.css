@@ -11987,3 +11987,6 @@ input[type="range"]::-moz-range-thumb{
     width: 40px;
     text-align: right;
 }
+.opacity-0{
+  opacity: 0.5;
+}
