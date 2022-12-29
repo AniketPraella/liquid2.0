@@ -173,7 +173,7 @@ class subscriptionFunnel2 extends HTMLElement {
             sumarrywrap.querySelector('[data-selectedPrice]').innerHTML = `${Shopify.formatMoney(selectedProduct.price, window.globalVariables.money_format)}`
         }
         if (sumarrywrap.querySelector('[data-selectedAddon]') != null) {
-            sumarrywrap.querySelector('[data-selectedAddon]').innerHTML = `<p>${selectedAddon}</p>`
+            sumarrywrap.querySelector('[data-selectedAddon]').innerHTML = `<p>${selectedAddon[0]}</p>`
         }
     }
     /** Step 4 END */
