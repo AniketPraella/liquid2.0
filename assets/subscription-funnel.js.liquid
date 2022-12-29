@@ -239,7 +239,7 @@ class subscriptionFunnel2 extends HTMLElement {
             this.orderSummary();
         }
         if(stepName == 'select-addon'){
-          let qtyvaluetarget = event.target.closest('addon').querySelectorAll('add-data-qty-value');
+          let qtyvaluetarget = event.target.closest('addon').querySelectorAll('[add-data-qty-value]');
           console.log(qtyvaluetarget);
           qtyvaluetarget.forEach((button) => {
             console.log(button);
