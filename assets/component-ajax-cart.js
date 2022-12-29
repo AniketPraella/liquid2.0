@@ -607,6 +607,7 @@ class AjaxCart extends HTMLElement {
     }
 
     addFreeGift(vid){
+      console.log(vid);
       if(vid != null){
         fetch('/cart/add.js', {
           body: JSON.stringify({
