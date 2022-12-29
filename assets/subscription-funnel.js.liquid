@@ -243,7 +243,7 @@ class subscriptionFunnel2 extends HTMLElement {
           console.log(qtyvaluetarget);
           qtyvaluetarget.forEach((button) => {
             console.log(button);
-            buttonvalue = Math.ceil(button.value);
+            let buttonvalue = Math.ceil(button.value);
             console.log(buttonvalue);
             if(buttonvalue > 0){
               let ptitle = button.closest(".card-product-addon").querySelector('.addon-card-title h3').innerHTML;
