@@ -583,8 +583,12 @@ class AjaxCart extends HTMLElement {
           
             console.log('v1 ', Math.ceil(freeGiftThresoldSec.value));
             console.log('v2 ', Math.ceil(freeGiftCtSec.value));
-            if(Math.ceil(freeGiftThresoldSec.value) <= Math.ceil(freeGiftCtSec.value)){
-              this.addFreeGift(freeGiftVidSec.value);
+            if(freeGiftVidSec.value != null){
+              if(Math.ceil(freeGiftThresoldSec.value) <= Math.ceil(freeGiftCtSec.value)){
+                this.addFreeGift(freeGiftVidSec.value);
+              }
+            }else{
+              return false;
             }
           
         }
