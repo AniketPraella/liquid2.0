@@ -1,5 +1,5 @@
 {% assign current_variant = product.selected_or_first_available_variant %}
-​
+
 <div class="card card-product card-product-style-1 text-start rounded-0" data-product-grid>
   <span class="badges">
     {%- liquid
@@ -25,23 +25,23 @@
         </span>
       {%- endif -%}
     {%- endfor -%}
-​
+
     {% if onSale %}
       <span class="badge badge-right badge-danger" >
         {{ 'products.product.on_sale' | t | escape }}
       </span>
     {% endif %}
-​
+
     {% if soldOut %}
       <span class="badge badge-right badge-warning">
         {{ 'products.product.sold_out' | t | escape }}
       </span>
     {% endif %}
   </span>
-​
+
   <div class="card-img text-center {% if product.featured_image.size == 0 %}bg-gray-300{% endif %}" >
     {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
-​
+
     {% if current_variant and current_variant.image %}
       {% assign secondaryImage = product.featured_image %}
       <a href="{{ product.url | within: collection }}" class="d-block product-link" >
@@ -52,7 +52,7 @@
               {%- if current_variant.image.width >= 720 -%}{{ current_variant.image | image_url: width: 720 }} 720w,{%- endif -%}
               {{ current_variant.image | image_url }} {{ current_variant.image.width }}w"
             src="{{ current_variant.image | image_url: width: 533 }}"
-​
+
             sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 150 | divided_by: 4 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"                
             loading="lazy"
             data-feauredImage
@@ -68,9 +68,9 @@
               {%- if secondaryImage.width >= 720 -%}{{ secondaryImage | image_url: width: 720 }} 720w,{%- endif -%}
               {{ secondaryImage | image_url }} {{ secondaryImage.width }}w"
             src="{{ secondaryImage | image_url: width: 533 }}"
-​
+
             sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 150 | divided_by: 4 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"                
-​
+
             loading="lazy"
             class="w-100"
             data-hoverImage
@@ -88,7 +88,7 @@
                   {%- if product.featured_image.width >= 720 -%}{{ product.featured_image | image_url: width: 720 }} 720w,{%- endif -%}
                   {{ product.featured_image | image_url }} {{ product.featured_image.width }}w"
                 src="{{ product.featured_image | image_url: width: 533 }}"
-​
+
                 sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 150 | divided_by: 4 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"                
                 loading="lazy"
                 data-feauredImage
@@ -96,8 +96,8 @@
                 width="{{ product.featured_image.width }}"
                 height="{{ product.featured_image.width | divided_by: product.featured_image.aspect_ratio }}"
               > 
-​
-​
+
+
             {%- if settings.show_secondary_image and product.images[1] -%}
             <img srcset="
                   {%- if product.images[1].width >= 360 -%}{{ product.images[1] | image_url: width: 360 }} 360w,{%- endif -%}
