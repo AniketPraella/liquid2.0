@@ -1,0 +1,47 @@
+{% comment %} Choose a plan started {% endcomment %}
+<select-product>
+    <div class="d-none mt-8 mt-lg-12" data-selector="2">
+        <div class="row">
+            {% assign collection = block.settings.sub_collection %}
+            <div class="col-lg-9 p-5 p-lg-8 shadow choose-plan-products">
+                {% if block.settings.heading != '' %}
+                    <h2 class="text-center text-uppercase pb-1">
+                        {{ block.settings.heading }}
+                    </h2>
+                    {% endif %}
+                    {% if block.settings.subheading != '' %}
+                        <h5 class="text-center">
+                            {{ block.settings.subheading }}
+                        </h5>
+                        {% endif %}
+                <div class="row pt-lg-6" data-addon_card>
+                    {% for product in collection.products %}
+                        <div class="col-6 col-lg-4">
+                            {% render 'product-card-funnel', product: product %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-3 shadow position-relative sidebar-product-wrapper">
+                <div class="summary-header">
+                    <div class="">
+                    <p data-summary_price></p>
+                    </div>
+                    </div>
+                    <div class="summary-body">
+                    <div class="sidebar-products-wrapper" data-selectedProducts>
+                    </div>
+                    <div class="bg-gray-100 p-2 d-none" data-planselectionMsg>
+                        {{ 'subscription_funnel.select' | t }} <span data-selectedProductCount></span> {{ 'subscription_funnel.more_products' | t }}
+                    </div>
+                    </div>
+                <div class="summary-footer w-100">
+                    <a href="#" class="btn btn-medium btn-primary w-100 disabled" data-save_items data-next_selector="3">
+                        {{ 'subscription_funnel.next' | t }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</select-product>
+{% comment %} Choose a plan end {% endcomment %}
