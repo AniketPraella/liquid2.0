@@ -422,6 +422,9 @@
     "select": "Select",
     "checkout": "Checkout",
     "subtotal": "Subtotal",
-    "edit": "Edit"
+    "edit": "Edit",
+    "delivery_details": "Delivery details",
+    "meals_selected": "Meals selected",
+    "addons": "Addons"
   }
 }
