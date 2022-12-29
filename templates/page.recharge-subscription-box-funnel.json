@@ -2,7 +2,48 @@
   "sections": {
     "main": {
       "type": "recharge-subscription-box-funnel",
+      "blocks": {
+        "3e5937bf-da75-4a0e-a61d-9fd09832c78f": {
+          "type": "step-1",
+          "settings": {
+            "heading": "Welcome",
+            "product1": "aniket-subscription",
+            "product2": "bancoffee",
+            "product3": "black-lives-matter"
+          }
+        },
+        "f37330e9-7619-4746-8c66-25d48a66f972": {
+          "type": "step-2",
+          "settings": {
+            "heading": "",
+            "subheading": "",
+            "sub_collection": "bundle"
+          }
+        },
+        "f8c0ec97-5418-4843-bf04-00e9e0145477": {
+          "type": "step-3",
+          "settings": {
+            "heading": "",
+            "subheading": "",
+            "sub_collection": "addons"
+          }
+        },
+        "840254f7-2490-4357-bac6-120dbd6e6464": {
+          "type": "step-4",
+          "settings": {
+            "heading": "",
+            "subheading": ""
+          }
+        }
+      },
+      "block_order": [
+        "3e5937bf-da75-4a0e-a61d-9fd09832c78f",
+        "f37330e9-7619-4746-8c66-25d48a66f972",
+        "f8c0ec97-5418-4843-bf04-00e9e0145477",
+        "840254f7-2490-4357-bac6-120dbd6e6464"
+      ],
       "settings": {
+        "fluid_layout": false
       }
     }
   },
