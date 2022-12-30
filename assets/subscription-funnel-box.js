@@ -281,7 +281,7 @@
        * flat pickr datepicker 
       */
       initDatePicker = () => {
-        this.querySelector('[data-date_input]').flatpickr({minDate: "today"});
+        this.querySelector('[data-date_input]').flatpickr({minDate: new Date().fp_incr(14)});
       }
       /**
        * Adding Products to cart
