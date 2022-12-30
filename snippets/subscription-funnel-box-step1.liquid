@@ -14,7 +14,7 @@
             <div class="shadow-lg p-5 p-lg-7">
                 <div class=text-center>
                   <h3>
-                  {{ boxProduct.title }}
+                  {{ boxProduct.title }} - {{ block.settings.product1 }}
                   </h3>
                   <span>
                         {% for selling_plan in boxProduct.selling_plan_groups[0].selling_plans %}
