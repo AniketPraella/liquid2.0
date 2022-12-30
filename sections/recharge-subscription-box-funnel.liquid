@@ -1,8 +1,8 @@
 <section class="section-content" data-section-id="{{ section.id }}">
   <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
     <subscription-funnel>
-        <div class="text-center d-none" data-nav-subscription_breadcrumbs>
-          {% render 'funnel-breadcrumbs' %}
+        <div class="text-center" data-nav-subscription_breadcrumbs>
+          {% render 'funnel-breadcrumbs-box' %}
          </div>
          {% comment %} funnel steps start {% endcomment %}
          {% for block in section.blocks %}
