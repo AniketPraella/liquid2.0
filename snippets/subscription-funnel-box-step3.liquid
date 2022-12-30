@@ -17,11 +17,11 @@
                       {% endif %}
                 <div class="row pt-lg-6">
                     {% for product in collection.products %}
+                      {% if product.available %}
                         <div class="col-lg-3">
-                            {% if product.available %}
                                 {% render 'addon-card-funnel-box', product: product %}
-                            {% endif %}
                         </div>
+                      {% endif %}
                     {% endfor %}
                 </div>
             </div>
