@@ -1114,6 +1114,41 @@
         "id": "product_exclude_tag_text",
         "label": "Product Tag",
         "info": "Products with the above tag will be excluded from collections and search results."
+      },
+      {
+        "type": "header",
+        "content": "Recharge Dashboard"
+      },
+      {
+        "type": "text",
+        "id": "subscription_frq",
+        "label": "Dashboard Frequency",
+        "default": "2,4,6,8",
+        "info": "These Frequencies are used to display options for changing frequency. each frequency must be seperated by comma"
+      },
+      {
+        "type": "collection",
+        "id": "addon_collection",
+        "label": "Select collection for addon",
+        "info": "Select collection from which you want to show addon products. If this is not selected, then by default it will show addons from 'all collection'."
+      },
+      {
+        "type": "collection",
+        "id": "subscription_collection",
+        "label": "Select collection for subscription",
+        "info": "Select collection from which you want to show products in edit subscription."
+      },
+      {
+        "type": "text",
+        "id": "shopifyCommonApi",
+        "label": "Shopify Common Api URL",
+        "default": "\/tools\/ha-api\/shopify\/common"
+      },
+      {
+        "type": "text",
+        "id": "rechargeCommonApi",
+        "label": "Recharge Common Api URL",
+        "default": "\/tools\/ha-api\/recharge\/common"
       }
     ]
   },
