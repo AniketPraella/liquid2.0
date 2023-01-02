@@ -1,0 +1,1655 @@
+    
+<modal-dialog id="PopupModal-promocode">
+    <div class="modal promocode-modal" role="dialog">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content" style="min-width: 500px; min-height: 300px">
+            <div class="modal-body">
+                <button class="btn p-2 close-quickshop" type="button" id="ModalClose-video" aria-label="{{ 'sections.video-with-text.close_video' | t }}">
+                    <i class="icon-close"></i>
+                </button>
+                <div class="text-center w-100 py-5 py-lg-4 px-2">
+                    <h5 class="fw-semibold">{{ 'recharge.modal.promo.heading' | t }}</h5>
+                    <p class="font-size-md mb-4">{{ 'recharge.modal.promo.subheading' | t }}</p>
+                    <div class="appy-promo-group d-flex input-group justify-content-end">
+                        <div class="form-floating">
+                            <input type="email" data-promocode name="promoCode[promoCode]" id="promoCode" class="form-control" placeholder="{{ 'recharge.modal.promo.input_label'| t }}">
+                            <label for="promoCode">{{ 'recharge.modal.promo.input_label' | t }}</label>
+                        </div>
+                        <button type="submit" name="btnSubmit" aria-label="submit" class="btn btn-primary" data-apply_promocode>
+                            <span class="add-text">{{ 'recharge.buttons.apply'| t }}</span>
+                            <span class="spinner"></span>
+                        </button>   
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+<modal-dialog id="UpdatePayment-modal">
+    <div class="modal updatepayment-modal" role="dialog">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-body">
+                <button class="btn p-2 close-quickshop" type="button" id="ModalClose-video" aria-label="{{ 'sections.video-with-text.close_video' | t }}">
+                    <i class="icon-close"></i>
+                </button>
+                <div class="text-center w-100 pt-5 pb-4 py-lg-4 px-4 px-md-0">
+                    <h5 class="fw-semibold">{{ 'recharge.modal.updatePayment.heading' | t }}</h5>
+                    <p class="font-size-md mb-4">{{ 'recharge.modal.updatePayment.subheading' | t }}</p>
+                    <div class="d-md-flex align-items-center justify-content-center text-center">
+                        <a href="#" class="btn btn-primary order-2 mb-4 mb-md-0" data-send_email>
+                            <span class="add-text">{{ 'recharge.buttons.send_email'| t }}</span>
+                            <span class="spinner"></span>
+                        </a><br />
+                        <a href="#" class="font-size-md fw-medium text-secondary popup-link order-1 me-md-4">{{ 'recharge.buttons.cancel'| t }}</a>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+<modal-dialog id="UpdateBraintreePayment-modal">
+    <div class="modal recharge-modal cancel-modal " role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-body" style="height: 500px;">
+                <button class="btn p-2 close-quickshop" type="button" id="ModalClose-video" aria-label="{{ 'sections.video-with-text.close_video' | t }}">
+                    <i class="icon-close"></i>
+                </button>
+                <div class="text-center w-100 pt-5 pb-4 py-lg-4 px-4 px-md-0">
+                    <h5 class="fw-semibold">{{ 'recharge.modal.updatePayment.heading' | t }}</h5>
+                    <p class="font-size-md mb-4">{{ 'recharge.modal.updatePayment.subheading' | t }}</p>
+                        <form id="braintreeData" onsubmit="return false" autocomplete="off">
+                <div class="row mx-n2">
+                    <div class="col-md-6 px-2 mb-2" data-card-input>
+                        <label for="cardholder_fname" class="mb-1 font-size-md text-secondary text-uppercase fw-medium">Cardholder First Name*</label>
+                        <input id="cardholder_fname" data-braintree-name="card_fname" type="text" placeholder="First Name" class="form-control form-control-sm" value="" required>
+                        <p class="d-none text-danger" data-card-error="false">Please enter first name.</p>
+                    </div>
+
+                    <div class="col-md-6 px-2 mb-2" data-card-input>
+                        <label for="cardholder_lname" class="mb-1 font-size-md text-secondary text-uppercase fw-medium">Cradholder Last Name*</label>
+                        <input id="cardholder_lname" data-braintree-name="card_lname" type="text" placeholder="Last Name" class="form-control form-control-sm" value="" required>
+                        <p class="d-none text-danger" data-card-error="false">Please enter last name.</p>
+                    </div>
+
+                    <div class="col-md-6 px-2 mb-2" data-card-input>
+                        <label for="card_number" class="mb-1 text-secondary text-uppercase fw-medium font-size-md">Card Number*</label>
+                        <input id="card_number" data-braintree-name="card_number" maxlength="19" data-card-details="CN" type="tel" class="form-control form-control-sm" placeholder="1234 1234 1234 1234" value="" required="" autocomplete="off">
+                        <p class="d-none text-danger" data-card-error="true">Please enter a valid Card Number.</p>
+                    </div>
+
+                    <div class="col-md-6 px-2 mb-2" data-card-input>
+                        <label for="card_expiry" class="mb-1 text-secondary text-uppercase fw-medium font-size-md">Expiration*</label>
+                        <input id="card_expiry" data-braintree-name="expiration_date" maxlength="5" data-card-details="EX" type="tel" class="form-control form-control-sm" placeholder="MM/YY" value="" required="" autocomplete="off" >
+                        <p class="d-none text-danger" data-card-error="true">Please enter a valid expiry data.</p>
+                    </div>
+
+                    <div class="col-md-6 px-2 mb-2" data-card-input>
+                        <label for="card_cvv" class="mb-1 text-secondary text-uppercase fw-medium font-size-md">Security code*</label>
+                        <input id="card_cvv" data-braintree-name="cvv" maxlength="3" data-card-details="CVV" type="tel" class="form-control form-control-sm" placeholder="CVV" value="" required="" autocomplete="off" >
+                        <p class="d-none text-danger" data-card-error="true">Please enter a valid CVV.</p>
+                    </div>
+
+                    <div class="col-12 col-md-6 px-2 mb-2" data-card-input>
+                    <label for="card_zipcode" class="mb-1 text-secondary text-uppercase fw-medium font-size-md">zipcode</label>
+                    <input id="card_zipcode" data-braintree-name="postal_code" data-card-zipcode="" type="text" class="form-control form-control-sm" placeholder="Zip code" value="" required="">
+                    <p class="d-none text-danger" data-card-error="false">Please enter a valid pincode.</p>
+                    
+                </div>
+                </div>
+                <div class="d-md-flex align-items-center justify-content-center text-center">
+                        <button type="submit" class="btn btn-primary order-2 mb-4 mb-md-0 disabled" data-add-card> 
+                            <span class="add-text">{{ 'recharge.buttons.add_card'| t }}</span>
+                            <span class="spinner"></span>
+                        </button><br />
+                        {%- comment -%} <a href="#" class="font-size-md fw-medium text-secondary popup-link order-1 me-md-4">{{ 'recharge.buttons.cancel'| t }}</a> {%- endcomment -%}
+                    </div>
+                        </form>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="UpdatePaymentconfirmed-modal">
+    <div class="modal recharge-modal no-header-footer" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop"  type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+
+            <div class="modal-body d-flex align-items-center justify-content-center">
+                <div class="w-100 text-center px-3 px-md-2">
+                    <svg class="mb-3" width="46.677" height="46.715" viewBox="0 0 46.677 46.715">
+                        <g id="one_time_checkmark" data-name="one time checkmark" transform="translate(1.198 1.218)">
+                            <g id="Group_1362" data-name="Group 1362" transform="translate(-0.35 -0.35)">
+                            <path id="Path_3427" data-name="Path 3427" d="M41.932,15.316A21.408,21.408,0,1,1,28.54,1.227" transform="translate(2.241 0) rotate(3)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            <path id="Path_3428" data-name="Path 3428" d="M12.258,21.79l8.5,9.013,22.373-27.3" transform="translate(-1.149 0.35)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            </g>
+                        </g>
+                    </svg>
+                    <h3 class="fw-semibold">{{ 'recharge.modal.confirmation.text' | t }}</h3>
+                    <p class="mb-4">{{ 'recharge.modal.updatePayment.success' | t }}</p>
+                    <a href="#" class="btn btn-primary" id="ModalClose-notifyme">{{ 'recharge.buttons.return_account'| t }}</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="shippingaddress-modal">
+    <div class="modal recharge-modal" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop" type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+            <div class="modal-header">
+                <a href="#" data-modal-opener="editsubscription-modal" data-back_button class="go-back"><i class="icon-arrow-left"></i></a>
+                <h4 class="text-center fw-semibold w-100 mb-0 d-none d-md-block">{{ 'recharge.modal.shippingaddress.heading' | t }}</h4>
+            </div>
+
+            <div class="modal-body">
+                <h4 class="text-center fw-semibold w-100 mb-4 pb-1 d-md-none">{{ 'recharge.modal.shippingaddress.heading' | t }}</h4>
+                <form  id="editShippingForm">
+                    <div class="row custom-popup-row" >
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" id="name" name="shipping_first_name" data-shipping_address="first_name" class="form-control" placeholder="{{ 'recharge.modal.shippingaddress.fname' | t }}">
+                                <label for="name">{{ 'recharge.modal.shippingaddress.fname' | t }}</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" id="name" name="shipping_last_name" data-shipping_address="last_name" class="form-control" placeholder="{{ 'recharge.modal.shippingaddress.lname' | t }}">
+                                <label for="name">{{ 'recharge.modal.shippingaddress.lname' | t }}</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" id="name" name="shipping_address1" data-shipping_address="address1" class="form-control" placeholder="{{ 'recharge.modal.shippingaddress.address' | t }}">
+                                <label for="name">{{ 'recharge.modal.shippingaddress.address' | t }}</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" id="name" name="shipping_address2" data-shipping_address="address2" class="form-control" placeholder="{{ 'recharge.modal.shippingaddress.address2' | t }}">
+                                <label for="name">{{ 'recharge.modal.shippingaddress.address2' | t }}</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row custom-popup-row">
+                            <div class="col-12 col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" id="name" name="shipping_city" data-shipping_address="city" class="form-control" placeholder="{{ 'recharge.modal.shippingaddress.city' | t }}">
+                                    <label for="name">{{ 'recharge.modal.shippingaddress.city' | t }}</label>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3" id="shippingProvinceContainer" style="display:none">
+                                <div class="form-floating">
+                                    <select id="shipping_province" name="shipping_Province" data-shipping_address="province" data-state class="form-select form-control" placeholder="Province">{{ 'recharge.modal.shippingaddress.province' | t }}</select>
+                                    <label for="state">{{ 'recharge.modal.shippingaddress.state' | t }}</label>
+                                </div>
+                            </div>
+    
+                            <div class="col-6 col-md-3">
+                                <div class="form-floating">
+                                    <input type="text" id="Zipcode" name="shipping_zip" data-shipping_address="zip" class="form-control" placeholder="{{ 'recharge.modal.shippingaddress.zipcode' | t }}">
+                                    <label for="Zipcode">{{ 'recharge.modal.shippingaddress.zipcode' | t }}</label>
+                                </div>
+                            </div>
+                        </div>
+                            </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-floating">
+                                <select disabled placeholder="{{ 'recharge.modal.shippingaddress.country' | t }}" data-shipping_address="country_code" id="shipping_country" data-country name="country" class="form-select form-control disabled"
+                                    data-default="" aria-invalid="false">
+                                    {{ all_country_option_tags }}
+                                </select>
+                                <label for="Country">{{ 'recharge.modal.shippingaddress.country' | t }}</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="form-floating">
+                                <input type="number" id="PhoneNumber" name="shipping_phone" data-shipping_address="phone"  class="form-control" placeholder="{{ 'recharge.modal.shippingaddress.phone_no' | t }}">
+                                <label for="PhoneNumber">{{ 'recharge.modal.shippingaddress.phone_no' | t }}</label>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+
+                <div class="mt-4 text-center d-md-none">
+                    <a href="#" class="btn btn-primary full-mobile-btn" data-update_shipping_address>
+                        <span>{{ 'recharge.buttons.save_change'| t }}</span>
+                        <span class="spinner"></span>
+                    </a>
+                    <span class="d-block mt-4">
+                        <a href="#" class="font-size-md fw-medium text-secondary popup-link"  data-modal-opener="editsubscription-modal">{{ 'recharge.buttons.cancel'| t }}</a>
+                    </span>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="row align-items-center">
+                    <div class="col-md-6 order-md-2 d-none d-md-flex align-items-center justify-content-end">
+                        <a href="#" class="font-size-md fw-medium text-secondary popup-link me-4" data-modal-opener="editsubscription-modal">{{ 'recharge.buttons.cancel'| t }}</a>
+                        <a href="#" class="btn btn-primary" data-update_shipping_address>
+                            <span class="add-text">{{ 'recharge.buttons.save_change'| t }}</span>
+                            <span class="spinner"></span>
+                        </a>
+                    </div>
+                    <div class="col-md-6 order-md-1">
+                        <div class="d-flex align-items-center justify-content-center d-md-block">
+                            <p class="mb-0 font-size-md lh-sm fw-bold me-2 me-md-0">{{ 'recharge.modal.footer.heading' | t }}</p>
+                            <p class="mb-0 lh-sm font-size-md">{{ 'recharge.modal.footer.supportText' | t }}<a href="mailto:{{ 'recharge.modal.footer.email' | t }}">{{ 'recharge.modal.footer.email' | t }}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="shippingaddressConfirmed-modal">
+    <div class="modal recharge-modal no-header-footer" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop"  type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+
+            <div class="modal-body d-flex align-items-center justify-content-center">
+                <div class="w-100 text-center px-3 px-md-2">
+                    <svg class="mb-3" width="46.677" height="46.715" viewBox="0 0 46.677 46.715">
+                        <g id="one_time_checkmark" data-name="one time checkmark" transform="translate(1.198 1.218)">
+                            <g id="Group_1362" data-name="Group 1362" transform="translate(-0.35 -0.35)">
+                            <path id="Path_3427" data-name="Path 3427" d="M41.932,15.316A21.408,21.408,0,1,1,28.54,1.227" transform="translate(2.241 0) rotate(3)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            <path id="Path_3428" data-name="Path 3428" d="M12.258,21.79l8.5,9.013,22.373-27.3" transform="translate(-1.149 0.35)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            </g>
+                        </g>
+                    </svg>
+                    <h3 class="fw-semibold">{{ 'recharge.modal.confirmation.text' | t }}</h3>
+                    <p class="mb-4">{{ 'recharge.modal.shippingaddress.success' | t }}</p>
+                    <a href="#" class="btn btn-primary" id="ModalClose-notifyme">{{ 'recharge.buttons.return_account'| t }}</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="promocodeSuccess-modal">
+    <div class="modal recharge-modal no-header-footer" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop"  type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+
+            <div class="modal-body d-flex align-items-center justify-content-center">
+                <div class="w-100 text-center px-3 px-md-2">
+                    <svg class="mb-3" width="46.677" height="46.715" viewBox="0 0 46.677 46.715">
+                        <g id="one_time_checkmark" data-name="one time checkmark" transform="translate(1.198 1.218)">
+                            <g id="Group_1362" data-name="Group 1362" transform="translate(-0.35 -0.35)">
+                            <path id="Path_3427" data-name="Path 3427" d="M41.932,15.316A21.408,21.408,0,1,1,28.54,1.227" transform="translate(2.241 0) rotate(3)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            <path id="Path_3428" data-name="Path 3428" d="M12.258,21.79l8.5,9.013,22.373-27.3" transform="translate(-1.149 0.35)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            </g>
+                        </g>
+                    </svg>
+                    <h3 class="fw-semibold">{{ 'recharge.modal.confirmation.text' | t }}</h3>
+                    <p class="mb-4">{{ 'recharge.modal.promo.success' | t }}</p>
+                    <a href="#" class="btn btn-primary" id="ModalClose-notifyme">{{ 'recharge.buttons.return_account'| t }}</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="editsubscription-modal">
+    <div class="modal recharge-modal" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop"  type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+            <div class="modal-header">
+                <h4 class="text-center fw-semibold w-100 mb-0 d-none d-md-block">{{ 'recharge.modal.editsubscription.heading' | t }}</h4>
+            </div>
+
+            <div class="modal-body">
+                <h4 class="text-center fw-semibold w-100 mb-5 d-md-none">{{ 'recharge.modal.editsubscription.heading' | t }}</h4>
+                <div class="row m-n2">
+                    <div class="col-12 col-sm-6 col-md-4 p-2" data-modal-opener="deliveryfrequency-modal">
+                        <div class="border text-center h-100 edit-subscription">
+                            <div class="svg-img">
+                                <svg data-name="change delivery icon" width="46.5" height="44" viewBox="0 0 46.5 44">
+                                    <path id="Path_3454" data-name="Path 3454" d="M45.75,15.75V4.917A1.667,1.667,0,0,0,44.083,3.25H2.417A1.667,1.667,0,0,0,.75,4.917V41.583A1.667,1.667,0,0,0,2.417,43.25H45.75Z" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                    <line id="Line_134" data-name="Line 134" y2="5" transform="translate(8.25 0.75)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                    <line id="Line_135" data-name="Line 135" y2="5" transform="translate(18.25 0.75)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                    <line id="Line_136" data-name="Line 136" y2="5" transform="translate(28.25 0.75)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                    <line id="Line_137" data-name="Line 137" y2="5" transform="translate(38.25 0.75)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                    <line id="Line_138" data-name="Line 138" x2="35" transform="translate(5.75 11.268)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                    <rect id="Rectangle_1611" data-name="Rectangle 1611" width="8.037" height="8.037" transform="translate(5.75 17.648)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                    <rect id="Rectangle_1612" data-name="Rectangle 1612" width="8.037" height="8.037" transform="translate(19.232 17.648)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                    <rect id="Rectangle_1613" data-name="Rectangle 1613" width="8.037" height="8.037" transform="translate(32.713 17.648)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                    <rect id="Rectangle_1614" data-name="Rectangle 1614" width="8.037" height="8.037" transform="translate(5.75 30.62)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                    <rect id="Rectangle_1615" data-name="Rectangle 1615" width="8.037" height="8.037" transform="translate(19.232 30.62)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                    <rect id="Rectangle_1616" data-name="Rectangle 1616" width="8.037" height="8.037" transform="translate(32.713 30.62)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                            <p class="fw-medium mb-0">{{ 'recharge.modal.editsubscription.change_freq' | t }}</p>
+                        </div>
+                    </div>
+ 
+                    <div class="col-12 col-sm-6 col-md-4 p-2" data-default_open="skip" data-modal-opener="skipnextshipment-modal">
+                        <div class="border text-center h-100 edit-subscription">
+                            <div class="svg-img">
+                                <svg width="46.773" height="45.719" viewBox="0 0 46.773 45.719">
+                                    <g id="skip_or_pause_icon" data-name="skip or pause icon" transform="translate(0.273 0.22)">
+                                        <path id="Path_3449" data-name="Path 3449" d="M20.5.791,16.879,8.033V14.55l2.9-.725,2.9.725,2.9-.725,2.9.725V8.033L25.569.791" transform="translate(-1.604 -0.004)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        <path id="Path_3450" data-name="Path 3450" d="M.791,7.991,8.775.75h24.68L41.44,7.991" transform="translate(-0.004)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        <path id="Path_3451" data-name="Path 3451" d="M21.8,42.125H1.475A.725.725,0,0,1,.75,41.4V9.539a.725.725,0,0,1,.725-.725h39.2a.725.725,0,0,1,.725.725V22.573" transform="translate(0 -0.896)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        <path id="Path_3452" data-name="Path 3452" d="M48.451,37.39A10.138,10.138,0,1,1,38.314,27.252,10.138,10.138,0,0,1,48.451,37.39Z" transform="translate(-2.701 -2.778)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        <path id="Path_3453" data-name="Path 3453" d="M40.62,38.133l-5.388-3.592v7.184Z" transform="translate(-3.443 -3.522)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        <line id="Line_133" data-name="Line 133" y2="7.184" transform="translate(39.414 31.02)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                    </g>
+                                </svg>
+                            </div>
+                            <p class="fw-medium mb-0">{{ 'recharge.modal.editsubscription.skip_pause' | t }}</p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 p-2" data-modal-opener="changesubscription-modal">
+                        <div class="border text-center h-100 edit-subscription">
+                            <div class="svg-img">
+                                <svg width="46.999" height="43.5" viewBox="0 0 46.999 43.5">
+                                    <g id="change_plan_icon" data-name="change plan icon" transform="translate(-0.001 -0.25)">
+                                        <g id="Group_1404" data-name="Group 1404" transform="translate(1 1)">
+                                        <path id="Path_3442" data-name="Path 3442" d="M3.56,17.8A21.017,21.017,0,0,1,24.139,1,21.273,21.273,0,0,1,44.389,16" transform="translate(-1.64 -1)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        <path id="Path_3443" data-name="Path 3443" d="M1,18l1.923,4.048L7,19.5" transform="translate(-1 -5.25)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        <path id="Path_3444" data-name="Path 3444" d="M44.829,34.6A21.017,21.017,0,0,1,24.249,51.4,21.273,21.273,0,0,1,4,36.4" transform="translate(-1.749 -9.404)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        <path id="Path_3445" data-name="Path 3445" d="M59,38.652l-1.923-4.047L53,37.152" transform="translate(-14.001 -9.402)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        </g>
+                                        <path id="Path_3446" data-name="Path 3446" d="M27.954,24.672c-.671,1.169-1.3,2.252-1.917,3.344-.464.827-.908,1.664-1.352,2.5A4.489,4.489,0,0,0,25,35.547a.292.292,0,0,1-.321.443.694.694,0,0,1-.1-.033,6.368,6.368,0,0,1-3.771-7.675,10.25,10.25,0,0,1,2.14-3.694,16.091,16.091,0,0,0,3.4-5.961,10.287,10.287,0,0,0,.433-3.218c0-.136.029-.369.1-.4a.568.568,0,0,1,.443.082,7.542,7.542,0,0,1,3.11,4.783c.176.844.137,1.728.245,2.588a12.872,12.872,0,0,0,.37,1.829c.095.34.306.7.735.681.462-.026.58-.446.644-.806.08-.448.068-.914.114-1.369.014-.122.065-.3.151-.35a.449.449,0,0,1,.376.086,6.84,6.84,0,0,1,1.909,2.479,10.786,10.786,0,0,1,1.225,4.4A6.477,6.477,0,0,1,32,35.942a.5.5,0,0,1-.133.025.245.245,0,0,1-.266-.222.238.238,0,0,1,.023-.128l.008-.016a4.475,4.475,0,0,0-.2-5.149,9.561,9.561,0,0,0-.947-1.311,13.52,13.52,0,0,1-2.451-4.235c-.016-.047-.035-.091-.091-.235" transform="translate(-4.561 -4)" fill="#f36a10"/>
+                                    </g>
+                                </svg>
+                            </div>
+                            <p class="fw-medium mb-0">{{ 'recharge.modal.editsubscription.change_subscription' | t }}</p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 p-2" data-modal-opener="shippingaddress-modal">
+                        <div class="border text-center h-100 edit-subscription">
+                            <div class="svg-img">
+                                <svg width="46.999" height="43.5" viewBox="0 0 46.999 43.5">
+                                    <g id="change_plan_icon" data-name="change plan icon" transform="translate(-0.001 -0.25)">
+                                        <g id="Group_1404" data-name="Group 1404" transform="translate(1 1)">
+                                        <path id="Path_3442" data-name="Path 3442" d="M3.56,17.8A21.017,21.017,0,0,1,24.139,1,21.273,21.273,0,0,1,44.389,16" transform="translate(-1.64 -1)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        <path id="Path_3443" data-name="Path 3443" d="M1,18l1.923,4.048L7,19.5" transform="translate(-1 -5.25)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        <path id="Path_3444" data-name="Path 3444" d="M44.829,34.6A21.017,21.017,0,0,1,24.249,51.4,21.273,21.273,0,0,1,4,36.4" transform="translate(-1.749 -9.404)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        <path id="Path_3445" data-name="Path 3445" d="M59,38.652l-1.923-4.047L53,37.152" transform="translate(-14.001 -9.402)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        </g>
+                                        <path id="Path_3446" data-name="Path 3446" d="M27.954,24.672c-.671,1.169-1.3,2.252-1.917,3.344-.464.827-.908,1.664-1.352,2.5A4.489,4.489,0,0,0,25,35.547a.292.292,0,0,1-.321.443.694.694,0,0,1-.1-.033,6.368,6.368,0,0,1-3.771-7.675,10.25,10.25,0,0,1,2.14-3.694,16.091,16.091,0,0,0,3.4-5.961,10.287,10.287,0,0,0,.433-3.218c0-.136.029-.369.1-.4a.568.568,0,0,1,.443.082,7.542,7.542,0,0,1,3.11,4.783c.176.844.137,1.728.245,2.588a12.872,12.872,0,0,0,.37,1.829c.095.34.306.7.735.681.462-.026.58-.446.644-.806.08-.448.068-.914.114-1.369.014-.122.065-.3.151-.35a.449.449,0,0,1,.376.086,6.84,6.84,0,0,1,1.909,2.479,10.786,10.786,0,0,1,1.225,4.4A6.477,6.477,0,0,1,32,35.942a.5.5,0,0,1-.133.025.245.245,0,0,1-.266-.222.238.238,0,0,1,.023-.128l.008-.016a4.475,4.475,0,0,0-.2-5.149,9.561,9.561,0,0,0-.947-1.311,13.52,13.52,0,0,1-2.451-4.235c-.016-.047-.035-.091-.091-.235" transform="translate(-4.561 -4)" fill="#f36a10"/>
+                                    </g>
+                                </svg>
+                            </div>
+                            <p class="fw-medium mb-0">{{ 'recharge.modal.editsubscription.edit_shipping_address' | t }}</p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 p-2" data-modal-opener="edit-product-popup">
+                        <div class="border text-center h-100 edit-subscription">
+                            <div class="svg-img">
+                                <svg width="46.999" height="43.5" viewBox="0 0 46.999 43.5">
+                                    <g id="change_plan_icon" data-name="change plan icon" transform="translate(-0.001 -0.25)">
+                                        <g id="Group_1404" data-name="Group 1404" transform="translate(1 1)">
+                                        <path id="Path_3442" data-name="Path 3442" d="M3.56,17.8A21.017,21.017,0,0,1,24.139,1,21.273,21.273,0,0,1,44.389,16" transform="translate(-1.64 -1)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        <path id="Path_3443" data-name="Path 3443" d="M1,18l1.923,4.048L7,19.5" transform="translate(-1 -5.25)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        <path id="Path_3444" data-name="Path 3444" d="M44.829,34.6A21.017,21.017,0,0,1,24.249,51.4,21.273,21.273,0,0,1,4,36.4" transform="translate(-1.749 -9.404)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        <path id="Path_3445" data-name="Path 3445" d="M59,38.652l-1.923-4.047L53,37.152" transform="translate(-14.001 -9.402)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        </g>
+                                        <path id="Path_3446" data-name="Path 3446" d="M27.954,24.672c-.671,1.169-1.3,2.252-1.917,3.344-.464.827-.908,1.664-1.352,2.5A4.489,4.489,0,0,0,25,35.547a.292.292,0,0,1-.321.443.694.694,0,0,1-.1-.033,6.368,6.368,0,0,1-3.771-7.675,10.25,10.25,0,0,1,2.14-3.694,16.091,16.091,0,0,0,3.4-5.961,10.287,10.287,0,0,0,.433-3.218c0-.136.029-.369.1-.4a.568.568,0,0,1,.443.082,7.542,7.542,0,0,1,3.11,4.783c.176.844.137,1.728.245,2.588a12.872,12.872,0,0,0,.37,1.829c.095.34.306.7.735.681.462-.026.58-.446.644-.806.08-.448.068-.914.114-1.369.014-.122.065-.3.151-.35a.449.449,0,0,1,.376.086,6.84,6.84,0,0,1,1.909,2.479,10.786,10.786,0,0,1,1.225,4.4A6.477,6.477,0,0,1,32,35.942a.5.5,0,0,1-.133.025.245.245,0,0,1-.266-.222.238.238,0,0,1,.023-.128l.008-.016a4.475,4.475,0,0,0-.2-5.149,9.561,9.561,0,0,0-.947-1.311,13.52,13.52,0,0,1-2.451-4.235c-.016-.047-.035-.091-.091-.235" transform="translate(-4.561 -4)" fill="#f36a10"/>
+                                    </g>
+                                </svg>
+                            </div>
+                            <p class="fw-medium mb-0">{{ 'recharge.modal.editsubscription.swap_subscription' | t }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4 d-md-none">
+                    <a href="#" class="font-size-md fw-medium text-secondary popup-link" data-cancel_trigger data-show_discount="{{ settings.apply_discount }}">{{ 'recharge.modal.editsubscription.cancel_subscription' | t }}</a>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="row align-items-center">
+                    <div class="col-md-6 order-md-2 text-md-end d-none d-md-flex align-items-center justify-content-end">
+                        <a href="#" class="font-size-md fw-medium text-secondary popup-link" data-cancel_trigger data-show_discount="{{ settings.apply_discount }}">{{ 'recharge.modal.editsubscription.cancel_subscription' | t }}</a>
+                    </div>
+                    <div class="col-md-6 order-md-1">
+                        <div class="d-flex align-items-center justify-content-center d-md-block">
+                            <p class="mb-0 font-size-md lh-sm fw-bold me-2 me-md-0">{{ 'recharge.modal.footer.heading' | t }}</p>
+                            <p class="mb-0 lh-sm font-size-md">{{ 'recharge.modal.footer.supportText' | t }} <a href="mailto:{{ 'recharge.modal.footer.email' | t }}">{{ 'recharge.modal.footer.email' | t }}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="deliveryfrequency-modal">
+    <div class="modal recharge-modal" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop" type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+            <div class="modal-header">
+                <div class="d-flex align-items-center justify-content-between w-100">
+                    <a href="#" data-modal-opener="editsubscription-modal" data-back_button class="go-back"><i class="icon-arrow-left"></i></a>
+                    <h4 class="text-center fw-semibold w-100 mb-0 d-none d-md-block">{{ 'recharge.modal.editsubscription.change_freq' | t }}</h4>
+                    <div class="go-back d-block"></div>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <h4 class="text-center fw-semibold w-100 mb-2 pb-1 d-md-none">{{ 'recharge.modal.editsubscription.change_freq' | t }}</h4>
+                <p class="text-center mb-4 pb-1 pb-md-0 px-3 px-md-0">{{ 'recharge.modal.deliveryfrequency.heading' | t }}</p>
+                
+                {%- assign frequency = "1,2,3,4" | split: ',' -%}
+                {% if settings.subscription_frq != blank %}
+                {%- assign frequency = settings.subscription_frq | split: ',' -%}
+                {% endif %}
+                
+                <div class="row m-n2" data-subscription_frequencies>
+                    {% for frq in frequency %}
+                        <div class="col-12 col-md-6 p-2" data-subscription-frq="{{frq}}">
+                            <div class="frequency-box h-100">
+                                <input type="radio" id="frequency-{{frq}}" name="frequency" value="{{frq}}" class="d-none">
+                                <label class="mb-0 d-flex align-items-center justify-content-center" for="frequency-{{frq}}">
+                                    <div class="checkmark-icon d-flex">
+                                        <svg width="17" height="17" viewBox="0 0 17 17">
+                                            <path id="Icon_ionic-ios-checkmark-circle" data-name="Icon ionic-ios-checkmark-circle" d="M11.875,3.375a8.5,8.5,0,1,0,8.5,8.5A8.5,8.5,0,0,0,11.875,3.375Zm4.352,6.15-5.464,5.488h0a.738.738,0,0,1-.474.225.715.715,0,0,1-.478-.233L7.519,12.717a.163.163,0,0,1,0-.233l.727-.727a.158.158,0,0,1,.229,0l1.814,1.814,4.986-5.022a.161.161,0,0,1,.114-.049h0a.148.148,0,0,1,.114.049l.715.74A.161.161,0,0,1,16.227,9.525Z" transform="translate(-3.375 -3.375)" fill="#f36a10"/>
+                                        </svg>
+                                    </div>
+                                    <p class="mb-0 font-size-md fw-medium text-center text-capitalize"> {{ 'recharge.modal.deliveryfrequency.input_label' | t: frequency :frq  | escape }} <span data-subscription-frq-unit></span></p>
+                                </label>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div> 
+
+                <div class="text-center mt-4 d-md-none">
+                    <a href="#" class="btn btn-primary d-block mb-4" data-update-subscription_frq>
+                        <span class="add-text">{{ 'recharge.buttons.save_change'| t }}</span>
+                        <span class="spinner"></span>
+                    </a>
+                    <a href="#" class="font-size-md fw-medium text-secondary popup-link" data-modal-opener="editsubscription-modal">{{ 'recharge.buttons.cancel'| t }}</a>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <div class="row align-items-center">
+                    <div class="col-md-6 order-md-2 text-md-end d-none d-md-flex align-items-center justify-content-end">
+                        <a href="#" class="font-size-md fw-medium text-secondary popup-link me-4" data-modal-opener="editsubscription-modal">{{ 'recharge.buttons.cancel'| t }}</a>
+                        <a href="#" class="btn btn-primary" data-update-subscription_frq>
+                            <span class="add-text">{{ 'recharge.buttons.save_change'| t }}</span>
+                            <span class="spinner"></span>
+                        </a>
+                    </div>
+                    <div class="col-md-6 order-md-1">
+                        <div class="d-flex align-items-center justify-content-center d-md-block">
+                            <p class="mb-0 font-size-md lh-sm fw-bold me-2 me-md-0">{{ 'recharge.modal.footer.heading' | t }}</p>
+                            <p class="mb-0 lh-sm font-size-md">{{ 'recharge.modal.footer.supportText' | t }} <a href="mailto:{{ 'recharge.modal.footer.email' | t }}">{{ 'recharge.modal.footer.email' | t }}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="frequencyconfirmed-modal">
+    <div class="modal recharge-modal no-header-footer" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop"  type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+
+            <div class="modal-body d-flex align-items-center justify-content-center">
+                <div class="w-100 text-center px-3 px-md-2">
+                    <svg class="mb-3" width="46.677" height="46.715" viewBox="0 0 46.677 46.715">
+                        <g id="one_time_checkmark" data-name="one time checkmark" transform="translate(1.198 1.218)">
+                            <g id="Group_1362" data-name="Group 1362" transform="translate(-0.35 -0.35)">
+                            <path id="Path_3427" data-name="Path 3427" d="M41.932,15.316A21.408,21.408,0,1,1,28.54,1.227" transform="translate(2.241 0) rotate(3)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            <path id="Path_3428" data-name="Path 3428" d="M12.258,21.79l8.5,9.013,22.373-27.3" transform="translate(-1.149 0.35)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            </g>
+                        </g>
+                    </svg>
+                    <h3 class="fw-semibold">{{ 'recharge.modal.confirmation.text' | t }}</h3>
+                    <p class="mb-4">{{ 'recharge.modal.frequencyconfirmed.text' | t }}</p>
+                    <a href="#" class="btn btn-primary " id="ModalClose-notifyme">{{ 'recharge.buttons.return_account'| t }}</a>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="skipnextshipment-modal">
+    <div class="modal recharge-modal" role="dialog" data-updated-next-charge-date>
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop" type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>  
+            </button>
+            <div class="modal-header">
+                <div class="d-flex align-items-center justify-content-between w-100">
+                    <a href="#" data-modal-opener="editsubscription-modal" data-back_button class="go-back"><i class="icon-arrow-left"></i></a>
+                    <h4 class="text-center fw-semibold w-100 mb-0 d-none d-md-block">{{ 'recharge.modal.editsubscription.skip_pause' | t }}</h4>
+                    <div class="go-back d-block"></div>
+                </div>
+            </div>
+            
+            <div class="modal-body">
+                <h4 class="text-center fw-semibold w-100 mb-3 d-md-none">{{ 'recharge.modal.editsubscription.skip_pause' | t }}</h4>
+                <div class="row m-n2">
+                    <div class="col-12 col-md-6 p-2 radio-col">
+                        <div class="shipment-box h-100">
+                            <input type="radio" id="order-skip-next" name="skip_next_shipment" value="skip-subscription" class="d-none">
+                            <label class="mb-0 d-block text-center" for="order-skip-next">
+                                <div class="shipment-icon d-flex justify-content-center mb-3">
+                                    <svg width="46.514" height="46.512" viewBox="0 0 46.514 46.512">
+                                        <g id="skip_next_order_icon" data-name="skip next order icon" transform="translate(-721.974 -319.977)">
+                                            <path id="Path_3452" data-name="Path 3452" d="M73.189,49.758A22.507,22.507,0,1,1,50.683,27.252,22.507,22.507,0,0,1,73.189,49.758Z" transform="translate(694.549 293.475)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                            <path id="Path_3453" data-name="Path 3453" d="M47.193,42.515,35.232,34.542V50.489Z" transform="translate(701.499 300.686)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                            <line id="Line_133" data-name="Line 133" y2="15.948" transform="translate(753.639 335.227)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <p class="mb-0 font-size-md fw-medium text-center text-capitalize pt-1">{{ 'recharge.modal.skipnextshipment.skip_next_order' | t }}</p>
+                                <div class="checked-to-show text-center px-4 px-md-0">
+                                    <p class="font-size-md lh-sm mb-3 mt-2 pt-1">
+                                        {{ 'recharge.modal.skipnextshipment.skip_next_confirmationDate_before' | t }}<span data-current_charge_date></span> {{ 'recharge.modal.skipnextshipment.skip_next_confirmationDate_after' | t }}
+                                    </p>
+                                    <p class="font-size-md pt-1 lh-sm mb-0"> {{ 'recharge.modal.skipnextshipment.next_order_date_text' | t }} <b><span data-new_next_chargeDate></span></b>.</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- unskip btn -->
+                    <div class="col-12 col-md-6 p-2 radio-col d-none">
+                        <div class="shipment-box h-100">
+                            <input type="radio" id="order-unskip-next" name="skip_next_shipment" value="unskip-subscription" class="d-none">
+                            <label class="mb-0 d-block text-center" for="order-unskip-next">
+                                <div class="shipment-icon d-flex justify-content-center mb-3">
+                                    <svg width="46.514" height="46.512" viewBox="0 0 46.514 46.512">
+                                        <g id="skip_next_order_icon" data-name="skip next order icon" transform="translate(-721.974 -319.977)">
+                                            <path id="Path_3452" data-name="Path 3452" d="M73.189,49.758A22.507,22.507,0,1,1,50.683,27.252,22.507,22.507,0,0,1,73.189,49.758Z" transform="translate(694.549 293.475)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                            <path id="Path_3453" data-name="Path 3453" d="M47.193,42.515,35.232,34.542V50.489Z" transform="translate(701.499 300.686)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                            <line id="Line_133" data-name="Line 133" y2="15.948" transform="translate(753.639 335.227)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <p class="mb-0 font-size-md fw-medium text-center text-capitalize pt-1">
+                                    {{ 'recharge.modal.unskipnextshipment.unskip_next_order' | t }}
+                                </p>
+                                <div class="checked-to-show text-center px-4 px-md-0">
+                                    <p class="font-size-md lh-sm mb-3 mt-2 pt-1">
+                                        {{ 'recharge.modal.unskipnextshipment.unskip_next_confirmationDate_before' | t }}<span data-current_charge_date_unskip></span> {{ 'recharge.modal.unskipnextshipment.unskip_next_confirmationDate_after' | t }}
+                                    </p>
+                                    <p class="font-size-md pt-1 lh-sm mb-0"> {{ 'recharge.modal.unskipnextshipment.next_order_date_text' | t }} <b><span data-new_next_chargeDate_unskip></span></b>.</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 p-2 radio-col">
+                        <div class="shipment-box h-100">
+                            <input type="radio" id="order-pause-subscription" name="skip_next_shipment" value="pause-subscription" class="d-none">
+                            <label class="mb-0 d-block text-center" for="order-pause-subscription">
+                                <div class="shipment-icon d-flex justify-content-center mb-3">
+                                    <svg width="46.514" height="46.512" viewBox="0 0 46.514 46.512">
+                                        <g id="Group_1414" data-name="Group 1414" transform="translate(-722.474 -319.977)">
+                                            <path id="Path_3452" data-name="Path 3452" d="M73.189,49.758A22.507,22.507,0,1,1,50.683,27.252,22.507,22.507,0,0,1,73.189,49.758Z" transform="translate(695.049 293.475)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                            <g id="Group_1415" data-name="Group 1415" transform="translate(-2.914)">
+                                            <line id="Line_133" data-name="Line 133" y2="15.948" transform="translate(753.639 335.227)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                            <line id="Line_139" data-name="Line 139" y2="15.948" transform="translate(743.639 335.227)" fill="none" stroke="#f36a10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <p class="mb-0 font-size-md fw-medium text-center text-capitalize pt-1">Pause My Subscription until…</p>
+                                <div class="checked-to-show text-center">
+                                    {% assign seconds = 1 | times: 24 | times: 60 | times: 60 %}
+                                    <input type="date" placeholder="Select date" min="{{ 'now' | date: "%s" | plus: seconds | date: "%Y-%m-%d" }}" data-charge_datepicker class="mt-3 form-control form-control-sm" />
+                                    <p class="font-size-md lh-sm mb-0 mt-3 px-3 px-md-0">Your subscription will resume on <b><span data-new_datepicker_next_chargeDate></span></b>.</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="text-center mt-4 d-md-none">
+                    <a href="#" class="btn btn-primary d-block mb-4" data-update_charge_date>
+                        <span class="add-text">{{ 'recharge.buttons.skip_next_order'| t }}</span>
+                        <span class="spinner"></span>
+                    </a>
+                    <a href="#" class="font-size-md fw-medium text-secondary popup-link" data-modal-opener="editsubscription-modal">{{ 'recharge.buttons.cancel'| t }}</a>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="row align-items-center">
+                    <div class="col-md-6 order-md-2 text-md-end d-none d-md-block">
+                        <a href="#" class="font-size-md fw-medium text-secondary popup-link me-5" data-modal-opener="editsubscription-modal">{{ 'recharge.buttons.cancel'| t }}</a>
+                        <a href="#" class="btn btn-primary" data-update_charge_date>
+                            <span class="add-text">{{ 'recharge.modal.skipnextshipment.skip_next_order' | t }}</span>
+                            <span class="spinner"></span>
+                        </a>
+                    </div>
+                    <div class="col-md-6 order-md-1">
+                        <div  class="d-flex align-items-center justify-content-center d-md-block">
+                            <p class="mb-0 font-size-md lh-sm fw-bold me-2 me-md-0">{{ 'recharge.modal.footer.heading' | t }}</p>
+                            <p class="mb-0 lh-sm font-size-md">{{ 'recharge.modal.footer.supportText' | t }} <a href="mailto:{{ 'recharge.modal.footer.email' | t }}">{{ 'recharge.modal.footer.email' | t }}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="skipconfirmed-modal">
+    <div class="modal recharge-modal no-header-footer" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop" type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+
+            <div class="modal-body d-flex align-items-center justify-content-center">
+                <div class="w-100 text-center px-2">
+                    <svg class="mb-3" width="46.677" height="46.715" viewBox="0 0 46.677 46.715">
+                        <g id="one_time_checkmark" data-name="one time checkmark" transform="translate(1.198 1.218)">
+                            <g id="Group_1362" data-name="Group 1362" transform="translate(-0.35 -0.35)">
+                            <path id="Path_3427" data-name="Path 3427" d="M41.932,15.316A21.408,21.408,0,1,1,28.54,1.227" transform="translate(2.241 0) rotate(3)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            <path id="Path_3428" data-name="Path 3428" d="M12.258,21.79l8.5,9.013,22.373-27.3" transform="translate(-1.149 0.35)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            </g>
+                        </g>
+                    </svg>
+                    <h3 class="fw-semibold">{{ 'recharge.modal.skipconfirmed.order_skipped' | t }}</h3>
+                    <p class="mb-4"> {{ 'recharge.modal.skipconfirmed.skipped_date_text'| t }} <b><span data-successChargeDate></span></b>.</p>
+                    <a href="#" class="btn btn-primary" id="ModalClose-notifyme">{{ 'recharge.buttons.return_account'| t }}</a>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="unskipconfirmed-modal">
+    <div class="modal recharge-modal no-header-footer" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop" type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+
+            <div class="modal-body d-flex align-items-center justify-content-center">
+                <div class="w-100 text-center px-2">
+                    <svg class="mb-3" width="46.677" height="46.715" viewBox="0 0 46.677 46.715">
+                        <g id="one_time_checkmark" data-name="one time checkmark" transform="translate(1.198 1.218)">
+                            <g id="Group_1362" data-name="Group 1362" transform="translate(-0.35 -0.35)">
+                            <path id="Path_3427" data-name="Path 3427" d="M41.932,15.316A21.408,21.408,0,1,1,28.54,1.227" transform="translate(2.241 0) rotate(3)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            <path id="Path_3428" data-name="Path 3428" d="M12.258,21.79l8.5,9.013,22.373-27.3" transform="translate(-1.149 0.35)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            </g>
+                        </g>
+                    </svg>
+                    <h3 class="fw-semibold">{{ 'recharge.modal.unskipconfirmed.order_unskipped' | t }}</h3>
+                    <p class="mb-4"> {{ 'recharge.modal.unskipconfirmed.unskipped_date_text'| t }} <b><span data-successChargeDate_unskip></span></b>.</p>
+                    <a href="#" class="btn btn-primary" id="ModalClose-notifyme">{{ 'recharge.buttons.return_account'| t }}</a>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="pauseconfirmed-modal">
+    <div class="modal recharge-modal no-header-footer" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop" type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+
+            <div class="modal-body d-flex align-items-center justify-content-center">
+                <div class="w-100 text-center px-2">
+                    <svg class="mb-3" width="46.677" height="46.715" viewBox="0 0 46.677 46.715">
+                        <g id="one_time_checkmark" data-name="one time checkmark" transform="translate(1.198 1.218)">
+                            <g id="Group_1362" data-name="Group 1362" transform="translate(-0.35 -0.35)">
+                            <path id="Path_3427" data-name="Path 3427" d="M41.932,15.316A21.408,21.408,0,1,1,28.54,1.227" transform="translate(2.241 0) rotate(3)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            <path id="Path_3428" data-name="Path 3428" d="M12.258,21.79l8.5,9.013,22.373-27.3" transform="translate(-1.149 0.35)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            </g>
+                        </g>
+                    </svg>
+                    <h3 class="fw-semibold">{{ 'recharge.modal.pauseconfirmed.paused' | t }}</h3>
+                    <p class="mb-4">{{ 'recharge.modal.pauseconfirmed.pauseconfirmed_date_text' | t }}<b><span data-successChargeDate_pause></span>.</b> <br class="d-none d-md-inline-block">
+                        {{ 'recharge.modal.pauseconfirmed.resume_order_text' | t }}<a href="#">{{ 'recharge.modal.pauseconfirmed.account' | t }}</a>.</p>
+                    <a href="#" class="btn btn-primary" id="ModalClose-notifyme">{{ 'recharge.buttons.return_account'| t }}</a>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="changesubscription-modal">
+    <div class="modal recharge-modal" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop" type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+            <div class="modal-header">
+                <div class="d-flex align-items-center justify-content-between w-100">
+                    <a href="#" data-modal-opener="editsubscription-modal" class="go-back"><i class="icon-arrow-left"></i></a>
+                    <h4 class="text-center fw-semibold w-100 mb-0 d-none d-md-block">{{ 'recharge.modal.editsubscription.change_subscription' | t }}</h4>
+                    <div class="go-back d-block"></div>
+                </div>
+            </div>
+
+            <div class="modal-body" data-subscription-update>
+                <div class="bg-secondary-100 d-flex flex-fill h-100 position-absolute start-50 top-50 translate-middle w-100" data-loader_popup="" style="z-index: 2;">
+                    <button class="btn w-100">
+                        <span class="spinner d-block"></span>
+                    </button>
+                </div>
+                <h4 class="text-center fw-semibold w-100 mb-4 pb-1 d-md-none">{{ 'recharge.modal.editsubscription.change_subscription' | t }}</h4>
+                <div class="row m-n2">
+                    <div tabindex="0" class="d-flex justify-content-center" data-update_subscription>
+                        <div class="col-md-4 d-md-block d-none pe-1">
+                            <div class="subscription-product-img">
+                                <img class="custom-image" data-update_subscription_img src="" width="245" height="245">
+                            </div>
+                        </div>
+                        <div class="col-md-8 mt-1 ps-md-3">
+                            <div class="d-flex align-items-center flex-wrap product-variant">
+                                <div class="d-flex col-12 flex-wrap" data-subscription_options>
+                                    <div class="col-md-4 col-6  pe-2" >
+                                        <h6 class="text-uppercase font-size-xs ls-sm">Blend Type:</h6>
+                                        <select name="pdp-Blend Type" id="pdp-Blend Type" data-pdp_option="Blend Type" data-pdp-option="1">
+                                            <option value="Dark">Dark</option><option value="Decaf">Decaf</option><option value="Light">Light</option><option value="Half &amp; Half">Half &amp; Half</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 col-6  pe-2">
+                                        <h6 class="text-uppercase font-size-xs ls-sm">Grind Type:</h6>
+                                        <select name="pdp-Grind Type" id="pdp-Grind Type" data-pdp_option="Grind Type" data-pdp-option="2">
+                                            <option value="Extra Fine">Extra Fine</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 col-6  pe-2">
+                                        <h6 class="text-uppercase font-size-xs ls-sm">Bag Size:</h6>
+                                        <select name="pdp-Bag Size" id="pdp-Bag Size" data-pdp_option="Bag Size" data-pdp-option="3">
+                                            <option value="1lb">1lb</option><option value="5lb">5lb</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="d-flex mt-3 flex-wrap">
+                                    <div class="" data-qty-container-parent="">
+                                        <h6 class="text-uppercase font-size-xs ls-sm">Amount:</h6>
+                                        <div class="quantity-wrapper" data-qty-container="" data-pdp_qty-container="">
+                                            <label for="Quantity" class="fw-medium text-uppercase font-size-sm mb-2 d-none" title="Quantity">Quantity</label>
+                                            <div class="input-group border border-gray-200">
+                                                <div class="input-group-prepend">
+                                                    <a href="javascript:void(0);" class="input-group-text bg-white" rel="nofollow" aria-label="Decrease quantity for " title="Decrease quantity for " data-for="decrease" data-qty-btn="minus">
+                                                        <span class="btn-decrease"><i class="icon-minus"></i></span>
+                                                        <span class="visually-hidden">Decrease quantity for</span>
+                                                    </a>
+                                                </div>
+                                                <input type="number" name="quantity" aria-label="Quantity for " value="1" step="1" min="1" inputmode="numeric" data-qty-input="" class="quantity form-control form-control-sm text-center" readonly="">
+                                                <div class="input-group-append">
+                                                    <a href="javascript:void(0);" class="input-group-text bg-white" rel="nofollow" aria-label="Increase quantity for " title="Increase quantity for " data-for="increase" data-qty-btn="plus">
+                                                        <span class="btn-increase"><i class="icon-plus"></i></span>
+                                                        <span class="visually-hidden">Increase quantity for</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="subtotal d-flex justify-content-between mt-3">
+                                <div>
+                                    <p class="fw-medium lh-md mb-0">Subtotal:</p>
+                                </div>
+                                <div>
+                                    <p class="text-primary fw-medium mb-0" data-subscription_price=""></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center d-md-none mt-4">
+                    <a href="#" class="btn btn-primary d-block mb-4" data-update_subscription_btn>
+                        <span class="add-text">{{ 'recharge.buttons.save_change'| t }}</span>
+                        <span class="spinner"></span>
+                    </a>
+                    <a href="#" class="font-size-md fw-medium text-secondary popup-link" data-modal-opener="editsubscription-modal">{{ 'recharge.buttons.cancel'| t }}</a>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="row align-items-center">
+                    <div class="col-md-6 order-md-2 text-md-end d-none d-md-flex align-items-center justify-content-end">
+                        <a href="#" class="font-size-md fw-medium text-secondary popup-link me-4" data-modal-opener="editsubscription-modal">{{ 'recharge.buttons.cancel'| t }}</a>
+                        <a href="#" class="btn btn-primary" data-update_subscription_btn>
+                            <span class="add-text">{{ 'recharge.buttons.save_change'| t }}</span>
+                            <span class="spinner"></span>
+                        </a>
+                    </div>
+                    <div class="col-md-6 order-md-1">
+                        <div class="d-flex align-items-center justify-content-center d-md-block">
+                            <p class="mb-0 font-size-md lh-sm fw-bold me-2 me-md-0">{{ 'recharge.modal.footer.heading' | t }}</p>
+                            <p class="mb-0 lh-sm font-size-md">{{ 'recharge.modal.footer.supportText' | t }} <a href="mailto:{{ 'recharge.modal.footer.email' | t }}">{{ 'recharge.modal.footer.email' | t }}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="planchangeconfirmed-modal">
+    <div class="modal recharge-modal no-header-footer" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop" type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+
+            <div class="modal-body d-flex align-items-center justify-content-center">
+                <div class="w-100 text-center px-2">
+                    <svg class="mb-3" width="46.677" height="46.715" viewBox="0 0 46.677 46.715">
+                        <g id="one_time_checkmark" data-name="one time checkmark" transform="translate(1.198 1.218)">
+                            <g id="Group_1362" data-name="Group 1362" transform="translate(-0.35 -0.35)">
+                            <path id="Path_3427" data-name="Path 3427" d="M41.932,15.316A21.408,21.408,0,1,1,28.54,1.227" transform="translate(2.241 0) rotate(3)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            <path id="Path_3428" data-name="Path 3428" d="M12.258,21.79l8.5,9.013,22.373-27.3" transform="translate(-1.149 0.35)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            </g>
+                        </g>
+                    </svg>
+                    <h3 class="fw-semibold">{{ 'recharge.modal.confirmation.text' | t }}</h3>
+                    <p class="mb-4">{{ 'recharge.modal.planchangeconfirmed.planchangeconfirmed_text' | t }}</p>
+                    <a href="#" class="btn btn-primary" id="ModalClose-notifyme">{{ 'recharge.buttons.return_account'| t }}</a>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="addonchangeconfirmed-modal">
+    <div class="modal recharge-modal no-header-footer" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+          <div class="modal-content">
+            <button class="btn p-2 close-quickshop" type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+
+            <div class="modal-body d-flex align-items-center justify-content-center">
+               <div class="w-100 text-center px-2">
+                    <svg class="mb-3" width="46.677" height="46.715" viewBox="0 0 46.677 46.715">
+                        <g id="one_time_checkmark" data-name="one time checkmark" transform="translate(1.198 1.218)">
+                            <g id="Group_1362" data-name="Group 1362" transform="translate(-0.35 -0.35)">
+                            <path id="Path_3427" data-name="Path 3427" d="M41.932,15.316A21.408,21.408,0,1,1,28.54,1.227" transform="translate(2.241 0) rotate(3)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            <path id="Path_3428" data-name="Path 3428" d="M12.258,21.79l8.5,9.013,22.373-27.3" transform="translate(-1.149 0.35)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            </g>
+                        </g>
+                    </svg>
+                    <h3 class="fw-semibold">{{ 'recharge.modal.confirmation.text' | t }}</h3>
+                    <p class="mb-4">Updated Addon!</p>
+                    <a href="#" class="btn btn-primary" id="ModalClose-notifyme">{{ 'recharge.buttons.return_account'| t }}</a>
+               </div>
+            </div>
+
+          </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="cancelsub-modal">
+    <div class="modal recharge-modal cancel-modal" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+          <div class="modal-content">
+            <button class="btn p-2 close-quickshop" type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+            <div class="modal-header">
+                <div class="d-flex align-items-center justify-content-between w-100">
+                    <a href="#" data-modal-opener="editsubscription-modal" data-back_button class="go-back"><i class="icon-arrow-left"></i></a>
+                    <h4 class="text-center fw-semibold w-100 mb-0 d-none d-md-block">{{ 'recharge.modal.editsubscription.cancel_subscription' | t }}</h4>
+                    <div class="go-back d-block"></div>
+                </div>
+            </div>
+
+            <div class="modal-body d-md-flex align-items-center justify-content-center">
+                <h4 class="text-center fw-semibold w-100 mb-4 pb-1 d-md-none">{{ 'recharge.modal.editsubscription.cancel_subscription' | t }}</h4>
+                <div class="d-flex align-items-center h-100 d-md-block">
+                    <div class="col-12 col-md-10 mx-auto text-center px-md-2 mb-2">
+                        <p class="fw-bold cancel-heading mb-2">{{ 'recharge.modal.cancelSubscription.cancel_heading' | t }}</p>
+                        <p class="mb-4">{{ 'recharge.modal.cancelSubscription.cancelling_reason_text' | t }}</p>
+                        <select class="form-control" data-select-cancel_reasons>
+                        <select>
+                    </div>
+                    <div class="col-12 col-md-10 mx-auto text-center px-md-2">
+                        <div class="fw-bold form-floating mb-2">
+                            <textarea rows="5" data-comment name="cancel_feedback" aria-label="cancel_feedback" placeholder="Provide Feedback" id="cancel_feedback" class="form-control"></textarea>
+                            <label for="cancel_feedback">{{ 'customer.giftSubscription.gifter_details.gifter_msg' | t }}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row align-items-center">
+                    <div class="col-md-6 order-md-2 text-md-end d-none d-md-flex align-items-center justify-content-end">
+                        <a href="#" class="font-size-md fw-medium text-secondary popup-link me-4" data-modal-opener="editsubscription-modal">Cancel</a>
+                        <a href="#" class="btn btn-primary disabled" data-cancel_subscriptions>
+                            <span class="add-text">{{ 'recharge.modal.editsubscription.cancel_subscription' | t }}</span>
+                            <span class="spinner"></span>
+                        </a>
+                    </div>
+                    <div class="col-md-6 order-md-1">
+                        <div class="d-flex align-items-center justify-content-center d-md-block">
+                            <p class="mb-0 font-size-md lh-sm fw-bold me-2 me-md-0">{{ 'recharge.modal.footer.heading' | t }}</p>
+                            <p class="mb-0 lh-sm font-size-md">{{ 'recharge.modal.footer.supportText' | t }}<a href="mailto:{{ 'recharge.modal.footer.email' | t }}">{{ 'recharge.modal.footer.email' | t }}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="cancelled-modal">
+    <div class="modal recharge-modal no-header-footer" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop" type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+
+            <div class="modal-body d-flex align-items-center justify-content-center">
+                <div class="col-12 col-md-10 mx-auto text-center px-2">
+                    <h3 class="fw-semibold">{{ 'recharge.modal.cancelled.subscription_cancelled' | t }}</h3>
+                    <p class="mb-4">{{ 'recharge.modal.cancelled.succesfully_cancelled' | t }}</p>
+                    <a href="#" class="btn btn-primary" id="ModalClose-notifyme">{{ 'recharge.buttons.return_account'| t }}</a>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="cancelsub-discount-modal">
+    <div class="modal recharge-modal cancel-discount-modal no-header-footer" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop" type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>  
+            </button>
+            <div class="modal-body d-md-flex align-items-center justify-content-center">
+                <h4 class="text-center fw-semibold w-100 mb-4 pb-1 d-md-none">{{ 'recharge.modal.editsubscription.cancel_subscription' | t }}</h4>
+                <div class="d-flex align-items-center d-md-block">
+
+                    {%- assign discount_amount = 0 -%}
+                    {% if settings.discount_amount != blank %}
+                        {%- assign discount_amount = settings.discount_amount -%}
+                    {% endif %}
+
+                    <div class="col-12 col-md-10 mx-auto text-center px-md-2 mb-2">
+                        <p class="fw-bold cancel-heading mb-2 h5"> {{ 'recharge.modal.applyDiscountBeforeCancel.apply_discount_heading' | t }} </p>
+                        <p class="mb-4"> {{ 'recharge.modal.applyDiscountBeforeCancel.apply_discount_subheading' | t }} </p>
+                    </div>
+                    <div class="col-12 col-md-10 mx-auto text-center px-md-2 my-4">
+                        <a href="#" class="btn btn-primary" data-apply_discount_before_cancel data-discount_amount="{{ discount_amount }}">
+                            <span class="add-text"> {{ settings.discount_button_text }} </span>
+                            <span class="spinner"></span>
+                        </a>
+                    </div>
+
+                    <div class="col-12 col-md-10 mx-auto text-center px-md-2 my-4">
+                        <a href="#" class="btn btn-primary">
+                            <span class="add-text" data-modal-opener="cancelsub-modal">{{ 'recharge.modal.applyDiscountBeforeCancel.cancel_anyway' | t }}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="cancelsub-discountConfirmed-modal">
+        <div class="modal recharge-modal no-header-footer" role="dialog">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+              <div class="modal-content">
+                <button class="btn p-2 close-quickshop" type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                    <i class="icon-close"></i>
+                </button>
+    
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                   <div class="w-100 text-center px-3 px-md-2">
+                        <svg class="mb-3" width="46.677" height="46.715" viewBox="0 0 46.677 46.715">
+                            <g id="one_time_checkmark" data-name="one time checkmark" transform="translate(1.198 1.218)">
+                                <g id="Group_1362" data-name="Group 1362" transform="translate(-0.35 -0.35)">
+                                <path id="Path_3427" data-name="Path 3427" d="M41.932,15.316A21.408,21.408,0,1,1,28.54,1.227" transform="translate(2.241 0) rotate(3)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                                <path id="Path_3428" data-name="Path 3428" d="M12.258,21.79l8.5,9.013,22.373-27.3" transform="translate(-1.149 0.35)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                                </g>
+                            </g>
+                        </svg>
+                        <h3 class="fw-semibold">{{ 'recharge.modal.confirmation.text' | t }}</h3>
+                        <p class="mb-4"> {{ 'recharge.modal.applyDiscountBeforeCancel.success_message' | t }} </p>
+                        <a href="#" class="btn btn-primary" id="ModalClose-notifyme">{{ 'recharge.buttons.return_account'| t }}</a>
+                   </div>
+                </div>
+              </div>
+            </div>
+        </div>
+</modal-dialog>
+
+<modal-dialog id="addToMySubscription-modal">
+    <div class="modal recharge-modal" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+                <button class="btn p-2 close-quickshop" type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                    <i class="icon-close"></i>  
+                </button>
+
+                <div class="modal-header">
+                    <div class="d-flex align-items-center justify-content-between w-100">
+                        <a href="#" data-modal-opener="one-time-product-popup" data-back_button class="go-back"><i class="icon-arrow-left"></i></a>
+                        <h4 class="text-center fw-semibold w-100 mb-0 d-none d-md-block"> {{ 'recharge.modal.addon.heading' | t }}</h4>
+                    </div>
+                </div>
+                <div class="modal-body" data-addon-update>
+                            <div class="bg-secondary-100 d-flex flex-fill h-100 position-absolute start-50 top-50 translate-middle w-100" data-loader_popup="" style="z-index: 2;">
+                                <button class="btn w-100">
+                                    <span class="spinner d-block"></span>
+                                </button>
+                            </div>
+                            <h4 class="text-center fw-semibold w-100 mb-4 pb-1 d-md-none">{{ 'recharge.modal.editsubscription.change_subscription' | t }}</h4>
+                            <div class="row m-n2">
+                                <div tabindex="0" class="d-flex justify-content-center" data-update_subscription>
+                                    <div class="col-md-4 d-md-block d-none pe-1">
+                                        <div class="subscription-product-img">
+                                            <img class="custom-image" data-update_subscription_img src="" alt="" width="245" height="245">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 mt-1 ps-md-3">
+                                        <div class="d-flex align-items-center flex-wrap product-variant">
+                                            <div class="d-flex col-12 flex-wrap" data-subscription_options>
+                                                <div class="col-md-4 col-6  pe-2" >
+                                                    <h6 class="text-uppercase font-size-xs ls-sm">Blend Type:</h6>
+                                                    <select name="pdp-Blend Type" id="pdp-Blend Type" data-pdp_option="Blend Type" data-pdp-option="1">
+                                                        <option value="Dark">Dark</option><option value="Decaf">Decaf</option><option value="Light">Light</option><option value="Half &amp; Half">Half &amp; Half</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 col-6  pe-2">
+                                                    <h6 class="text-uppercase font-size-xs ls-sm">Grind Type:</h6>
+                                                    <select name="pdp-Grind Type" id="pdp-Grind Type" data-pdp_option="Grind Type" data-pdp-option="2">
+                                                        <option value="Extra Fine">Extra Fine</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 col-6  pe-2">
+                                                    <h6 class="text-uppercase font-size-xs ls-sm">Bag Size:</h6>
+                                                    <select name="pdp-Bag Size" id="pdp-Bag Size" data-pdp_option="Bag Size" data-pdp-option="3">
+                                                        <option value="1lb">1lb</option><option value="5lb">5lb</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex mt-3 flex-wrap">
+                                                <div class="" data-qty-container-parent="">
+                                                    <h6 class="text-uppercase font-size-xs ls-sm">Amount:</h6>
+                                                    <div class="quantity-wrapper" data-qty-container="" data-pdp_qty-container="">
+                                                        <label for="Quantity" class="fw-medium text-uppercase font-size-sm mb-2 d-none" title="Quantity">Quantity</label>
+                                                        <div class="input-group border border-gray-200">
+                                                            <div class="input-group-prepend">
+                                                                <a href="javascript:void(0);" class="input-group-text bg-white" rel="nofollow" aria-label="Decrease quantity for " title="Decrease quantity for " data-for="decrease" data-qty-btn="minus">
+                                                                    <span class="btn-decrease"><i class="icon-minus"></i></span>
+                                                                    <span class="visually-hidden">Decrease quantity for</span>
+                                                                </a>
+                                                            </div>
+                                                            <input type="number" name="quantity" aria-label="Quantity for " value="1" step="1" min="1" inputmode="numeric" data-qty-input="" class="quantity form-control form-control-sm text-center" readonly="">
+                                                            <div class="input-group-append">
+                                                                <a href="javascript:void(0);" class="input-group-text bg-white" rel="nofollow" aria-label="Increase quantity for " title="Increase quantity for " data-for="increase" data-qty-btn="plus">
+                                                                    <span class="btn-increase"><i class="icon-plus"></i></span>
+                                                                    <span class="visually-hidden">Increase quantity for</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="subtotal d-flex justify-content-between mt-3">
+                                            <div>
+                                                <p class="fw-medium lh-md mb-0">Subtotal:</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-primary fw-medium mb-0" data-subscription_price=""></p>
+                                            </div>
+                                        </div>
+                                        <div class="template_legacy-radio mb-3" data-addon_type_radio>
+                                    <div class="option_onetime" data-onetime-div>
+                                        <div class="option_selector">
+                                            <input id="onetime" type="radio" name="addon_type" class="radio-input" checked value="onetime">
+                                            <label for="onetime" class="radio-label">
+                                                <span class="option-text">{{ 'recharge.modal.addon.onetime' | t }}</span>
+                                                <span class="option-text ps-2" data-addon-onetime-price=""></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="option_onetime" data-subscription-div>
+                                        <div class="option_selector mb-2">
+                                            <input id="subscription" type="radio" name="addon_type" class="radio-input field--filled" value="subscription">
+                                            <label for="subscription" class="radio-label">
+                                                <span class="option-text">{{ 'recharge.modal.addon.subscription' | t }}</span>
+                                            </label>
+                                        </div>
+                                        <div class="d-none" data-addon_frequency_selection>
+                                            <p>Ships Every</p>
+                                            <input class="subscription-frequency" type="number" name="frequency" value="1" min="1" data-addon-subscription-frequency>
+                                            <select class="interval-unit" name="interval" data-addon-subscription-frequency-interval>
+                                                <option value="day">days</option>
+                                                <option value="week">weeks</option>
+                                                <option value="month">months</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row align-items-center">
+                        <div class="col-md-12 order-md-2 text-md-end d-none d-md-flex align-items-center justify-content-end">
+                            <a href="#" class="font-size-md fw-medium text-secondary popup-link me-4" id="ModalClose-edit">{{ 'recharge.buttons.cancel'| t }}</a>
+                            <a href="#" class="btn btn-primary" data-add_addon_btn>
+                                <span class="add-text">{{ 'recharge.buttons.save_change'| t }}</span>
+                                <span class="spinner"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+<modal-dialog id="subscription-created-success-modal">
+    <div class="modal recharge-modal no-header-footer" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop" type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+
+            <div class="modal-body d-flex align-items-center justify-content-center">
+                <div class="w-100 text-center px-2">
+                    <svg class="mb-3" width="46.677" height="46.715" viewBox="0 0 46.677 46.715">
+                        <g id="one_time_checkmark" data-name="one time checkmark" transform="translate(1.198 1.218)">
+                            <g id="Group_1362" data-name="Group 1362" transform="translate(-0.35 -0.35)">
+                            <path id="Path_3427" data-name="Path 3427" d="M41.932,15.316A21.408,21.408,0,1,1,28.54,1.227" transform="translate(2.241 0) rotate(3)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            <path id="Path_3428" data-name="Path 3428" d="M12.258,21.79l8.5,9.013,22.373-27.3" transform="translate(-1.149 0.35)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            </g>
+                        </g>
+                    </svg>
+                    <h3 class="fw-semibold">{{ 'recharge.modal.addon.subscription-success'| t }}</h3>
+                    <a href="#" class="btn btn-primary" id="ModalClose-notifyme">{{ 'recharge.buttons.return_account'| t }}</a>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+<modal-dialog id="onetime-addon-success-modal">
+    <div class="modal recharge-modal no-header-footer" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+            <button class="btn p-2 close-quickshop" type="button" id="ModalClose-notifyme" aria-label="Close Modal">
+                <i class="icon-close"></i>
+            </button>
+
+            <div class="modal-body d-flex align-items-center justify-content-center">
+                <div class="w-100 text-center px-2">
+                    <svg class="mb-3" width="46.677" height="46.715" viewBox="0 0 46.677 46.715">
+                        <g id="one_time_checkmark" data-name="one time checkmark" transform="translate(1.198 1.218)">
+                            <g id="Group_1362" data-name="Group 1362" transform="translate(-0.35 -0.35)">
+                            <path id="Path_3427" data-name="Path 3427" d="M41.932,15.316A21.408,21.408,0,1,1,28.54,1.227" transform="translate(2.241 0) rotate(3)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            <path id="Path_3428" data-name="Path 3428" d="M12.258,21.79l8.5,9.013,22.373-27.3" transform="translate(-1.149 0.35)" fill="none" stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                            </g>
+                        </g>
+                    </svg>
+                    <h3 class="fw-semibold">{{ 'recharge.modal.addon.addon-success'| t }}</h3>
+                    <a href="#" class="btn btn-primary" id="ModalClose-notifyme">{{ 'recharge.buttons.return_account'| t }}</a>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="one-time-product-popup">
+    <div class="modal recharge-modal" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content one-time-product-popup open">
+                    <button class="btn p-2 close-quickshop" type="button" id="ModalClose-video"
+                        aria-label="{{ 'sections.video-with-text.close_video' | t }}">
+                        <i class="icon-close"></i>
+                    </button>
+                    <div class="modal-body">
+                        {% if settings.addon_collection != null %}
+                        {% assign collection = settings.addon_collection %}
+                        {% else %}
+                        {% assign collection = collections['all'] %}
+                        {% endif %}
+                        
+                    <div class="container">
+                        <h3 class="fw-semibold text-primary">{{ 'recharge.one_time.add_more_text' | t }}</h3>
+                        <p class="mb-4 pb-1 pb-lg-0 mb-lg-6">{{ 'recharge.one_time.add_next_order_text' | t }}</p>
+                        <div class="row my-n3 one-time-product-list">
+                            {% for product in collection.products %}
+                            <div class="col-12 col-md-4 col-xl-3 py-3" data-edit-card>
+                                <div class="card card-product rounded-0">
+                                    <div class="card-body text-md-center px-0 pt-0">
+                                        <div class="d-flex align-items-center d-md-block">
+                                            <div class="card-img text-center mb-md-3">
+                                                <img
+                                                    srcset="
+                                                        {%- if product.featured_image.width >= 360 -%}{{ product.featured_image | image_url: width: 360 }} 360w,{%- endif -%}
+                                                        {%- if product.featured_image.width >= 533 -%}{{ product.featured_image | image_url: width: 533 }} 533w,{%- endif -%}
+                                                        {%- if product.featured_image.width >= 720 -%}{{ product.featured_image | image_url: width: 720 }} 720w,{%- endif -%}
+                                                        {{ product.featured_image | image_url }} {{ product.featured_image.width }}w"
+                                                    src="{{ product.featured_image | image_url: width: 533 }}"
+
+                                                    sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 150 | divided_by: 4 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"                
+                                                    loading="lazy"
+                                                    data-feauredImage
+                                                    alt="{{ product.featured_image.alt | default: current_variant.title | escape }}"
+                                                    width="{{ product.featured_image.width }}"
+                                                    height="{{ product.featured_image.width | divided_by: product.featured_image.aspect_ratio }}"
+                                                    > 
+                                            </div>
+                                            <div class="ps-3 ps-md-0 pt-md-1">
+                                                <h5 class="card-title fw-semibold mb-2">
+                                                    <a class="product-link text-secondary"
+                                                        href="#">{{ product.title }}</a>
+                                                </h5>
+                                                {% if current_variant and current_variant.compare_at_price > current_variant.price %}
+                                                    <s class="price small m-0 p-0 text-gray-600 me-1 money" data-comparePrice>{{ current_variant.compare_at_price | money }}</s>
+                                                {% elsif product.compare_at_price > product.price %}
+                                                    <s class="price small m-0 p-0 text-gray-600 me-1 money" data-comparePrice>{{ product.compare_at_price | money }}</s>
+                                                {% endif %}
+                                                <span class="price m-0 p-0 money" data-currentPrice>
+                                                    {% if current_variant %}
+                                                        {{ current_variant.price | money }}
+                                                    {% else %}
+                                                        {{ product.price | money }}
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        {% unless product.has_only_default_variant %}
+                                    {%- for option in product.options_with_values -%}
+                                    <div class="product-form__input product-form__input--dropdown mb-4 px-3" data-optionindex="{{ forloop.index }}">
+                                        <h6 class="text-uppercase font-size-xs ls-sm {{ option.name | handleize }}" >
+                                            {{option.name}}:</h6>
+                                            <div class="select">
+                                                <select id="Option-{{ section.id }}-{{ forloop.index0 }}" class="form-select variant_selector" name="options[{{ option.name | escape }}]" form="product-form-{{ product.id }}" data-editProduct_variant>
+                                                  {%- for value in option.values -%}
+                                                    <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
+                                                      {{ value }}
+                                                    </option>
+                                                  {%- endfor -%}
+                                                </select>
+                                              </div>
+                                              </div>
+                                    {%- endfor -%}
+                                    {%- endunless -%}
+                                    </div>
+                                    <div class="card-footer bg-transparent border-0 p-0 pb-1">
+                                            <a href="javascript:void(0)" class="btn btn-primary w-100" data-addon_option="{{product.selected_or_first_available_variant.id}}" data-modal-opener="addToMySubscription-modal">{{ 'recharge.buttons.add_addon'| t }}</a>
+                                    </div>
+                                </div>
+                                <script data-editProduct_productjson type="application/json">{{ product | json }}</script>
+                                <script data-editProduct_productOptionjson type="application/json">{{ product.options_with_values | json }}</script>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+
+                    <div class="one-time-productbar">
+                        <button class="btn p-2 close-quickshop d-lg-none" type="button" id="ModalClose-video">
+                            <i class="icon-close"></i>
+                        </button>
+                        <div
+                            class="d-lg-flex align-items-center justify-content-between text-center text-lg-start px-2 px-lg-0">
+                            <div class="d-lg-flex align-items-center productbar-txt">
+                                <svg width="46.677" height="46.715" viewBox="0 0 46.677 46.715" class="mb-3">
+                                    <g id="one_time_checkmark" data-name="one time checkmark"
+                                        transform="translate(1.198 1.218)">
+                                        <g id="Group_1362" data-name="Group 1362"
+                                            transform="translate(-0.35 -0.35)">
+                                            <path id="Path_3427" data-name="Path 3427"
+                                                d="M41.932,15.316A21.408,21.408,0,1,1,28.54,1.227"
+                                                transform="translate(2.241 0) rotate(3)" fill="none"
+                                                stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10"
+                                                stroke-width="1.5" />
+                                            <path id="Path_3428" data-name="Path 3428"
+                                                d="M12.258,21.79l8.5,9.013,22.373-27.3"
+                                                transform="translate(-1.149 0.35)" fill="none" stroke="#1a1818"
+                                                stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5" />
+                                        </g>
+                                    </g>
+                                </svg>
+                                <div class="ps-lg-4 mb-4 mb-lg-0">
+                                    <h5 class="fw-semibold text-primary mb-2 mb-lg-1">
+                                        {{ 'recharge.one_time_confirmation.confirmation_text' | t }}</h5>
+                                    <p class="mb-0">{{ 'recharge.one_time_confirmation.shipment_text' | t }}</p>
+                                </div>
+                            </div>
+                            <div class="d-lg-flex align-items-center justify-content-end">
+                                <a href="#"
+                                    class="btn btn-primary order-lg-2 mb-4 mb-lg-0">{{ 'recharge.buttons.add_more_products'| t }}</a><br
+                                    class="d-lg-none">
+                                <a href="#"
+                                    class="text-secondary fw-medium font-size-md me-lg-5 order-lg-1 popup-link">{{ 'recharge.buttons.return_account'| t }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+{%- comment -%} Edit subscription with swap product {%- endcomment -%}
+<modal-dialog id="edit-product-popup">
+    <div class="modal recharge-modal" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content one-time-product-popup open">
+                    <button class="btn p-2 close-quickshop" type="button" data-modal-opener="editsubscription-modal"
+                        aria-label="{{ 'sections.video-with-text.close_video' | t }}">
+                        <i class="icon-close"></i>
+                    </button>
+                    <div class="modal-body">
+                        {% if settings.subscription_collection != null %}
+                        {% assign collection = settings.subscription_collection %}
+                        {% else %}
+                        {% assign collection = collections['all'] %}
+                        {% endif %}
+                    <div class="container">
+                        <h3 class="fw-semibold text-primary">{{ 'recharge.modal.editsubscription.change_subscription' | t }}</h3>
+                        <div class="row my-n3 one-time-product-list">
+                            {% for product in collection.products %}
+                            {% unless product.selling_plan_groups == empty %}
+                            <div class="col-12 col-md-4 col-xl-3 py-3" data-edit-card>
+                                <div class="card card-product rounded-0">
+                                    <div class="card-body text-md-center px-0 pt-0">
+                                        <div class="d-flex align-items-center d-md-block">
+                                            <div class="card-img text-center mb-md-3">
+                                                <img
+                                                    srcset="
+                                                        {%- if product.featured_image.width >= 360 -%}{{ product.featured_image | image_url: width: 360 }} 360w,{%- endif -%}
+                                                        {%- if product.featured_image.width >= 533 -%}{{ product.featured_image | image_url: width: 533 }} 533w,{%- endif -%}
+                                                        {%- if product.featured_image.width >= 720 -%}{{ product.featured_image | image_url: width: 720 }} 720w,{%- endif -%}
+                                                        {{ product.featured_image | image_url }} {{ product.featured_image.width }}w"
+                                                    src="{{ product.featured_image | image_url: width: 533 }}"
+
+                                                    sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 150 | divided_by: 4 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"                
+                                                    loading="lazy"
+                                                    data-feauredImage
+                                                    alt="{{ product.featured_image.alt | default: current_variant.title | escape }}"
+                                                    width="{{ product.featured_image.width }}"
+                                                    height="{{ product.featured_image.width | divided_by: product.featured_image.aspect_ratio }}"
+                                                    > 
+                                            </div>
+                                            <div class="ps-3 ps-md-0 pt-md-1">
+                                                <h5 class="card-title fw-semibold mb-2">
+                                                    <a class="product-link text-secondary"
+                                                        href="#">{{ product.title }}</a>
+                                                </h5>
+                                                {% if current_variant and current_variant.compare_at_price > current_variant.price %}
+                                                    <s class="price small m-0 p-0 text-gray-600 me-1 money" data-comparePrice>{{ current_variant.compare_at_price | money }}</s>
+                                                {% elsif product.compare_at_price > product.price %}
+                                                    <s class="price small m-0 p-0 text-gray-600 me-1 money" data-comparePrice>{{ product.compare_at_price | money }}</s>
+                                                {% endif %}
+                                                <span class="price m-0 p-0 money" data-currentPrice>
+                                                    {% if current_variant %}
+                                                        {{ current_variant.price | money }}
+                                                    {% else %}
+                                                        {{ product.price | money }}
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        {% unless product.has_only_default_variant %}
+                                    {%- for option in product.options_with_values -%}
+                                    <div class="product-form__input product-form__input--dropdown mb-4 px-3" data-optionindex="{{ forloop.index }}">
+                                        <h6 class="text-uppercase font-size-xs ls-sm {{ option.name | handleize }}" >
+                                            {{option.name}}:</h6>
+                                            <div class="select">
+                                                <select id="Option-{{ section.id }}-{{ forloop.index0 }}" class="form-select variant_selector" name="options[{{ option.name | escape }}]" form="product-form-{{ product.id }}" data-editProduct_variant>
+                                                    {%- for value in option.values -%}
+                                                    <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
+                                                        {{ value }}
+                                                    </option>
+                                                    {%- endfor -%}
+                                                </select>
+                                                </div>
+                                                </div>
+                                    {%- endfor -%}
+                                    {%- endunless -%}
+                                    </div>
+                                    <div class="card-footer bg-transparent border-0 p-0 pb-1">
+                                        <a href="javascript:void(0)" class="btn btn-primary w-100" data-editProduct_option="{{product.selected_or_first_available_variant.id}}" data-edit-product="{{product.id}}">
+                                            <span class="add-text">{{ 'recharge.modal.editsubscription.swap_subscription' | t }}</span><span class="spinner"></span></a>
+                                    </div>
+                                </div>
+                                <script data-editProduct_productjson type="application/json">
+                                    {{ product | json }}
+                                </script>
+                            </div>
+                            {% endunless %}
+                            {% endfor %}
+                        </div>
+
+                    </div>
+
+                    <div class="one-time-productbar">
+                        <button class="btn p-2 close-quickshop d-lg-none" type="button" id="ModalClose-video">
+                            <i class="icon-close"></i>
+                        </button>
+                        <div
+                            class="d-lg-flex align-items-center justify-content-between text-center text-lg-start px-2 px-lg-0">
+                            <div class="d-lg-flex align-items-center productbar-txt">
+                                <svg width="46.677" height="46.715" viewBox="0 0 46.677 46.715" class="mb-3">
+                                    <g id="one_time_checkmark" data-name="one time checkmark"
+                                        transform="translate(1.198 1.218)">
+                                        <g id="Group_1362" data-name="Group 1362"
+                                            transform="translate(-0.35 -0.35)">
+                                            <path id="Path_3427" data-name="Path 3427"
+                                                d="M41.932,15.316A21.408,21.408,0,1,1,28.54,1.227"
+                                                transform="translate(2.241 0) rotate(3)" fill="none"
+                                                stroke="#1a1818" stroke-linecap="round" stroke-miterlimit="10"
+                                                stroke-width="1.5" />
+                                            <path id="Path_3428" data-name="Path 3428"
+                                                d="M12.258,21.79l8.5,9.013,22.373-27.3"
+                                                transform="translate(-1.149 0.35)" fill="none" stroke="#1a1818"
+                                                stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5" />
+                                        </g>
+                                    </g>
+                                </svg>
+                                <div class="ps-lg-4 mb-4 mb-lg-0">
+                                    <h5 class="fw-semibold text-primary mb-2 mb-lg-1">
+                                        {{ 'recharge.one_time_confirmation.confirmation_text' | t }}</h5>
+                                    <p class="mb-0">{{ 'recharge.one_time_confirmation.shipment_text' | t }}</p>
+                                </div>
+                            </div>
+                            <div class="d-lg-flex align-items-center justify-content-end">
+                                <a href="#"
+                                    class="btn btn-primary order-lg-2 mb-4 mb-lg-0">{{ 'recharge.buttons.add_more_products'| t }}</a><br
+                                    class="d-lg-none">
+                                <a href="#"
+                                    class="text-secondary fw-medium font-size-md me-lg-5 order-lg-1 popup-link">{{ 'recharge.buttons.return_account'| t }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</modal-dialog>
+
+<modal-dialog id="editaddon-modal">
+    <div class="modal recharge-modal" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+                    <button class="btn p-2 close-quickshop" type="button" id="ModalClose-video"
+                        aria-label="{{ 'sections.video-with-text.close_video' | t }}">
+                        <i class="icon-close"></i>
+                    </button>
+                    <div class="modal-header">
+                        <div class="d-flex align-items-center justify-content-between w-100">
+                            <a href="#" class="text-secondary go-back"><i class="icon-arrow-lg-left"></i></a>
+                            <h4 class="text-center fw-semibold w-100 mb-0 d-none d-md-block">Update Addon</h4>
+                            <div class="go-back d-block"></div>
+                        </div>
+                    </div>
+                    <div class="modal-body" data-addon-update>
+                        <div class="bg-secondary-100 d-flex flex-fill h-100 position-absolute start-50 top-50 translate-middle w-100" data-loader_popup="" style="z-index: 2;">
+                            <button class="btn w-100">
+                                <span class="spinner d-block"></span>
+                            </button>
+                        </div>
+                        <h4 class="text-center fw-semibold w-100 mb-4 pb-1 d-md-none">{{ 'recharge.modal.editsubscription.change_subscription' | t }}</h4>
+                        <div class="row m-n2">
+                            <div tabindex="0" class="d-flex justify-content-center" data-update_subscription>
+                                <div class="col-md-4 d-md-block d-none pe-1">
+                                    <div class="subscription-product-img">
+                                        <img class="custom-image" data-update_subscription_img src="" alt="Henry's Coffee" width="245" height="245">
+                                    </div>
+                                </div>
+                                <div class="col-md-8 mt-1 ps-md-3">
+                                    <div class="d-flex align-items-center flex-wrap product-variant">
+                                        <div class="d-flex col-12 flex-wrap" data-subscription_options>
+                                            <div class="col-md-4 col-6  pe-2" >
+                                                <h6 class="text-uppercase font-size-xs ls-sm">Blend Type:</h6>
+                                                <select name="pdp-Blend Type" id="pdp-Blend Type" data-pdp_option="Blend Type" data-pdp-option="1">
+                                                    <option value="Dark">Dark</option><option value="Decaf">Decaf</option><option value="Light">Light</option><option value="Half &amp; Half">Half &amp; Half</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 col-6  pe-2">
+                                                <h6 class="text-uppercase font-size-xs ls-sm">Grind Type:</h6>
+                                                <select name="pdp-Grind Type" id="pdp-Grind Type" data-pdp_option="Grind Type" data-pdp-option="2">
+                                                    <option value="Extra Fine">Extra Fine</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 col-6  pe-2">
+                                                <h6 class="text-uppercase font-size-xs ls-sm">Bag Size:</h6>
+                                                <select name="pdp-Bag Size" id="pdp-Bag Size" data-pdp_option="Bag Size" data-pdp-option="3">
+                                                    <option value="1lb">1lb</option><option value="5lb">5lb</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex mt-3 flex-wrap">
+                                            <div class="" data-qty-container-parent="">
+                                                <h6 class="text-uppercase font-size-xs ls-sm">Amount:</h6>
+                                                <div class="quantity-wrapper" data-qty-container="" data-pdp_qty-container="">
+                                                    <label for="Quantity" class="fw-medium text-uppercase font-size-sm mb-2 d-none" title="Quantity">Quantity</label>
+                                                    <div class="input-group border border-gray-200">
+                                                        <div class="input-group-prepend">
+                                                            <a href="javascript:void(0);" class="input-group-text bg-white" rel="nofollow" aria-label="Decrease quantity for " title="Decrease quantity for " data-for="decrease" data-qty-btn="minus">
+                                                                <span class="btn-decrease"><i class="icon-minus"></i></span>
+                                                                <span class="visually-hidden">Decrease quantity for</span>
+                                                            </a>
+                                                        </div>
+                                                        <input type="number" name="quantity" aria-label="Quantity for " value="1" step="1" min="1" inputmode="numeric" data-qty-input="" class="quantity form-control form-control-sm text-center" readonly="">
+                                                        <div class="input-group-append">
+                                                            <a href="javascript:void(0);" class="input-group-text bg-white" rel="nofollow" aria-label="Increase quantity for " title="Increase quantity for " data-for="increase" data-qty-btn="plus">
+                                                                <span class="btn-increase"><i class="icon-plus"></i></span>
+                                                                <span class="visually-hidden">Increase quantity for</span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="subtotal d-flex justify-content-between mt-3">
+                                        <div>
+                                            <p class="fw-medium lh-md mb-0">Subtotal:</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-primary fw-medium mb-0" data-subscription_price=""></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row align-items-center">
+                            <div class="col-md-12 order-md-2 text-md-end d-none d-md-flex align-items-center justify-content-end">
+                                <a href="#" class="font-size-md fw-medium text-secondary popup-link me-4" id="ModalClose-edit">{{ 'recharge.buttons.cancel'| t }}</a>
+                                <a href="#" class="btn btn-primary" data-update_addon_btn>
+                                    <span class="add-text">{{ 'recharge.buttons.save_change'| t }}</span>
+                                    <span class="spinner"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</modal-dialog>
