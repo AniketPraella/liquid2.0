@@ -426,5 +426,166 @@
     "delivery_details": "Delivery details",
     "meals_selected": "Meals selected",
     "addons": "Addons"
+  },
+  "recharge": {
+    "modal": {
+      "promo": {
+        "input_label": "Promo Code",
+        "heading": "have a promo code?",
+        "subheading": "Enter your promo code below to apply it to your order!",
+        "success": "Promocode is applied successfully, You can still re-apply another code!"
+      },
+      "updatePayment": {
+        "heading": "Update payment method",
+        "subheading": "We’ll send you an email to update your payment details.",
+        "success": "We've sent you an email for updating your payment details."
+      },
+      "shippingaddress": {
+        "heading": "Edit shipping address",
+        "fname": "First Name",
+        "lname": "Last Name",
+        "address": "Address",
+        "address2": "Address 2",
+        "city": "City",
+        "state": "State",
+        "province": "Province",
+        "zipcode": "zipcode",
+        "country": "Country",
+        "phone_no": "Phone Number",
+        "success": "Your address has been updated successfully"
+      },
+      "footer": {
+        "heading": "Need Help ? ",
+        "supportText": "Email us at",
+        "email": "support@grillmastersclub.com"
+      },
+      "confirmation": {
+        "text": "confirmed!"
+      },
+      "editsubscription": {
+        "heading": "edit my subscription",
+        "change_freq": "Change Delivery Frequency",
+        "skip_pause": "Skip Order Or Pause Subscription",
+        "change_subscription": "Change Subscription",
+        "cancel_subscription": "Cancel Subscription",
+        "edit_shipping_address": "Edit Shipping Address",
+        "swap_subscription": "Swap Product"
+      },
+      "deliveryfrequency": {
+        "heading": "How often would you like to receive your Grill Masters Club Box?",
+        "input_label": "every {{ frequency }}"
+      },
+      "frequencyconfirmed": {
+        "text": "IMPORTANT: This change will take effect on your next subscription process date.You may already have an order in transit. Please check your Order history for details."
+      },
+      "skipnextshipment": {
+        "skip_next_order": "Skip Next Order",
+        "skip_next_confirmationDate_before": " Your upcoming order on  ",
+        "skip_next_confirmationDate_after": "will be skipped.",
+        "next_order_date_text": "Your next order will be processed on"
+      },
+      "unskipnextshipment": {
+        "unskip_next_order": "Unskip Next Order",
+        "unskip_next_confirmationDate_before": " Your upcoming order on  ",
+        "unskip_next_confirmationDate_after": "will be unskipped.",
+        "next_order_date_text": "Your next order will be processed on"
+      },
+      "skipconfirmed": {
+        "order_skipped": "order skipped",
+        "skipped_date_text": "Your next subscription order will be processed on"
+      },
+      "unskipconfirmed": {
+        "order_unskipped": "order unskipped",
+        "unskipped_date_text": "Your next subscription order will be processed on"
+      },
+      "pauseconfirmed": {
+        "paused": "subscription paused",
+        "pauseconfirmed_date_text": "Your subscription has been paused until ",
+        "resume_order_text": "  You can always resume your subscription at any time in ",
+        "account": "your account"
+      },
+      "cancelSubscription": {
+        "cancel_heading": "We’re sorry to see you go.",
+        "cancelling_reason_text": "To help us improve, please let us know why you are cancelling your subscription.",
+        "select_reason": "Select a Reason"
+      },
+      "applyDiscountBeforeCancel": {
+        "apply_discount_heading": "We’d love to make things right",
+        "apply_discount_subheading": "Keep the subscription and get discount on your next order.",
+        "cancel_anyway": "No thanks, cancel my subscription.",
+        "success_message": "Discount will be applied to your next subscription."
+      },
+      "planchangeconfirmed": {
+        "planchangeconfirmed_text": "IMPORTANT: This change will take effect on your next subscription order.You next order will be delivered according to your changed."
+      },
+      "cancelfreeoffer": {
+        "before_yo_go": "before you go…",
+        "free_text": "We’d love to make things right. Keep your Grill Masters Club subscription and get your next box",
+        "keep_and_free": "keep my subscription & get my next box free",
+        "cancel_anyway": "No thanks, cancel my subscription"
+      },
+      "cancelskipdiscountoffer": {
+        "donotForget": "don’t forget!",
+        "flexiblitity_subscription": "You can always skip a month or pause your subscription.",
+        "skip_next_box": "skip my next order & get 15% off next box",
+        "cancel_anyway": "No thanks, cancel my subscription"
+      },
+      "cancelskipconfirmed": {
+        "order_skipped": "order skipped."
+      },
+      "cancelkeepingsubscription": {
+        "thanks_for_sticking": "thanks for sticking around!"
+      },
+      "cancelled": {
+        "subscription_cancelled": "subscription cancelled.",
+        "succesfully_cancelled": "Your subscription has been successfully cancelled. Remember, you can reactivate your subscription at anytime in your account."
+      },
+      "addon": {
+        "heading": "Add to subscription",
+        "onetime": "One time purchase",
+        "subscription": "Subscription",
+        "btn-text": "Add Product",
+        "addon-success": "Onetime addon added successfully!",
+        "subscription-success": "Subscription created successfully!"
+      }
+    },
+    "buttons": {
+      "apply": "Apply",
+      "send_email": "Send Email",
+      "cancel": "Cancel",
+      "save_change": "Save Changes",
+      "return_account": "return to my account",
+      "edit": "edit",
+      "reset": "reset",
+      "gift_membership": "gift a membership",
+      "add_product": "+ add product",
+      "add_addon": "+ add addon",
+      "add_more_products": "+ add more products",
+      "skip_next_order": "skip next order",
+      "add_card": "Add Card"
+    },
+    "dashboard_tabs": {
+      "manage_subscription": "Manage Subscriptions",
+      "upcoming_orders": "Upcoming Orders",
+      "subscription_billing": "Subscription Billing",
+      "delivery_schedule": "Delivery Schedule"
+    },
+    "recharge_gift_box": {
+      "caption": "give the gift of bbq today!",
+      "subcaption": "Birthdays, Anniversaries, Father’s Day, Christmas, Corporate — we’ve got you covered!"
+    },
+    "subscription_listing": {
+      "your_subscriptions": "Your Subscriptions",
+      "gift_subscriptions": "Gift Subscriptions"
+    },
+    "one_time": {
+      "add_more_text": "Add More To Your Subscription.",
+      "add_next_order_text": "Add any of these one-time purchase products to your next subscription order!",
+      "link_text": "“Best of the West” BBQ Box"
+    },
+    "one_time_confirmation": {
+      "confirmation_text": "One-time product successfully added!",
+      "shipment_text": "Your one-time product as been added and will automatically be charged during your next shipment."
+    }
   }
 }
