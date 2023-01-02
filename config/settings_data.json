@@ -11,6 +11,8 @@
     "enable_search_article": false,
     "no_image_replacement": "shopify:\/\/shop_images\/mlouye-brick-macaron-s1.jpg",
     "product_exclude_tag_text": "hidden",
+    "addon_collection": "addons",
+    "subscription_collection": "bundle",
     "enable_custom_video": true,
     "enable_custom_accrodion": true,
     "enable_custom_tabify": true,
@@ -156,6 +158,11 @@
       },
       "search-layer": {
         "type": "search-layer",
+        "settings": {
+        }
+      },
+      "recharge-dashboard": {
+        "type": "recharge-dashboard",
         "settings": {
         }
       }
