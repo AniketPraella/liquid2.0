@@ -147,6 +147,60 @@
       }
     </script>
 
+    <script type="text/javascript">
+      window.customerDetails = {
+        customerTags: '{{customer.tags | json}}',
+        email: "{{customer.email}}",
+        id: "{{customer.id}}",
+        url: "{{shop.url}}",
+        rechargeCustomerDetails: null,
+        rechargeSubscriptions: null,
+        rechargeGiftSubscriptions: [],
+        rechargeCustomerAddress: null,
+        rechargePaymentMethods: null,
+        rechargeOnetimes: null,
+        rechargeDeliverySchedule: null,
+        rechargeDiscounts: null,
+        shopifyProductsJSON: [],
+        layout_style : '{{settings.layout_style }}',
+        graphQLProductsJSON: null,
+        shopifyCommonApi: "{{settings.shopifyCommonApi | default: '/tools/ha-api/shopify/common'}}",
+        rechargeCommonApi: "{{settings.rechargeCommonApi | default: '/tools/ha-api/recharge/common'}}",
+        no_image_replacement: "{{settings.no_image_replacement | img_url: '576x', crop: 'center', format: 'pjpg'}}"
+      }
+    </script>
+    {%- capture timeStamp %}{{ 'today' | date: '%s' }}{%- endcapture -%}
+    <script type="text/javascript">
+      window.APImanagerKey = {
+        key1: "{% render 'ha-hash', url_identifier: 'ha-api/customers', method: 'GET', timeStamp: timeStamp %}",
+        key2: "{% render 'ha-hash', url_identifier: 'ha-api/subscriptions', method: 'GET', timeStamp: timeStamp %}",
+        key3: "{% render 'ha-hash', url_identifier: 'ha-api/addresses', method: 'GET', timeStamp: timeStamp %}",
+        key4: "{% render 'ha-hash', url_identifier: 'ha-api/payment_methods', method: 'GET', timeStamp: timeStamp %}",
+        key5: "{% render 'ha-hash', url_identifier: 'ha-api/onetimes', method: 'GET', timeStamp: timeStamp %}",
+        key6: "{% render 'ha-hash', url_identifier: 'ha-api/subscriptionById', method: 'GET', timeStamp: timeStamp %}",
+        key7: "{% render 'ha-hash', url_identifier: 'ha-api/graphql', method: 'GET', timeStamp: timeStamp %}",
+        key8: "{% render 'ha-hash', url_identifier: 'ha-api/products.json', method: 'GET', timeStamp: timeStamp %}",
+        key9: "{% render 'ha-hash', url_identifier: 'ha-api/charges', method: 'GET', timeStamp: timeStamp %}",
+        key10: "{% render 'ha-hash', url_identifier: 'ha-api/delivery_schedule', method: 'GET', timeStamp: timeStamp %}",
+        key11: "{% render 'ha-hash', url_identifier: 'ha-api/set_next_charge_date', method: 'POST', timeStamp: timeStamp %}",
+        key12: "{% render 'ha-hash', url_identifier: 'ha-api/onetimes-charge-date', method: 'PUT', timeStamp: timeStamp %}",
+        key13: "{% render 'ha-hash', url_identifier: 'ha-api/cancel', method: 'POST', timeStamp: timeStamp %}",
+        key14: "{% render 'ha-hash', url_identifier: 'ha-api/activate', method: 'POST', timeStamp: timeStamp %}",
+        key15: "{% render 'ha-hash', url_identifier: 'ha-api/addresses', method: 'PUT', timeStamp: timeStamp %}",
+        key16: "{% render 'ha-hash', url_identifier: 'ha-api/subscriptions', method: 'PUT', timeStamp: timeStamp %}",
+        key17: "{% render 'ha-hash', url_identifier: 'ha-api/notifications', method: 'POST', timeStamp: timeStamp %}",
+        key18: "{% render 'ha-hash', url_identifier: 'ha-api/onetimes', method: 'POST', timeStamp: timeStamp %}",
+        key19: "{% render 'ha-hash', url_identifier: 'ha-api/onetimes', method: 'PUT', timeStamp: timeStamp %}",
+        key20: "{% render 'ha-hash', url_identifier: 'ha-api/onetimes', method: 'DELETE', timeStamp: timeStamp %}",
+        key21: "{% render 'ha-hash', url_identifier: 'ha-api/onetimes-bulk', method: 'DELETE', timeStamp: timeStamp %}",
+        key22: "{% render 'ha-hash', url_identifier: 'ha-api/apply_discount', method: 'POST', timeStamp: timeStamp %}",
+        key23: "{% render 'ha-hash', url_identifier: 'ha-api/retention_strategies', method: 'GET', timeStamp: timeStamp %}",
+        key24: "{% render 'ha-hash', url_identifier: 'ha-api/charge/skip', method: 'POST', timeStamp: timeStamp %}",
+        key25: "{% render 'ha-hash', url_identifier: 'ha-api/charge/unskip', method: 'POST', timeStamp: timeStamp %}",
+        timeStamp: {{ timeStamp | json }}
+      }
+    </script>
+
     {% if settings.enable_login_helper %}
       <script type="application/json" data-login-json>
         {
