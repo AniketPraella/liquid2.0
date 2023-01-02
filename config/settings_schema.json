@@ -1149,6 +1149,30 @@
         "id": "rechargeCommonApi",
         "label": "Recharge Common Api URL",
         "default": "\/tools\/ha-api\/recharge\/common"
+      },
+      {
+        "type": "select",
+        "id": "layout_style",
+        "label": "Select Layout Style to display Subscriptions",
+        "options": [
+          {
+            "value": "1",
+            "label": "Layout 1"
+          },
+          {
+            "value": "2",
+            "label": "Layout 2"
+          },
+          {
+            "value": "3",
+            "label": "Layout 3"
+          },
+          {
+            "value": "4",
+            "label": "Layout 4"
+          }
+        ],
+        "default": "1"
       }
     ]
   },
